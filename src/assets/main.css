@@ -1,0 +1,44 @@
+@import './base.css';
+
+#app {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0;
+  font-weight: normal;
+}
+
+/* a,
+.green {
+  text-decoration: none;
+  color: rgb(122, 50, 46);
+  transition: 0.4s;
+  padding: 3px;
+} */
+a {
+  text-decoration: none;
+  color: #0077ff;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: rgb(255, 222, 95);
+    transition: 0.4s;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: block;
+    place-items: center;
+    padding: 50px 0 0 0;
+  }
+
+  #app {
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+  }
+}
