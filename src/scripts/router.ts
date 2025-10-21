@@ -1,27 +1,27 @@
-import { createRouter, createWebHistory } from "vue-router";
-import BlogList from "@/views/BlogList.vue";
-import Blog from "@/views/Blog.vue"
-import Home from "@/views/Home.vue";
+import { createRouter, createWebHashHistory } from 'vue-router'
+import BlogList from '@/views/BlogList.vue'
+import Blog from '@/views/Blog.vue'
+import Home from '@/views/Home.vue'
 
 const routes = [
-  { path: "/", name: "home", component: Home },
-  { path: "/blog", name: "text", component: BlogList },
-  { path: "/blog/:id", name: "blogDetail", component: Blog}
-];
+  { path: '/', name: 'home', component: Home },
+  { path: '/blog', name: 'text', component: BlogList },
+  { path: '/blog/:id', name: 'blogDetail', component: Blog },
+]
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+  history: createWebHashHistory(),
+  routes: routes,
+})
 
 export function routePush(endpoint: string) {
   router.push(endpoint).catch((err) => {
-    console.error("Navigation error:", err);
-  });
+    console.error('Navigation error:', err)
+  })
 }
 
 export function gotoExternalSite(url: string) {
-    window.open(url, "_blank")
+  window.open(url, '_blank')
 }
 
-export default router;
+export default router
