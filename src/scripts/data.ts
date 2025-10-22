@@ -30,8 +30,8 @@ export class BlogItemDto {
 
 export class BlogItemVo {
     constructor(
-        public title: string,
         public id: number,
+        public title: string,
         public tags: string[],
         public updatedTime: string,
         public preview: string
