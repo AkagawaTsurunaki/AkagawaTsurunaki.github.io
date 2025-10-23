@@ -14,33 +14,13 @@ export class HttpResponseBody<T> {
     }
 }
 
-export class TagDto {
-    constructor(public name: string) {}
-}
-
-export class BlogItemDto {
-    constructor(
-        public title: string,
-        public id: number,
-        public tags: TagDto[],
-        public updatedTime: number,
-        public preview: string
-    ) {}
-}
-
 export class BlogItemVo {
     constructor(
         public id: number,
         public title: string,
         public tags: string[],
         public updatedTime: string,
-        public preview: string
+        public preview: string,
+        public filePath: string
     ) {}
-}
-
-export class BlogDetailDto {
-    constructor(
-        public id: number,
-        public content: string
-    ){}
 }

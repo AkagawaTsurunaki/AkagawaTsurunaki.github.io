@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { BlogItemVo, type BlogItemDto, HttpResponseBody } from '@/scripts/data'
+import { BlogItemVo } from '@/scripts/data'
 import BlogItem from './BlogItem.vue'
 import { onMounted, ref } from 'vue'
-// import { getTimeString } from '@/scripts/timeUtil';
-// import axios from 'axios';
-// import { plainToInstance } from 'class-transformer';
 import { DialogLevel, openDialog } from '@/scripts/dialog'
 import { getMarkdownFileInfo } from '@/scripts/markdownUtil'
 
@@ -18,14 +15,20 @@ async function loadBlogItem(mdFilePath: string, tags: string[], time: string) {
     if (info?.title) {
       title = info.title
     }
-    const blog = new BlogItemVo(1, title, tags, time, info?.preview)
+    const id = blogItemList.value.length + 1
+    const blog = new BlogItemVo(id, title, tags, time, info?.preview, mdFilePath)
     blogItemList.value.push(blog)
   }
 }
 
-async function getBlogList() {
+async function registerBlogList() {
+  await loadBlogItem('blogs/一些证明/p.0.10.md', ['数学'], '2025-10-18 23:30')
+}
+
+onMounted(async () => {
+  dataPreparing.value = false
   try {
-    await loadBlogItem('/blogs/一些证明/p.0.10.md', ['数学'], '2025-10-18 23:30')
+    await registerBlogList()
   } catch (e) {
     console.error(e)
     openDialog(
@@ -34,11 +37,6 @@ async function getBlogList() {
       '获取博客列表时遇到了错误。\n刷新页面可能会修复此问题。若该问题多次出现，请联系系统管理员。',
     )
   }
-}
-
-onMounted(async () => {
-  dataPreparing.value = false
-  await getBlogList()
   dataPreparing.value = true
 })
 </script>
@@ -51,6 +49,7 @@ onMounted(async () => {
         :preview="bi.preview"
         :updatedTime="bi.updatedTime"
         :tags="bi.tags"
+        :filePath="bi.filePath"
       >
       </BlogItem>
     </li>

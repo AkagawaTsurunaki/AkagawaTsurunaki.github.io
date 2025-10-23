@@ -25,6 +25,10 @@ const props = defineProps({
     tags: {
         type: Array as PropType<String[]>,
         default: []
+    },
+    filePath: {
+        type: String,
+        default: null
     }
 })
 const mdTitle = ref("")
@@ -46,10 +50,10 @@ function removeImages() {
 }
 
 function gotoBlog() {
-    if (props.id !== null) {
-        routePush(`/blog/${props.id}`)
+    if (props.id !== null && props.filePath !== null) {
+        routePush(`/blogs/${encodeURIComponent(props.filePath)}`)
     } else {
-        console.error("未提供博客 ID")
+        console.error("未提供博客地址")
     }
 }
 

@@ -19,7 +19,7 @@ import { routePush } from '@/scripts/router';
         </div>
         <div class="navbar-item">
             <ul class="navbar-button-group">
-                <li @click="routePush('/blog')">
+                <li @click="routePush('/blogs')">
                     <a class="navbar-a header-font">Blogs</a>
                 </li>
                 <li @click="routePush('/video')">

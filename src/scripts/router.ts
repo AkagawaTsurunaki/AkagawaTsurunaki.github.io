@@ -5,8 +5,8 @@ import Home from '@/views/Home.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home },
-  { path: '/blog', name: 'text', component: BlogList },
-  { path: '/blog/:id', name: 'blogDetail', component: Blog },
+  { path: '/blogs', name: 'text', component: BlogList },
+  { path: '/blogs/:filePath', name: 'blogDetail', component: Blog },
 ]
 
 const router = createRouter({

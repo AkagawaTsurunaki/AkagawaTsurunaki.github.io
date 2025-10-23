@@ -1,23 +1,23 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import Markdown from '@/components/Markdown.vue'
-// import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router'
 
-const props = defineProps({
-  filePath: {
-    type: String,
-    default: null,
-  },
-})
-// const filePath = ref('blogs/一些证明/p.0.10.md')
+const route = useRoute()
+
 const blogContent = ref('正在加载...')
 let dataReceived = ref(false)
 
-
 async function setBlogDetail() {
-  const res = await fetch(props.filePath)
-  if (!res.ok) return null
-  blogContent.value = await res.text()
+  console.log(route.params.filePath)
+
+  if (route.params.filePath && typeof route.params.filePath === 'string') {
+    const filePath = decodeURIComponent(route.params.filePath)
+    console.log(filePath)
+    const res = await fetch(filePath)
+    if (!res.ok) return null
+    blogContent.value = await res.text()
+  }
 }
 
 onMounted(async () => {
@@ -27,6 +27,13 @@ onMounted(async () => {
 })
 </script>
 <template>
-  <Markdown :mdText="blogContent" v-if="dataReceived"></Markdown>
+  <div class="markdown-container">
+    <Markdown :mdText="blogContent" v-if="dataReceived"></Markdown>
+  </div>
 </template>
-<style></style>
+<style>
+.markdown-container {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+</style>
