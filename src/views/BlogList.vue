@@ -23,6 +23,7 @@ async function loadBlogItem(mdFilePath: string, tags: string[], time: string) {
 
 async function registerBlogList() {
   await loadBlogItem('blogs/一些证明/p.0.10.md', ['数学'], '2025-10-18 23:30')
+  await loadBlogItem('blogs/一些证明/Scaled Dot-Product Attention 的公式中为什么要除以 $sqrt{d_k}$？.md', ['数学'], '2025-10-23 15:06')
 }
 
 onMounted(async () => {
