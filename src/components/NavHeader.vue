@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import avartar from '@/assets/avartar.png'
 import { routePush } from '@/scripts/router'
-
+import FloatingDropdown from './FloatingDropdown.vue';
 </script>
 <template>
   <header class="navbar">
@@ -30,6 +30,9 @@ import { routePush } from '@/scripts/router'
         </li>
       </ul>
     </div>
+    <div class="navbar-item" id="hamberger">
+      <FloatingDropdown></FloatingDropdown>
+    </div>
   </header>
   <div class="nav-placeholder"></div>
 </template>
@@ -38,9 +41,16 @@ import { routePush } from '@/scripts/router'
   height: 60px; /* 与导航栏同高即可 */
 }
 
+#hamberger {
+  display: none;
+}
+
 @media (max-width: 768px) {
   #navbar-button-group {
     display: none !important;
+  }
+  #hamberger {
+    display: flex !important;
   }
 }
 

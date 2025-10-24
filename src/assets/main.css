@@ -21,6 +21,13 @@ button:hover {
   cursor: pointer;
 }
 
+button {
+  appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
 @media (hover: hover) {
   a:hover {
     background-color: var(--color-button-hover);

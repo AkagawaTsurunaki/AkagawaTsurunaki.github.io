@@ -16,9 +16,11 @@
     "deploy": "gh-pages -d dist -b gh-pages"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.2",
     "amfe-flexible": "^2.2.1",
     "axios": "^1.12.2",
     "dompurify": "^3.3.0",
+    "element-plus": "^2.11.5",
     "katex": "^0.16.25",
     "marked": "^16.4.1",
     "postcss-px-to-viewport": "^1.1.1",
