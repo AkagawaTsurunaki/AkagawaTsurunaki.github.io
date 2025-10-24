@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import avartar from '@/assets/avartar.png'
-import searchIcon from '@/assets/icons/search.svg'
 import { routePush } from '@/scripts/router'
 
-let buttonGroupHidden = false
 </script>
 <template>
   <header class="navbar">
     <div class="navbar-item">
-      <div class="nav-avartar">
+      <div class="nav-avartar" @click="routePush('/')">
         <img :src="avartar" alt="" width="30" />
         <div class="header-font">AkagawaTsurunaki</div>
       </div>
