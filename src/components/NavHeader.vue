@@ -63,7 +63,7 @@ let buttonGroupHidden = false
 }
 
 .navbar-item {
-  min-width: 400px;
+  max-width: 400px;
 }
 
 .navbar-button-group {
