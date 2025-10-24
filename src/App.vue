@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import NavHeader from './components/NavHeader.vue';
+import NavHeader from './components/NavHeader.vue'
 </script>
 
 <template>
-  <nav>
-    <NavHeader></NavHeader>
-  </nav>
+  <NavHeader></NavHeader>
 
   <body class="background">
     <main>
       <div class="white-bg">
         <RouterView />
       </div>
-      <div class="copyright-container">
-        ©2025 AkagawaTsurunaki
-      </div>
+      <div class="copyright-container">©2025 AkagawaTsurunaki</div>
     </main>
-
   </body>
 </template>
 <style scoped>
@@ -26,7 +21,6 @@ import NavHeader from './components/NavHeader.vue';
   font-weight: 400;
   /* Black 字重 */
 }
-
 
 .background {
   background-position: center center;
@@ -38,7 +32,7 @@ import NavHeader from './components/NavHeader.vue';
 
 .white-bg {
   background-color: rgba(255, 255, 255, 1);
-  width: 1280px;
+  width: auto;
 }
 
 .copyright-container {
