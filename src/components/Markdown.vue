@@ -72,17 +72,7 @@ onMounted(async () => {
   color: #777777;
 }
 
-.katex {
-  font-size: 1.1em !important;
-  color: #2c3e50;
-}
-
 .katex-display {
-  margin: 1.5em 0;
-  padding: 1em;
-  background: #f8f9fa;
-  border-radius: 6px;
-  overflow-x: auto;
-  display: inline-flex;
+  margin: 0 !important;
 }
 </style>
