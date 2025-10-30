@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { routePush } from '@/scripts/router'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
@@ -21,7 +21,7 @@ const open = ref(false)
 const root = ref(null) // 拿到整个下拉区域
 
 /* 点击外部关闭 */
-function clickOutside(e) {
+function clickOutside(e: any) {
   if (root.value && !root.value.contains(e.target)) {
     open.value = false
   }
@@ -36,6 +36,7 @@ onBeforeUnmount(() => document.removeEventListener('click', clickOutside))
   position: relative;
   display: inline-block;
 }
+
 .menu {
   position: absolute;
   left: 0;
@@ -48,10 +49,12 @@ onBeforeUnmount(() => document.removeEventListener('click', clickOutside))
   list-style: none;
   z-index: 999;
 }
+
 .menu li {
   padding: 6px 12px;
   cursor: pointer;
 }
+
 .menu li:hover {
   background: #f5f5f5;
 }
