@@ -2,11 +2,11 @@
   <div class="code-wrapper">
     <div class="code-tools">
       <div class="copy-btn" @click="handleCopy">
-        <Check v-if="copied" class="copy-icon check-icon" />
+        <Check v-if="copiedCode" class="copy-icon check-icon" />
         <CopyDocument v-else class="copy-icon" />
       </div>
       <div class="copy-btn" @click="handleCopyImg" v-if="isKatex">
-        <Check v-if="copied" class="copy-icon check-icon" />
+        <Check v-if="copiedImg" class="copy-icon check-icon" />
         <Picture v-else class="copy-icon" />
       </div>
       <span class="lang-tag">{{ language || 'text' }}</span>
@@ -18,13 +18,15 @@
 
 <script setup lang="ts">
 import { CopyDocument, Check, Picture } from '@element-plus/icons-vue'
-import { toSvg } from 'html-to-image'
-import { onMounted, ref } from 'vue'
+import { toPng } from 'html-to-image'
+import { onMounted, ref, type Ref } from 'vue'
 const props = defineProps<{ language: string; code: string; rawHtml: any | null }>()
-const copied = ref(false)
+const copiedCode = ref(false)
+const copiedImg = ref(false)
 const isKatex = ref(props.language === 'katex')
 const katexSvg = ref<SVGElement>()
-let timer: number | null = null
+const copiedCodeTimer = ref<number>()
+const copiedImgTimer = ref<number>()
 
 onMounted(() => {
   if (props.language === 'katex') {
@@ -33,28 +35,38 @@ onMounted(() => {
 })
 
 async function handleCopy() {
-  await handleButtonTransition(async () => {
-    await navigator.clipboard.writeText(props.code)
-  })
+  await handleButtonTransition(
+    async () => {
+      await navigator.clipboard.writeText(props.code)
+    },
+    copiedCode,
+    copiedCodeTimer,
+  )
 }
 
 async function handleCopyImg() {
-  await handleButtonTransition(async () => {
-    const katexNode = katexSvg.value?.querySelector('.katex') as HTMLElement | null
-    if (!katexNode) return
-    const image = await toSvg(katexNode).then((dataUrl) => fetch(dataUrl).then((r) => r.blob()))
-    await navigator.clipboard.write([new ClipboardItem({ 'image/svg+xml': image })])
-  })
+  await handleButtonTransition(
+    async () => {
+      const katexNode = katexSvg.value?.querySelector('.katex') as HTMLElement | null
+      if (!katexNode) return
+      const image = await toPng(katexNode, {}).then((dataUrl) =>
+        fetch(dataUrl).then((r) => r.blob()),
+      )
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': image })])
+    },
+    copiedImg,
+    copiedImgTimer,
+  )
 }
 
-async function handleButtonTransition(callback: Function) {
-  if (timer) clearTimeout(timer) // 防止连续点击造成状态错乱
+async function handleButtonTransition(callback: Function, flag: Ref, timer: Ref) {
+  if (timer) clearTimeout(timer.value) // 防止连续点击造成状态错乱
   try {
     await callback()
-    copied.value = true
-    timer = window.setTimeout(() => {
-      copied.value = false
-      timer = null
+    flag.value = true
+    timer.value = window.setTimeout(() => {
+      flag.value = false
+      timer.value = null
     }, 2000)
   } catch (e) {
     console.error(e)
