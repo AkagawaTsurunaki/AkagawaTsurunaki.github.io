@@ -18,7 +18,7 @@ import { routePush } from '@/scripts/router'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const open = ref(false)
-const root = ref(null) // 拿到整个下拉区域
+const root = ref() // 拿到整个下拉区域
 
 /* 点击外部关闭 */
 function clickOutside(e: any) {
