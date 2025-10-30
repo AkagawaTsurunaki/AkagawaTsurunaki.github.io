@@ -36,7 +36,6 @@ async function handleCopy() {
 <style scoped>
 .code-wrapper {
   position: relative;
-  margin: 1em 0;
 }
 
 .code-tools {
@@ -74,12 +73,10 @@ async function handleCopy() {
 .code-block {
   display: block;
   background: #f6f8fa;
-  color: #2c3e50;
-  padding: 2.2em 0.8em 0.6em;
-  border-radius: 6px;
-  font-family: Consolas, Menlo, monospace;
-  font-size: 85%;
+  padding: 0.8em;
+  /* padding: 2.2em 0.8em 0.6em; */
   overflow-x: auto;
+  border-radius: 6px;
 }
 
 .copy-icon {
