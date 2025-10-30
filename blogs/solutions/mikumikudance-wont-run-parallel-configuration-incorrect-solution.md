@@ -7,12 +7,14 @@
 > 不想看推理过程，直接拉到文章末尾即可！
 
 用PowerShell在安装目录下运行命令
-```
+
+```shell
 .\MikuMikuDance.exe
 ```
 
 运行后回显
-```
+
+```shell
 程序“MikuMikuDance.exe”无法运行: 应用程序无法启动，因为应用程序的并行配置不正确。有关详细信息，请参阅应用程序事件日志
 ，或使用命令行 sxstrace.exe 工具。所在位置 行:1 字符: 1
 + .\MikuMikuDance.exe
@@ -26,7 +28,7 @@
 
 这里面的 `ResourceUnavailable` 很可能是说缺少某些资源，按照回显中提到的工具 `sxstrace`，我们直接运行
 
-```
+```shell
 sxstrace trace -logfile:trace.etl
 ```
 
@@ -34,13 +36,13 @@ sxstrace trace -logfile:trace.etl
 
 为了将这个 etl 文件转化为文本，继续运行
 
-```
+```shell
 sxstrace parse -logfile:trace.etl -outfile:output.txt
 ```
 
 打开 `output.txt`，看到很多内容，主要搜索 `MikuMikuDance` 关键词
 
-```
+```shell
 =================
 开始生成激活上下文。
 输入参数:
@@ -49,7 +51,7 @@ sxstrace parse -logfile:trace.etl -outfile:output.txt
 	CultureFallBacks = zh-CN;zh-Hans;zh;en-US;en
 	ManifestPath = D:\ProgramFiles\MikuMikuDanceE_v932x64\MikuMikuDance.exe
 	AssemblyDirectory = D:\ProgramFiles\MikuMikuDanceE_v932x64\
-	Application Config File = 
+	Application Config File =
 -----------------
 信息: 正在解析清单文件 D:\ProgramFiles\MikuMikuDanceE_v932x64\MikuMikuDance.exe。
 	...
