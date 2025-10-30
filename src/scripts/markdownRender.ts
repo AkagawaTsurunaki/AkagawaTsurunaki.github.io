@@ -1,10 +1,38 @@
-// import DOMPurify from 'dompurify'
 import { marked } from 'marked'
+import { h } from 'vue'
+import type { VNode } from 'vue'
+import CodeBlock from '@/components/CodeBlock.vue'
 
-export async function renderMarkdown(text: string) {
+export async function renderMarkdown(src: string): Promise<VNode[]> {
   const katex = await import('@/scripts/katexRender')
   marked.use(katex.default({ strict: false }))
-  // Use safe filter markdown text may cause katex error!
-  // text = DOMPurify.sanitize(text);
-  return await marked(text)
+
+  // Inject custom components to AST of marked.
+  const tokens = marked.lexer(src)
+  const vNodes: VNode[] = []
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i]
+    if (token) {
+      if (token.type === 'code') {
+        // If code block
+        vNodes.push(
+          h(CodeBlock, {
+            key: `code-${i}`,
+            language: token.lang || '',
+            code: token.text,
+          }),
+        )
+      } else {
+        // Wrap with v-node for other HTML content.
+        const html = marked.parser([token])
+        vNodes.push(
+          h('div', {
+            key: `html-${i}`,
+            innerHTML: html,
+          }),
+        )
+      }
+    }
+  }
+  return vNodes
 }

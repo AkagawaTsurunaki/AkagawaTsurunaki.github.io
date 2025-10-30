@@ -10,15 +10,18 @@ const props = defineProps({
   }
 })
 
-const markdownText = ref("")
+const nodes = ref<any[]>([]);
 
 onMounted(async () => {
-  markdownText.value = await renderMarkdown(props.mdText);
+  nodes.value = await renderMarkdown(props.mdText);
 })
 
 </script>
 <template>
-  <div v-html="markdownText" class="markdown-body"></div>
+  <div class="markdown-body">
+    <!-- 直接渲染 VNode 数组 -->
+    <component v-for="(node, i) in nodes" :key="i" :is="node" />
+  </div>
 </template>
 <style>
 .markdown-body {
@@ -81,14 +84,5 @@ onMounted(async () => {
   border-radius: 6px;
   overflow-x: auto;
   display: inline-flex;
-}
-
-.markdown-body pre {
-  background-color: #f6f8fa;
-  color: #2c3e50;
-  padding: 0.2em 0.4em;
-  border-radius: 3px;
-  font-family: "Consolas" !important;
-  font-size: 85%;
 }
 </style>
