@@ -22,9 +22,26 @@ async function loadBlogItem(mdFilePath: string, tags: string[], time: string) {
 }
 
 async function registerBlogList() {
-  await loadBlogItem('blogs/一些证明/p.0.10.md', ['数学'], '2025-10-18 23:30')
-  await loadBlogItem('blogs/一些证明/Scaled Dot-Product Attention 的公式中为什么要除以 $sqrt{d_k}$？.md', ['数学'], '2025-10-23 15:06')
-  await loadBlogItem('blogs/解决方案/MikuMikuDance.md', ['MMD'], '2025-10-24 11:48')
+  await loadBlogItem(
+    'blogs/math-proof/p.0.10-mathematical-induction-in-polynomial-proof.md',
+    ['数学'],
+    '2025-10-18 23:30',
+  )
+  await loadBlogItem(
+    'blogs/math-proof/why-scaled-dot-product-attention-formula-divide-by-sqrt-dk.md',
+    ['数学'],
+    '2025-10-23 15:06',
+  )
+  await loadBlogItem(
+    'blogs/math-proof/derivation-of-laplace-operator-in-spherical-coordinates.md',
+    ['数学'],
+    '2024-11-01 13:03',
+  )
+  await loadBlogItem(
+    'blogs/solutions/mikumikudance-wont-run-parallel-configuration-incorrect-solution.md',
+    ['解决方案'],
+    '2025-10-24 11:48',
+  )
 }
 
 onMounted(async () => {
@@ -45,8 +62,14 @@ onMounted(async () => {
 <template>
   <ul class="blog-list-container">
     <li class="blog-item-container" v-for="bi in blogItemList" v-if="dataPreparing">
-      <BlogItem :id="bi.id" :title="bi.title" :preview="bi.preview" :updatedTime="bi.updatedTime" :tags="bi.tags"
-        :filePath="bi.filePath">
+      <BlogItem
+        :id="bi.id"
+        :title="bi.title"
+        :preview="bi.preview"
+        :updatedTime="bi.updatedTime"
+        :tags="bi.tags"
+        :filePath="bi.filePath"
+      >
       </BlogItem>
     </li>
   </ul>
