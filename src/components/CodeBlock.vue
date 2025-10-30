@@ -28,12 +28,6 @@ const katexSvg = ref<SVGElement>()
 const copiedCodeTimer = ref<number>()
 const copiedImgTimer = ref<number>()
 
-onMounted(() => {
-  if (props.language === 'katex') {
-    console.log('katex')
-  }
-})
-
 async function handleCopy() {
   await handleButtonTransition(
     async () => {
@@ -93,6 +87,12 @@ async function handleButtonTransition(callback: Function, flag: Ref, timer: Ref)
   border-bottom-left-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0);
   z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.code-wrapper:hover .code-tools {
+  opacity: 0.8;
 }
 
 .lang-tag {

@@ -9,11 +9,8 @@ const blogContent = ref('正在加载...')
 let dataReceived = ref(false)
 
 async function setBlogDetail() {
-  console.log(route.params.filePath)
-
   if (route.params.filePath && typeof route.params.filePath === 'string') {
     const filePath = decodeURIComponent(route.params.filePath)
-    console.log(filePath)
     const res = await fetch(filePath)
     if (!res.ok) return null
     blogContent.value = await res.text()
@@ -33,7 +30,7 @@ onMounted(async () => {
 </template>
 <style>
 .markdown-container {
-    padding-left: 100px;
-    padding-right: 100px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 </style>

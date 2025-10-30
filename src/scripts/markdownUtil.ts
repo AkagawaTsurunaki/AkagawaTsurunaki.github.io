@@ -13,7 +13,6 @@ export async function getMarkdownFileInfo(
     if (index < 0) {
       return { title: null, preview: text.slice(0, Math.max(0, maxLength)) + '...' }
     }
-    console.log(index)
 
     const preview = text.slice(index, index + Math.max(0, maxLength))
     const indexOfFirstBr = getIndexOfFirstBr(preview)
@@ -27,11 +26,11 @@ export async function getMarkdownFileInfo(
     }
     // Only have title but no more content
     return {
-        title: null,
-        preview: preview.slice(2, 2 + Math.max(0, preview.length)) + '...'
+      title: null,
+      preview: preview.slice(2, 2 + Math.max(0, preview.length)) + '...',
     }
   } catch (err) {
-    console.log(err)
+    console.error(err)
     return null
   }
 }
