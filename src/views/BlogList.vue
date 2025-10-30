@@ -42,6 +42,11 @@ async function registerBlogList() {
     ['解决方案'],
     '2025-10-24 11:48',
   )
+  await loadBlogItem(
+    'blogs/math-proof/why-population-variance-not-equal-biased-sample-variance.md',
+    ['解决方案'],
+    '2025-05-14 22:29',
+  )
 }
 
 onMounted(async () => {
@@ -62,14 +67,8 @@ onMounted(async () => {
 <template>
   <ul class="blog-list-container">
     <li class="blog-item-container" v-for="bi in blogItemList" v-if="dataPreparing">
-      <BlogItem
-        :id="bi.id"
-        :title="bi.title"
-        :preview="bi.preview"
-        :updatedTime="bi.updatedTime"
-        :tags="bi.tags"
-        :filePath="bi.filePath"
-      >
+      <BlogItem :id="bi.id" :title="bi.title" :preview="bi.preview" :updatedTime="bi.updatedTime" :tags="bi.tags"
+        :filePath="bi.filePath">
       </BlogItem>
     </li>
   </ul>
