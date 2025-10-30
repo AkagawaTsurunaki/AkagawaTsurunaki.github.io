@@ -3,7 +3,7 @@ import Tag from '@/components/Tag.vue';
 import { renderMarkdown } from '@/scripts/markdownRender';
 import { routePush } from '@/scripts/router';
 import { getTimeString } from '@/scripts/timeUtil';
-import { onMounted, ref, type PropType } from 'vue';
+import { onMounted, ref, type PropType, type VNode } from 'vue';
 
 const props = defineProps({
     id: {
@@ -31,8 +31,8 @@ const props = defineProps({
         default: null
     }
 })
-const mdTitle = ref("")
-const mdPreview = ref("")
+const mdTitle = ref<VNode[]>()
+const mdPreview = ref<VNode[]>()
 onMounted(async () => {
     mdTitle.value = await renderMarkdown(props.title)
     mdPreview.value = await renderMarkdown(props.preview)
@@ -61,9 +61,12 @@ function gotoBlog() {
 <template>
     <div @click="gotoBlog" class="blog-item-container">
         <div>
-            <h2 class="blog-title" v-html="mdTitle"></h2>
+            <h2 class="blog-title">
+                <component v-for="(node, i) in mdTitle" :key="i" :is="node" />
+            </h2>
         </div>
-        <div v-html="mdPreview" class="markdown-body"></div>
+        <!-- 直接渲染 VNode 数组 -->
+        <component class="markdown-body" v-for="(node, i) in mdPreview" :key="i" :is="node" />
         <div class="extra-info-container">
             <div class="updated-time-container">{{ updatedTime }}</div>
             <div class="tags-container">
