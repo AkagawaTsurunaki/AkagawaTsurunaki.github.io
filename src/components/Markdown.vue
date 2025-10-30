@@ -61,7 +61,7 @@ onMounted(async () => {
   color: #777777;
   padding: 0 10px;
   border-left: solid;
-  border-left-color: #dfe2e5 ;
+  border-left-color: #dfe2e5;
   border-left-width: 5px;
 }
 
@@ -81,5 +81,14 @@ onMounted(async () => {
   border-radius: 6px;
   overflow-x: auto;
   display: inline-flex;
+}
+
+.markdown-body pre {
+  background-color: #f6f8fa;
+  color: #2c3e50;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: "Consolas" !important;
+  font-size: 85%;
 }
 </style>
