@@ -7,6 +7,16 @@ export function getBlogItemList() {
       time: '2025-10-24 11:48',
     },
     {
+      mdFilePath: 'blogs/solutions/win2ubuntu-vnc.md',
+      tags: ['解决方案'],
+      time: '2025-08-15 20:21',
+    },
+    {
+      mdFilePath: 'blogs/solutions/solve-python-auto-import-issues-in-vscode.md',
+      tags: ['解决方案'],
+      time: '2025-09-03 10:07',
+    },
+    {
       mdFilePath: 'blogs/math-proof/p.0.10-mathematical-induction-in-polynomial-proof.md',
       tags: ['数学'],
       time: '2025-10-18 23:30',
