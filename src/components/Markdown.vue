@@ -75,4 +75,22 @@ onMounted(async () => {
 .katex-display {
   margin: 0 !important;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 6px;
+}
+
+th,
+td {
+  border: 1px solid #dae2eb;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f6f8fa;
+  font-family: "TextBold";
+}
 </style>

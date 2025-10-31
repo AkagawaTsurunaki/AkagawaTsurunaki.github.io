@@ -4,55 +4,34 @@ import BlogItem from './BlogItem.vue'
 import { onMounted, ref } from 'vue'
 import { DialogLevel, openDialog } from '@/scripts/dialog'
 import { getMarkdownFileInfo } from '@/scripts/markdownUtil'
+import { getBlogItemList } from '@/scripts/blogRegister'
 
 const blogItemList = ref<BlogItemVo[]>([])
 let dataPreparing = ref(false)
 
-async function loadBlogItem(mdFilePath: string, tags: string[], time: string) {
-  const info = await getMarkdownFileInfo(mdFilePath)
+async function loadBlogItem(blogItem: { mdFilePath: string, tags: string[], time: string }) {
+  const info = await getMarkdownFileInfo(blogItem.mdFilePath)
   if (info) {
     var title = ''
     if (info?.title) {
       title = info.title
     }
     const id = blogItemList.value.length + 1
-    const blog = new BlogItemVo(id, title, tags, time, info?.preview, mdFilePath)
+    const blog = new BlogItemVo(id, title, blogItem.tags, blogItem.time, info?.preview, blogItem.mdFilePath)
     blogItemList.value.push(blog)
   }
-}
-
-async function registerBlogList() {
-  await loadBlogItem(
-    'blogs/math-proof/p.0.10-mathematical-induction-in-polynomial-proof.md',
-    ['数学'],
-    '2025-10-18 23:30',
-  )
-  await loadBlogItem(
-    'blogs/math-proof/why-scaled-dot-product-attention-formula-divide-by-sqrt-dk.md',
-    ['数学'],
-    '2025-10-23 15:06',
-  )
-  await loadBlogItem(
-    'blogs/math-proof/derivation-of-laplace-operator-in-spherical-coordinates.md',
-    ['数学'],
-    '2024-11-01 13:03',
-  )
-  await loadBlogItem(
-    'blogs/solutions/mikumikudance-wont-run-parallel-configuration-incorrect-solution.md',
-    ['解决方案'],
-    '2025-10-24 11:48',
-  )
-  await loadBlogItem(
-    'blogs/math-proof/why-population-variance-not-equal-biased-sample-variance.md',
-    ['解决方案'],
-    '2025-05-14 22:29',
-  )
 }
 
 onMounted(async () => {
   dataPreparing.value = false
   try {
-    await registerBlogList()
+    const blogInfo = getBlogItemList();
+    for (let index = 0; index < blogInfo.length; index++) {
+      const blogItem = blogInfo[index]
+      if (blogItem !== undefined) {
+        await loadBlogItem(blogItem)
+      }
+    }
   } catch (e) {
     console.error(e)
     openDialog(

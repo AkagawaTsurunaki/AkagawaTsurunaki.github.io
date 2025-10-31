@@ -6,17 +6,17 @@
 
 我们非常熟悉的坐标系是初中时学习过的具有 $2$ 个维度 $x$ 和 $y$ 的平面直角坐标系. 然后在高中，我们将平面直角坐标系拓展到了具有 $3$ 个维度的空间直角坐标系，下图（引用自[球坐标系 - 小时百科](https://wuli.wiki/online/Sph.html)）就是用 $x$、$y$ 和 $z$ 三个互相垂直的维度表示的空间直角坐标系.
 
-<img src="https://img2024.cnblogs.com/blog/3500875/202410/3500875-20241027141333764-1602080108.svg" alt="./img/球坐标系.svg" width="300">
+<img src="/images/xiaoshibaike-spherical-coordinates.svg" alt="球坐标系" width="300">
 
 如果想定义球坐标，在我们熟悉的这个空间直角坐标系中建立定义是最简便的.
 
 在空间直角坐标系中存在某一点 $P$，那么
 
-| 名称                      | 符号                | 定义                                                                | 约束                                              |
-| ------------------------- | ------------------- | ------------------------------------------------------------------- | ------------------------------------------------- |
-| 位矢（position vector）   | $\boldsymbol {r}$ | 坐标原点$O$（球心）到点 $P$ 的向量 $\vec{OP}$.                | -                                                 |
-| 位矢的模                  | $r$               | 位矢$\boldsymbol {r}$ 的模长，即点 $P$ 与坐标原点 $O$ 的距离. | $r \geq 0$                                      |
-| 极角（polar angle）       | $\theta$          | 位矢$\boldsymbol {r}$ 与 $z$ 轴的夹角.                          | $\theta \in [0, \pi] $                          |
+| 名称                      | 符号              | 定义                                                          | 约束                                         |
+| ------------------------- | ----------------- | ------------------------------------------------------------- | -------------------------------------------- |
+| 位矢（position vector）   | $\boldsymbol {r}$ | 坐标原点$O$（球心）到点 $P$ 的向量 $\vec{OP}$.                | -                                            |
+| 位矢的模                  | $r$               | 位矢$\boldsymbol {r}$ 的模长，即点 $P$ 与坐标原点 $O$ 的距离. | $r \geq 0$                                   |
+| 极角（polar angle）       | $\theta$          | 位矢$\boldsymbol {r}$ 与 $z$ 轴的夹角.                        | $\theta \in [0, \pi] $                       |
 | 方位角（azimuthal angle） | $\phi$            | $\boldsymbol {r}$ 在 $xOy$ 平面上的投影与 $x$ 轴的夹角.       | $\phi \in [0, \ 2 \pi) $ 或 $ (−\pi,\ \pi] $ |
 
 因此，点 $P$ 可以用 $(r, \ \theta, \ \phi)$ 这 $3$ 个有序实数来表示，称为该点的**球坐标（spherical coordinates）**.
@@ -61,11 +61,9 @@ $$
 
 可见，球坐标系看起来不太寻常！空间坐标系看起来是“均匀”的，但球坐标系是“不均匀”的.
 
-请观察我绘制的这个小块的图像. 在空间坐标系下，假设点 $P$ 产生了 $(\mathrm{d} x, \ \mathrm{d}y, \ \mathrm{d}z)$ 的位移，那么沿着这三个维度的形成了一个边长（弧长）分别为 $ \mathrm{d} l_x,\mathrm{d} l_{y}, \mathrm{d} l_{z} $ 的六面体，称为**微元**.
+请观察我绘制的这个小块的图像. 在空间坐标系下，假设点 $P$ 产生了 $(\mathrm{d} x, \ \mathrm{d}y, \ \mathrm{d}z)$ 的位移，那么沿着这三个维度的形成了一个边长（弧长）分别为 $ \mathrm{d} l_1 ,\mathrm{d} l_2, \mathrm{d} l_3 $ 的六面体，称为**微元**.
 
-
-<img src="https://img2024.cnblogs.com/blog/3500875/202410/3500875-20241027141412020-1991945700.jpg" alt="./img/微元.jpg" width="300">
-
+<img src="/images/coordinates-differentia-element.jpg" alt="坐标系的微元" width="300">
 
 我们知道球坐标系和平面坐标系存在着差异，因此它们的微元弧长也存在某种关系.
 
@@ -98,14 +96,14 @@ $$
 对球坐标系中的位矢 $\boldsymbol {r}$ 求微分
 
 $$
-\mathrm{d} \boldsymbol{r} = 
+\mathrm{d} \boldsymbol{r} =
     \dfrac{\partial \boldsymbol{r}}{\partial r} \mathrm{d}r + \dfrac{\partial \boldsymbol{r}}{\partial \theta} \mathrm{d} \theta + \dfrac{\partial \boldsymbol{r}}{\partial \phi} \mathrm{d} \phi
 $$
 
 将式代入得
 
 $$
-\mathrm{d} \boldsymbol{r} = 
+\mathrm{d} \boldsymbol{r} =
     \left( \boldsymbol {x} + \boldsymbol {y} + \boldsymbol {z} \right) \mathrm{d} r + r \left( \cos{\theta} \cos{\phi} \boldsymbol{\hat{x}} + \cos{\theta} \sin{\phi} \boldsymbol{\hat{y}} - \sin{\theta} \boldsymbol{\hat{z}} \right) \mathrm{d} \theta + r \sin{\theta} \left( -\sin{\phi} \boldsymbol{\hat{x}} +  \cos{\phi} \boldsymbol{\hat{y}} \right) \mathrm{d} \phi \\
 $$
 
@@ -128,7 +126,7 @@ $$
 $$
 \begin{align*}
     | \boldsymbol {\hat{r}}| &= \sqrt{ \sin^2{\theta} \cos^2{\phi} + \sin^2{\theta} \sin^2{\phi} + \cos^2{\theta}} \\
-    &= \sqrt{ \sin^2{\theta} (\cos^2{\phi} + \sin^2{\phi}) + \cos^2{\theta}} \\ 
+    &= \sqrt{ \sin^2{\theta} (\cos^2{\phi} + \sin^2{\phi}) + \cos^2{\theta}} \\
     &= \sqrt{ \sin^2{\theta} + \cos^2{\theta}} \\
     &= 1
 \end{align*}
@@ -137,7 +135,7 @@ $$
 $$
 \begin{align*}
     | \boldsymbol {\hat{\theta}}| &= \sqrt{ \cos^2{\theta} \cos^2{\phi} + \cos^2{\theta} \sin^2{\phi} + \sin^2{\theta}} \\
-    &= \sqrt{ \cos^2{\theta} (\cos^2{\phi} + \sin^2{\phi}) + \sin^2{\theta}} \\ 
+    &= \sqrt{ \cos^2{\theta} (\cos^2{\phi} + \sin^2{\phi}) + \sin^2{\theta}} \\
     &= \sqrt{ \cos^2{\theta} + \sin^2{\theta}} \\
     &= 1
 \end{align*}
@@ -157,7 +155,7 @@ $$
     \boldsymbol {\hat{r}} \cdot \boldsymbol {\hat{\theta}} &= \sin{\theta} \cos{\theta} \cos^2{\phi} + \sin{\theta} \cos{\theta} \sin^2 -{\phi} - \sin{\theta} \cos{\theta} \\
     &= \sin{\theta} \cos{\theta} \left( \sin^2{\theta} + \cos^2{\theta} \right) - \sin{\theta} \cos{\theta} \\
     &= \sin{\theta} \cos{\theta} - \sin{\theta} \cos{\theta} \\
-    &= 0 
+    &= 0
 \end{align*}
 $$
 
@@ -192,7 +190,7 @@ $$
 我们在正交曲线坐标系中定义**梯度**
 
 $$
-\nabla u = \dfrac{1}{H_1} \dfrac{\partial u}{\partial u_1} + \dfrac{1}{H_2} \dfrac{\partial u}{\partial u_2} + \dfrac{1}{H_3} \dfrac{\partial u}{\partial u_3} 
+\nabla u = \dfrac{1}{H_1} \dfrac{\partial u}{\partial u_1} + \dfrac{1}{H_2} \dfrac{\partial u}{\partial u_2} + \dfrac{1}{H_3} \dfrac{\partial u}{\partial u_3}
 $$
 
 注意，正是因为在正交曲线坐标系中，我们才带上了拉梅系数，回想起空间直角坐标系中我们的拉梅系数均为 $1$.
