@@ -82,7 +82,7 @@ onMounted(() => {
     background-color: rgb(255, 222, 95);
     border-radius: 5px 5px 0px 0px;
     padding: 5px 20px;
-    font-family: "Header Font";
+    font-family: "TextBold";
 }
 
 .dialog-window {

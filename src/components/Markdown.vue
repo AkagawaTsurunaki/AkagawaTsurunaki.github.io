@@ -31,32 +31,32 @@ onMounted(async () => {
 }
 
 .markdown-body h1 {
-  font-family: "Header Font";
+  font-family: "TextBold";
   font-weight: bold;
 }
 
 .markdown-body h2 {
-  font-family: "Header Font";
+  font-family: "TextBold";
   font-weight: bold;
 }
 
 .markdown-body h3 {
-  font-family: "Header Font";
+  font-family: "TextBold";
   font-weight: bold;
 }
 
 .markdown-body h4 {
-  font-family: "Header Font";
+  font-family: "TextBold";
   font-weight: bold;
 }
 
 .markdown-body h5 {
-  font-family: "Header Font";
+  font-family: "TextBold";
   font-weight: bold;
 }
 
 .markdown-body strong {
-  font-family: "Header Font";
+  font-family: "TextBold";
   font-weight: bold;
 }
 

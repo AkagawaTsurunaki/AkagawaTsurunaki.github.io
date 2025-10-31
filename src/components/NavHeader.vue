@@ -38,7 +38,8 @@ import FloatingDropdown from './FloatingDropdown.vue';
 </template>
 <style scoped>
 .nav-placeholder {
-  height: 60px; /* 与导航栏同高即可 */
+  height: 60px;
+  /* 与导航栏同高即可 */
 }
 
 #hamberger {
@@ -49,6 +50,7 @@ import FloatingDropdown from './FloatingDropdown.vue';
   #navbar-button-group {
     display: none !important;
   }
+
   #hamberger {
     display: flex !important;
   }
@@ -88,7 +90,7 @@ import FloatingDropdown from './FloatingDropdown.vue';
 
 .nav-avartar {
   display: flex;
-  font-family: 'Header Font', sans-serif;
+  font-family: 'TextBold', sans-serif;
   font-size: 18px;
   font-weight: 500;
   gap: 10px;
@@ -100,18 +102,11 @@ import FloatingDropdown from './FloatingDropdown.vue';
   border: 1;
   border-radius: 20px;
 
-  font-family: 'Common Font';
-}
-
-@font-face {
-  font-family: 'Header Font';
-  src: url('src/assets/fonts/HarmonyOS_Sans_SC_Black.ttf') format('truetype');
-  font-weight: 900;
-  /* Black 字重 */
+  font-family: 'TextRegular';
 }
 
 .header-font {
-  font-family: 'Header Font', sans-serif;
+  font-family: 'TextBold', sans-serif;
   font-size: 18px;
   font-weight: 500;
 }

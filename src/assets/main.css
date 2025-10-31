@@ -4,7 +4,7 @@
   --akt-c-yellow: rgb(255, 222, 95);
   --akt-md-code-gray: #f6f8fa;
   --color-button-hover: var(--akt-c-yellow);
-  --code-background: var(--akt-md-code-gray)
+  --code-background: var(--akt-md-code-gray);
 }
 
 #app {
@@ -55,8 +55,20 @@ button {
   src: url('/fonts/JetBrainsMono-2.304/JetBrainsMono-Regular.woff2') format('woff2');
 }
 
+@font-face {
+  font-family: 'TextBold';
+  src: url('/fonts/HarmonyOS_Sans/HarmonyOS_Sans_SC_Black.ttf') format('truetype');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'TextRegular';
+  src: url('/fonts/HarmonyOS_Sans/HarmonyOS_Sans_Medium.ttf') format('truetype');
+  font-weight: 400;
+}
+
 code {
-  font-family: "CodeRegular";
+  font-family: 'CodeRegular';
   font-size: 85%;
   color: #2c3e50;
   background: var(--code-background);

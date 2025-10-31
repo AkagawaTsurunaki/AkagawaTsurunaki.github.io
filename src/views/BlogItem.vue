@@ -89,7 +89,7 @@ function gotoBlog() {
 }
 
 .blog-title {
-    font-family: "Header Font";
+    font-family: "TextBold";
 }
 
 .tags-container ul {
@@ -110,7 +110,7 @@ function gotoBlog() {
 }
 
 .updated-time-container {
-    font-family: "Common Font";
+    font-family: "TextRegular";
     color: grey;
 }
 </style>

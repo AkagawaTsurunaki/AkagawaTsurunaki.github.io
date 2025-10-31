@@ -63,7 +63,7 @@ function sendEmail() {
 }
 
 .introduction {
-    font-family: "Common Font";
+    font-family: "TextRegular";
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -74,7 +74,7 @@ function sendEmail() {
 }
 
 .introduction .name {
-    font-family: "Header Font";
+    font-family: "TextBold";
     font-size: 20px;
 }
 
@@ -82,7 +82,7 @@ function sendEmail() {
     border: none;
     border-radius: 30px;
     align-items: center;
-    font-family: "Common Font";
+    font-family: "TextRegular";
     gap: 8px;
     display: inline-flex;
 }

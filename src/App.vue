@@ -15,13 +15,6 @@ import NavHeader from './components/NavHeader.vue'
   </body>
 </template>
 <style scoped>
-@font-face {
-  font-family: 'Common Font';
-  src: url('src/assets/fonts/HarmonyOS_Sans_Medium.ttf') format('truetype');
-  font-weight: 400;
-  /* Black 字重 */
-}
-
 .background {
   background-position: center center;
   background-repeat: no-repeat;
