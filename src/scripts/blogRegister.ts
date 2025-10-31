@@ -47,5 +47,16 @@ export function getBlogItemList() {
       tags: ['数学', '人工智能'],
       time: '2024-10-17 19:53',
     },
+    {
+      mdFilePath: 'blogs/ai-methods/competitive-learning-in-artificial-neural-networks.md',
+      tags: ['人工智能'],
+      time: '2024-10-24 15:47',
+    },
+    {
+      mdFilePath:
+        'blogs/ai-methods/dynamics-of-spatiotemporal-behavior-in-neuronal-networks-introduction-reading-notes.md',
+      tags: ['人工智能'],
+      time: '2024-10-24 15:51',
+    },
   ]
 }
