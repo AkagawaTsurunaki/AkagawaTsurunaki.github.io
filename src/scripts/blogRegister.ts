@@ -31,5 +31,21 @@ export function getBlogItemList() {
       tags: ['数学'],
       time: '2024-12-12 15:53',
     },
+    {
+      mdFilePath: 'blogs/math-proof/derivation-of-nerf-formula.md',
+      tags: ['数学', '人工智能', 'NeRF'],
+      time: '2024-10-15 14:37',
+    },
+    {
+      mdFilePath: 'blogs/ai-methods/derivation-of-hodgkin-huxley-model.md',
+      tags: ['人工智能'],
+      time: '2024-09-12 19:40',
+    },
+    {
+      mdFilePath:
+        'blogs/math-proof/meaning-of-energy-function-in-hopfield-neural-network-and-proof-of-delta-e-leq-0.md',
+      tags: ['数学', '人工智能'],
+      time: '2024-10-17 19:53',
+    },
   ]
 }
