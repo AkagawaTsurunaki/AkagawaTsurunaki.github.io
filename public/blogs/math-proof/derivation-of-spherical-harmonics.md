@@ -541,7 +541,7 @@ $$
 这样 $\Theta_l^m(\theta)$ 的解中的因式 $g_l^m (\theta)$ 又可表示为
 
 $$
-{{g_{l}^{m}(\theta)=f_{l}^{n}(x)}}
+g_{l}^{m}(\theta)=f_{l}^{n}(x)
 $$
 
 $$
