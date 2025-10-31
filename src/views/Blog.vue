@@ -30,7 +30,7 @@ onMounted(async () => {
 </template>
 <style>
 .markdown-container {
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 </style>
