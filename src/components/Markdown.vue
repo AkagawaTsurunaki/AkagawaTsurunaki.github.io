@@ -93,4 +93,8 @@ th {
   background-color: #f6f8fa;
   font-family: "TextBold";
 }
+
+img {
+  max-width: 80%;
+}
 </style>
