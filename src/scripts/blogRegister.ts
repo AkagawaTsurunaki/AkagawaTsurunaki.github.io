@@ -1,6 +1,11 @@
 export function getBlogItemList() {
   return [
     {
+      mdFilePath: 'blogs/ai-methods/mamba-reproduction.md',
+      tags: ['人工智能', '论文复现'],
+      time: '2025-11-04 18:52',
+    },
+    {
       mdFilePath: 'blogs/solutions/mmd-unity-solution.md',
       tags: ['解决方案'],
       time: '2025-11-02 19:45',
