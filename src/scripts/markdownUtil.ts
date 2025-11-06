@@ -1,12 +1,18 @@
-export async function getMarkdownFileInfo(
+import { readFileText } from './api/fileApi'
+
+export async function getMarkdownFileInfoByPath(
   publicPath: string,
   maxLength: number = 200,
 ): Promise<{ title: string | null; preview: string } | null> {
-  try {
-    const res = await fetch(publicPath)
-    if (!res.ok) return null
-    const text = await res.text()
+  const text = await readFileText(publicPath)
+  if (text) {
+    return getMarkdownFileInfo(text, maxLength)
+  }
+  return null
+}
 
+export function getMarkdownFileInfo(text: string, maxLength: number = 200) {
+  try {
     // If we get the title of such a markdown file, then return the other lines below the title.
     // Else we just return all preview content if we can not find the title.
     const index = getIndexOfFirstH1(text)

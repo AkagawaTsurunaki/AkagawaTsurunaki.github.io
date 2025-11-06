@@ -1,35 +1,24 @@
 <script setup lang="ts">
-import { BlogItemVo } from '@/scripts/data'
+import { BlogItemDto } from '@/scripts/data'
 import BlogItem from './BlogItem.vue'
 import { onMounted, ref } from 'vue'
 import { DialogLevel, openDialog } from '@/scripts/dialog'
-import { getMarkdownFileInfo } from '@/scripts/markdownUtil'
-import { getBlogItemList } from '@/scripts/blogRegister'
+import { getBlogItemListFromCache } from '@/scripts/api/blogApi'
 
-const blogItemList = ref<BlogItemVo[]>([])
+const blogItemList = ref<BlogItemDto[]>([])
 let dataPreparing = ref(false)
-
-async function loadBlogItem(blogItem: { mdFilePath: string, tags: string[], time: string }) {
-  const info = await getMarkdownFileInfo(blogItem.mdFilePath)
-  if (info) {
-    var title = ''
-    if (info?.title) {
-      title = info.title
-    }
-    const id = blogItemList.value.length + 1
-    const blog = new BlogItemVo(id, title, blogItem.tags, blogItem.time, info?.preview, blogItem.mdFilePath)
-    blogItemList.value.push(blog)
-  }
-}
 
 onMounted(async () => {
   dataPreparing.value = false
   try {
-    const blogInfo = getBlogItemList();
+    // const blogInfo = getBlogItemList();
+    const blogInfo = await getBlogItemListFromCache()
+    if (!blogInfo) return
+
     for (let index = 0; index < blogInfo.length; index++) {
       const blogItem = blogInfo[index]
       if (blogItem !== undefined) {
-        await loadBlogItem(blogItem)
+        blogItemList.value.push(blogItem)
       }
     }
   } catch (e) {
