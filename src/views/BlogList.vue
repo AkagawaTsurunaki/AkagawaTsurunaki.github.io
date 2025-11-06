@@ -3,33 +3,45 @@ import { BlogItemDto } from '@/scripts/data'
 import BlogItem from './BlogItem.vue'
 import { onMounted, ref } from 'vue'
 import { DialogLevel, openDialog } from '@/scripts/dialog'
-import { getBlogItemListFromCache } from '@/scripts/api/blogApi'
+import { getBlogItemListFromCache, getBlogItemListFromOnline } from '@/scripts/api/blogApi'
+import { withTiming } from '@/scripts/diagnose/withTiming'
 
 const blogItemList = ref<BlogItemDto[]>([])
 let dataPreparing = ref(false)
+const useCache = false
 
-onMounted(async () => {
-  dataPreparing.value = false
-  try {
-    // const blogInfo = getBlogItemList();
-    const blogInfo = await getBlogItemListFromCache()
-    if (!blogInfo) return
+onMounted(() => {
+  withTiming(
+    async () => {
+      dataPreparing.value = false
+      try {
+        // const blogInfo = getBlogItemList();
+        let blogInfo = []
+        if (useCache) {
+          blogInfo = await getBlogItemListFromCache() // 27.9 ms
+        }
+        else {
+          blogInfo = await getBlogItemListFromOnline() // 243.3 ms
+        }
+        if (!blogInfo) return
 
-    for (let index = 0; index < blogInfo.length; index++) {
-      const blogItem = blogInfo[index]
-      if (blogItem !== undefined) {
-        blogItemList.value.push(blogItem)
+        for (let index = 0; index < blogInfo.length; index++) {
+          const blogItem = blogInfo[index]
+          if (blogItem !== undefined) {
+            blogItemList.value.push(blogItem)
+          }
+        }
+      } catch (e) {
+        console.error(e)
+        openDialog(
+          DialogLevel.ERROR,
+          '出错了',
+          '获取博客列表时遇到了错误。\n刷新页面可能会修复此问题。若该问题多次出现，请联系系统管理员。',
+        )
       }
+      dataPreparing.value = true
     }
-  } catch (e) {
-    console.error(e)
-    openDialog(
-      DialogLevel.ERROR,
-      '出错了',
-      '获取博客列表时遇到了错误。\n刷新页面可能会修复此问题。若该问题多次出现，请联系系统管理员。',
-    )
-  }
-  dataPreparing.value = true
+  )()
 })
 </script>
 <template>
