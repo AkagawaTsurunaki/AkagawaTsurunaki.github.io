@@ -4,7 +4,6 @@ import { getMarkdownFileInfo } from '../markdownUtil.ts'
 import fse from 'fs-extra'
 
 const blogCachePath = 'public/cache/blogs.json'
-console.log('??????????')
 
 async function getBlogItemDtoList(): Promise<Array<BlogItemDto>> {
   const blogItemList = getBlogItemList()
@@ -41,10 +40,12 @@ async function getBlogItemDtoList(): Promise<Array<BlogItemDto>> {
 
 async function saveCache() {
   try {
+    console.log('Building blogs cache...')
     const blogs = await getBlogItemDtoList()
     fse.writeJson(blogCachePath, blogs, { spaces: 2 })
+    console.log('Blogs cache saved.')
   } catch (error) {
-    console.error('生成缓存失败:', error)
+    console.error('Error to build blogs cache: \n', error)
   }
 }
 

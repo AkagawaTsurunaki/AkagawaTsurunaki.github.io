@@ -18,7 +18,7 @@
     "type-check": "vue-tsc --build",
     "format": "prettier --write src/",
     "deploy": "gh-pages -d dist -b gh-pages",
-    "prebuild": "npx tsx src/scripts/buildBlogListCache.ts"
+    "prebuild": "npx tsx src/scripts/build/buildBlogListCache.ts"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
