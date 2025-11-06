@@ -6,6 +6,10 @@
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
   },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -13,14 +17,18 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
     "format": "prettier --write src/",
-    "deploy": "gh-pages -d dist -b gh-pages"
+    "deploy": "gh-pages -d dist -b gh-pages",
+    "prebuild": "npx tsx src/scripts/buildBlogListCache.ts"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
     "amfe-flexible": "^2.2.1",
     "axios": "^1.12.2",
+    "class-transformer": "^0.5.1",
     "dompurify": "^3.3.0",
     "element-plus": "^2.11.5",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^11.3.2",
     "html-to-image": "^1.11.13",
     "katex": "^0.16.25",
     "marked": "^16.4.1",
@@ -32,6 +40,7 @@
   },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
+    "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.18.6",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vitejs/plugin-vue-jsx": "^5.1.1",
