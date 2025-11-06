@@ -1,6 +1,6 @@
 import { getBlogItemList } from './blogRegister.ts'
-import { BlogItemDto } from './data.ts'
-import { getMarkdownFileInfo } from './markdownUtil.ts'
+import { BlogItemDto } from '../data.ts'
+import { getMarkdownFileInfo } from '../markdownUtil.ts'
 import fse from 'fs-extra'
 
 const blogCachePath = 'public/cache/blogs.json'

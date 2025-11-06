@@ -1,7 +1,7 @@
 import { plainToInstance } from 'class-transformer'
 import { readFileJson } from './fileApi'
 import { BlogItemDto } from '../data'
-import { getBlogItemList } from '../blogRegister'
+import { getBlogItemList } from '../build/blogRegister'
 import { getMarkdownFileInfoByPath } from '../markdownUtil'
 
 export async function getBlogItemListFromCache(): Promise<Array<BlogItemDto>> {
