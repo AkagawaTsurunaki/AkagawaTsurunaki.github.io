@@ -5,7 +5,7 @@ import { getBlogItemList } from '../build/blogRegister'
 import { getMarkdownFileInfoByPath } from '../markdownUtil'
 
 export async function getBlogItemListFromCache(): Promise<Array<BlogItemDto>> {
-  const path = 'public/cache/blogs.json'
+  const path = '/cache/blogs.json'
   const json = await readFileJson(path)
   if (json) {
     const blogs: Array<BlogItemDto> = plainToInstance(BlogItemDto, json)
