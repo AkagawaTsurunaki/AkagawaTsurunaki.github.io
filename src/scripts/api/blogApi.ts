@@ -17,13 +17,16 @@ export async function getBlogItemListFromCache(): Promise<Array<BlogItemDto>> {
 // This API should not use in product env
 export async function getBlogItemListFromOnline(): Promise<Array<BlogItemDto>> {
   const blogRegList = getBlogItemList()
-  const blogs = []
-  for (let index = 0; index < blogRegList.length; index++) {
-    const blogReg = blogRegList[index]
-    if (blogReg?.mdFilePath) {
-      const info = await getMarkdownFileInfoByPath(blogReg?.mdFilePath)
-      if (info) {
-        const blog = new BlogItemDto(
+
+  const promises = blogRegList.map((blogReg, index) => {
+    if (!blogReg?.mdFilePath) {
+      return Promise.resolve(null) // 对于无效项，返回null
+    }
+
+    return getMarkdownFileInfoByPath(blogReg.mdFilePath)
+      .then((info) => {
+        if (!info) return null
+        return new BlogItemDto(
           index,
           info?.title ? info?.title : '<无标题>',
           blogReg.tags,
@@ -31,9 +34,14 @@ export async function getBlogItemListFromOnline(): Promise<Array<BlogItemDto>> {
           info?.preview,
           blogReg.mdFilePath,
         )
-        blogs.push(blog)
-      }
-    }
-  }
+      })
+      .catch((error) => {
+        console.error(`Failed to get markdown info for ${blogReg.mdFilePath}:`, error)
+        return null
+      })
+  })
+  const results = await Promise.all(promises)
+  const blogs = results.filter((blog) => blog !== null)
+
   return blogs
 }

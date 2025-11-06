@@ -8,20 +8,19 @@ import { withTiming } from '@/scripts/diagnose/withTiming'
 
 const blogItemList = ref<BlogItemDto[]>([])
 let dataPreparing = ref(false)
-const useCache = false
+const useCache = true
 
 onMounted(() => {
   withTiming(
     async () => {
       dataPreparing.value = false
       try {
-        // const blogInfo = getBlogItemList();
         let blogInfo = []
         if (useCache) {
-          blogInfo = await getBlogItemListFromCache() // 27.9 ms
+          blogInfo = await getBlogItemListFromCache()
         }
         else {
-          blogInfo = await getBlogItemListFromOnline() // 243.3 ms
+          blogInfo = await getBlogItemListFromOnline()
         }
         if (!blogInfo) return
 
