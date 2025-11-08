@@ -4,6 +4,7 @@ import { renderMarkdown } from '@/scripts/markdownRender';
 import { routePush } from '@/scripts/router';
 import { getTimeString } from '@/scripts/timeUtil';
 import { onMounted, ref, type PropType, type VNode } from 'vue';
+import BlogItemSkeleton from '@/components/BlogItemSkeleton.vue'
 
 const props = defineProps({
     id: {
@@ -33,10 +34,14 @@ const props = defineProps({
 })
 const mdTitle = ref<VNode[]>()
 const mdPreview = ref<VNode[]>()
+let loaded = ref(false)
+
 onMounted(async () => {
+    loaded.value = false
     mdTitle.value = await renderMarkdown(props.title)
     mdPreview.value = await renderMarkdown(props.preview)
     removeImages()
+    loaded.value = true
 })
 
 function removeImages() {
@@ -59,7 +64,8 @@ function gotoBlog() {
 
 </script>
 <template>
-    <div @click="gotoBlog" class="blog-item-container">
+    <BlogItemSkeleton v-if="!loaded" />
+    <div @click="gotoBlog" class="blog-item-container" v-if="loaded">
         <div>
             <h2 class="blog-title">
                 <component v-for="(node, i) in mdTitle" :key="i" :is="node" />
