@@ -27,6 +27,16 @@ export function getBlogItemList() {
       time: '2025-09-03 10:07',
     },
     {
+      mdFilePath: 'blogs/math-proof/joint-pdf-of-x-bar-and-x-i-minus-x-bar.md',
+      tags: ['数学'],
+      time: '2025-11-08 19:53',
+    },
+    {
+      mdFilePath: 'blogs/math-proof/discrete-bayesian-estimator-solution.md',
+      tags: ['数学'],
+      time: '2025-11-07 16:09',
+    },
+    {
       mdFilePath: 'blogs/math-proof/p.0.10-mathematical-induction-in-polynomial-proof.md',
       tags: ['数学'],
       time: '2025-10-18 23:30',
