@@ -4,7 +4,7 @@ import { renderMarkdown } from '@/scripts/markdownRender';
 import { routePush } from '@/scripts/router';
 import { getTimeString } from '@/scripts/timeUtil';
 import { onMounted, ref, type PropType, type VNode } from 'vue';
-import BlogItemSkeleton from '@/components/BlogItemSkeleton.vue'
+import BlogItemSkeleton from '../components/BlogItemSkeleton.vue'
 
 const props = defineProps({
     id: {
@@ -39,7 +39,7 @@ let loaded = ref(false)
 onMounted(async () => {
     loaded.value = false
     mdTitle.value = await renderMarkdown(props.title)
-    mdPreview.value = await renderMarkdown(props.preview)
+    mdPreview.value = await renderMarkdown(props.preview, ['image'])
     removeSpecialToken()
     loaded.value = true
 })
@@ -48,7 +48,6 @@ function removeSpecialToken() {
     const previewElmList = document.getElementsByClassName("markdown-body");
     for (const elm of previewElmList) {
         removeHr(elm)
-        removeImage(elm)
         replaceHeader(elm)
     }
 }
@@ -57,13 +56,6 @@ function removeHr(elm: Element) {
     const hrs = elm.querySelectorAll('hr')
     hrs.forEach((hr) => {
         hr.remove();
-    });
-}
-
-function removeImage(elm: Element) {
-    const images = elm.querySelectorAll('img')
-    images.forEach((img) => {
-        img.remove();
     });
 }
 

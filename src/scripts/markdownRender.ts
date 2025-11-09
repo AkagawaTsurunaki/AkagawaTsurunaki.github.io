@@ -2,10 +2,13 @@ import { marked } from 'marked'
 import { h } from 'vue'
 import type { VNode } from 'vue'
 import CodeBlock from '@/components/CodeBlock.vue'
-import Image from '@/components/Image.vue'
+import Image from '../components/Image.vue'
 import { parse } from 'node-html-parser'
 
-export async function renderMarkdown(src: string): Promise<VNode[]> {
+export async function renderMarkdown(
+  src: string,
+  skip: undefined | Array<string> = undefined,
+): Promise<VNode[]> {
   const katex = await import('@/scripts/katexRender')
   marked.use(katex.default({ strict: false }))
 
@@ -36,20 +39,30 @@ export async function renderMarkdown(src: string): Promise<VNode[]> {
           }),
         )
       } else if (token.type === 'image') {
-        console.log('aaaa')
-        vNodes.push(h(Image, { imageUrl: token.href, altText: token.text, key: `image-${i}` }))
+        if (skip?.includes('image')) continue
+        vNodes.push(
+          h(Image, {
+            imageUrl: token.href || '',
+            altText: token.text || '',
+            width: undefined,
+            height: undefined,
+            key: `image-${i}`,
+          }),
+        )
       } else {
         // Wrap with v-node for other HTML content.
         const html = marked.parser([token])
 
         // Parse image
         if (html.includes('img') && html.includes('src=')) {
+          if (skip?.includes('image')) continue
           const img = parse(html).querySelector('img')
           vNodes.push(
             h(Image, {
-              imageUrl: img?.getAttribute('src'),
-              altText: img?.getAttribute('alt'),
-              width: img?.getAttribute('width'),
+              imageUrl: img?.getAttribute('src') || '',
+              altText: img?.getAttribute('alt') || '',
+              width: Number(img?.getAttribute('width')) || undefined,
+              height: Number(img?.getAttribute('height')) || undefined,
               key: `image-${i}`,
             }),
           )

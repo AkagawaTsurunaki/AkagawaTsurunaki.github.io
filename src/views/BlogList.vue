@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { BlogItemDto } from '@/scripts/data'
 import BlogItem from './BlogItem.vue'
-import BlogItemSkeleton from '@/components/BlogItemSkeleton.vue'
+import BlogItemSkeleton from './../components/BlogItemSkeleton.vue'
 import { onMounted, ref } from 'vue'
 import { DialogLevel, openDialog } from '@/scripts/dialog'
 import { getBlogItemListFromCache, getBlogItemListFromOnline } from '@/scripts/api/blogApi'

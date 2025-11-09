@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 import Markdown from '@/components/Markdown.vue'
 import { useRoute } from 'vue-router'
 import MarkdownSkeleton from '@/components/MarkdownSkeleton.vue'

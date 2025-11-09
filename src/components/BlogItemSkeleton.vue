@@ -1,3 +1,4 @@
+import BlogItemSkeleton from '@/components/BlogItemSkeleton.vue';
 <template>
     <div class="blog-item-skeleton">
         <div class="skeleton-content">
@@ -9,12 +10,6 @@
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    name: 'BlogItemSkeleton'
-}
-</script>
 
 <style scoped>
 .blog-item-skeleton {

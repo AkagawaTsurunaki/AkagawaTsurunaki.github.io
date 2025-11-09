@@ -10,10 +10,10 @@ import ImageSkeleton from '@/components/ImageSkeleton.vue'
 import { onMounted, onBeforeUnmount, ref } from 'vue';
 
 const props = defineProps<{
-    imageUrl: string;
-    altText: string;
-    width: number;
-    height: number;
+    imageUrl: string,
+    altText: string,
+    width: number | undefined,
+    height: number | undefined
 }>();
 
 const isLoading = ref(true)
