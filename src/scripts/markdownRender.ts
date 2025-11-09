@@ -2,6 +2,8 @@ import { marked } from 'marked'
 import { h } from 'vue'
 import type { VNode } from 'vue'
 import CodeBlock from '@/components/CodeBlock.vue'
+import Image from '@/components/Image.vue'
+import { parse } from 'node-html-parser'
 
 export async function renderMarkdown(src: string): Promise<VNode[]> {
   const katex = await import('@/scripts/katexRender')
@@ -33,15 +35,32 @@ export async function renderMarkdown(src: string): Promise<VNode[]> {
             rawHtml: html,
           }),
         )
+      } else if (token.type === 'image') {
+        console.log('aaaa')
+        vNodes.push(h(Image, { imageUrl: token.href, altText: token.text, key: `image-${i}` }))
       } else {
         // Wrap with v-node for other HTML content.
         const html = marked.parser([token])
-        vNodes.push(
-          h('div', {
-            key: `html-${i}`,
-            innerHTML: html,
-          }),
-        )
+
+        // Parse image
+        if (html.includes('img') && html.includes('src=')) {
+          const img = parse(html).querySelector('img')
+          vNodes.push(
+            h(Image, {
+              imageUrl: img?.getAttribute('src'),
+              altText: img?.getAttribute('alt'),
+              width: img?.getAttribute('width'),
+              key: `image-${i}`,
+            }),
+          )
+        } else {
+          vNodes.push(
+            h('div', {
+              key: `html-${i}`,
+              innerHTML: html,
+            }),
+          )
+        }
       }
     }
   }

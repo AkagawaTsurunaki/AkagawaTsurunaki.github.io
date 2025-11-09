@@ -1,5 +1,5 @@
 <template>
-    <div class="blog-item-skeleton">
+    <div class="markdown-skeleton">
         <div class="skeleton-content">
             <div class="skeleton-line skeleton-title"></div>
             <div class="skeleton-line skeleton-meta"></div>
@@ -26,7 +26,7 @@
 </template>
 
 <style scoped>
-.blog-item-skeleton {
+.markdown-skeleton {
     width: 100%;
     padding: 16px;
     background: #f8f9fa;
