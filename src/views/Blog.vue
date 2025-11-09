@@ -21,7 +21,7 @@ async function setBlogDetail() {
 onMounted(async () => {
   loaded.value = false
   await setBlogDetail()
-  loaded.value = false
+  loaded.value = true
 })
 </script>
 <template>
