@@ -2,11 +2,12 @@
 import { onMounted, ref, watch } from 'vue'
 import Markdown from '@/components/Markdown.vue'
 import { useRoute } from 'vue-router'
+import MarkdownSkeleton from '@/components/MarkdownSkeleton.vue'
 
 const route = useRoute()
 
 const blogContent = ref('正在加载...')
-let dataReceived = ref(false)
+let loaded = ref(false)
 
 async function setBlogDetail() {
   if (route.params.filePath && typeof route.params.filePath === 'string') {
@@ -18,14 +19,17 @@ async function setBlogDetail() {
 }
 
 onMounted(async () => {
-  dataReceived.value = false
+  loaded.value = false
   await setBlogDetail()
-  dataReceived.value = true
+  loaded.value = false
 })
 </script>
 <template>
-  <div class="markdown-container">
-    <Markdown :mdText="blogContent" v-if="dataReceived"></Markdown>
+  <div class="markdown-container" v-if="!loaded">
+    <MarkdownSkeleton></MarkdownSkeleton>
+  </div>
+  <div class="markdown-container" v-if="loaded">
+    <Markdown :mdText="blogContent"></Markdown>
   </div>
 </template>
 <style>
