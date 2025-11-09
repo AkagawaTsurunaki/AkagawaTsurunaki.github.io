@@ -32,5 +32,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "TextRegular";
+  font-size: 16px;
 }
 </style>

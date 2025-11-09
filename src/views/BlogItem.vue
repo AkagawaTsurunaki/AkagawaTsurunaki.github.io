@@ -96,6 +96,7 @@ function gotoBlog() {
 
 .blog-title {
     font-family: "TextBold";
+    font-size: 24px;
 }
 
 .tags-container ul {
@@ -118,5 +119,6 @@ function gotoBlog() {
 .updated-time-container {
     font-family: "TextRegular";
     color: grey;
+    font: 12px;
 }
 </style>

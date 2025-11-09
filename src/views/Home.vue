@@ -15,9 +15,10 @@ function sendEmail() {
 </script>
 <template>
     <div class="introduction">
-        <div><img :src="avartar" alt="" width="100"></div>
+        <img :src="avartar" alt="" width="128">
         <div class="name">赤川鹤鸣 / AkagawaTsurunaki</div>
-        <div>一名编程、剪辑、绘画、小说啥都搞的程序员。</div>
+        <div class="description">一名编程、剪辑、绘画、小说啥都搞的程序员。</div>
+        <div></div>
         <div class="link-buttons">
             <button class="link-button" @click="gotoExternalSite('https://github.com/AkagawaTsurunaki')">
                 <img class="link-icon" :src="githubIcon" alt="">
@@ -36,6 +37,7 @@ function sendEmail() {
                 <span>Email</span>
             </button>
         </div>
+        <div></div>
         <div class="gradient-underline"></div>
     </div>
 </template>
@@ -75,7 +77,7 @@ function sendEmail() {
 
 .introduction .name {
     font-family: "TextBold";
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .link-button {
@@ -83,13 +85,14 @@ function sendEmail() {
     border-radius: 30px;
     align-items: center;
     font-family: "TextRegular";
+    font-size: 16px;
     gap: 8px;
     display: inline-flex;
 }
 
 .link-icon {
     flex-direction: row;
-    width: 15px;
+    width: 16px;
 }
 
 .link-icon>* {
@@ -99,5 +102,10 @@ function sendEmail() {
 .link-buttons {
     display: flex;
     gap: 15px;
+}
+
+.description {
+    font-family: "TextRegular";
+    font-size: 20px;
 }
 </style>
