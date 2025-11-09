@@ -18,9 +18,8 @@ import { routePush } from '@/scripts/router'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const open = ref(false)
-const root = ref() // 拿到整个下拉区域
+const root = ref()
 
-/* 点击外部关闭 */
 function clickOutside(e: any) {
   if (root.value && !root.value.contains(e.target)) {
     open.value = false
@@ -44,10 +43,14 @@ onBeforeUnmount(() => document.removeEventListener('click', clickOutside))
   margin: 4px 0 0;
   padding: 6px 0;
   min-width: 120px;
-  border: 1px solid #ddd;
+  border: 1px;
+  border-radius: 4px;
   background: #fff;
   list-style: none;
   z-index: 999;
+  font-family: "TextBold";
+  font-size: 16px;
+  box-shadow: 3px 3px 5px #dddddd;
 }
 
 .menu li {

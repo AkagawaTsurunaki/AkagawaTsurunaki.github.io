@@ -55,6 +55,7 @@
 
 .katex-display {
   margin: 0 !important;
+  font-size: 16px;
 }
 
 table {
@@ -77,4 +78,8 @@ th {
 
 img {
   max-width: 80%;
+}
+
+.markdown-body hr {
+  border: 1px solid rgb(222, 228, 240);
 }

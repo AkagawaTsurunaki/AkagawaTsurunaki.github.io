@@ -40,16 +40,38 @@ onMounted(async () => {
     loaded.value = false
     mdTitle.value = await renderMarkdown(props.title)
     mdPreview.value = await renderMarkdown(props.preview)
-    removeImages()
+    removeSpecialToken()
     loaded.value = true
 })
 
-function removeImages() {
+function removeSpecialToken() {
     const previewElmList = document.getElementsByClassName("markdown-body");
     for (const elm of previewElmList) {
-        const images = elm.querySelectorAll('img')
-        images.forEach((img) => {
-            img.remove(); // 移除每个 img 标签
+        removeHr(elm)
+        removeImage(elm)
+        replaceHeader(elm)
+    }
+}
+
+function removeHr(elm: Element) {
+    const hrs = elm.querySelectorAll('hr')
+    hrs.forEach((hr) => {
+        hr.remove();
+    });
+}
+
+function removeImage(elm: Element) {
+    const images = elm.querySelectorAll('img')
+    images.forEach((img) => {
+        img.remove();
+    });
+}
+
+function replaceHeader(elm: Element) {
+    for (let i = 1; i < 6; i++) {
+        const hs = elm.querySelectorAll(`h${i}`)
+        hs.forEach((h) => {
+            h.replaceWith(h.textContent);
         });
     }
 }
@@ -73,6 +95,7 @@ function gotoBlog() {
         </div>
         <!-- 直接渲染 VNode 数组 -->
         <component class="markdown-body" v-for="(node, i) in mdPreview" :key="i" :is="node" />
+        <div class="split"></div>
         <div class="extra-info-container">
             <div class="updated-time-container">{{ updatedTime }}</div>
             <div class="tags-container">
@@ -85,6 +108,10 @@ function gotoBlog() {
 
 </template>
 <style scoped>
+.split {
+    height: 10px;
+}
+
 .blog-item-container {
     display: flex;
     flex-direction: column;
@@ -107,6 +134,7 @@ function gotoBlog() {
 .extra-info-container {
     display: inline-flex;
     justify-content: space-between;
+    font-size: 16px;
 }
 
 .blog-item-container:hover {
@@ -119,6 +147,5 @@ function gotoBlog() {
 .updated-time-container {
     font-family: "TextRegular";
     color: grey;
-    font: 12px;
 }
 </style>
