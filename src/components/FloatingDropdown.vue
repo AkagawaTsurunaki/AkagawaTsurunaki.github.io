@@ -4,11 +4,12 @@
       <MoreFilled style="width: 1em; height: 1em; margin-right: 8px" />
     </button>
     <ul v-show="open" class="menu">
+      <li @click="routePush('/notes')">Note</li>
       <li @click="routePush('/blogs')">Blogs</li>
-      <li @click="routePush('/video')">Video</li>
-      <li @click="routePush('/arts')">Arts</li>
-      <li @click="routePush('/papers')">Papers</li>
-      <li @click="routePush('/about')">About</li>
+      <li @click="gotoExternalSite('https://space.bilibili.com/1076299680')">Video</li>
+      <li @click="routePush('/ohno/mamiheyiwei')">Arts</li>
+      <li @click="routePush('/ohno/mamiheyiwei')">Papers</li>
+      <li @click="routePush('/ohno/mamiheyiwei')">About</li>
     </ul>
   </div>
 </template>
@@ -16,6 +17,7 @@
 <script setup lang="ts">
 import { routePush } from '@/scripts/router'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { gotoExternalSite } from "@/scripts/router"
 
 const open = ref(false)
 const root = ref()
