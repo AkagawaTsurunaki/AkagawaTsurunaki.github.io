@@ -90,3 +90,14 @@ export function getBlogItemList() {
     },
   ]
 }
+
+export function getNoteItemList() {
+  return [
+    {
+      mdFilePath:
+        'notes/the-mathematical-statistics-with-application-note.md',
+      tags: ['数学'],
+      time: '2025-11-12 10:13',
+    },
+  ]
+}

@@ -5,8 +5,9 @@ import Home from '@/views/Home.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home },
-  { path: '/blogs', name: 'text', component: BlogList },
+  { path: '/blogs', name: 'blogs', component: BlogList },
   { path: '/blogs/:filePath', name: 'blogDetail', component: Blog },
+  { path: '/notes', name: 'notes', component: BlogList}
 ]
 
 const router = createRouter({

@@ -1,12 +1,13 @@
-import { getBlogItemList } from './blogRegister.ts'
+import { getBlogItemList, getNoteItemList } from './blogRegister.ts'
 import { BlogItemDto } from '../data.ts'
 import { getMarkdownFileInfo } from '../markdownUtil.ts'
 import fse from 'fs-extra'
 
 const blogCachePath = 'public/cache/blogs.json'
+const noteCachePath = 'public/cache/notes.json'
 
-async function getBlogItemDtoList(): Promise<Array<BlogItemDto>> {
-  const blogItemList = getBlogItemList()
+async function getBlogItemDtoList(blogItemList: Array<any>): Promise<Array<BlogItemDto>> {
+
   const result: Array<BlogItemDto> = []
 
   for (let index = 0; index < blogItemList.length; index++) {
@@ -41,8 +42,14 @@ async function getBlogItemDtoList(): Promise<Array<BlogItemDto>> {
 async function saveCache() {
   try {
     console.log('Building blogs cache...')
-    const blogs = await getBlogItemDtoList()
+    const blogItemList = getBlogItemList()
+    const blogs = await getBlogItemDtoList(blogItemList)
     fse.writeJson(blogCachePath, blogs, { spaces: 2 })
+
+    const noteItemList = getNoteItemList()
+    const notes = await getBlogItemDtoList(noteItemList)
+    fse.writeJson(noteCachePath, notes, { spaces: 2 })
+
     console.log('Blogs cache saved.')
   } catch (error) {
     console.error('Error to build blogs cache: \n', error)

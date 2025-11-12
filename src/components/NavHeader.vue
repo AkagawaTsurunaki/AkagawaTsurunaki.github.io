@@ -13,6 +13,9 @@ import FloatingDropdown from './FloatingDropdown.vue';
     </div>
     <div class="navbar-item" id="navbar-button-group">
       <ul class="navbar-button-group">
+        <li @click="routePush('/notes')">
+          <a class="navbar-a header-font">Notes</a>
+        </li>
         <li @click="routePush('/blogs')">
           <a class="navbar-a header-font">Blogs</a>
         </li>

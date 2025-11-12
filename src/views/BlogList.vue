@@ -6,10 +6,21 @@ import { onMounted, ref } from 'vue'
 import { DialogLevel, openDialog } from '@/scripts/dialog'
 import { getBlogItemListFromCache, getBlogItemListFromOnline } from '@/scripts/api/blogApi'
 import { withTiming } from '@/scripts/diagnose/withTiming'
+import { useRoute } from 'vue-router'
 
+// const props = defineProps(
+//   {
+//     blogType: {
+//       type: String,
+//       default: 'blogs'
+//     }
+//   }
+// )
 const blogItemList = ref<BlogItemDto[]>([])
 let loaded = ref(false)
 const useCache = true
+const route = useRoute()
+
 
 onMounted(() => {
   withTiming(
@@ -17,11 +28,12 @@ onMounted(() => {
       loaded.value = false
       try {
         let blogInfo = []
+        console.log(String(route.name))
         if (useCache) {
-          blogInfo = await getBlogItemListFromCache()
+          blogInfo = await getBlogItemListFromCache(String(route.name))
         }
         else {
-          blogInfo = await getBlogItemListFromOnline()
+          blogInfo = await getBlogItemListFromOnline(String(route.name))
         }
         if (!blogInfo) return
 

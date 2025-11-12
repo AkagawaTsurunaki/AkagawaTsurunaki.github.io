@@ -1,11 +1,11 @@
 import { plainToInstance } from 'class-transformer'
 import { readFileJson } from './fileApi'
 import { BlogItemDto } from '../data'
-import { getBlogItemList } from '../build/blogRegister'
+import { getBlogItemList, getNoteItemList } from '../build/blogRegister'
 import { getMarkdownFileInfoByPath } from '../markdownUtil'
 
-export async function getBlogItemListFromCache(): Promise<Array<BlogItemDto>> {
-  const path = '/cache/blogs.json'
+export async function getBlogItemListFromCache(s: string): Promise<Array<BlogItemDto>> {
+  const path = `/cache/${s}.json`
   const json = await readFileJson(path)
   if (json) {
     const blogs: Array<BlogItemDto> = plainToInstance(BlogItemDto, json)
@@ -15,8 +15,13 @@ export async function getBlogItemListFromCache(): Promise<Array<BlogItemDto>> {
 }
 
 // This API should not use in product env
-export async function getBlogItemListFromOnline(): Promise<Array<BlogItemDto>> {
-  const blogRegList = getBlogItemList()
+export async function getBlogItemListFromOnline(s: string): Promise<Array<BlogItemDto>> {
+  let blogRegList = []
+  if (s === 'blogs') {
+    blogRegList = getBlogItemList()
+  } else {
+    blogRegList = getNoteItemList()
+  }
 
   const promises = blogRegList.map((blogReg, index) => {
     if (!blogReg?.mdFilePath) {
