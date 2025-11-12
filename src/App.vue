@@ -9,7 +9,10 @@ import NavHeader from './components/NavHeader.vue'
     <div class="background">
       <RouterView />
     </div>
-    <div class="copyright-container">©2025 AkagawaTsurunaki</div>
+    <div class="copyright-container">
+      <p>©2025 AkagawaTsurunaki</p>
+      <p>All Rights Reserved.</p>
+    </div>
   </main>
 </template>
 <style scoped>
@@ -29,10 +32,13 @@ main {
 }
 
 .copyright-container {
+  margin-top: 50px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: "TextRegular";
-  font-size: 16px;
+  font-size: 12px;
+  color: rgb(91, 91, 91);
 }
 </style>

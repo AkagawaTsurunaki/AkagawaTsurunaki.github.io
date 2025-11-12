@@ -11,8 +11,7 @@ let loaded = ref(false)
 
 async function setBlogDetail() {
   if (route.params.filePath && typeof route.params.filePath === 'string') {
-    const filePath = decodeURIComponent(route.params.filePath)
-    const res = await fetch(filePath)
+    const res = await fetch(route.path)
     if (!res.ok) return null
     blogContent.value = await res.text()
   }

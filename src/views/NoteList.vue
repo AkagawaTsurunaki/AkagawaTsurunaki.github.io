@@ -20,11 +20,12 @@ onMounted(() => {
       loaded.value = false
       try {
         let blogInfo = []
+        console.log(String(route.name))
         if (useCache) {
-          blogInfo = await getBlogItemListFromCache('blogs')
+          blogInfo = await getBlogItemListFromCache('notes')
         }
         else {
-          blogInfo = await getBlogItemListFromOnline('blogs')
+          blogInfo = await getBlogItemListFromOnline('notes')
         }
         if (!blogInfo) return
 
@@ -39,7 +40,7 @@ onMounted(() => {
         openDialog(
           DialogLevel.ERROR,
           '出错了',
-          '获取博客列表时遇到了错误。\n刷新页面可能会修复此问题。若该问题多次出现，请联系系统管理员。',
+          '获取笔记列表时遇到了错误。\n刷新页面可能会修复此问题。若该问题多次出现，请联系系统管理员。',
         )
       }
       loaded.value = true

@@ -70,7 +70,11 @@ function replaceHeader(elm: Element) {
 
 function gotoBlog() {
     if (props.id !== null && props.filePath !== null) {
-        routePush(`/blogs/${encodeURIComponent(props.filePath)}`)
+        // routePush(`/blogs/${encodeURIComponent(props.filePath)}`)
+        const endpoints = props.filePath.split("/")
+        const folder = endpoints[0] 
+        const path = endpoints[1]
+        routePush(props.filePath)
     } else {
         console.error("未提供博客地址")
     }
