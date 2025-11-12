@@ -46,11 +46,6 @@ onMounted(async () => {
 </template>
 <style src="@/assets/markdown.css"></style>
 <style scoped>
-.markdown-editor {
-  display: flex;
-  flex-direction: row;
-}
-
 .markdown-wrapper {
   margin-left: 260px;
   padding: 24px;
