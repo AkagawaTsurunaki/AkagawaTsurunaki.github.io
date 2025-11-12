@@ -1,12 +1,12 @@
 [
   {
     "id": 0,
-    "title": "应用数理统计笔记\r\n",
+    "title": "应用数理统计笔记\n",
     "tags": [
       "数学"
     ],
     "updatedTime": "2025-11-12 10:13",
-    "preview": "\r\n> 笔记作者：赤川鹤鸣_Channel\r\n>\r\n> 发布网站：https://akagawatsurunaki.github.io\r\n>\r\n> 参考资料：\r\n>\r\n> 1. 孙飞. 应用数理统计[DB/OL]. 沈阳：东北大学数学系, 2025. \r\n> 2. 孙荣恒. 应用数理统计[M]. 第三版. 北京：科学出版社, 2014.\r\n\r\n> [!CAUTION]\r\n>...",
+    "preview": "\n> 笔记作者：赤川鹤鸣_Channel\n>\n> 发布网站：https://akagawatsurunaki.github.io\n>\n> 参考资料：\n>\n> 1. 孙飞. 应用数理统计[DB/OL]. 沈阳：东北大学数学系, 2025. \n> 2. 孙荣恒. 应用数理统计[M]. 第三版. 北京：科学出版社, 2014.\n\n> [!CAUTION]\n>\n> 作者无法保证所有内...",
     "filePath": "notes/the-mathematical-statistics-with-application-note.md"
   }
 ]
