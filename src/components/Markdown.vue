@@ -11,8 +11,8 @@ const props = defineProps({
   }
 })
 
-const nodes = ref<any[]>([]);
-const loaded = ref<boolean>(false)
+const nodes = ref<any[]>([])
+const loaded = ref<boolean>()
 
 onMounted(async () => {
   loaded.value = false
