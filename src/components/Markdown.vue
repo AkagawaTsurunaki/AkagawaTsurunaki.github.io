@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { onMounted, ref } from 'vue';
-import { renderMarkdown } from '@/scripts/markdownRender';
+import { renderMarkdown } from '@/scripts/render/markdownRender';
 import MarkdownSkeleton from '@/components/MarkdownSkeleton.vue'
 
 const props = defineProps({

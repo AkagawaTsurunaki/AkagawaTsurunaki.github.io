@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Tag from '@/components/Tag.vue';
-import { renderMarkdown } from '@/scripts/markdownRender';
+import { renderMarkdown } from '@/scripts/render/markdownRender';
 import { routePush } from '@/scripts/router';
 import { getTimeString } from '@/scripts/timeUtil';
 import { onMounted, ref, type PropType, type VNode } from 'vue';

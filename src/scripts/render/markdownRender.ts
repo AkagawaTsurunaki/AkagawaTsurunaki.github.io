@@ -2,14 +2,14 @@ import { marked } from 'marked'
 import { h } from 'vue'
 import type { VNode } from 'vue'
 import CodeBlock from '@/components/CodeBlock.vue'
-import Image from '../components/Image.vue'
+import Image from '../../components/Image.vue'
 import { parse } from 'node-html-parser'
 
 export async function renderMarkdown(
   src: string,
   skip: undefined | Array<string> = undefined,
 ): Promise<VNode[]> {
-  const katex = await import('@/scripts/katexRender')
+  const katex = await import('@/scripts/render/katexRender')
   marked.use(katex.default({ strict: false }))
 
   // Inject custom components to AST of marked.
