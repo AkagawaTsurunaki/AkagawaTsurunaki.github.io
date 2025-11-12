@@ -56,5 +56,9 @@ onMounted(async () => {
   .markdown-wrapper {
     margin-left: 0;
   }
+
+  .header-table {
+    display: none;
+  }
 }
 </style>

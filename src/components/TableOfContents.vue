@@ -5,8 +5,21 @@ defineProps<{
     headers: Array<Header>
 }>()
 
+
 function jump(id: string) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const onScrollEnd = () => {
+        el.classList.add('highlight');
+        const removeHighlight = () => {
+            el.classList.remove('highlight');
+            document.removeEventListener('scroll', removeHighlight);
+        };
+        document.addEventListener('scroll', removeHighlight, { once: true });
+    };
+    document.addEventListener('scrollend', onScrollEnd, { once: true });
+    setTimeout(onScrollEnd, 1000);
 }
 </script>
 
@@ -25,7 +38,13 @@ function jump(id: string) {
     </aside>
 </template>
 
-<style scoped>
+<style>
+.highlight {
+    background: var(--akt-c-yellow);
+    transition: .4s ease;
+    border-radius: 6px;
+}
+
 .toc {
     position: fixed;
     left: 0px;
@@ -39,13 +58,13 @@ function jump(id: string) {
     font-size: 14px;
 }
 
-ul {
+.toc ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-li a {
+.toc li a {
     display: block;
     line-height: 32px;
     color: #333;
