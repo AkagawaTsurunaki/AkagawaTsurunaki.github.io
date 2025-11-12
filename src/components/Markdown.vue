@@ -3,11 +3,11 @@
 import { onMounted, ref } from 'vue';
 import { renderMarkdown } from '@/scripts/render/markdownRender';
 import MarkdownSkeleton from '@/components/MarkdownSkeleton.vue'
-import HeaderTable from './HeaderTable.vue';
-import { HeaderTreeNode } from '../scripts/data';
+import TableOfContents from './TableOfContents.vue';
+import { Header } from '../scripts/data';
 import { parseMarkdownToc } from '@/scripts/markdownUtil';
 
-const tableRoot = ref<HeaderTreeNode>()
+const headers = ref<Header[]>([])
 
 const props = defineProps({
   mdText: {
@@ -22,7 +22,7 @@ const loaded = ref<boolean>()
 onMounted(async () => {
   loaded.value = false
   console.log("assaaas")
-  tableRoot.value = parseMarkdownToc(props.mdText)
+  headers.value = parseMarkdownToc(props.mdText)
   nodes.value = await renderMarkdown(props.mdText);
   loaded.value = true
 })
@@ -30,7 +30,7 @@ onMounted(async () => {
 </script>
 <template>
   <div class="header-table">
-    <HeaderTable :tree="tableRoot"></HeaderTable>
+    <TableOfContents :headers="headers"></TableOfContents>
   </div>
   <div class="markdown-wrapper">
     <div v-if="!loaded" class="markdown-container">

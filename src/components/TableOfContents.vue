@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { HeaderTreeNode } from '../scripts/data';
+import { Header } from '../scripts/data';
 
 defineProps<{
-    tree: HeaderTreeNode
+    headers: Array<Header>
 }>()
 
 function jump(id: string) {
@@ -11,14 +11,15 @@ function jump(id: string) {
 </script>
 
 <template>
-    <aside class="toc" v-if="tree !== undefined">
+    <aside class="toc" v-if="headers !== undefined">
         <ul>
-            <li v-for="node in tree.children" :key="node.id">
-                <a :style="{ paddingLeft: (node.level - 1) * 16 + 'px' }" :href="'#' + node.id"
+            <li v-for="node in headers" :key="node.id">
+                <a :style="{ paddingLeft: (node.level - 1) * 12 + 'px' }" :href="'#' + node.id"
                     @click.prevent="jump(node.id)">
-                    {{ node.text }}
+                    <div class="toc-item">
+                        {{ node.text }}
+                    </div>
                 </a>
-                <TableOfContents v-if="node.children.length" :tree="node" />
             </li>
         </ul>
     </aside>
@@ -50,5 +51,11 @@ li a {
     color: #333;
     text-decoration: none;
     transition: color .2s;
+    font-family: "TextBold";
+
+}
+
+.toc-item {
+    border-left: 0px solid gray;
 }
 </style>

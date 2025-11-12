@@ -25,11 +25,10 @@ export class BlogItemDto {
   ) {}
 }
 
-export class HeaderTreeNode {
+export class Header {
   constructor(
     public id: string, // 对应正文的 h1/h2/h3… id，用于锚点跳转
     public level: number, // 1~6 方便做缩进
     public text: string, // 标题文字
-    public children: HeaderTreeNode[] = [],
   ) {}
 }
