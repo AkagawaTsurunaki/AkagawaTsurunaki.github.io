@@ -2,6 +2,7 @@
 import avartar from '@/assets/avartar.png'
 import { routePush } from '@/scripts/router'
 import FloatingDropdown from './FloatingDropdown.vue';
+import { gotoExternalSite } from "@/scripts/router"
 </script>
 <template>
   <header class="navbar">
@@ -19,16 +20,16 @@ import FloatingDropdown from './FloatingDropdown.vue';
         <li @click="routePush('/blogs')">
           <a class="navbar-a header-font">Blogs</a>
         </li>
-        <li @click="routePush('/video')">
+        <li @click="gotoExternalSite('https://space.bilibili.com/1076299680')">
           <a class="navbar-a header-font">Video</a>
         </li>
-        <li @click="routePush('/arts')">
+        <li @click="routePush('/ohno/mamiheyiwei')">
           <a class="navbar-a header-font">Arts</a>
         </li>
-        <li @click="routePush('/papers')">
+        <li @click="routePush('/ohno/mamiheyiwei')">
           <a class="navbar-a header-font">Papers</a>
         </li>
-        <li @click="routePush('/about')">
+        <li @click="routePush('/ohno/mamiheyiwei')">
           <a class="navbar-a header-font">About</a>
         </li>
       </ul>

@@ -3,13 +3,15 @@ import BlogList from '@/views/BlogList.vue'
 import Blog from '@/views/Blog.vue'
 import Home from '@/views/Home.vue'
 import NoteList from '@/views/NoteList.vue'
+import Ohno from '@/views/Ohno.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home },
   { path: '/blogs', name: 'blogs', component: BlogList },
   { path: '/blogs/:filePath(.*)', name: 'blogDetail', component: Blog },
   { path: '/notes', name: 'notes', component: NoteList},
-  { path: '/notes/:filePath', name: 'notesDetail', component: Blog}
+  { path: '/notes/:filePath', name: 'notesDetail', component: Blog},
+  { path: '/ohno/mamiheyiwei', name: 'ohno', component: Ohno}
 ]
 
 const router = createRouter({
