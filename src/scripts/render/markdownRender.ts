@@ -4,6 +4,7 @@ import type { VNode } from 'vue'
 import CodeBlock from '@/components/CodeBlock.vue'
 import Image from '../../components/Image.vue'
 import { parse } from 'node-html-parser'
+import MermaidBlock from '@/components/MermaidBlock.vue'
 
 export async function renderMarkdown(
   src: string,
@@ -19,15 +20,26 @@ export async function renderMarkdown(
     const token = tokens[i]
     if (token) {
       if (token.type === 'code') {
-        // If code block
-        vNodes.push(
-          h(CodeBlock, {
-            key: `code-${i}`,
-            language: token.lang || '',
-            code: token.text,
-            rawHtml: null,
-          }),
-        )
+        if (token.lang === 'mermaid') {
+          vNodes.push(
+            h(MermaidBlock, {
+              key: `code-${i}`,
+              language: token.lang || '',
+              code: token.text,
+              rawHtml: null,
+            }),
+          )
+        } else {
+          // If code block
+          vNodes.push(
+            h(CodeBlock, {
+              key: `code-${i}`,
+              language: token.lang || '',
+              code: token.text,
+              rawHtml: null,
+            }),
+          )
+        }
       } else if (token.type === 'blockKatex') {
         const html = marked.parser([token])
         vNodes.push(
