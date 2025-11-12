@@ -1,4 +1,7 @@
+import { marked, type Token, type Tokens } from 'marked'
 import { readFileText } from './api/fileApi'
+import { HeaderTreeNode } from './data'
+import 'marked'
 
 export async function getMarkdownFileInfoByPath(
   publicPath: string,
@@ -57,4 +60,44 @@ function getIndexOfFirstBr(str: string) {
     }
   }
   return -1
+}
+
+export function parseMarkdownToc(markdownContent: string): HeaderTreeNode {
+  const tokens = marked.lexer(markdownContent)
+  const headingTokens = tokens.filter((token) => token.type === 'heading') as Tokens.Heading[]
+  console.log(headingTokens)
+  const root = new HeaderTreeNode('', 0, '', [])
+  buildTree(headingTokens, root)
+  console.log(root)
+  return root
+}
+
+export function buildTree(tokens: Tokens.Heading[], root: HeaderTreeNode): void {
+  // 栈顶永远是“当前节点”的父节点
+  const stack: HeaderTreeNode[] = [root]
+
+  tokens.forEach((tok) => {
+    const level = tok.depth
+    const text = tok.text
+    // 生成 id：github 风格锚点，空格变 -，去掉特殊符号
+    const id = text
+      .toLowerCase()
+      .replace(/[^\p{L}\p{N}\s-]/gu, '') // 去掉标点
+      .trim()
+      .replace(/\s+/g, '-')
+
+    // 1. 找到正确的父：栈中最后一个 level < 当前 level
+    while (stack.length > 1 && stack[stack.length - 1].level >= level) {
+      stack.pop()
+    }
+
+    // 2. 创建新节点
+    const node = new HeaderTreeNode(id, level, text, [])
+
+    // 3. 挂到父节点
+    stack[stack.length - 1].children.push(node)
+
+    // 4. 自己入栈，成为下一个节点的候选父
+    stack.push(node)
+  })
 }
