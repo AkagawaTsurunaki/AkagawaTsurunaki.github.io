@@ -28,14 +28,14 @@ function jump(id: string) {
 <style scoped>
 .toc {
     position: fixed;
-    left: 0;
+    left: 0px;
     top: 60px;
     bottom: 0;
-    width: 240px;
+    max-width: 300px;
     background: #fafafa;
     border-right: 1px solid #e5e5e5;
     overflow-y: auto;
-    padding: 24px 0;
+    padding: 10px;
     font-size: 14px;
 }
 

@@ -29,20 +29,28 @@ onMounted(async () => {
 
 </script>
 <template>
-  <div class="header-table">
-    <TableOfContents :headers="headers"></TableOfContents>
-  </div>
-  <div class="markdown-wrapper">
-    <div v-if="!loaded" class="markdown-container">
-      <MarkdownSkeleton />
+  <div class="markdown-editor">
+    <div class="header-table">
+      <TableOfContents :headers="headers"></TableOfContents>
     </div>
-    <div v-else class="markdown-body">
-      <component v-for="(n, i) in nodes" :key="i" :is="n" />
+    <div class="markdown-wrapper">
+      <div v-if="!loaded" class="markdown-container">
+        <MarkdownSkeleton />
+      </div>
+      <div v-else class="markdown-body">
+        <component v-for="(n, i) in nodes" :key="i" :is="n" />
+      </div>
     </div>
   </div>
+
 </template>
 <style src="@/assets/markdown.css"></style>
 <style scoped>
+.markdown-editor {
+  display: flex;
+  flex-direction: row;
+}
+
 .markdown-wrapper {
   margin-left: 260px;
   padding: 24px;
