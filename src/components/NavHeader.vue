@@ -72,7 +72,7 @@ import { gotoExternalSite } from "@/scripts/router"
   background: #fcfcfc;
   box-shadow: 3px 3px 5px #dddddd;
   height: 60px;
-  padding: 0 50px;
+  padding: 0 5%;
   z-index: 10;
 }
 
