@@ -5,7 +5,6 @@ import { renderMarkdown } from '@/scripts/render/markdownRender';
 import MarkdownSkeleton from '@/components/MarkdownSkeleton.vue'
 import TableOfContents from './TableOfContents.vue';
 import { Header } from '../scripts/data';
-import { parseMarkdownToc } from '@/scripts/markdownUtil';
 
 const headers = ref<Header[]>([])
 
@@ -22,8 +21,9 @@ const loaded = ref<boolean>()
 onMounted(async () => {
   loaded.value = false
   console.log("assaaas")
-  headers.value = parseMarkdownToc(props.mdText)
-  nodes.value = await renderMarkdown(props.mdText);
+  const info = await renderMarkdown(props.mdText);
+  nodes.value = info.nodes
+  headers.value = info.toc
   loaded.value = true
 })
 

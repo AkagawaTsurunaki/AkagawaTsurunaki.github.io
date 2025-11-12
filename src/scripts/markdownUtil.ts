@@ -62,10 +62,19 @@ function getIndexOfFirstBr(str: string) {
   return -1
 }
 
-export function parseMarkdownToc(markdownContent: string): Array<Header> {
-  const tokens = marked.lexer(markdownContent)
+export function parseMarkdownToc(tokens: Token[]): Array<Header> {
   const headingTokens = tokens.filter((token) => token.type === 'heading') as Tokens.Heading[]
+  let num = 1
   return headingTokens.map((token) => {
-    return new Header('', token.depth, token.text)
+    const id = `${slugify(token.text)}`
+    return new Header(id, token.depth, token.text)
   })
+}
+
+export function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .trim()
+    .replace(/\s+/g, '-')
 }

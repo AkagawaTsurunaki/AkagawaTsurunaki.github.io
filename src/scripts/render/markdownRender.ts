@@ -5,16 +5,27 @@ import CodeBlock from '@/components/CodeBlock.vue'
 import Image from '../../components/Image.vue'
 import { parse } from 'node-html-parser'
 import MermaidBlock from '@/components/MermaidBlock.vue'
+import { parseMarkdownToc, slugify } from '../markdownUtil'
+import { MarkdownDto } from '../data'
 
 export async function renderMarkdown(
   src: string,
   skip: undefined | Array<string> = undefined,
-): Promise<VNode[]> {
+): Promise<MarkdownDto> {
   const katex = await import('@/scripts/render/katexRender')
   marked.use(katex.default({ strict: false }))
 
+  const renderer = new marked.Renderer()
+  renderer.heading = ({ text, depth }) => {
+    const id = slugify(text)
+    return `<h${depth} id="${id}">${text}</h${depth}>`
+  }
+  marked.use({ renderer })
+
   // Inject custom components to AST of marked.
   const tokens = marked.lexer(src)
+  const headers = parseMarkdownToc(tokens)
+
   const vNodes: VNode[] = []
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i]
@@ -89,5 +100,5 @@ export async function renderMarkdown(
       }
     }
   }
-  return vNodes
+  return new MarkdownDto(vNodes, headers)
 }

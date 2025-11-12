@@ -38,8 +38,8 @@ let loaded = ref(false)
 
 onMounted(async () => {
     loaded.value = false
-    mdTitle.value = await renderMarkdown(props.title)
-    mdPreview.value = await renderMarkdown(props.preview, ['image'])
+    mdTitle.value = await (await renderMarkdown(props.title)).nodes
+    mdPreview.value = await (await renderMarkdown(props.preview, ['image'])).nodes
     removeSpecialToken()
     loaded.value = true
 })
@@ -72,7 +72,7 @@ function gotoBlog() {
     if (props.id !== null && props.filePath !== null) {
         // routePush(`/blogs/${encodeURIComponent(props.filePath)}`)
         const endpoints = props.filePath.split("/")
-        const folder = endpoints[0] 
+        const folder = endpoints[0]
         const path = endpoints[1]
         routePush(props.filePath)
     } else {

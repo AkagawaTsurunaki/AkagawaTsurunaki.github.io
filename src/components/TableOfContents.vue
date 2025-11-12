@@ -6,7 +6,7 @@ defineProps<{
 }>()
 
 function jump(id: string) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
 }
 </script>
 
