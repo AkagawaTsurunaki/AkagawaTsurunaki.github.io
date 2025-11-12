@@ -35,6 +35,10 @@ mermaid.initialize({
     securityLevel: 'loose'
 });
 
+onMounted(async () => {
+    await mermaid.run()
+})
+
 async function handleCopy() {
     await handleButtonTransition(
         async () => {
