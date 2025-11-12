@@ -79,6 +79,10 @@ import FloatingDropdown from './FloatingDropdown.vue';
 .navbar-button-group {
   display: flex;
   list-style: none;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .navbar-button-group li {
