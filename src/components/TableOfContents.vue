@@ -69,9 +69,7 @@ function jump(id: string) {
     line-height: 32px;
     color: #333;
     text-decoration: none;
-    transition: color .2s;
     font-family: "TextBold";
-
 }
 
 .toc-item {
