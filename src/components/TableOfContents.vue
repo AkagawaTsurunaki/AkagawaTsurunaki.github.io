@@ -1,9 +1,24 @@
 <script setup lang="ts">
 import { Header } from '../scripts/data';
+import { ref, watch } from 'vue';
+import { marked } from 'marked';
 
-defineProps<{
+const props = defineProps<{
     headers: Array<Header>
 }>()
+
+const headingHtmlMap = ref<Map<string, string>>(new Map())
+
+async function renderAll() {
+    headingHtmlMap.value.clear()
+    const tasks = props.headers.map(async h => ({
+        id: h.id,
+        html: await marked.parse(h.text)
+    }))
+    const list = await Promise.all(tasks)
+    list.forEach(({ id, html }) => headingHtmlMap.value.set(id, html))
+}
+watch(() => props.headers, renderAll, { immediate: true })
 
 
 function jump(id: string) {
@@ -29,8 +44,7 @@ function jump(id: string) {
             <li v-for="node in headers" :key="node.id">
                 <a :style="{ paddingLeft: (node.level - 1) * 12 + 'px' }" :href="'#' + node.id"
                     @click.prevent="jump(node.id)">
-                    <div class="toc-item">
-                        {{ node.text }}
+                    <div class="toc-item" v-html="headingHtmlMap.get(node.id)">
                     </div>
                 </a>
             </li>
