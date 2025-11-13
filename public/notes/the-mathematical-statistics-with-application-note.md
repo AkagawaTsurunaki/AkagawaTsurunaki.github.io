@@ -507,7 +507,7 @@ $f(t) = E \left(e^{itX} \right), \ t \in \mathbb{R}^1$
 
 - **依概率收敛**（数列收敛）：$ X_n \xrightarrow{p} X ⇔ \forall \varepsilon>0,\; P(|X_n-X|\ge\varepsilon)\to 0 $
 - **依分布收敛**（函数收敛）：$X_n \xrightarrow{d} X ⇔ \forall x \in R^1, \ P(X_n\le x)\to P(X\le x)$
-- **几乎处处收敛**：$X*n \xrightarrow{a.s.} X ⇔ P \left( \{w: lim*{n \rightarrow +\infty} X_n(w) = X(w) \} \right) = 1 $
+- **几乎处处收敛**：$X_n \xrightarrow{a.s.} X \iff P\!\left(\left\{ \omega : \lim_{n\to+\infty} X_n(\omega) = X(\omega) \right\}\right) = 1$
 
 **大数定律**
 
