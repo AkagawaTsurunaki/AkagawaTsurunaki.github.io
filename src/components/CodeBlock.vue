@@ -71,6 +71,7 @@ async function handleButtonTransition(callback: Function, flag: Ref, timer: Ref)
 <style scoped>
 .code-wrapper {
   position: relative;
+  overflow: auto;
 }
 
 .code-tools {
