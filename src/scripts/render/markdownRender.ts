@@ -12,13 +12,6 @@ import Table from '@/components/Table.vue'
 const katex = await import('@/scripts/render/katexRender')
 marked.use(katex.default({ strict: false }))
 
-const renderer = new marked.Renderer()
-renderer.heading = ({ text, depth }) => {
-  const id = slugify(text)
-  return `<h${depth} id="${id}">${text}</h${depth}>`
-}
-marked.use({ renderer })
-
 export async function renderMarkdown(
   src: string,
   skip: undefined | Array<string> = undefined,
@@ -35,7 +28,7 @@ export async function renderMarkdown(
         if (token.lang === 'mermaid') {
           vNodes.push(
             h(MermaidBlock, {
-              key: `code-${i}`,
+              id: `code-${i}`,
               language: token.lang || '',
               code: token.text,
               rawHtml: null,
@@ -45,7 +38,7 @@ export async function renderMarkdown(
           // If code block
           vNodes.push(
             h(CodeBlock, {
-              key: `code-${i}`,
+              id: `code-${i}`,
               language: token.lang || '',
               code: token.text,
               rawHtml: null,
@@ -56,7 +49,7 @@ export async function renderMarkdown(
         const html = marked.parser([token])
         vNodes.push(
           h(CodeBlock, {
-            key: `katex-${i}`,
+            id: `katex-${i}`,
             language: 'katex',
             code: token.text,
             rawHtml: html,
@@ -70,11 +63,23 @@ export async function renderMarkdown(
             altText: token.text || '',
             width: undefined,
             height: undefined,
-            key: `image-${i}`,
+            id: `image-${i}`,
           }),
         )
       } else if (token.type === 'table') {
         vNodes.push(h(Table, { mdText: token.raw }))
+      } else if (token.type === 'heading') {
+        if (skip?.includes('heading')) continue
+        const id = slugify(token.text)
+        let html = await marked.parse(token.raw)
+        html = html.substring(4, html.length - 6)
+        vNodes.push(
+          h(`h${token.depth}`, {
+            id: id,
+            innerHTML: html,
+            class: 'md-heading',
+          }),
+        )
       } else {
         // Wrap with v-node for other HTML content.
         const html = marked.parser([token])
@@ -89,13 +94,13 @@ export async function renderMarkdown(
               altText: img?.getAttribute('alt') || '',
               width: Number(img?.getAttribute('width')) || undefined,
               height: Number(img?.getAttribute('height')) || undefined,
-              key: `image-${i}`,
+              id: `image-${i}`,
             }),
           )
         } else {
           vNodes.push(
             h('div', {
-              key: `html-${i}`,
+              id: `html-${i}`,
               innerHTML: html,
             }),
           )
