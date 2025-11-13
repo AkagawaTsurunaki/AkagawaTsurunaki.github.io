@@ -40,11 +40,11 @@ onBeforeUnmount(() => document.removeEventListener('click', clickOutside))
 
 .menu {
   position: absolute;
-  left: 0;
+  left: -200%;
   top: 100%;
   margin: 4px 0 0;
   padding: 6px 0;
-  min-width: 120px;
+  min-width: 100px;
   border: 1px;
   border-radius: 4px;
   background: #fff;
@@ -58,6 +58,7 @@ onBeforeUnmount(() => document.removeEventListener('click', clickOutside))
 .menu li {
   padding: 6px 12px;
   cursor: pointer;
+  text-align: center;
 }
 
 .menu li:hover {
