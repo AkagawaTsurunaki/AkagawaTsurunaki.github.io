@@ -7,6 +7,7 @@ import { parse } from 'node-html-parser'
 import MermaidBlock from '@/components/MermaidBlock.vue'
 import { parseMarkdownToc, slugify } from '../markdownUtil'
 import { MarkdownDto } from '../data'
+import Table from '@/components/Table.vue'
 
 const katex = await import('@/scripts/render/katexRender')
 marked.use(katex.default({ strict: false }))
@@ -72,6 +73,8 @@ export async function renderMarkdown(
             key: `image-${i}`,
           }),
         )
+      } else if (token.type === 'table') {
+        vNodes.push(h(Table, { mdText: token.raw }))
       } else {
         // Wrap with v-node for other HTML content.
         const html = marked.parser([token])
