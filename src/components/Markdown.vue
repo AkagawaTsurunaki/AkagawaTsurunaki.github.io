@@ -20,7 +20,6 @@ const loaded = ref<boolean>()
 
 onMounted(async () => {
   loaded.value = false
-  console.log("assaaas")
   const info = await renderMarkdown(props.mdText);
   nodes.value = info.nodes
   headers.value = info.toc
