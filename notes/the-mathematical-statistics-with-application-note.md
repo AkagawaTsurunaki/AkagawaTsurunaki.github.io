@@ -1,3 +1,5 @@
+<!-- 赤川鹤鸣_Channel 版权所有 | AkagawaTsurunaki All rights reserved. -->
+
 # 应用数理统计笔记
 
 > 笔记作者：赤川鹤鸣\_Channel
@@ -11,9 +13,13 @@
 
 > [!CAUTION]
 >
-> 作者无法保证所有内容都精确无误，**请自行甄别笔记中的内容**. 同时，本笔记本身是**免费公开**的，作者没有以任何方式采取收费！
+> 作者无法保证所有内容都精确无误，**请自行甄别笔记中的内容**. 同时，本笔记本身是**免费公开**的，但作者仍然**保留版权**.
 >
 > 因考试范围限制，相对于孙荣恒著的原书《应用数理统计（第三版）》，本笔记**没有包含**以下内容：2.6 截尾寿命试验中指数分布和几何分布的参数估计、3.2.8 截尾试验中指数分布参数的假设检验、3.4 一致最优势检验、3.5 质量控制、4.2 双因素方差分析、4.3 正交试验设计、5.4 带有线性约束的线性回归模型.
+
+> [!NOTE]
+>
+> 我们约定，如无特殊说明，本笔记出现的样本方差 $S^2$ 默认为无偏样本方差，分位数 $Q_{\alpha}$ 默认为上分位数，损失函数默认为平方损失.
 
 ## 概率论基础
 
@@ -59,6 +65,20 @@ $$
 E(X) = np \hspace{2em} D(X)=np(1-p)
 $$
 
+#### 帕斯卡（Pascal）分布（负二项分布）
+
+**概率质量函数**
+
+$$
+P(X=k) = \binom{k-1}{r-1} p^r q ^{k-r} \quad k=r, r+1, \dots
+$$
+
+**期望与方差**
+
+$$
+E(X) = \dfrac{r}{p} \quad D(X) = \dfrac{r q}{p^2}
+$$
+
 #### 超几何分布
 
 总体 $N$ 件，其中 $M$ 件“成功”，无放回抽取 $n$ 件.
@@ -77,7 +97,7 @@ $$
 
 **抽小球问题：**有放回，二项分布（变量独立同分布）；无放回，超几何分布（变量同分布，不独立）. 小球无穷多，超几何分布收敛于二项分布.
 
-#### 泊松分布
+#### 泊松（Poisson）分布
 
 **概率质量函数**
 
@@ -257,6 +277,8 @@ $$
 3. Gamma 分布具有可加性：两个独立随机变量 $X$ 和 $Y$ ，且 $X \sim \Gamma(\alpha, \gamma)$，$Y \sim \Gamma(\beta, \gamma)$，则 $Z = X+Y \sim \Gamma(\alpha + \beta, \gamma)$.
 4. 而且如果 $X \sim \Gamma(\alpha, \lambda)$，则 $cX \sim \Gamma(\alpha, \frac{\lambda}{c})$.
 5. $\Gamma(\alpha+1) = \alpha \Gamma(\alpha)$
+6. $\Gamma(1)=1, \ \Gamma(\frac{1}{2})=\sqrt{\pi}$
+7. $\Gamma(n) = (n-1)!$
 
 #### Beta 分布
 
@@ -270,16 +292,6 @@ $$
 E(X) = \dfrac{\alpha}{\alpha+\beta} \quad D(X) = \dfrac{\alpha \beta}{(\alpha+\beta)^2 (\alpha+\beta+1)}
 $$
 
-#### 帕斯卡分布
-
-$$
-P(X=k) = \binom{k-1}{r-1} p^r q ^{k-r} \quad k=r, r+1, \dots
-$$
-
-$$
-E(X) = \dfrac{r}{p} \quad D(X) = \dfrac{r q}{p^2}
-$$
-
 #### 倒 Gamma 分布
 
 $$
@@ -289,6 +301,19 @@ $$
 $$
 E(X) = \dfrac{\beta}{\alpha- 1} \quad (\alpha>1)  \quad D(X)=\dfrac{\beta^2}{(\alpha-1)^2 (\alpha-2)} \quad (\alpha>2)
 $$
+
+### 指数型分布族
+
+如果总体 $X$ 的密度（或分布律）$p(x,\theta)$ 可表示成
+
+$$
+p(x, \theta) = C(\theta) h(x) \exp \left\{ \sum_{i=1}^k b_i (\theta) T_i (x) \right\}
+$$
+
+则称 $X$ 的分布是一个指数型分布族.
+
+1. 常见的**二项分布、泊松分布、指数分布、正态分布**等都属于指数型分布族.
+2. 如果 $X$ 的总体是指数型分布族，则 $\sum T_1(X_1i), \dots, \sum T_k(X_1i)$ 是充分完备统计量.
 
 ### 分布的可加性
 
@@ -329,7 +354,7 @@ graph LR
 
 ### **判断独立性**
 
-利用**累积分布函数**
+#### 累积分布函数独立性判别
 
 $$
 F(x) = \lim_{y \rightarrow +\infty}F(x, y) \hspace{2em} F(y) = \lim_{x \rightarrow +\infty}F(x, y)
@@ -337,7 +362,7 @@ $$
 
 如果 $F(x,y) = F(x)F(y)$ 则 $X$，$Y$ 独立.
 
-利用**分布律**
+#### 分布律独立性判别
 
 对 $p_{ij}$ 行求和，列求和
 
@@ -347,21 +372,25 @@ $$
 
 如果 $p_{ij}=p_{i *} p_{* j}$ 则 $X$，$Y$ 独立.
 
-利用**概率密度函数**
+#### 概率密度函数独立性判别
 
-若 $p(x, y) = f(x) g(y)$ 可分解为两个独立变量函数的乘积，则 $X$，$Y$ 独立.
+如果 $p(x, y) = f(x) g(y)$ 可分解为两个独立变量函数的乘积，则 $X$，$Y$ 独立.
+
+#### 测度论独立性判别
+
+如果 $X$ 与 $Y$ 独立，且 $f ,\ g$ 是可测函数，那么随机变量 $U=f(X)$ 与 $V=g(Y)$ 也独立.
 
 ### 二维正态分布
 
 $X \sim N(\mu_1, \sigma_1^2) $，$ Y \sim N(\mu_2, \sigma_2^2)$ 的边缘分布也是正态分布.
 
-二维正态随机变量 $X, Y$ 相互独立的充分必要条件是相关系数 $r=0$
+二维正态随机变量 $X, Y$ 相互独立的充分必要条件是相关系数 $r=0$.
 
-$Y|_{X=x} \sim N(\mu_2 + r \sigma_2 \dfrac{x - \mu_1}{\sigma_1}, (1-r^2)\sigma_2^2)$
+$Y|_{X=x} \sim N \left(\mu_2 + r \sigma_2 \dfrac{x - \mu_1}{\sigma_1}, (1-r^2)\sigma_2^2 \right)$
 
-$\vec{X} \sim N(\vec{\mu} , \mathbb{\Sigma})$，$\mathbb{\Sigma}$ 是 $n$ 阶正定矩阵
+$\boldsymbol{X} \sim N(\boldsymbol{\mu} , \boldsymbol{\Sigma})$，$\boldsymbol{\Sigma}$ 是 $n$ 阶正定矩阵.
 
-$\forall m\leq n ,\ \mathbf{A}_{m\times n} \vec{X} \sim (\mathbf{A} \vec{\mu}, \mathbf{A} \mathbb{\Sigma} \mathbf{A}^T)$
+$\forall m\leq n ,\ \boldsymbol{A}_{m\times n} \boldsymbol{X} \sim (\boldsymbol{A} \boldsymbol{\mu}, \boldsymbol{A} \boldsymbol{\Sigma} \boldsymbol{A}^T)$
 
 ### 条件分布
 
@@ -379,29 +408,27 @@ $\theta$ 是一个具有分布 $h(\theta)$ 的随机变量，如果 $X$ 关于 $
 
 数学期望是随机变量取值的加权平均
 
-$P(X=x_i)=p_i$
-
-$E(X) = \sum_i x_i p_i \hspace{2em} \text{if} \ \sum_{i} |x_i p_i| < + \infty$ （条件收敛的级数）
-
-$E(X) =\int_{-\infty}^{\infty} x p(x) \mathrm{d}x \hspace{2em} \text{if} \  \int_{-\infty}^{\infty} |x p(x)| dx < + \infty$
+$$
+P(X = x_i) = p_i \\
+E(X) = \sum_{i} x_i p_i  \quad \text{如果} \sum_{i} |x_i p_i| < + \infty \\
+E(X) =\int_{-\infty}^{\infty} x p(x) \mathrm{d}x \quad \text{如果} \  \int_{-\infty}^{\infty} |x p(x)| dx < + \infty
+$$
 
 柯西分布$\dfrac{1}{\pi(1+(x-\theta)^2)} X \in R^1$没有数学期望，因此无法用样本估计 $\theta$，但 $\theta$ 是它的中位数，同时所有分布都有中位数.
 
-数学期望的计算（中位数没有这种性质）：
-
-线性变换的期望：
+**线性变换的期望**
 
 $$
 E(aX + b) = aE(X) + b
 $$
 
-和的期望：
+**和的期望**
 
 $$
 E(X + Y) = E(X) + E(Y)
 $$
 
-乘积的期望
+**乘积的期望**
 
 $$
 \mathrm{i.r.v.} \ X, Y \implies E(XY) = E(X)E(Y)
@@ -411,7 +438,7 @@ $$
 \mathrm{r.v.} \ X, Y \implies  E(XY)=E(X)E(Y)+\mathrm{Cov}(X,Y)
 $$
 
-随机变量函数的期望：
+**随机变量函数的期望**
 
 $$
 E(g(X)) = \sum_{x} g(x)P(X = x)
@@ -424,20 +451,9 @@ $$
 #### **方差**
 
 $$
-D(X) = E\left[ \left( X-E(X) \right)^2 \right] = E(X^2)-(E(X))^2
-$$
-
-$$
+D(X) = E\left[ \left( X-E(X) \right)^2 \right] = E(X^2)-(E(X))^2 \\
 A(X) = E(|X-EX|)
 $$
-
-$X_1,\dots ,X_n\overset{\text{i.i.d.}}{\sim }N(\mu ,\sigma ^{2})$ 对方差 $\sigma$ 估计，哪个估计更好？
-
-根号下平方和 $\varphi_1 = c_1 \sqrt{ \sum_{k=1}^n (X_k - \bar{X})^2 }$
-
-绝对离差和 $\varphi_2 = c_2 \sum_{k=1}^n|X_k - \bar{X}|$
-
-它们都是无偏估计，然而 $\varphi_2$ 是充分统计量.
 
 **线性变换的方差**
 
@@ -457,7 +473,7 @@ $$
 D(X+Y)=D(X)+D(Y)+2\mathrm{Cov}(X,Y)
 $$
 
-#### **切比雪夫不等式**
+#### **切比雪夫（Chebyshev）不等式**
 
 对于随机变量 $X$，$E(X) = \mu$，$D(X) = \sigma^2$，
 
@@ -467,14 +483,20 @@ $$
 
 近似算概率、估算方差、频率可以收敛到概率.
 
-#### 条件期望
+#### 条件期望与条件方差
 
 $$
 E(Y|X=x)=
 \begin{cases}
-\sum_j y_j\,P(Y=y_j|X=x), & \text{离散}\\[4pt]
-\int_{-\infty}^{\infty} y\,f_{Y|X}(y|x)\,dy, & \text{连续}
+\sum_j y_j\,P(Y=y_j|X=x) & \text{离散}  \\[4pt]
+\int_{-\infty}^{\infty} y f_{Y|X}(y|x) \mathrm{d}y & \text{连续}
 \end{cases}
+$$
+
+**线性变换的条件期望**
+
+$$
+E(a_1 X_1 + a_2 X_2 | Y = y) = a_1 E(X_1 | Y=y) + a_2 E(X_2 | Y = y)
 $$
 
 **全期望公式**
@@ -483,13 +505,23 @@ $$
 E\bigl[E(Y|X)\bigr]=E(Y)
 $$
 
-#### **协方差**
+**条件方差**
 
 $$
-\mathrm{Cov}(X,Y)=E\bigl[(X-EX)(Y-EY)\bigr]=E(XY)-E(X)E(Y)
+D(X|Y) = E \left[ \left( X - E(X|Y)  \right)^2 | Y \right] = E(X^2|Y) - [E(X|Y)]^2 \\
+D(X) = E(D(X|Y)) + D(E(X|Y))
 $$
 
-#### **特征函数**
+#### 协方差
+
+$$
+\mathrm{Cov}(X,Y)=E\bigl[(X-EX)(Y-EY)\bigr]=E(XY)-E(X)E(Y) \\
+\mathrm{Cov}(X,Y) = \mathrm{Cov}(Y,X) \\
+\mathrm{Cov}(aX,bY) = ab \mathrm{Cov}(X,Y) \\
+\mathrm{Cov}(X_1 + X_2 ,Y) = \mathrm{Cov}(X_1 ,Y)+ \mathrm{Cov}( X_2 ,Y)
+$$
+
+#### 特征函数
 
 $f(t) = E \left(e^{itX} \right), \ t \in \mathbb{R}^1$
 
@@ -503,29 +535,37 @@ $f(t) = E \left(e^{itX} \right), \ t \in \mathbb{R}^1$
 
 ### 大数定律与中心极限定理
 
-**收敛性**
+#### 收敛性
 
-- **依概率收敛**（数列收敛）：$ X_n \xrightarrow{p} X ⇔ \forall \varepsilon>0,\; P(|X_n-X|\ge\varepsilon)\to 0 $
-- **依分布收敛**（函数收敛）：$X_n \xrightarrow{d} X ⇔ \forall x \in R^1, \ P(X_n\le x)\to P(X\le x)$
-- **几乎处处收敛**：$X_n \xrightarrow{a.s.} X \iff P\!\left(\left\{ \omega : \lim_{n\to+\infty} X_n(\omega) = X(\omega) \right\}\right) = 1$
+| 收敛类型         | 定义（KaTeX格式）                                                                                                    | 关键描述                         | 强度关系（从强到弱） |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------- | -------------------- |
+| **几乎处处收敛** | $ X*n \xrightarrow{\text{a.s.}} X \iff P\left(\lim*{n\to\infty} X_n = X\right) = 1 $                                 | 在几乎所有样本点上逐点收敛       | 最强                 |
+| **依概率收敛**   | $ X*n \xrightarrow{P} X \iff \forall \varepsilon > 0,\ \lim*{n\to\infty} P( \vert X_n - X \vert > \varepsilon) = 0 $ | 大偏差概率趋于零                 | 中等                 |
+| **依分布收敛**   | $ X*n \xrightarrow{d} X \iff \lim*{n\to\infty} F\_{X_n}(x) = F_X(x)\ \forall x \text{ 连续点} $                      | 分布函数逐点收敛（在分布意义上） | 最弱                 |
 
-**大数定律**
+#### 大数定律
 
-$\dfrac{S_n - E(S_n)}{n} \xrightarrow{p} 0$
+$$
+\dfrac{S_n - E(S_n)}{n} \xrightarrow{p} 0
+$$
 
-**中心极限定理**
+#### 中心极限定理
 
-$\dfrac{S_n - E(S_n)}{\sqrt{D(S_n)}} \xrightarrow{d} N(0, 1)$
-
-$X_1, X_2, ... i.i.d \hspace{2em} E(X_i) = \mu, D(X_i) = \sigma^2$
-
-$\bar{X} = \dfrac{1}{n} \sum_{k=1}^n X_k \xrightarrow{a.s.} \mu$ // 大数定律
+$$
+\dfrac{S_n - E(S_n)}{\sqrt{D(S_n)}} \xrightarrow{d} N(0, 1)
+\\
+X_1, X_2, ... i.i.d \hspace{2em} E(X_i) = \mu, D(X_i) = \sigma^2
+\\
+\bar{X} = \dfrac{1}{n} \sum_{k=1}^n X_k \xrightarrow{a.s.} \mu \quad 大数定律
+$$
 
 设 $\sigma^2 = D(X_k) < + \infty$，
 
-$\dfrac{S_n - n \mu} {\sqrt{n}\sigma} \xrightarrow{d} N(0, 1)$
-
-$\dfrac{\bar{X} - \mu}{\sqrt{\sigma^2 / n}} \sim N(0, 1)$
+$$
+\dfrac{S_n - n \mu} {\sqrt{n}\sigma} \xrightarrow{d} N(0, 1)
+\\
+\dfrac{\bar{X} - \mu}{\sqrt{\sigma^2 / n}} \sim N(0, 1)
+$$
 
 ## 抽样分布
 
@@ -544,7 +584,7 @@ $\dfrac{\bar{X} - \mu}{\sqrt{\sigma^2 / n}} \sim N(0, 1)$
 ### 概率函数
 
 $$
-f(x, \theta) = \Pi_{k=1}^{n} p(x_k, \theta)
+f(x, \theta) = \prod_{k=1}^{n} p(x_k, \theta)
 $$
 
 #### 因子分解定理
@@ -555,24 +595,11 @@ $$
 f(x, \theta) = K(T(x), \theta) h(x)
 $$
 
-则 $T(X)$ 是一个**充分统计量**. 概率函数在这里被看成是 $x$、$\theta$ 的函数。
+则 $T(X)$ 是一个**充分统计量**. 概率函数在这里被看成是 $x$、$\theta$ 的函数.
 
 ### 完备统计量
 
 假定 $T$ 是一个统计量，如果对于任意函数 $\phi(\cdot)$ ，只要 $E_{\theta} \left( \phi(T) \right) = 0$ 就可以推出 $P_{\theta} \left\{\phi(T) = 0 \right\} =1$，对所有的参数 $\theta$ 都成立，则统计量 $T$ 就称为是一个**完备统计量**.
-
-### 指数型分布族
-
-如果总体 $X$ 的密度（或分布律）$p(x,\theta)$ 可表示成
-
-$$
-p(x, \theta) = C(\theta) h(x) \exp \left\{ \sum_{i=1}^k b_i (\theta) T_i (x) \right\}
-$$
-
-则称 $X$ 的分布是一个指数型分布族.
-
-1. 常见的二项分布、泊松分布、指数分布、 正态分布等都属于指数型分布族.
-2. 如果 X 的总体是指数型分布族，则 $\sum T_1(X_1i), \dots, \sum T_k(X_1i)$ 是充分完备统计量.
 
 ### 常用的一些统计量
 
@@ -628,7 +655,7 @@ $X_{(1)}$ 称为**极小统计量**；$X_{(n)}$ 称为**极大统计量**，极�
 
 ##### 顺序统计量的联合分布
 
-假定总体具有概率密度函数 p(x)，X1，…，Xn 是一组样本，相应的顺序统计量记为：Yk = X(k) 。
+假定总体具有概率密度函数 $p(x)$，$X_1, \dots, X_n$ 是一组样本，相应的顺序统计量记为 $Y_k = X_{(k)}$.
 
 全体顺序统计量的联合概率密度函数
 
@@ -657,10 +684,10 @@ $$
 任意两个顺序统计量 $(k<r)$ 的联合概率密度函数
 
 $$
-p_{k, r}(y_k, y_r) = \dfrac{n!}{(k-1)! (r-k-1)! (n-r)!} p(y_k) p(y_r) \curvearrowright \\ \times (F(y_k))^{k-1}\left[ F(y_r) -F(y_k) \right]^{r-k-1} [1-F(y_r)]^{n-r}, \quad y_k < y_r
+p_{k, r}(y_k, y_r) = \dfrac{n!}{(k-1)! (r-k-1)! (n-r)!} p(y_k) p(y_r) ↵ \\ \times (F(y_k))^{k-1}\left[ F(y_r) -F(y_k) \right]^{r-k-1} [1-F(y_r)]^{n-r}, \quad y_k < y_r
 $$
 
-极差的概率密度函数
+##### 极差的概率密度函数
 
 $$
 p_{\text{range}}(y) = n(n-1)
@@ -675,7 +702,7 @@ $$
 
 #### 卡方分布
 
-独立同分布于 N (0,1) 的变量平方和的分布
+独立同分布于 $N (0,1) $ 的变量平方和的分布
 
 $$
 K^2 = X_1^2 + X_2^2 + \dots + X_n^2, \quad X_1, \dots, X_n \overset{\text{i.i.d.}}{\sim} N(0, 1)
@@ -693,7 +720,7 @@ $$
 
 数学期望是 $n$，方差是 $2n$.
 
-卡方分布具有可加性
+**卡方分布具有可加性**
 
 如果 $X$、$Y$ 独立，$X \sim \chi^2(n_1)$，$Y \sim \chi^2(n_2)$，则 $X+Y \sim \chi^2(n_1+n_2)$.
 
@@ -701,7 +728,7 @@ $$
 
 #### T 分布
 
-独立标准正态变量与卡方变量商的分布. 一般样本容量小于 30 时可用 t 分布
+独立标准正态变量与卡方变量商的分布. 一般样本容量小于 30 时可用 $t$ 分布
 
 如果 $X$、$Y$ 独立，并且 $X \sim N(0,1)$，$Y \sim \chi^2(n)$，
 
@@ -717,7 +744,7 @@ $$
 
 数学期望是 $0 \ (n \geq 2)$，方差是 $\frac{n}{n-2} \ (n \geq 3)$，$t(1)$ 是 Cauchy 分布.
 
-t 分布的平方 $t^2(n)$ 正好是 $F(1, n)$
+$t$ 分布的平方 $t^2(n)$ 正好是 $F(1, n)$.
 
 当 $n \rightarrow \infin $，$t(n)$ 的极限分布是标准正态分布.
 
@@ -733,7 +760,7 @@ $$
 X \sim \chi^2(m), \quad Y \sim \chi^2(n), \quad F = \dfrac{X / m}{Y / n}, \quad F \sim F(m, n)
 $$
 
-F 分布的概率密度函数
+$F$ 分布的概率密度函数
 
 $$
 f_{m,n}(x) = \dfrac{\Gamma(\frac{m+n}{2})}{\Gamma(\frac{m}{2}) \Gamma(\frac{n}{2})} m^{\frac{m}{2}} n^{\frac{n}{2}} \dfrac{x^{\frac{m}{2}-1}}{(n+mx)^{\frac{m+n}{2}}}, \quad x > 0
@@ -753,26 +780,36 @@ $$
 \dfrac{\sqrt{n}(\bar{X} - \mu)}{\sigma} \sim N(0, 1)
 \quad
 \dfrac{(n-1)S^2}{\sigma^2} \sim \chi^2(n-1)
+\quad
+\dfrac{\sqrt{n} (\bar{X} - \mu)}{S} \sim t(n-1)
 $$
 
+独立性
+
 $$
-\bar{X} \ \text{i.i.d} \ S^2 \quad \quad
-\dfrac{\sqrt{n} (\bar{X} - \mu)}{S} \sim t(n-1)
+\bar{X} \perp S^2
+\quad
+\bar{X} \perp (X_i - \bar{X})^k
 $$
 
 ### 多元正态分布的基本性质
 
-随机向量 $X$ 服从 $n$ 维正态分布 $N(\mathbf{\mu}, \mathbf{\Sigma})$，如果联合密度是
+随机向量 $\boldsymbol{X}$ 服从 $n$ 维正态分布 $N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，如果联合密度是
 
 $$
-f(x) = \dfrac{1}{(2 \pi)^{n/2} \sqrt{\det(\mathbf{\Sigma})}} \exp \left( - \dfrac{1}{2} ({x} - \mu)^T \mathbf{\Sigma}^{-1} (x - \mu) \right)
+f(\boldsymbol{x}) =
+\dfrac{1}{(2\pi)^{n/2}\sqrt{\det\boldsymbol{\Sigma}}}
+\exp\!\left(
+-\dfrac12
+(\boldsymbol{x}-\boldsymbol{\mu})^{\!T}
+\boldsymbol{\Sigma}^{-1}
+(\boldsymbol{x}-\boldsymbol{\mu})
+\right)
 $$
 
-$X$ 服从 $n$ 维正态 $N(\mu, \mathbf{\Sigma})$ 的充分必要条件是
+$\boldsymbol{X}$ 服从 $n$ 维正态 $N(\boldsymbol{\mu}, \mathbf{\Sigma})$ 的充分必要条件是对任意 $n$ 维列向量 $\boldsymbol{a}$，有 $\boldsymbol{a}^T \boldsymbol{X} \sim N(\boldsymbol{a}^T \boldsymbol{\mu}, \boldsymbol{a}^T \boldsymbol{\Sigma} \boldsymbol{a})$.
 
-对任意 $n$ 维行向量 $\boldsymbol{a}$，有 $\mathbf{a}^T X \sim N(\mathbf{a}^T \mu, \mathbf{a}^T \mathbf{\Sigma} \mathbf{a})$.
-
-如果 $X \sim N(\mathbf{\mu}, \mathbf{\Sigma})$，$\mathbf{A}$ 是任意 $m \times n$ 矩阵 $(m \leq n)$，则有 $\mathbf{A}X \sim N(\mathbf{A\mu}, \mathbf{A\Sigma} \mathbf{A}^T )$.
+如果 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \mathbf{\Sigma})$，$\boldsymbol{A}$ 是任意 $m \times n$ 矩阵 $(m \leq n)$，则有 $\boldsymbol{AX} \sim N(\boldsymbol{A\mu}, \boldsymbol{A\Sigma} \boldsymbol{A}^T )$.
 
 ### 两个正态总体的抽样分布
 
@@ -802,13 +839,13 @@ $$
 
 ### Cochren 定理
 
-假定 $X_1, \dots, X_n$ 是来自总体 $X \sim N (0,1)$ 的一组简单随机样本，记 $X = (X_1, \dots ,X_n )^T$，$\mathbf{A}_i ( 1 \leq i \leq r)$ 分别是秩为 $n_i$ 的非负定矩阵，满足
+假定 $X_1, \dots, X_n$ 是来自总体 $X \sim N (0,1)$ 的一组简单随机样本，记 $\boldsymbol{X} = (X_1, \dots ,X_n )^T$，$\boldsymbol{A}_i ( 1 \leq i \leq r)$ 分别是秩为 $n_i$ 的非负定矩阵，满足
 
 $$
-\mathbf{A}_1 + \dots +  \mathbf{A}_r = \mathbf{I}_n
+\boldsymbol{A}_1 + \dots +  \boldsymbol{A}_r = \boldsymbol{I}_n
 $$
 
-则 $(X_1, \dots, X_n )^T$ 的 $r$ 个二次型 $X^T\mathbf{A}_i X$ 相互独立并且 $X^T \mathbf{A}_i X \sim \chi^2(n_i)$ 的充分必要条件是
+则 $(X_1, \dots, X_n )^T$ 的 $r$ 个二次型 $\boldsymbol{X}^T\boldsymbol{A}_i \boldsymbol{X}$ 相互独立并且 $\boldsymbol{X}^T\boldsymbol{A}_i \boldsymbol{X} \sim \chi^2(n_i)$ 的充分必要条件是
 
 $$
 n_1+ n_2 + \dots + n_r = n
@@ -838,7 +875,7 @@ $$
 
 1. 总体的参数不能表示成矩的函数时 ( 一般是总体矩不存在) ，就不能使用矩估计；
 2. 如果能够用低阶的矩估计，就不要用高阶矩；
-3. 按照矩估计的理论应该用样本的二阶中心矩 来估计总体的方差，但是在实际应用中人们总是采用样本方差作为总体方差的估计；
+3. 按照矩估计的理论应该用样本的二阶中心矩来估计总体的方差，但是在实际应用中人们总是采用样本方差作为总体方差的估计；
 
 **优点**
 
@@ -978,8 +1015,8 @@ $$
 样本统计量（点估计）±抽样误差
 
 1. 枢轴变量 $Z(X, \theta)$ 的分布是与参数 $\theta$ 无关的分布，一般是从 $g(\theta)$ 的良好的点估计出发，去寻找枢轴变量 $Z(X, \theta)$.
-2. 求出 $P \{ a < Z(X, \theta) < b \} \geq 1 - \alpha$
-3. 变换不等式 $a < Z(X, \theta) < b \leftrightarrow \varphi_1(X) < g(\theta) < \varphi_2(X)$
+2. 求出 $P \{ a < Z(X, \theta) < b \} \geq 1 - \alpha$.
+3. 变换不等式 $a < Z(X, \theta) < b \leftrightarrow \varphi_1(X) < g(\theta) < \varphi_2(X)$.
 
 因此区间 $(\varphi_1, \varphi_2 )$ 就是 $g(\theta)$ 的一个置信度为 $1-\alpha$ 的区间估计.
 
@@ -1049,6 +1086,18 @@ $$
 
 已知 $\mu=\mu_0$，则 $\dfrac{\sum_{i=1}^n (X_i - \mu_0 )^2}{\sigma^2} \sim \chi^2(n)$
 
+$$
+P \left\{ \chi^2_{1-\alpha/2}(n) < \chi^2 < \chi^2_{\alpha/2}(n)  \right\} = 1-\alpha
+$$
+
+总体方差 $\sigma^2$ 的 $1-\alpha$ 区间估计为
+
+$$
+\left( \dfrac{\sum_{i=1}^{n} (X_i - \mu_0)^2 }{\chi^2_{\alpha/2}(n)},\
+\dfrac{\sum_{i=1}^{n} (X_i - \mu_0)^2 }{\chi^2_{1-\alpha/2}(n)}
+\right)
+$$
+
 ##### 总体均值未知
 
 均值 $\mu$ 未知，则 $\dfrac{\sum_{i=1}^n (X_i - \bar{X} )^2}{\sigma^2} = \dfrac{(n-1)S^2}{\sigma^2}\sim \chi^2(n-1)$
@@ -1073,7 +1122,7 @@ $$
 \bar{Y} = \dfrac{1}{n_2} \sum_{j=1}^{n_2}Y_j,\quad S_2^2=\dfrac{1}{n_2 - 1} \sum_{j=1}^{n_2} (Y_i - \bar{Y})^2
 $$
 
-从而凑出 t 分布有
+从而凑出 $t$ 分布有
 
 $$
 \dfrac{(\bar{X} - \bar{Y}) - (\mu_1 - \mu_2)}{S_w \sqrt{\dfrac{1}{n_1} + \dfrac{1}{n_2}}} \sim t(n_1 + n_2 - 2), \quad
@@ -1162,7 +1211,7 @@ $$
 $L_2$ 反映了区间的精度
 
 $$
-L2(\theta ,(a,b) ) =  b - a
+L_2(\theta ,(a,b) ) =  b - a
 $$
 
 对于任意一个区间估计 $\delta(x) = (\varphi_1(x),\varphi_2(x))$，损失函数 $L_1$ 导致风险函数
@@ -1187,7 +1236,7 @@ Bayes 决策：对于参数 $\theta$ 定义一个概率分布（称为先验分�
 
 #### 共轭分布
 
-##### 正态分布共轭与正态分布
+##### 正态分布共轭于正态分布
 
 $X \sim N( \theta, \sigma^2), \ \theta \sim N(\mu_0, \sigma^2_0)$
 
@@ -1221,15 +1270,18 @@ $$
 
 #### 贝叶斯统计推断
 
-1. 总体分布律或密度 $p(x, \theta)$
-2. 根据样本，计算概率函数 $f(x | \theta) = \prod p(x_i, \theta)$
-3. 根据先验分布 $h(\theta)$，计算 $X$ 与 $\theta$ 的联合分布 $h(\theta ) \times f(x | \theta)= h(\theta) \times \prod p(x_i, \theta)$
-4. 对 $\theta$ 积分或求和，得到样本 $X$ 的边缘分布 $f(x) = \int_{\Theta} h(\theta) \prod p(x_i, \theta) \mathrm{d}\theta$
-5. 最后，得到 $\theta$ 关于样本 $X$ 的后验分布律或者厚颜密度函数
+1. 总体分布律或密度 $p(x, \theta)$.
+2. 根据样本，计算概率函数 $f(x | \theta) = \prod p(x_i, \theta)$.
+3. 根据先验分布 $h(\theta)$，计算 $X$ 与 $\theta$ 的联合分布 $h(\theta ) \times f(x | \theta)= h(\theta) \times \prod p(x_i, \theta)$.
+4. 对 $\theta$ 积分或求和，得到样本 $X$ 的边缘分布 $f(x) = \int_{\Theta} h(\theta) \prod p(x_i, \theta) \mathrm{d}\theta$ 或 ${\sum_{\theta\in\Theta} h(\theta) \times \prod_{i=1}^{n} p(x_i,\theta)}$.
+5. 最后，得到 $\theta$ 关于样本 $X$ 的后验分布律或者后验密度函数
 
 $$
-h(\theta, X) = \dfrac{h(\theta ) \times f(x | \theta)}{f(x)}
-\dfrac{h(\theta) \times \prod p(x_i, \theta)}{\int_{\Theta} h(\theta) \times \prod p(x_i, \theta) \mathrm{d}\theta}
+h(\theta | X) = \dfrac{h(\theta ) \times f(x | \theta)}{f(x)}
+\dfrac{h(\theta) \times \prod p(x_i, \theta)}{\int_{\Theta} h(\theta) \times \prod p(x_i, \theta) \mathrm{d}\theta} \\
+h(\theta | X) =
+\frac{h(\theta) \times \prod_{i=1}^{n} p(x_i,\theta)}
+{\sum_{\theta\in\Theta} h(\theta) \times \prod_{i=1}^{n} p(x_i,\theta)}
 $$
 
 #### Kernel 技巧
@@ -1297,18 +1349,16 @@ $$
 
 #### 正态总体的参数检验
 
-这里，$S^2$ 是 $\sigma$ 的无偏估计，教材上使用的是有偏形式（注意我们不使用教材上的符号），考试的时候通常给的是无偏样本方差 $S^2$. 教材上使用的是下侧分位点，考试时用的是上侧分位点.
-
 ##### 单个正态总体均值的假设检验
 
-| $H_0$                                         | $H_1$                                                        | $\sigma^2$        | 拒绝域                                                                                          |
-| --------------------------------------------- | ------------------------------------------------------------ | ----------------- | ----------------------------------------------------------------------------------------------- |
-| $\mu=\mu_0$                                   | $\mu \neq \mu_0$                                             | $\sigma_0^2$ 已知 | $\left\{ \left\| \dfrac{\bar{X} - \mu_0 }{\sigma_0 /\sqrt{n}}  \right\| > u_{\alpha/2}\right\}$ |
-|                                               |                                                              | 未知              | $\left\{ \left\| \dfrac{\bar{X} - \mu*0 }{S/\sqrt{n}} \right\|> t*{\alpha/2} (n-1) \right\} $   |
-| $\mu= \mu_0 \\ \mu = \mu_0 \\ \mu \leq \mu_0$ | $\mu > \mu_0 \\ \mu=\mu_1 (\mu_0 < \mu_1) \\ \mu > \mu_0$    | $\sigma_0^2$ 已知 | $\left\{  \dfrac{\bar{X} - \mu_0 }{\sigma_0 /\sqrt{n}} > u_{\alpha}   \right\}$                 |
-|                                               |                                                              | 未知              | $\left\{ \dfrac{\bar{X} - \mu*0 }{S/\sqrt{n}} > t*{\alpha} (n-1) \right\} $                     |
-| $\mu= \mu_0 \\ \mu = \mu_0 \\ \mu >\mu_0$     | $\mu < \mu_0 \\ \mu=\mu_1 (\mu_0 > \mu_1) \\ \mu \leq \mu_0$ | $\sigma_0^2$ 已知 | $\left\{  \dfrac{\bar{X} - \mu_0 }{\sigma_0 /\sqrt{n}} < -u_{\alpha}\right\}$                   |
-|                                               |                                                              | 未知              | $\left\{ \dfrac{\bar{X} - \mu*0 }{S/\sqrt{n}} < -t*{\alpha} (n-1) \right\} $                    |
+| $H_0$                                         | $H_1$                                                        | $\sigma^2$        | 拒绝域                                                                          |
+| --------------------------------------------- | ------------------------------------------------------------ | ----------------- | ------------------------------------------------------------------------------- |
+| $\mu=\mu_0$                                   | $\mu \neq \mu_0$                                             | $\sigma_0^2$ 已知 | $\left\{ \left\vert \dfrac{\bar{X} - \mu_0 }{\sigma_0 /\sqrt{n}} \right\vert > u_{\alpha/2}\right\}$ |
+|                                               |                                                              | 未知              | $\left\{ \left\vert \dfrac{\bar{X} - \mu_0 }{S/\sqrt{n}} \right\vert > t_{\alpha/2} (n-1) \right\} $ |
+| $\mu= \mu_0 \\ \mu = \mu_0 \\ \mu \leq \mu_0$ | $\mu > \mu_0 \\ \mu=\mu_1 (\mu_0 < \mu_1) \\ \mu > \mu_0$    | $\sigma_0^2$ 已知 | $\left\{  \dfrac{\bar{X} - \mu_0 }{\sigma_0 /\sqrt{n}} > u_{\alpha}   \right\}$ |
+|                                               |                                                              | 未知              | $\left\{ \dfrac{\bar{X} - \mu_0 }{S/\sqrt{n}} > t_{\alpha} (n-1) \right\} $     |
+| $\mu= \mu_0 \\ \mu = \mu_0 \\ \mu >\mu_0$     | $\mu < \mu_0 \\ \mu=\mu_1 (\mu_0 > \mu_1) \\ \mu \leq \mu_0$ | $\sigma_0^2$ 已知 | $\left\{  \dfrac{\bar{X} - \mu_0 }{\sigma_0 /\sqrt{n}} < -u_{\alpha}\right\}$   |
+|                                               |                                                              | 未知              | $\left\{ \dfrac{\bar{X} - \mu_0 }{S/\sqrt{n}} < -t_{\alpha} (n-1) \right\} $    |
 
 ##### 单个正态总体方差的假设检验
 
@@ -1323,14 +1373,14 @@ $$
 
 ##### 两个正态总体均值假设检验表
 
-| $H_0$              | $H_1$              | 条件                                 | 拒绝域                                                                                                                    |
-| ------------------ | ------------------ | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
-| $\mu_1 = \mu_2 $   | $\mu_1 \neq \mu_2$ | $\sigma_1^2, \ \sigma_2^2$ 已知      | $\left\{ \dfrac{\|\bar{X}-\bar{Y}\|}{\sqrt{ \sigma_1^2/n_1 + \sigma_2^2/n_2}} > u_{\alpha/2} \right\}$                    |
-|                    |                    | $\sigma_1^2 = \sigma_2^2$            | $\left\{ \dfrac{\|\bar{X} - \bar{Y}\|}{S_w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} > t_{\alpha/2} (n_1 + n_2 - 2) \right\}$ |
-| $\mu_1 \leq \mu_2$ | $\mu_1 > \mu_2$    | $\sigma_1^2, \ \sigma_2^2$ 已知      | $ \left\{ \dfrac{\bar{X}-\bar{Y}}{\sqrt{ \sigma*1^2/n_1 + \sigma_2^2/n_2}} > u*{\alpha} \right\} $                        |
-|                    |                    | $\sigma_1^2 = \sigma_2^2 = \sigma^2$ | $\left\{ \dfrac{\|\bar{X} - \bar{Y}\|}{S_w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} > t_{\alpha} (n_1 + n_2 - 2) \right\}$   |
-| $\mu_1 > \mu_2$    | $\mu_1 \leq \mu_2$ | $\sigma_1^2, \ \sigma_2^2$ 已知      | $\left\{ \dfrac{\bar{X}-\bar{Y}}{\sqrt{ \sigma_1^2/n_1 + \sigma_2^2/n_2}} < -u_{\alpha} \right\}$                         |
-|                    |                    | $\sigma_1^2 = \sigma_2^2 = \sigma^2$ | $\left\{ \dfrac{\|\bar{X} - \bar{Y}\|}{S_w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} < -t_{\alpha} (n_1 + n_2 - 2) \right\}$  |
+| $H_0$              | $H_1$              | 条件                                 | 拒绝域                                                                                             |
+| ------------------ | ------------------ | ------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| $\mu_1 = \mu_2 $   | $\mu_1 \neq \mu_2$ | $\sigma_1^2, \ \sigma_2^2$ 已知      | $\left\{ \dfrac{\vert \bar{X}-\bar{Y} \vert}{\sqrt{ \sigma_1^2/n_1 + \sigma_2^2/n_2}} > u_{\alpha/2} \right\}$ |
+|                    |                    | $\sigma_1^2 = \sigma_2^2 = \sigma^2$ | $\left\{ \dfrac{\vert \bar{X} - \bar{Y} \vert}{S_w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} > t_{\alpha/2} (n_1 + n_2 - 2) \right\}$ |
+| $\mu_1 \leq \mu_2$ | $\mu_1 > \mu_2$    | $\sigma_1^2, \ \sigma_2^2$ 已知      | $\left\{ \dfrac{\bar{X}-\bar{Y}}{\sqrt{ \sigma_1^2/n_1 + \sigma_2^2/n_2}} > u_{\alpha} \right\}$ |
+|                    |                    | $\sigma_1^2 = \sigma_2^2 = \sigma^2$ | $\left\{ \dfrac{\vert \bar{X} - \bar{Y} \vert}{S_w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} > t_{\alpha} (n_1 + n_2 - 2) \right\}$ |
+| $\mu_1 > \mu_2$    | $\mu_1 \leq \mu_2$ | $\sigma_1^2, \ \sigma_2^2$ 已知      | $\left\{ \dfrac{\bar{X}-\bar{Y}}{\sqrt{ \sigma_1^2/n_1 + \sigma_2^2/n_2}} < -u_{\alpha} \right\}$ |
+|                    |                    | $\sigma_1^2 = \sigma_2^2 = \sigma^2$ | $\left\{ \dfrac{\vert \bar{X} - \bar{Y} \vert}{S_w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} < -t_{\alpha} (n_1 + n_2 - 2) \right\}$ |
 
 ##### 两个正态总体方差假设检验表
 
@@ -1350,9 +1400,9 @@ $$
 
 #### 两点分布的参数检验
 
-| $H_0$           | $H_1$              | 拒绝域（近似）                                                                                                                                |
-| --------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| $p_1 - p_2 = 0$ | $p_1 - p_2 \neq 0$ | $\left\{ \dfrac{ \| p_{s_1} - p_{s_2} \| }{\sqrt{ \frac{p_{s_1}(1-p_{s_1})}{n_1} + \frac{p_{s_2}(1-p_{s_2})}{n_2} }} > u_{\alpha/2} \right\}$ |
+| $H_0$           | $H_1$              | 拒绝域（近似）                                                                                                                                      |
+| --------------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| $p_1 - p_2 = 0$ | $p_1 - p_2 \neq 0$ | $\left\{ \dfrac{ \vert p_{s_1} - p_{s_2} \vert }{\sqrt{ \frac{p_{s_1}(1-p_{s_1})}{n_1} + \frac{p_{s_2}(1-p_{s_2})}{n_2} }} > u_{\alpha/2} \right\}$ |
 
 #### 似然比检验
 
@@ -1396,6 +1446,8 @@ $$
 K^2 > \chi^2_{\alpha} (k-r-1)
 $$
 
+其中 $k$ 是分组数，$r$ 是未知参数的数量.
+
 #### Kolmogrov 检验
 
 $$
@@ -1416,7 +1468,7 @@ $$
 
 统计量 $D_n$ 的观察值计算步骤如下
 
-1. 从总体中抽取容量为 n(n>50) 的样本，并将样本观察值从小到大排序.
+1. 从总体中抽取容量为 $n \ (n>50)$ 的样本，并将样本观察值从小到大排序.
 2. 计算出经验分布函数 $F_n^{*}(x)$ 和理论分布函数 $F_0(x)$ 在每个 $x_{(i)}$ 点的值，以及
 
 $$
@@ -1555,7 +1607,7 @@ $$
 H_0: \beta_1 = \beta_2 = \cdots = \beta_r
 $$
 
-需要注意的是，在统计学中，不能把方差检验分别分解成多个相等的零假设，因为这回导致犯第一类错误的概率上升.
+需要注意的是，在统计学中，不能把方差检验分别分解成多个相等的零假设，因为这会导致犯第一类错误的概率上升.
 
 #### 方差分析中未知参数估计及分布
 
@@ -1590,7 +1642,7 @@ $$
 $\sum (每组平均 - 总平均)^2$
 
 $$
-CSS = \sum_{i=1}^{r} \sum_{j=1}^{n_i} (y_{i} - \bar{y})^2
+CSS = \sum_{i=1}^{r} \sum_{j=1}^{n_i} ({y}_{i} - \bar{y})^2 =  \sum_{i=1}^{r}n_i ( \bar{y}_{i} - \bar{y})^2
 $$
 
 ##### 残差平方和
@@ -1598,7 +1650,7 @@ $$
 $\sum (观察值- 每组平均)^2 $
 
 $$
-RSS = \sum_{i=1}^r \sum_{j=1}^{n_i} (y_{ij} - \bar{y}_i)^2
+RSS = \sum_{i=1}^r \sum_{j=1}^{n_i} (y_{ij} - \bar{y}_i)^2 = \sum_{i=1}^r (n_i - 1) s_i^2
 $$
 
 它们之间的关系
@@ -1616,7 +1668,7 @@ $$
 TSS = CSS + RSS
 $$
 
-一定条件（零假设成立时）下 $CSS$ 与 $RSS$ 相互独立.
+一定条件（零假设成立时 $\beta_1=\beta_2=\cdots=\beta_r$）下 $CSS$ 与 $RSS$ 相互独立.
 
 ### 单因素方差分析的检验
 
@@ -1624,7 +1676,7 @@ $$
 
 $$
 \dfrac{CSS}{\sigma^2} \sim \chi^2 (r-1)
-\\ F比 = \dfrac{n-r}{r-1} \dfrac{CSS}{RSS} \sim F(r-1,n-r)
+\\ F = \dfrac{n-r}{r-1} \dfrac{CSS}{RSS} \sim F(r-1,n-r)
 $$
 
 拒绝域为（因为 $CSS$ 起了主要作用）
@@ -1635,11 +1687,11 @@ $$
 
 单因素方差分析表
 
-| 方差来源 | 平方和 | 自由度 | 均方  |
-| -------- | ------ | ------ | ----- |
-| 分类变量 | $CSS$  | $r-1$  | $CMS$ |
-| 残差变量 | $RSS$  | $n-r$  | $RMS$ |
-| 总计     | $TTS$  | $n-1$  |       |
+| 方差来源 | 平方和 | 自由度 | 均方                                        |
+| -------- | ------ | ------ | ------------------------------------------- |
+| 分类变量 | $CSS$  | $r-1$  | $CMS=\frac{CSS}{r-1}$                       |
+| 残差变量 | $RSS$  | $n-r$  | $RMS=\frac{TSS-CSS}{n-r} = \frac{RSS}{n-r}$ |
+| 总计     | $TTS$  | $n-1$  |                                             |
 
 ### 变量关系的强度
 
@@ -1647,4 +1699,346 @@ $$
 R^2 = \dfrac{CSS}{TSS}
 $$
 
-$R$ 可以衡量分类自变量与 数值因变量的关系强度，$0\sim0.25$ 弱关系，$0.3 \sim 0.7$ 适中 $0.75 \sim 1$ 强的关系.
+$R$ 可以衡量分类自变量与数值因变量的关系强度，$0\sim0.25$ 弱关系，$0.3 \sim 0.7$ 适中，$0.75 \sim 1$ 强的关系.
+
+## 线性回归模型
+
+$$
+y = \beta_0 + \sum_{i=1}^{k} f_i(x_1, \dots, x_m) \beta_i + \varepsilon , \quad \varepsilon \sim N(0, \sigma^2)
+$$
+
+1. 线性指的是参数 $\boldsymbol{\beta}$ 是线性的.
+2. 线性模型就是一个随机变量的数学期望具有未知参数线性结构的统计模型 $E(y) = \beta_0 + x_1 \beta_1 + \cdots + x_k \beta_k$.
+3. 也可以将上式改写成 $y = \beta_0 + x_1 \beta_1 + \cdots + x_k \beta_k$.
+4. 线性分布处理正态分布，广义线性模型处理二项分布、泊松分布、Gamma 分布. 只不过广义线性模型，中 $\mu_i = g^{-1}(\boldsymbol{x}_i^T \boldsymbol{\beta})$，$g$ 称为 link function.
+5. 实际上，方差分析就是一种特殊的线性回归模型.
+
+**线性模型的矩阵形式**
+
+$$
+\boldsymbol{Y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon},  \quad E(\boldsymbol{\varepsilon}) = \boldsymbol{0} \\
+$$
+
+其中
+
+$$
+\boldsymbol{Y} = \left[\begin{matrix} y_1 ,\\ \vdots \\ y_n \end{matrix}\right] , \quad
+\boldsymbol{X} = \left[\begin{matrix}
+1 & x_{11} & \cdots & x_{ik} \\
+1 & x_{21} & \cdots & x_{2k} \\
+\vdots & \vdots  & \ddots  & \vdots \\
+1 & x_{n1} & \cdots & x_{nk}
+\end{matrix}\right] , \quad
+\boldsymbol{\beta} = \left[\begin{matrix} \beta_1 ,\\ \vdots \\ \beta_n \end{matrix}\right] , \quad
+\boldsymbol{\varepsilon} = \left[\begin{matrix} \varepsilon_1 ,\\ \vdots \\ \varepsilon_n \end{matrix}\right] , \quad
+\varepsilon_i \sim N(0, \sigma^2)
+$$
+
+### 线性模型的参数估计
+
+$$
+\boldsymbol{Y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon}
+$$
+
+#### 未知参数 $\boldsymbol{\beta}$ 的估计
+
+使用最小二乘法
+
+$$
+\| \boldsymbol{Y} - \boldsymbol{X} \hat{\boldsymbol{\beta}} \|^2 = \inf \| \boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta} \|^2 \quad \boldsymbol{\beta} \in \mathbb{R}
+$$
+
+如果 $\boldsymbol{X}$ 是满秩的，即 $\mathrm{rank} (\boldsymbol{X}) = k+1$，那么按照平方和分解的思路可以得到参数 $\boldsymbol{\beta}$ 的估计
+
+$$
+\hat{\boldsymbol{\beta}}
+= (\boldsymbol{X}^{\!\top}\boldsymbol{X})^{-1}
+  \boldsymbol{X}^{\!\top}\boldsymbol{Y}
+= \boldsymbol{S}^{-1}\boldsymbol{X}^{\!\top}\boldsymbol{Y}
+$$
+
+其中，$\boldsymbol{X}\hat{\boldsymbol{\beta}}$ 是经验回归函数，$\boldsymbol{Y} = \boldsymbol{X}\hat{\boldsymbol{\beta}}$ 是经验回归方程.
+
+#### 误差方差 $\sigma^2$ 的估计
+
+$$
+\|\boldsymbol{\varepsilon}\|^2
+= \bigl\| (\boldsymbol{I} - \boldsymbol{X}\boldsymbol{S}^{-1}\boldsymbol{X}^{\!\top})\boldsymbol{Y} \bigr\|^2
+= \boldsymbol{Y}^{\!\top}(\boldsymbol{I} - \boldsymbol{X}\boldsymbol{S}^{-1}\boldsymbol{X}^{\!\top})\boldsymbol{Y}
+$$
+
+其中，$\boldsymbol{I} - \boldsymbol{X}\boldsymbol{S}^{-1}\boldsymbol{X}^{\!\top}$ 是对称、幂等的.
+
+残差
+
+$$
+e_i = y_i - \hat{\beta}_0 - \hat{\beta}_1 x_{i1} - \dots - \hat{\beta}_{k} x_{ik}, \quad 1\leq i \leq n
+$$
+
+残差平方和也可以作为 $\sigma^2$ 的估计，但是需要修正，其中
+
+$$
+Q_e = e_1^2 + e_2^2 + \dots +e_n^2 = \|\boldsymbol{\varepsilon}\|^2 = \boldsymbol{Y}^{\!\top}(\boldsymbol{I} - \boldsymbol{X}\boldsymbol{S}^{-1}\boldsymbol{X}^{\!\top})\boldsymbol{Y}
+$$
+
+修正后，有
+
+$$
+\hat{\boldsymbol{\sigma}}^2 = \dfrac{1}{n-k-1} \boldsymbol{Y}^{\!\top}(\boldsymbol{I} - \boldsymbol{X}\boldsymbol{S}^{-1}\boldsymbol{X}^{\!\top})\boldsymbol{Y}
+$$
+
+#### 最小二乘估计的无偏性质
+
+##### 随机向量的期望与方差公式
+
+如果 $\boldsymbol{Y}$ 是 $n$ 维随机向量，$\boldsymbol{A}$ 是 $n$ 阶对称矩阵 ，则
+
+$$
+E(\boldsymbol{Y}^{\!\top} \boldsymbol{A} \boldsymbol{Y}) = \left(E(\boldsymbol{Y}) \right)^{\!\top} \boldsymbol{A} \left(E(\boldsymbol{Y}) \right) + \mathrm{tr} (\boldsymbol{A} D(\boldsymbol{Y}))
+$$
+
+如果 $\boldsymbol{Y}$ 是 $n$ 维随机向量，$\boldsymbol{B}$ 是 $m\times n$ 阶矩阵 ，则
+
+$$
+D(\boldsymbol{B}\boldsymbol{Y}) = \boldsymbol{B} \left(D(\boldsymbol{Y}) \right) \boldsymbol{B}^{\!\top}
+$$
+
+其中 $D(\boldsymbol{Y})$ 是 $\boldsymbol{Y}$ 的协方差矩阵 $[ \mathrm{Cov} (y_1, y_j) ]_{n \times n}$
+
+> 矩阵的迹具有一些性质 $\mathrm{tr} (\boldsymbol{A} \boldsymbol{B}) = \mathrm{tr} (\boldsymbol{B} \boldsymbol{A} ), \quad \mathrm{tr} (\boldsymbol{A} - \boldsymbol{B} ) = \mathrm{tr} (\boldsymbol{A}) - \mathrm{tr} (\boldsymbol{B})$
+
+$$
+E(\boldsymbol{Y}) = \boldsymbol{X} \boldsymbol{\beta},  \quad D(\boldsymbol{Y}) = \sigma^2 \boldsymbol{I}_n \\
+E(Q_e) = (n-k-1) \sigma^2
+$$
+
+#### 估计量的分布
+
+$\boldsymbol{\beta}$ 的最小二乘估计服从 $k+1$ 维正态分布
+
+$$
+\hat{\boldsymbol{\beta}} = \boldsymbol{S}^{-1}\boldsymbol{X}^{\!\top}\boldsymbol{Y}
+\sim N\bigl(\boldsymbol{\beta},\; \sigma^{2}\boldsymbol{S}^{-1}\bigr)
+$$
+
+$\sigma^2$ 的估计量服从卡方分布，即
+
+$$
+\dfrac{n-k-1}{\sigma^2}\hat{\sigma}^2
+= \dfrac{1}{\sigma^2}\boldsymbol{Y}^{\!\top}
+  \bigl(\boldsymbol{I}_{n}-\boldsymbol{X}\boldsymbol{S}^{-1}\boldsymbol{X}^{\!\top}\bigr)
+  \boldsymbol{Y}
+\sim \chi^{2}(n-k-1)
+$$
+
+$\hat{\boldsymbol{\beta}}$ 与 $\hat{\sigma}^2$ 相互独立.
+
+#### 分解关系
+
+$$
+TSS = \sum_{i=1}^{n}(y_i -\bar{y})^2 \quad  RegSS = \sum_{i=1}^{n} (\hat{y}_i - \bar{y})^2 \quad RSS = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \\
+\implies TSS = RegSS + RSS
+$$
+
+$H_0$ 假设成立时，$RegSS$ 与 $RSS$ 分别服从 $\chi^2$
+
+### 一元回归与相关分析
+
+#### 一元回归模型
+
+$$
+y_i = \beta_0 + \beta_1 x_i +\varepsilon_i \quad 1 \leq i \leq n
+$$
+
+$$
+\hat{\beta} = (\hat{\beta}_0, \hat{\beta}_0)^T = S^{-1} X^T Y \\
+
+S =
+\left[
+\begin{matrix}
+1 & \cdots & 1 \\
+x_1 & \cdots & x_n
+\end{matrix}
+\right]
+
+\left[
+\begin{matrix}
+1  & x_1 \\
+\vdots  & \vdots \\
+1 & x_n
+\end{matrix}
+\right]
+
+= \left[
+\begin{matrix}
+n & n\bar{x} \\
+n\bar{x} & \sum x_i^2
+\end{matrix}
+\right]
+$$
+
+$$
+S^{-1} = \dfrac{1}{\sum (x_i - \bar{x})^2}
+\left[
+\begin{matrix}
+\dfrac{1}{n} \sum x_i^2 & -\bar{x} \\
+-\bar{x} & 1
+\end{matrix}
+\right]
+\left[
+\begin{matrix}
+\sum y_i \\ \sum x_i y_i
+\end{matrix}
+\right]
+$$
+
+> 矩阵的逆 $\left[ \begin{matrix} a & b \\ c & d  \end{matrix} \right] ^{-1} = \dfrac{1}{ad-bc} \left[ \begin{matrix} d & -b \\ -c & a  \end{matrix} \right]$
+
+若不使用矩阵，那么也有
+
+$$
+\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x} \\
+\hat{\beta}_1 = \dfrac{L_{xy}}{L_{xx}} \\
+\hat{\sigma}^2 = \dfrac{1}{n-2} \left( L_{yy} - \hat{\beta}_{1} L_{xy} \right)
+$$
+
+其中
+
+$$
+L_{xx} = \sum_{i=1}^{n} (x_i - \bar{x})^2 = \sum_{i=1}^{n} x_i^2 - n \bar{x}^2 \\
+L_{yy} = \sum_{i=1}^{n} (y_i - \bar{y})^2 = \sum_{i=1}^{n} y_i^2 - n \bar{y}^2 \\
+L_{xy} = \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y}) = \sum_{i=1}^{n} x_i y_i - n\bar{x}\bar{y}
+$$
+
+#### 相关系数
+
+$$
+r = \dfrac{\sum_{i=1}^{n} (x_i - \bar{x}) (y_j - \bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2 \sum_{i=1}^{n} (y_j - \bar{y})^2}}
+ \\
+ r^2 = \dfrac{RegSS}{TSS} = \dfrac{L_{xy}^2}{L_{xx} L_{yy}}
+$$
+
+$r$ 是介于 $-1$ 到 $1$ 之间的小数.
+
+#### 回归方程的检验与区间估计
+
+##### 估计量的分布
+
+> 证明题这里可以把 $(\beta_0, \beta_1)$ 凑成二元随机变量 $\boldsymbol{X}$，然后根据 $\boldsymbol{A}\boldsymbol{X}  \sim N (\boldsymbol{A} \boldsymbol{\mu}, \boldsymbol{A} \boldsymbol{\Sigma} \boldsymbol{A}^T)$
+
+$\hat{\beta}_0$ 与 $\hat{\beta}_1$ 服从于正态分布
+
+$$
+\hat{\beta}_0 \sim N \left(\beta_0, \sigma^2 \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}} \right) \right) \\
+\hat{\beta}_1 \sim N \left({\beta}_1, \dfrac{\sigma^2}{L_{xx}} \right)
+$$
+
+$\hat{\beta}_0$ 与 $\hat{\beta}_1$ 不独立，协方差为
+
+$$
+\mathrm{Cov} \left(\hat{\beta}_0, \hat{\beta}_1 \right) =
+- \sigma^2 \dfrac{\bar{x}}{L_{xx}}
+$$
+
+但如果 $\bar{X} = 0$，那么 $\hat{\beta}_0$ 和 $\hat{\beta}_1$ 相互独立.
+
+$\sigma^2$ 与 $\hat{\beta}_0$ 和 $\hat{\beta}_1$ 都独立，并且
+
+$$
+\dfrac{n-2}{\sigma^2} \hat{\sigma}^2 \sim \chi^2 (n-2)
+$$
+
+要检验回归关系是否显著，可以利用 $t$ 分布
+
+$$
+\dfrac{\hat{\beta}_1}{\hat{\sigma}} \sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2}
+\sim t(n-2)
+$$
+
+更多的是采用
+
+$$
+\dfrac{\hat{\beta}_1^2}{\hat{\sigma}^2} L_{xx} \sim F(1, n-2) \\
+\dfrac{(n-2) L_{xy}^2}{L_{xx} L_{yy} - L_{xy}^2} \sim F(1,n-2)
+$$
+
+这个检验统计量恰好就是 $F= (n-2)r^2 / (1-r)^2=(n-2) RegSS / RSS$.
+
+$H_0: \beta_1 = 0$ 的否定域是 ${ F > F_{0.05}(1,n-2) }$，如果零假设被否定，即认为回归方程成立.
+
+当零假设没有被拒绝，意味着这两个数值变量之间不存在前面建立的线性回归关系，但是它们之间可能存在着其它类型的关系.
+
+##### 回归系数的区间估计
+
+统计量
+
+$$
+\dfrac{\hat{\beta}_1 - \beta_1}{\hat{\sigma}} \sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2} \sim t(n-2)
+$$
+
+区间为
+
+$$
+\left(
+\hat{\beta}_1 - \dfrac{\hat{\sigma}}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2}} t_{\alpha/2} (n-2),
+\hat{\beta}_1 + \dfrac{\hat{\sigma}}{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2}} t_{\alpha/2} (n-2)
+\right)
+$$
+
+#### 回归方程的预测
+
+假定对回归模型 $y=\beta_0 + \beta_1 x + \varepsilon$，我们已经观察到了一组数据 $( x_i, y_i )$，$1 \leq i \leq n $. 现在希望了解 $x = x_0$ 时对应的 $y = y_0$ 的情况. 很自然的，应该有关系
+
+$$
+y=\beta_0 + \beta_1 x_0 + \varepsilon_0
+$$
+
+如果只需要 $y_0$ 的一个点估计，显然有
+
+$$
+\hat{y}_0 = \hat{\beta}_0 + \hat{\beta}_1 x_0
+$$
+
+如果需要预测 $y_0$ 的一个范围，则应该求出一个区间估计，但必须知道与 $y_0$ 有关的分布
+
+$$
+y_0^* =  \hat{\beta}_0 + \hat{\beta}_1 x_0
+$$
+
+这里 $y_0^*$ 只可能和随机变量 $\varepsilon_1, \dots,  \varepsilon_n$ 有关，并且 $(\hat{\beta}_0, \hat{\beta}_0)$ 服从二维正态分布，因此 $y_0^*$ 是一个只与 $\varepsilon_1, \dots,  \varepsilon_n$ 有关的服从一维正态分布的随机变量.
+
+$$
+y_0 = \beta_0 + \beta_1 x_0 + \varepsilon_0 \sim N(\beta_0 + \beta_1 x_0, \sigma^2)
+$$
+
+因为 $y_0 - y_0^*$ 是两个独立正态随机变量的差，仍然服从正态分布，所以
+
+$$
+y_0 - y_0^* \sim N \left(
+0,
+\sigma^2 \left( 1 + \dfrac{1}{n} + \dfrac{(x_0 - \bar{x})^2}{\sum_{i=1}^n (x_i - \bar{x})^2} \right)
+\right)
+$$
+
+之后可以通过中心标准化和卡方分布凑出 t 分布，此处略.
+
+因此，$y_0$ 的一个置信度 $1 - \alpha$ 区间估计，或者说给出一个 $x_0$，则相应的因变量 $y_0$ 以 $1 - \alpha$ 的概率在如下的一个范围内变化
+
+$$
+\left( \hat{\beta}_0 + \hat{\beta}_1 x_0 -h, \ \hat{\beta}_0 + \hat{\beta}_1 x_0 +h \right) \\
+h = t_{\alpha/2}(n-2) \hat{\sigma} \sqrt{1+\dfrac{1}{n} + \dfrac{(x_0 - \bar{x})^2}{\sum_{i=1}^{n} (x_i - \bar{x})^2}}
+$$
+
+#### 回归方程的控制
+
+这是预测问题的逆问题，即需要 $y_0$ 以 $1 - \alpha$ 的概率落在一个范围 $( A,B )$ 内，问 $x_0$ 的变化范围应该是什么？
+
+只需要取 $x_0$ 使得
+
+$$
+A \leq y_0^* -  h \\ y_0^* +  h  \leq B
+$$
+
+同时成立，即可解出 $x_0$ 相应的变化范围
+
+其中 $y_0^* = \hat{\beta}_{0} + \hat{\beta}_1 x_0$
