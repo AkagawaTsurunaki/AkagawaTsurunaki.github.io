@@ -317,13 +317,13 @@ $$
 
 ### 分布的可加性
 
-伯努利分布：$$B(n_1, p)+B(n_2, p) \sim B(n_1+n_2, p)$$
+伯努利分布：$B(n_1, p)+B(n_2, p) \sim B(n_1+n_2, p)$
 
-泊松分布：$$P(\lambda_1) + P(\lambda_2) \sim P(\lambda_1 + \lambda_2)$$
+泊松分布：$P(\lambda_1) + P(\lambda_2) \sim P(\lambda_1 + \lambda_2)$
 
-正态分布：$$N(\mu_1, \sigma_1^2) + N(\mu_2, \sigma_2^2) \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$$
+正态分布：$N(\mu_1, \sigma_1^2) + N(\mu_2, \sigma_2^2) \sim N(\mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)$
 
-伽马分布：$$\Gamma(\alpha_1, \lambda) + \Gamma(\alpha_2, \lambda) \sim \Gamma(\alpha_1 + \alpha_2, \lambda) $$
+伽马分布：$\Gamma(\alpha_1, \lambda) + \Gamma(\alpha_2, \lambda) \sim \Gamma(\alpha_1 + \alpha_2, \lambda) $
 
 ### 随机向量
 
@@ -684,7 +684,7 @@ $$
 任意两个顺序统计量 $(k<r)$ 的联合概率密度函数
 
 $$
-p_{k, r}(y_k, y_r) = \dfrac{n!}{(k-1)! (r-k-1)! (n-r)!} p(y_k) p(y_r) \color{gray}{\scriptstyle ↵} \\ \times (F(y_k))^{k-1}\left[ F(y_r) -F(y_k) \right]^{r-k-1} [1-F(y_r)]^{n-r}, \quad y_k < y_r
+p_{k, r}(y_k, y_r) = \dfrac{n!}{(k-1)! (r-k-1)! (n-r)!} p(y_k) p(y_r) ↵ \\ \times (F(y_k))^{k-1}\left[ F(y_r) -F(y_k) \right]^{r-k-1} [1-F(y_r)]^{n-r}, \quad y_k < y_r
 $$
 
 ##### 极差的概率密度函数
@@ -1352,13 +1352,13 @@ $$
 ##### 单个正态总体均值的假设检验
 
 | $H_0$                                         | $H_1$                                                        | $\sigma^2$        | 拒绝域                                                                          |
-| --------------------------------------------- | ------------------------------------------------------------ | ----------------- | ------------------------------------------------------------------------------- | --------------------------------------------------- | -------------------------------- |
-| $\mu=\mu_0$                                   | $\mu \neq \mu_0$                                             | $\sigma_0^2$ 已知 | $\left\{ \left                                                                  | \dfrac{\bar{X} - \mu_0 }{\sigma_0 /\sqrt{n}} \right | > u\_{\alpha/2}\right\}$         |
-|                                               |                                                              | 未知              | $\left\{ \left                                                                  | \dfrac{\bar{X} - \mu_0 }{S/\sqrt{n}} \right         | > t\_{\alpha/2} (n-1) \right\} $ |
+| --------------------------------------------- | ------------------------------------------------------------ | ----------------- | ------------------------------------------------------------------------------- |
+| $\mu=\mu_0$                                   | $\mu \neq \mu_0$                                             | $\sigma_0^2$ 已知 | $\left\{ \left\vert \dfrac{\bar{X} - \mu_0 }{\sigma_0 /\sqrt{n}} \right\vert > u_{\alpha/2}\right\}$ |
+|                                               |                                                              | 未知              | $\left\{ \left\vert \dfrac{\bar{X} - \mu_0 }{S/\sqrt{n}} \right\vert > t_{\alpha/2} (n-1) \right\} $ |
 | $\mu= \mu_0 \\ \mu = \mu_0 \\ \mu \leq \mu_0$ | $\mu > \mu_0 \\ \mu=\mu_1 (\mu_0 < \mu_1) \\ \mu > \mu_0$    | $\sigma_0^2$ 已知 | $\left\{  \dfrac{\bar{X} - \mu_0 }{\sigma_0 /\sqrt{n}} > u_{\alpha}   \right\}$ |
-|                                               |                                                              | 未知              | $\left\{ \dfrac{\bar{X} - \mu*0 }{S/\sqrt{n}} > t*{\alpha} (n-1) \right\} $     |
+|                                               |                                                              | 未知              | $\left\{ \dfrac{\bar{X} - \mu_0 }{S/\sqrt{n}} > t_{\alpha} (n-1) \right\} $     |
 | $\mu= \mu_0 \\ \mu = \mu_0 \\ \mu >\mu_0$     | $\mu < \mu_0 \\ \mu=\mu_1 (\mu_0 > \mu_1) \\ \mu \leq \mu_0$ | $\sigma_0^2$ 已知 | $\left\{  \dfrac{\bar{X} - \mu_0 }{\sigma_0 /\sqrt{n}} < -u_{\alpha}\right\}$   |
-|                                               |                                                              | 未知              | $\left\{ \dfrac{\bar{X} - \mu*0 }{S/\sqrt{n}} < -t*{\alpha} (n-1) \right\} $    |
+|                                               |                                                              | 未知              | $\left\{ \dfrac{\bar{X} - \mu_0 }{S/\sqrt{n}} < -t_{\alpha} (n-1) \right\} $    |
 
 ##### 单个正态总体方差的假设检验
 
@@ -1374,13 +1374,13 @@ $$
 ##### 两个正态总体均值假设检验表
 
 | $H_0$              | $H_1$              | 条件                                 | 拒绝域                                                                                             |
-| ------------------ | ------------------ | ------------------------------------ | -------------------------------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------------------------------------ |
-| $\mu_1 = \mu_2 $   | $\mu_1 \neq \mu_2$ | $\sigma_1^2, \ \sigma_2^2$ 已知      | $\left\{ \dfrac{                                                                                   | \bar{X}-\bar{Y}   | }{\sqrt{ \sigma*1^2/n_1 + \sigma_2^2/n_2}} > u*{\alpha/2} \right\}$                  |
-|                    |                    | $\sigma_1^2 = \sigma_2^2$            | $\left\{ \dfrac{                                                                                   | \bar{X} - \bar{Y} | }{S*w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} > t*{\alpha/2} (n_1 + n_2 - 2) \right\}$ |
-| $\mu_1 \leq \mu_2$ | $\mu_1 > \mu_2$    | $\sigma_1^2, \ \sigma_2^2$ 已知      | $ \left\{ \dfrac{\bar{X}-\bar{Y}}{\sqrt{ \sigma*1^2/n_1 + \sigma_2^2/n_2}} > u*{\alpha} \right\} $ |
-|                    |                    | $\sigma_1^2 = \sigma_2^2 = \sigma^2$ | $\left\{ \dfrac{                                                                                   | \bar{X} - \bar{Y} | }{S*w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} > t*{\alpha} (n_1 + n_2 - 2) \right\}$   |
-| $\mu_1 > \mu_2$    | $\mu_1 \leq \mu_2$ | $\sigma_1^2, \ \sigma_2^2$ 已知      | $\left\{ \dfrac{\bar{X}-\bar{Y}}{\sqrt{ \sigma_1^2/n_1 + \sigma_2^2/n_2}} < -u_{\alpha} \right\}$  |
-|                    |                    | $\sigma_1^2 = \sigma_2^2 = \sigma^2$ | $\left\{ \dfrac{                                                                                   | \bar{X} - \bar{Y} | }{S*w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} < -t*{\alpha} (n_1 + n_2 - 2) \right\}$  |
+| ------------------ | ------------------ | ------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| $\mu_1 = \mu_2 $   | $\mu_1 \neq \mu_2$ | $\sigma_1^2, \ \sigma_2^2$ 已知      | $\left\{ \dfrac{\vert \bar{X}-\bar{Y} \vert}{\sqrt{ \sigma_1^2/n_1 + \sigma_2^2/n_2}} > u_{\alpha/2} \right\}$ |
+|                    |                    | $\sigma_1^2 = \sigma_2^2 = \sigma^2$ | $\left\{ \dfrac{\vert \bar{X} - \bar{Y} \vert}{S_w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} > t_{\alpha/2} (n_1 + n_2 - 2) \right\}$ |
+| $\mu_1 \leq \mu_2$ | $\mu_1 > \mu_2$    | $\sigma_1^2, \ \sigma_2^2$ 已知      | $\left\{ \dfrac{\bar{X}-\bar{Y}}{\sqrt{ \sigma_1^2/n_1 + \sigma_2^2/n_2}} > u_{\alpha} \right\}$ |
+|                    |                    | $\sigma_1^2 = \sigma_2^2 = \sigma^2$ | $\left\{ \dfrac{\vert \bar{X} - \bar{Y} \vert}{S_w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} > t_{\alpha} (n_1 + n_2 - 2) \right\}$ |
+| $\mu_1 > \mu_2$    | $\mu_1 \leq \mu_2$ | $\sigma_1^2, \ \sigma_2^2$ 已知      | $\left\{ \dfrac{\bar{X}-\bar{Y}}{\sqrt{ \sigma_1^2/n_1 + \sigma_2^2/n_2}} < -u_{\alpha} \right\}$ |
+|                    |                    | $\sigma_1^2 = \sigma_2^2 = \sigma^2$ | $\left\{ \dfrac{\vert \bar{X} - \bar{Y} \vert}{S_w \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} < -t_{\alpha} (n_1 + n_2 - 2) \right\}$ |
 
 ##### 两个正态总体方差假设检验表
 
@@ -1805,8 +1805,7 @@ $$
 
 其中 $D(\boldsymbol{Y})$ 是 $\boldsymbol{Y}$ 的协方差矩阵 $[ \mathrm{Cov} (y_1, y_j) ]_{n \times n}$
 
-> 矩阵的迹具有一些性质： $\mathrm{tr} (\boldsymbol{A} \boldsymbol{B}) = \mathrm{tr} (\boldsymbol{B} \boldsymbol{A} ), \quad 
-> \mathrm{tr} (\boldsymbol{A} - \boldsymbol{B} ) = \mathrm{tr} (\boldsymbol{A}) - \mathrm{tr} (\boldsymbol{B})$
+> 矩阵的迹具有一些性质 $\mathrm{tr} (\boldsymbol{A} \boldsymbol{B}) = \mathrm{tr} (\boldsymbol{B} \boldsymbol{A} ), \quad \mathrm{tr} (\boldsymbol{A} - \boldsymbol{B} ) = \mathrm{tr} (\boldsymbol{A}) - \mathrm{tr} (\boldsymbol{B})$
 
 $$
 E(\boldsymbol{Y}) = \boldsymbol{X} \boldsymbol{\beta},  \quad D(\boldsymbol{Y}) = \sigma^2 \boldsymbol{I}_n \\
