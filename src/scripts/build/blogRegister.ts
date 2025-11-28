@@ -94,10 +94,14 @@ export function getBlogItemList() {
 export function getNoteItemList() {
   return [
     {
-      mdFilePath:
-        'notes/the-mathematical-statistics-with-application-note.md',
+      mdFilePath: 'notes/the-mathematical-statistics-with-application-note.md',
       tags: ['数学'],
       time: '2025-11-12 10:13',
+    },
+    {
+      mdFilePath: 'notes/the-mathematical-statistics-with-application-exams.md',
+      tags: ['数学'],
+      time: '2025-11-29 00:08',
     },
   ]
 }

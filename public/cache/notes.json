@@ -8,5 +8,15 @@
     "updatedTime": "2025-11-12 10:13",
     "preview": "\n> 笔记作者：赤川鹤鸣\\_Channel\n>\n> 发布网站：https://akagawatsurunaki.github.io\n>\n> 参考资料：\n>\n> 1. 孙飞. 应用数理统计[DB/OL]. 沈阳：东北大学数学系, 2025.\n> 2. 孙荣恒. 应用数理统计[M]. 第三版. 北京：科学出版社, 2014.\n\n> [!CAUTION]\n>\n> 作者无法保证所有内...",
     "filePath": "notes/the-mathematical-statistics-with-application-note.md"
+  },
+  {
+    "id": 1,
+    "title": "应用数理统计历年真题\r\n",
+    "tags": [
+      "数学"
+    ],
+    "updatedTime": "2025-11-29 00:08",
+    "preview": "\r\n> 作者：赤川鹤鸣_Channel\r\n>\r\n> 不保证全对，请批判地看. 但保证所有题已经过人工和 AI 双重评判. \r\n\r\n我们约定：\r\n1. 样本都是简单随机样本. 样本均值与样本方差分别定义为\r\n$$\r\n\\bar{X} = \\dfrac{1}{n} \\sum_{i=1}^{n} X_k , \\quad S^2 = \\dfrac{1}{n-1} \\sum_{i=...",
+    "filePath": "notes/the-mathematical-statistics-with-application-exams.md"
   }
 ]
