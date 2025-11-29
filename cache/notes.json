@@ -16,7 +16,7 @@
       "数学"
     ],
     "updatedTime": "2025-11-29 00:08",
-    "preview": "\r\n> 作者：赤川鹤鸣_Channel\r\n>\r\n> 不保证全对，请批判地看. 但保证所有题已经过人工和 AI 双重评判. \r\n\r\n我们约定：\r\n1. 样本都是简单随机样本. 样本均值与样本方差分别定义为\r\n\r\n$$\r\n\\bar{X} = \\dfrac{1}{n} \\sum_{i=1}^{n} X_k , \\quad S^2 = \\dfrac{1}{n-1} \\sum_{...",
+    "preview": "作者：赤川鹤鸣_Channel | Author: AkagawaTsurunaki\r\n\r\n> [!NOTE] \r\n> \r\n> 作者虽不能保证每道题都是和真题标准答案一致，但可以保证所有题已经过人工和 AI 双重评判. 根据作者对历年真题的分析，从 2021 年开始，无论是证明题还是计算题，都开始更加多元化、灵活化，需要考生掌握知识点的融会贯通，但繁琐计算（如大量加减乘...",
     "filePath": "notes/the-mathematical-statistics-with-application-exams.md"
   }
 ]
