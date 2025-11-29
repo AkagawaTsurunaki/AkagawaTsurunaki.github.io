@@ -2,14 +2,433 @@
 
 > 作者：赤川鹤鸣_Channel
 >
-> 不保证全对，请批判地看. 但保证所有题已经过人工和 AI 双重评判. 
+> 作者虽不能保证每道题都是和真题标准答案一致，但可以保证所有题已经过人工和 AI 双重评判. 根据作者对历年真题的分析，从 2021 年开始，无论是证明题还是计算题，都开始更加多元化、灵活化，需要考生掌握知识点的融会贯通，但繁琐计算（如大量加减乘除）的运算量减少. 
 
 我们约定：
 1. 样本都是简单随机样本. 样本均值与样本方差分别定义为
+
 $$
 \bar{X} = \dfrac{1}{n} \sum_{i=1}^{n} X_k , \quad S^2 = \dfrac{1}{n-1} \sum_{i=1}^{n} (X_k - \bar{X})^2
 $$
+
 2. 分位点 $Q_\alpha$ 取为上侧分位点，即：$P(X>Q_\alpha)=\alpha$
+
+## 2023-2024 A
+
+### 一、计算题（共 10 分）
+
+假设 $X_1, X_2, X_3, X_4$ 独立同分布于正态分布 $N(0, 0.5)$。
+
+1. （5分）简单推导出 $Y = (X_1 + X_2)^2 + (X_3 + X_4)^2$ 的分布并写出密度函数；
+
+2. （5分）对任意参数 $\lambda > 0$，计算条件概率 $P\{Y > 3\lambda | Y > \lambda\}$. 
+
+
+
+### 二、计算题（共 10 分）
+
+假设简单随机样本 $X_1, \ldots, X_n$ 来自正态总体 $N(\theta, 1)$，参数 $\theta$ 的先验分布为 $N(1, 1)$，在如下损失函数下
+
+$$
+L(\theta, d) = (\theta - 2d)^2
+$$
+
+1. （5分）证明 $\theta$ 的 Bayes 估计后验分布数学期望的一半；
+
+2. （5分）求出 $\theta$ 的 Bayes 估计. 
+
+
+
+### 三、计算题（共 15 分）
+
+设总体 $X$ 的分布律为 $P(X=0)=2\rho, \ P(X=1)=\rho, \ P(X=2)=1-3\rho$，其中 $\rho \ (0<\rho<1/3)$ 为未知参数，$X_1, \ldots, X_n$ 是总体的一个简单随机样本. 
+
+1. （5分）求 $\rho$ 的矩估计 $\hat{\rho}$；
+
+2. （10分）求 $\hat{\rho}$ 的均方误差. 
+
+
+
+### 四、计算分析题（共 15 分）
+
+设 $X \sim N(\mu, \sigma^2)$，$\ln Y \sim N(1, \sigma^2)$，$\mu$ 和 $\sigma^2$ 为未知参数，$X_1, \ldots, X_7$ 和 $Y_1, \ldots, Y_4$ 分别是来自总体 $X$ 和 $Y$ 的简单随机样本，且相互独立. 求 $\sigma^4$ 的置信度为 0.95 的双侧置信区间. 
+
+
+
+### 五、计算题（共 10 分）
+
+某灯泡厂用甲乙两种不同配料方案制成灯丝，在生产的灯泡中随机抽取测得使用寿命如下表
+
+| 灯丝配料方案 |       灯泡寿命（小时）       |
+| :----------: | :--------------------------: |
+|      甲      | 1500, 1510, 1515, 1470, 1490 |
+|      乙      |    1480, 1600, 1530, 1550    |
+
+检验灯丝配料方案对灯泡寿命是否有显著影响（$\alpha = 0.05$）.
+
+
+
+### 六、计算题（共 15 分）
+
+设 $X_1, X_2, \ldots, X_{16}$ 是来自正态总体 $X \sim N(\mu, 4)$ 的简单随机样本，考虑假设检验问题：
+
+$$
+H_0: \mu = 3, \quad H_1: \mu = 4
+$$
+若 $H_0$ 的否定域为
+
+$$
+W = \{(X_1, \ldots, X_{16}): \overline{X} > 3.8\}
+$$
+
+1. （10分）求犯两类错误的概率 $\alpha$ 与 $\beta$；
+
+2. （5分）在显著性水平 0.01 下，求 $H_0: \mu = 3$，$H_1: \mu = 4$ 的否定域. 
+
+
+
+### 七、计算分析题（共 10 分）
+
+下表中的数据描述了对 25 名发烧 38°C 或以上的受试者服用五种不同品牌的头痛片所提供的缓解小时数：
+
+$$
+\begin{align*}
+A_1: & \quad 5.2, \, 4.5, \, 8.1, \, 6.2, \, 3.0 \\
+A_2: & \quad 9.1, \, 7.1, \, 8.2, \, 6.0, \, 9.1 \\
+A_3: & \quad 3.1, \, 5.7, \, 2.1, \, 3.0, \, 7.1 \\
+A_4: & \quad 2.4, \, 3.3, \, 4.1, \, 1.2, \, 4.0 \\
+A_5: & \quad 7.1, \, 6.6, \, 9.3, \, 4.4, \, 7.6 \\
+\end{align*}
+$$
+
+假设上述数据满足单因素方差分析模型的条件，在显著性水平 $\alpha = 0.05$ 下，检验不同品牌的头痛片的疗效有无显著差异。
+
+提示：分组均值与样本方差，$A_1: \overline{x}_1 = 5.4, s_1^2 = 14.54/4$；$A_2: \overline{x}_2 = 7.9, s_2^2 = 7.22/4$；$A_3: \overline{x}_3 = 4.2, s_3^2 = 17.72/4$；$A_4: \overline{x}_4 = 3.0, s_4^2 = 5.9/4$；$A_5: \overline{x}_5 = 7.0, s_5^2 = 12.58/4$；全部数据的均值与样本方差：$\overline{x} = 5.5, s^2 = 137.76/24$. 
+
+
+
+### 八、计算题（共 15 分）
+
+考虑一元回归模型 $y = \beta_0 + \beta_1 x + \varepsilon$，$\varepsilon \sim N(0, \sigma^2)$，今对不同的 $x$ 值，对 $y$ 进行观察，得 10 对数据，并根据这些数据对计算得
+
+$$
+\overline{x} = 3.9, \overline{y} = 3.9, L_{xx} = 26.4, L_{xy} = 20.9, L_{yy} = 30.9
+$$
+
+1. （10分）求回归方程 $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x$；
+
+2. （5分）在显著性水平 $\alpha = 0.05$ 下，检验假设：
+
+$$
+H_0: \beta_1 \geq 1, \quad H_1: \beta_1 < 1.
+$$
+
+
+
+## 2022-2023 A
+
+### 一、计算题（共 10 分）
+
+设 $X \sim \chi^2(2)$，若常数 $C$ 满足 $P(X > C) = \alpha$，证明 $C = -2\ln \alpha$. 
+
+（提示：利用 Gamma 分布的性质）
+
+**解：**
+
+卡方分布是一种 Gamma 分布，所以由 $X \sim \chi^2(2)$ 可知 $X\sim \Gamma \left(1, \dfrac{1}{2}\right)$. 
+
+如果我们想要更加简化运算，可以把随机变量 $X$ 凑成一个服从指数分布的随机变量 $Y$，这是因为指数分布也是一种 Gamma 分布. 
+$$
+Y: = \dfrac{1}{2} X \sim \Gamma(1, 1) \implies Y = \dfrac{1}{2} X \sim E(1)
+$$
+由
+$$
+P(X > C) = 1 - P(X \leq C) = \alpha \\ 
+\implies P(X \leq C) = P\left(\dfrac{1}{2}X \leq \dfrac{1}{2}C\right)= P\left(Y\leq \dfrac{1}{2}C\right) = 1 - \alpha
+$$
+可以利用指数分布的累计分布函数，也就是
+$$
+\int_0^{\frac{c}{2}} e^{-x} \mathrm{d}x = 1-e^{-x} \Big|_{0}^{\frac{c}{2}} = 1 - e^{-\frac{c}{2}} = 1 - \alpha
+$$
+从而解得
+$$
+C = -2 \ln \alpha
+$$
+
+### 二、计算题（共 10 分）
+
+简单随机样本 $X_1, X_2, \cdots, X_{10}$ 来自泊松总体 $P(\lambda)$，参数 $\lambda$ 的先验分布为 Gamma 分布 $\Gamma(2, 10)$，样本均值 $\bar{x} = 1.3$ 利用 $\lambda$ 的后验分布构造出 $\lambda$ 的一个置信度为 0.95 的 Bayes 区间估计. 
+
+**解：**
+
+参数 $\lambda$ 的分布为
+$$
+\pi(\lambda) = \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha-1} e^{-\beta \lambda} \quad (\lambda > 0)
+$$
+样本 $X$ 与参数 $\lambda$ 的联合分布为
+$$
+p(x, \lambda) = p(x|\lambda)\pi(\lambda) = 
+\left( \prod_{i=1}^{n} \dfrac{\lambda^{x_i}}{x_i !} e^{-\lambda} \right) \frac{\beta^\alpha}{\Gamma(\alpha)} \lambda^{\alpha-1} e^{-\beta \lambda} 
+\propto \lambda^{\sum {x_i} + \alpha - 1} e^{ - n \lambda-\beta \lambda} \\
+$$
+因此 Gamma 分布共轭于泊松分布
+$$
+\lambda | X \sim \Gamma (\alpha + n\bar{x}, n+ \beta)
+$$
+其中，$\alpha = 2$，$\beta = 10$，$n=10$，$\bar{x}=1.3$，所以
+$$
+\lambda | X \sim \Gamma(15, 20)
+$$
+我们知道 Gamma 分布可以用来构造出卡方分布，所以
+$$
+40 \lambda | X \sim \chi^2(30)
+$$
+所以
+$$
+P\left\{ c < \lambda < d \right\} = 
+P\left\{ \chi^2_{1-a/2}(30) < 40 \lambda < \chi^2_{a/2}(30) \right\} = 
+P\left\{ \dfrac{\chi^2_{1-a/2}(30)}{40} <  \lambda < \dfrac{\chi^2_{a/2}(30)}{40} \right\}
+$$
+即 $\lambda$ 的区间估计为
+$$
+\left( \dfrac{\chi^2_{1-a/2}(30)}{40}, \dfrac{\chi^2_{a/2}(30)}{40} \right)
+$$
+具体地，由于 $1-a = 0.95$，所以 $a = 0.05$，查表得 $\chi^2_{0.975}(30)=46.979$，$\chi^2_{0.025}(30)=16.791$，代入数据可得 $\lambda$ 的区间估计为
+$$
+(0.42, 1.17)
+$$
+
+### 三、计算题（共 15 分）
+
+总体 $ X $ 的概率密度函数为
+
+$$
+f(x) = 
+\begin{cases} 
+\dfrac{2x}{\theta} e^{-\frac{x^2}{\theta}}, & x > 0, \\
+0, & x \leq 0.
+\end{cases}
+$$
+其中 $\theta \ (\theta > 0)$ 为未知参数，$X_1, X_2, \dots, X_n$ 是总体的一个样本.
+
+1. （10 分）求 $\theta$ 的极大似然估计量 $\hat{\theta}$；
+2. （5 分）求 $\hat{\theta}$ 的均方误差.
+
+**解1：**
+
+似然函数
+$$
+L(\theta) = \prod_{i=1}^n f(x_i) = \prod_{i=1}^n \left( \frac{2x_i}{\theta} e^{-\frac{x_i^2}{\theta}} \right) = \left(  2^n  \prod_{i=1}^n X_i \right) \frac{1}{\theta^n} e^{-\frac{\sum_{i=1}^n x_i^2}{\theta}}
+$$
+对似然函数取对数
+$$
+\ln L(\theta) = n \ln 2 + \sum_{i=1}^n \ln X_i - n \ln \theta - \frac{\sum_{i=1}^n X_i^2}{\theta}
+$$
+对 $\theta$ 求导并令导数为零
+$$
+\frac{\partial \ln L(\theta)}{\partial \theta} = -\frac{n}{\theta} + \frac{\sum_{i=1}^n X_i^2}{\theta^2} = 0
+$$
+解得
+$$
+\hat{\theta} = \frac{\sum_{i=1}^n X_i^2}{n}
+$$
+**解2：**
+$$
+MSE(\hat{\theta}) = D(\hat{\theta}) + \left( E(\hat{\theta}) - \theta \right)^2
+$$
+先计算 $E(\hat{\theta})$
+$$
+E(\hat{\theta}) = E\left[ \frac{1}{n} \sum_{i=1}^n X_i^2 \right] = \frac{1}{n} \sum_{i=1}^n E(X_i^2) = E(X^2)
+$$
+然后计算 $E(X^2)$
+$$
+\begin{align}
+E(X^2) &= \int_0^\infty x^2 \cdot \frac{2x}{\theta} e^{-\frac{x^2}{\theta}} \mathrm{d} x \\
+&= \dfrac{2}{\theta} \int_0^\infty x^3 e^{-\frac{x^2}{\theta}} \mathrm{d} x \\
+& \xlongequal{t=\frac{x^2}{\theta}} \dfrac{2}{\theta} \int_0^\infty \left(\sqrt{\theta t}\right)^3e^{-t} \mathrm{d}\sqrt{\theta t}\\
+&= \dfrac{1}{\theta} \underbrace{ \int_0^\infty t e^{-t} \mathrm{d}t }_{\text{Gamma 积分}} \\
+&=  \theta \Gamma{(2)} \\
+&= \theta
+\end{align}
+$$
+所以 $E(\hat{\theta}) = \theta$，也说明了 $\hat{\theta}$ 是无偏估计. 
+
+接下来计算 $D(\hat{\theta})$
+$$
+D(\hat{\theta}) = D\left( \frac{1}{n} \sum_{i=1}^n X_i^2 \right) = \frac{1}{n^2} \sum_{i=1}^n D(X_i^2) = \frac{D(X^2)}{n} \\
+D(X^2) = E(X^4) - \left(E(X^2)\right)^2
+$$
+因此，我们需要计算 $E(X^4)$
+$$
+\begin{align}
+E(X^4) &= \int_0^\infty x^4 \cdot \frac{2x}{\theta} e^{-\frac{x^2}{\theta}} \mathrm{d} x \\
+& \xlongequal{t=\frac{x^2}{\theta}} \int_0^\infty \theta^2 t^2 \cdot \frac{2\sqrt{\theta t}}{\theta} e^{-t} \cdot \frac{\sqrt{\theta}}{2\sqrt{t}} \mathrm{d}t \\
+&= \theta^2 \underbrace{  \int_0^\infty t^2 e^{-t} \mathrm{d}t }_{\text{Gamma 积分}}\\
+&= \theta^2 \Gamma(3) \\
+&= 2\theta^2
+\end{align}
+$$
+所以 $D(X^2) = 2\theta^2 - \theta^2 = \theta^2$. 
+
+所以 $\hat{\theta}$ 的均方误差为
+$$
+MSE(\hat{\theta}) = \dfrac{\theta^2}{n}
+$$
+
+### 四、计算分析题（共 10 分）
+
+某人群中不同等级肺活量的人数有如下统计结果：
+
+| 性别 | 一级 | 二级 | 三级 |
+| ---- | ---- | ---- | ---- |
+| 男性 | 10   | 12   | 18   |
+| 女性 | 20   | 28   | 12   |
+
+问：性别和肺活量等级是否有关？并说明理由 $(\alpha = 0.1)$. （要求检验统计量的观测值的有效数字保留到小数点后两位）
+
+**解：**
+
+| 性别 | 一级 | 二级 | 三级 | 总计 |
+| ---- | ---- | ---- | ---- | ---- |
+| 男性 | 10   | 12   | 18   | 40   |
+| 女性 | 20   | 28   | 12   | 60   |
+| 总计 | 30   | 40   | 30   | 100  |
+
+原假设与对立假设
+$$
+H_0 : \forall i,\ j, \ p_{ij}=p_i p_j \quad H_1: \exist i,\ j,\ p_{ij} \neq p_i p_j
+$$
+统计量
+$$
+\begin{align}
+K^2 &= n \left[  \sum_{i=1}^{s} \sum_{j=1}^{t} \dfrac{n_{ij}^2}{n_{i*} n _{*j}} -1 \right] \\
+&= 100 \left[ \left( \frac{10^2}{40 \times 30} + \frac{12^2}{40 \times 40} + \frac{18^2}{40 \times 30} \right) + \left( \frac{20^2}{60 \times 30} + \frac{28^2}{60 \times 40} + \frac{12^2}{60 \times 30} \right) - 1 \right]
+\\
+& = 7.22
+\end{align}
+$$
+拒绝域为
+$$
+\left\{ K^2 > \chi^2_{\alpha} \left( (s-1) (t-1) \right) \right\}
+$$
+其中 $\chi^2_{\alpha} \left( (s-1) (t-1) \right) = \chi^2_{0.1} \left(2 \right) = 4.605$. 
+
+因为 $K^2 = 7.22 > 4.605 =  \chi^2_{0.1} \left(2 \right) $，所以拒绝原假设 $H_0$，认为性别与肺活量有关. 
+
+### 五、计算题（共 15 分）
+
+设 $X_1, X_2, \dots, X_m$ 和 $Y_1, Y_2, \dots, Y_n$ 分别为总体 $X \sim N(\mu_1, \sigma^2)$ 和 $Y \sim N(\mu_2, \sigma^2)$ 的相互独立的样本，$\mu_1, \mu_2, \sigma$ 都是未知参数. 利用全部样本求 $\sigma$ 的置信度为 0.95 的单侧置信上限 $\bar{\sigma}$，即 $P\{\sigma < \bar{\sigma}\} = 0.95$. 
+
+**解：**
+
+根据抽样分布定理，有
+$$
+\dfrac{(m-1)S_1^2}{\sigma^2} \sim \chi^2 (m-1) \quad \dfrac{(n-1)S_2^2}{\sigma^2} \sim \chi^2 (n-1)
+$$
+题目要求利用全部样本，而卡方分布具有可加性，所以
+$$
+K^2 := \frac{(m-1)S_1^2 + (n-1)S_2^2}{\sigma^2} \sim \chi^2(m+n-2)
+$$
+根据题意有
+$$
+P \left\{ K^2 > \chi^2_{1-\alpha} (m+n-2) \right\} = P \left\{ \frac{(m-1)S_1^2 + (n-1)S_2^2}{\sigma^2} > \chi^2_{1-\alpha} (m+n-2) \right\} \\
+= P \left\{ \sigma^2 < \frac{(m-1)S_1^2 + (n-1)S_2^2}{\chi^2_{1-\alpha} (m+n-2)} \right\} = 1-\alpha = 0.95
+$$
+因此
+$$
+\sigma < \sqrt{\frac{(m-1)S_1^2 + (n-1)S_2^2}{\chi^2_{0.95} (m+n-2)}}
+$$
+### 六、计算题（共 15 分）
+
+设 $X_1, X_2, \cdots, X_{16}$ 是来自正态总体 $X \sim N(\mu, 9)$ 的简单随机样本，考虑假设检验问题：
+
+$$
+H_0: \mu = 5, \quad H_1: \mu \neq 5
+$$
+
+1. （10 分）在显著性水平 $\alpha = 0.05$ 下，求上述检验问题的拒绝域；
+2. （5 分）在 $\mu = 6$ 时，推导 1 问中的检验犯第二类错误的概率. （用标准正态分布的分布函数表示）
+
+**解1：**
+
+检验统计量
+$$
+Z = \frac{\bar{X} - 5}{3/\sqrt{16}} = \frac{\bar{X} - 5}{0.75}
+$$
+双侧检验的拒绝域
+$$
+|Z| > u_{0.025}
+$$
+即
+$$
+\left\{ \frac{\bar{X} - 5}{0.75} < -u_{0.025}  \right\} \cup \left\{  \frac{\bar{X} - 5}{0.75} > u_{0.025}\right\} \\
+\implies \left\{\bar{X} < 5 - 0.75 u_{0.025} \right\} \cup \left\{  \bar{X} > 5 + 0.75 u_{0.025}\right\}
+$$
+查表得 $u_{0.025} = 1.96$，因此在显著性水平 $\alpha = 0.05$ 下，上述检验问题的拒绝域为
+$$
+\left\{\bar{X} < 3.53 \right\} \cup \left\{  \bar{X} > 6.47\right\}
+$$
+**解2：**
+
+第二类错误是指当 $\mu = 6$ 时，未能拒绝 $H_0$，即
+
+$$
+p_{\mathrm{II}} = P\left( 5 - 0.75 u_{0.025} \leq \bar{X} \leq 5 + 0.75 u_{0.025} \;\Big|\; \mu = 6 \right)
+$$
+在 $ \mu = 6 $ 时，$\bar{X} \sim N(6, 0.75^2)$，因此
+
+$$
+P\left( \frac{5 - 0.75 u_{0.025} - 6}{0.75} \leq Z \leq \frac{5 + 0.75 u_{0.025} - 6}{0.75} \right)\\
+= P\left( \frac{-1 - 0.75 u_{0.025}}{0.75} \leq Z \leq \frac{-1 + 0.75 u_{0.025}}{0.75} \right)\\
+= P\left( -\frac{1}{0.75} - u_{0.025} \leq Z \leq -\frac{1}{0.75} + u_{0.025} \right) \\
+= P\left( -\frac{4}{3} - u_{0.025} \leq Z \leq -\frac{4}{3} + u_{0.025} \right)
+$$
+
+所以犯第二类错误的概率为
+$$
+p_{\mathrm{II}}= \Phi\left( -\frac{4}{3} + u_{0.025} \right) - \Phi\left( -\frac{4}{3} - u_{0.025} \right) = \Phi(0.6267) - \Phi(-3.293)
+$$
+
+### 七、计算分析题（共 10 分）
+
+某公司对一种产品设计了三种新包装，为考察哪种包装最受欢迎，选了地段繁华程度相似、规模相近的商店做试验。在试验期内，各店货架排放位置、空间都相同，营业员的促销方式也相同，经过一段时间，记录其销量数据：
+
+- 包装类型 $A_1: 12, 18, 15, 13, 12$
+- 包装类型 $A_2: 19, 17, 21, 24, 29$
+- 包装类型 $A_3: 28, 27, 22, 26, 32$
+
+假设上述数据满足单因素方差分析模型的条件，在显著性水平 $\alpha = 0.01$ 下，检验不同包装类型下的销量有无显著差异？
+
+提示：分组均值与样本方差，$A_1: \bar{x}_1 = 14, s_1^2 = 26/4$；$A_2: \bar{x}_2 = 22, s_2^2 = 88/4$；$A_3: \bar{x}_3 = 27, s_3^2 = 52/4$；全部数据的均值与样本方差：$\bar{x} = 21, s^2 = 596/14$. 
+
+**解：**
+$$
+TSS = \sum_{i=1}^{r} \sum_{j=1}^{n_i} (y_{ij} - \bar{y})^2 = (n-1)s^2 = 14 \times \dfrac{596}{14}= 596 \\
+RSS = \sum_{i=1}^{r} (n_i-1)s^2_i = 4 \times \dfrac{26}{4} + 4 \times \dfrac{88}{4}  + 4 \times \dfrac{52}{4} =166 \\
+CSS = TSS - RSS = 596-166=430
+$$
+原假设与对立假设
+$$
+H_0:\beta_0 = \beta_1 = \beta_2, \quad H_1: \beta_0, \ \beta_1, \ \beta_2 中至少有一组不相等
+$$
+计算并构造 $F$ 统计量
+$$
+F = \dfrac{n-r}{r-1} \cdot \dfrac{CSS}{RSS} \sim F(r-1, n-r)
+$$
+即 $F \sim F(2, 12)$. 
+$$
+F = \dfrac{12}{2} \times \dfrac{430}{166} = 15.54
+$$
+查表知 $F_{0.01} (2,12)=5.10$，因为 $F=15.54>5.10=F_{0.01} (2,12)$，所以拒绝原假设 $H_0$，认为不同包装类型下的销量有显著差异. 
+
+### 八、计算题（共 15 分）
+
+考虑一元回归模型 $ \begin{cases} y = \beta_0 + \beta_1 x + \varepsilon, \\ \varepsilon \sim N(0, \sigma^2) \end{cases} $，$\beta_0$ 为已知参数，记样本观测数据 $(x_i, y_i), i = 1, 2, \ldots, n$. 
+
+1. （10 分）求未知参数 $\beta_1$ 的最小二乘估计 $\hat{\beta}_1$；
+2. （5 分）求 $\hat{\beta}_1$ 的方差. 
+
+> 此处答案可详见教材 205 ~ 207 页，利用线性代数知识和最小二乘方法（求导算极值）. 
 
 ## 2021-2022 A
 
