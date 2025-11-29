@@ -21,6 +21,7 @@ export async function renderMarkdown(
   const headers = parseMarkdownToc(tokens)
 
   const vNodes: VNode[] = []
+  let headerNum = 1
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i]
     if (token) {
@@ -70,7 +71,7 @@ export async function renderMarkdown(
         vNodes.push(h(Table, { mdText: token.raw }))
       } else if (token.type === 'heading') {
         if (skip?.includes('heading')) continue
-        const id = slugify(token.text)
+        const id = `${slugify(token.text)} ${headerNum++}`
         let html = await marked.parse(token.raw)
         html = html.substring(4, html.length - 6)
         vNodes.push(

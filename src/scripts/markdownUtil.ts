@@ -66,7 +66,7 @@ export function parseMarkdownToc(tokens: Token[]): Array<Header> {
   const headingTokens = tokens.filter((token) => token.type === 'heading') as Tokens.Heading[]
   let num = 1
   return headingTokens.map((token) => {
-    const id = `${slugify(token.text)}`
+    const id = `${slugify(token.text)} ${num++}`
     return new Header(id, token.depth, token.text)
   })
 }
