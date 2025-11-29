@@ -16,7 +16,7 @@
       "数学"
     ],
     "updatedTime": "2025-11-29 00:08",
-    "preview": "\r\n> 作者：赤川鹤鸣_Channel\r\n>\r\n> 不保证全对，请批判地看. 但保证所有题已经过人工和 AI 双重评判. \r\n\r\n我们约定：\r\n1. 样本都是简单随机样本. 样本均值与样本方差分别定义为\r\n$$\r\n\\bar{X} = \\dfrac{1}{n} \\sum_{i=1}^{n} X_k , \\quad S^2 = \\dfrac{1}{n-1} \\sum_{i=...",
+    "preview": "\r\n> 作者：赤川鹤鸣_Channel\r\n>\r\n> 不保证全对，请批判地看. 但保证所有题已经过人工和 AI 双重评判. \r\n\r\n我们约定：\r\n1. 样本都是简单随机样本. 样本均值与样本方差分别定义为\r\n\r\n$$\r\n\\bar{X} = \\dfrac{1}{n} \\sum_{i=1}^{n} X_k , \\quad S^2 = \\dfrac{1}{n-1} \\sum_{...",
     "filePath": "notes/the-mathematical-statistics-with-application-exams.md"
   }
 ]
