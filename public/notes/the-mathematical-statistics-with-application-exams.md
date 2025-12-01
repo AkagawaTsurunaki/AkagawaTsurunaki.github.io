@@ -1108,35 +1108,48 @@ $$
 根据假设检验，需要从 $\mu_1$ 和 $\mu_2$ 的良好点估计出发，显然 $\bar{X}$ 与 $\bar{Y}$ 分别是 $\mu_1$ 和 $\mu_2$ 的良好点估计. 
 
 由于 $\bar{X} \sim N\left(\mu_1, \dfrac{\sigma_1^2}{n}\right)$，$\bar{Y} \sim N\left(\mu_2, \dfrac{\sigma_2^2}{m}\right)$，$2\sigma_1 = 3\sigma_2$ 所以有
+
 $$
 \bar{Y} \sim N\left(\mu_2, \dfrac{4 \sigma_1^2}{9m}\right) \implies 2\bar{Y} \sim N\left(2\mu_2, \dfrac{16 \sigma_1^2}{9m}\right)\\
 \implies \bar{X} - 2\bar{Y} \sim N\left(\mu_1 - 2\mu_2, \sigma_1^2 \left(\dfrac{1}{n} + \dfrac{16}{9m}\right)\right)
 $$
+
 显然我们可以通过标准化 $\bar{X} - 2\bar{Y}$ 得到标准正态分布，即
+
 $$
 Z := \dfrac{\bar{X} - 2\bar{Y} - (\mu_1 - 2\mu_2 )}{\sqrt{\sigma_1^2\left( \dfrac{1}{n} +\dfrac{16}{9m} \right)}} \sim N(0,1)
 $$
+
 然而我们还有未知参数 $\sigma_1$ 需要估计，显然可以用 $S_1^2$ 来估计. 但由于我们知道 $2\sigma_1 = 3\sigma_2$，因此更合适的方法是将 $S_2^2$ 也充分利用. 
 
 根据抽样分布定理
+
 $$
 \dfrac{(n-1)S_1^2}{\sigma_1^2} \sim \chi^2(n-1) , \quad \dfrac{(m-1)S_1^2}{\sigma_2} \sim \chi^2(m-1)
 $$
+
 又由于卡方分布具有可加性
+
 $$
 \dfrac{(n-1)S_1^2}{\sigma_1^2} + \dfrac{(m-1)S_1^2}{\sigma_2^2} \sim \chi^2(m+n-2)
 $$
+
 我们将上式记为 $K^2$，并把 $\sigma_2$ 用 $\sigma_1$ 代换，即
+
 $$
 K^2 := \dfrac{4(n-1) S_1^2 + 9(m-1) S_2^2}{4 \sigma_1^2} \sim \chi^2 (n+m-2)
 $$
+
 从而构造 $t$ 分布以消去其中的未知参数 $\sigma_1$
+
 $$
 T := \dfrac{Z}{\sqrt{K^2 /(n+m-2)}} = \dfrac{\dfrac{\bar{X} - 2\bar{Y} - (\mu_1 - 2\mu_2 )}{\sqrt{\sigma_1^2\left( \dfrac{1}{n} +\dfrac{16}{9m} \right)}}}{\sqrt{\dfrac{4(n-1) S_1^2 + 9(m-1) S_2^2}{4 \sigma_1^2 (n+m-2)}}} = 
  \dfrac{\dfrac{\bar{X} - 2\bar{Y} - (\mu_1 - 2\mu_2 )}{\sqrt{ \dfrac{1}{n} +\dfrac{16}{9m} }}}{\sqrt{\dfrac{4(n-1) S_1^2 + 9(m-1) S_2^2}{4 (n+m-2)}}} 
  = \dfrac{\bar{X} - 2\bar{Y} - (\mu_1 - 2\mu_2 )}{\sqrt{ \dfrac{1}{n} +\dfrac{16}{9m} } \sqrt{\dfrac{4(n-1) S_1^2 + 9(m-1) S_2^2}{4 (n+m-2)}}}
 $$
+
 当原假设成立时，我们观察到的 $\bar{X} - 2 {\bar{Y}}$ 应该很小，反之，如果我们要拒绝原假设，就需要 $\bar{X} - 2 {\bar{Y}}$ 偏大，所以拒绝域应为 $\left\{ \bar{X} - 2 {\bar{Y}} > C\right\}$，接下来我们来寻找常数 $C$. 
+
 $$
 P \left\{  \bar{X} - 2\bar{Y} > C \right\} 
 = P \left\{  \dfrac{\bar{X} - 2\bar{Y} - (\mu_1 - 2\mu_2 )}{\sqrt{ \dfrac{1}{n} +\dfrac{16}{9m} } \sqrt{\dfrac{4(n-1) S_1^2 + 9(m-1) S_2^2}{4 (n+m-2)}}} > \dfrac{C - (\mu_1 - 2\mu_2 )}{\sqrt{ \dfrac{1}{n} +\dfrac{16}{9m} } \sqrt{\dfrac{4(n-1) S_1^2 + 9(m-1) S_2^2}{4 (n+m-2)}}} \right\} \\
@@ -1145,14 +1158,13 @@ P_{H_0} \left\{  T > \dfrac{C}{\sqrt{ \dfrac{1}{n} +\dfrac{16}{9m} } \sqrt{\dfra
 $$
 
 从而我们找到了 $C$，即显著性水平 $\alpha$ 下满足
+
 $$
 \dfrac{C}{\sqrt{ \dfrac{1}{n} +\dfrac{16}{9m}} \sqrt{\dfrac{4(n-1) S_1^2 + 9(m-1) S_2^2}{4 (n+m-2)}}} = t_{\alpha}(n+m-2)
 $$
+
 所以显著性水平 $\alpha$ 的拒绝域为
+
 $$
 \left\{  \bar{X} - 2\bar{Y} > t_{\alpha}(n+m-2) \sqrt{ \dfrac{1}{n} +\dfrac{16}{9m}} \sqrt{\dfrac{4(n-1) S_1^2 + 9(m-1) S_2^2}{4 (n+m-2)}} \right\}
 $$
-
----
-
-**©2025 AkagawaTsurunaki | All Rights Reserved.**
