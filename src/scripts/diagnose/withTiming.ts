@@ -1,4 +1,11 @@
-export function withTiming<F extends (...args: any[]) => any>(fn: F): F {
+import { projectConfig } from '../config'
+
+export function withTiming<F extends (...args: any[]) => any>(
+  fn: F,
+  debug: boolean = projectConfig.debug && projectConfig.performance.withTiming,
+): F {
+  if (!debug) return fn
+
   return function (this: any, ...args: Parameters<F>): ReturnType<F> {
     const start = performance.now()
     const result = fn.apply(this, args)
@@ -24,5 +31,5 @@ export function withTiming<F extends (...args: any[]) => any>(fn: F): F {
 //     sum += i
 //   }
 //   return sum
-// })
+// }, false)
 // expensiveCalculation()

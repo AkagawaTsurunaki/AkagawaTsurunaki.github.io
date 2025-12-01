@@ -2,37 +2,55 @@ import { marked } from 'marked'
 import { h } from 'vue'
 import type { VNode } from 'vue'
 import CodeBlock from '@/components/CodeBlock.vue'
-import Image from '../components/Image.vue'
+import Image from '../../components/Image.vue'
 import { parse } from 'node-html-parser'
+import MermaidBlock from '@/components/MermaidBlock.vue'
+import { parseMarkdownToc, slugify } from '../markdownUtil'
+import { MarkdownDto } from '../data'
+import Table from '@/components/Table.vue'
+
+const katex = await import('@/scripts/render/katexRender')
+marked.use(katex.default({ strict: false }))
 
 export async function renderMarkdown(
   src: string,
   skip: undefined | Array<string> = undefined,
-): Promise<VNode[]> {
-  const katex = await import('@/scripts/katexRender')
-  marked.use(katex.default({ strict: false }))
-
+): Promise<MarkdownDto> {
   // Inject custom components to AST of marked.
   const tokens = marked.lexer(src)
+  const headers = parseMarkdownToc(tokens)
+
   const vNodes: VNode[] = []
+  let headerNum = 1
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i]
     if (token) {
       if (token.type === 'code') {
-        // If code block
-        vNodes.push(
-          h(CodeBlock, {
-            key: `code-${i}`,
-            language: token.lang || '',
-            code: token.text,
-            rawHtml: null,
-          }),
-        )
+        if (token.lang === 'mermaid') {
+          vNodes.push(
+            h(MermaidBlock, {
+              id: `code-${i}`,
+              language: token.lang || '',
+              code: token.text,
+              rawHtml: null,
+            }),
+          )
+        } else {
+          // If code block
+          vNodes.push(
+            h(CodeBlock, {
+              id: `code-${i}`,
+              language: token.lang || '',
+              code: token.text,
+              rawHtml: null,
+            }),
+          )
+        }
       } else if (token.type === 'blockKatex') {
         const html = marked.parser([token])
         vNodes.push(
           h(CodeBlock, {
-            key: `katex-${i}`,
+            id: `katex-${i}`,
             language: 'katex',
             code: token.text,
             rawHtml: html,
@@ -46,7 +64,21 @@ export async function renderMarkdown(
             altText: token.text || '',
             width: undefined,
             height: undefined,
-            key: `image-${i}`,
+            id: `image-${i}`,
+          }),
+        )
+      } else if (token.type === 'table') {
+        vNodes.push(h(Table, { mdText: token.raw }))
+      } else if (token.type === 'heading') {
+        if (skip?.includes('heading')) continue
+        const id = `${slugify(token.text)} ${headerNum++}`
+        let html = await marked.parse(token.raw)
+        html = html.substring(4, html.length - 6)
+        vNodes.push(
+          h(`h${token.depth}`, {
+            id: id,
+            innerHTML: html,
+            class: 'md-heading',
           }),
         )
       } else {
@@ -63,13 +95,13 @@ export async function renderMarkdown(
               altText: img?.getAttribute('alt') || '',
               width: Number(img?.getAttribute('width')) || undefined,
               height: Number(img?.getAttribute('height')) || undefined,
-              key: `image-${i}`,
+              id: `image-${i}`,
             }),
           )
         } else {
           vNodes.push(
             h('div', {
-              key: `html-${i}`,
+              id: `html-${i}`,
               innerHTML: html,
             }),
           )
@@ -77,5 +109,5 @@ export async function renderMarkdown(
       }
     }
   }
-  return vNodes
+  return new MarkdownDto(vNodes, headers)
 }

@@ -1,8 +1,12 @@
 <script setup lang="ts">
 
-import { onMounted, ref, watch } from 'vue';
-import { renderMarkdown } from '@/scripts/markdownRender';
+import { onMounted, ref } from 'vue';
+import { renderMarkdown } from '@/scripts/render/markdownRender';
 import MarkdownSkeleton from '@/components/MarkdownSkeleton.vue'
+import TableOfContents from './TableOfContents.vue';
+import { Header } from '../scripts/data';
+
+const headers = ref<Header[]>([])
 
 const props = defineProps({
   mdText: {
@@ -11,31 +15,49 @@ const props = defineProps({
   }
 })
 
-const nodes = ref<any[]>([]);
-const isRendered = ref<boolean>(false)
+const nodes = ref<any[]>([])
+const loaded = ref<boolean>()
 
-watch(() => props.mdText, (_: any) => {
-  render()
-}, { immediate: true }) 
-
-async function render() {
-  isRendered.value = false
-  if (props.mdText) {
-    console.log(`Markdown content: \n${props.mdText}`)
-  }
-  nodes.value = await renderMarkdown(props.mdText);
-  console.log(`Markdown rendering finished: ${nodes.value.length} rendered.`)
-  isRendered.value = true
-}
+onMounted(async () => {
+  loaded.value = false
+  const info = await renderMarkdown(props.mdText);
+  nodes.value = info.nodes
+  headers.value = info.toc
+  loaded.value = true
+})
 
 </script>
 <template>
-  <div class="markdown-container" v-if="!isRendered">
-    <MarkdownSkeleton></MarkdownSkeleton>
+  <div class="markdown-editor">
+    <div class="header-table">
+      <TableOfContents :headers="headers"></TableOfContents>
+    </div>
+    <div class="markdown-wrapper">
+      <div v-if="!loaded" class="markdown-container">
+        <MarkdownSkeleton />
+      </div>
+      <div v-else class="markdown-body">
+        <component v-for="(n, i) in nodes" :key="i" :is="n" />
+      </div>
+    </div>
   </div>
-  <div class="markdown-body" v-if="isRendered">
-    <!-- 直接渲染 VNode 数组 -->
-    <component v-for="(node, i) in nodes" :key="i" :is="node" />
-  </div>
+
 </template>
 <style src="@/assets/markdown.css"></style>
+<style scoped>
+.markdown-wrapper {
+  margin-left: 260px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .markdown-wrapper {
+    margin-left: 0;
+  }
+
+  .header-table {
+    display: none;
+  }
+}
+</style>

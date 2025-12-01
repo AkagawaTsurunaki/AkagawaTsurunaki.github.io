@@ -53,15 +53,49 @@
   color: #777777;
 }
 
-.katex-display {
+.markdown-body .katex {
+  white-space: normal;
+  word-break: break-word;
+}
+
+.markdown-body a {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.markdown-body .katex,
+.markdown-body .katex * {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.markdown-body .katex-display {
   margin: 0 !important;
   font-size: 16px;
 }
 
-table {
-  border-collapse: collapse;
+.markdown-body .katex .mrel,
+.markdown-body .katex .mbin {
+  overflow-wrap: normal;
+}
+
+.markdown-body table {
+  display: block;
   width: 100%;
-  border-radius: 6px;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /** IOS **/
+  border-collapse: collapse;
+}
+
+.md-table {
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.markdown-body div {
+  max-width: 100%;
 }
 
 th,

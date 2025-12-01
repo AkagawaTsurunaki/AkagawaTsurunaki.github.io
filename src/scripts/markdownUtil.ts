@@ -1,4 +1,7 @@
+import { marked, type Token, type Tokens } from 'marked'
 import { readFileText } from './api/fileApi'
+import { Header } from './data'
+import 'marked'
 
 export async function getMarkdownFileInfoByPath(
   publicPath: string,
@@ -57,4 +60,21 @@ function getIndexOfFirstBr(str: string) {
     }
   }
   return -1
+}
+
+export function parseMarkdownToc(tokens: Token[]): Array<Header> {
+  const headingTokens = tokens.filter((token) => token.type === 'heading') as Tokens.Heading[]
+  let num = 1
+  return headingTokens.map((token) => {
+    const id = `${slugify(token.text)} ${num++}`
+    return new Header(id, token.depth, token.text)
+  })
+}
+
+export function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .trim()
+    .replace(/\s+/g, '-')
 }

@@ -5,6 +5,13 @@
     </div>
 </template>
 
+<style>
+.lazy-image {
+    display: inline;
+    max-width: 100vh;
+}
+</style>
+
 <script setup lang="ts">
 import ImageSkeleton from '@/components/ImageSkeleton.vue'
 import { onMounted, onBeforeUnmount, ref } from 'vue';

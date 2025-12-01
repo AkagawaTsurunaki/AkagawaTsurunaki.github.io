@@ -9,9 +9,9 @@ const routes = [
   { path: '/', name: 'home', component: Home },
   { path: '/blogs', name: 'blogs', component: BlogList },
   { path: '/blogs/:filePath(.*)', name: 'blogDetail', component: Blog },
-  { path: '/notes', name: 'notes', component: NoteList},
-  { path: '/notes/:filePath', name: 'notesDetail', component: Blog},
-  { path: '/ohno/mamiheyiwei', name: 'ohno', component: Ohno}
+  { path: '/notes', name: 'notes', component: NoteList },
+  { path: '/notes/:filePath(.*)', name: 'notesDetail', component: Blog },
+  { path: '/ohno/mamiheyiwei', name: 'ohno', component: Ohno },
 ]
 
 const router = createRouter({
