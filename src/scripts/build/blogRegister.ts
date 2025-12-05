@@ -1,6 +1,11 @@
 export function getBlogItemList() {
   return [
     {
+      mdFilePath: 'blogs/math-proof/deriving-lti-state-space-solution-from-scratch.md',
+      tags: ['数学', '微分方程'],
+      time: '2025-11-04 18:52',
+    },
+    {
       mdFilePath: 'blogs/ai-methods/mamba-reproduction.md',
       tags: ['人工智能', '论文复现'],
       time: '2025-11-04 18:52',
