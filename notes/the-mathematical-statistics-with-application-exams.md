@@ -44,13 +44,13 @@ f_Y (y) = \dfrac{1}{2} e^{-\frac{y}{2}} \quad y>0
 $$
 **解2：**
 $$
-\begin{align}
+\begin{align*}
 P(Y>3\lambda | Y>\lambda) &= \dfrac{P(Y>3\lambda \cup Y>\lambda )}{P(Y>\lambda)} \\
 &= \dfrac{P(Y>3\lambda )}{P(Y>\lambda)} \\
 &= \dfrac{\int_{3\lambda}^{\infty} \frac{1}{2}  e^{-\frac{y}{2}} \mathrm{d}y  }{\int_{\lambda}^{\infty} \frac{1}{2}  e^{-\frac{y}{2}} \mathrm{d}y} \\
 &=\dfrac{2e^{-\frac{3}{2}\lambda}}{2e^{-\frac{1}{2}\lambda}} \\
 &= e^{-\lambda}
-\end{align}
+\end{align*}
 $$
 
 ### 二、计算题（共 10 分）
@@ -84,13 +84,13 @@ $$
 
 样本 $X$ 与参数 $\theta$ 的联合分布是
 $$
-\begin{align}
+\begin{align*}
 p(X|\theta) \pi(\theta) &= \left( \prod_{i=1}^n \dfrac{1}{\sqrt{2\pi}} e^{-\frac{(x_i-\theta)^2}{2}} \right) \cdot \dfrac{1}{\sqrt{2\pi}} e^{-\frac{(\theta-1)^2}{2}} \\
 &\propto \exp \left(-\frac{\sum_{i=1}^n (x_i-\theta)^2}{2} -\frac{(\theta-1)^2}{2}\right) \\
 &\propto \exp \left( \dfrac{1}{2} \left( \sum_{i=1}^n x_i^2 -2\theta n \bar{x} + n\theta^2 + \theta^2 -2\theta + 1 \right)  \right)\\
 &\propto \exp \left( \dfrac{1}{2} \left( (n+1)\theta^2 - 2(n \bar{x} +1) \theta +C \right)  \right)\\
 &\propto \exp \left( -\dfrac{n+1}{2} \left(\theta - \dfrac{n\bar{x}+1}{n+1} \right)^2 \right)
-\end{align}
+\end{align*}
 $$
 由于正态分布共轭于正态分布，所以
 $$
@@ -113,11 +113,11 @@ $$
 
 首先，我们需要计算总体 $X$ 的期望值（即一阶矩）
 $$
-\begin{align}
+\begin{align*}
 E(X) &= 0 \cdot P(X=0) + 1 \cdot P(X=1) + 2 \cdot P(X=2) \\
 &= 0 \cdot 2\rho + 1 \cdot \rho + 2 \cdot (1 - 3\rho) = \rho + 2 - 6\rho \\
 &= 2 - 5\rho
-\end{align}
+\end{align*}
 $$
 由于样本均值 $\bar{X}$ 是样本的一阶矩，根据矩估计法，令总体均值等于样本均值
 $$
@@ -186,12 +186,12 @@ K^2 := K_1^2 + K_2^2 \sim \chi^2 (n+m-1)
 $$
 根据概率条件
 $$
-\begin{align}
+\begin{align*}
 & P\left\{ \chi^2_{1-\alpha/2}(n+m-1) < K^2 < \chi^2_{\alpha/2}(n+m-1)\right\} \\ 
 &= 
 P\left\{ \chi^2_{1-\alpha/2}(n+m-1) < \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)}{\sigma^2} < \chi^2_{\alpha/2}(n+m-1)\right\} \\ 
 &= P\left\{ \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)}{\chi^2_{\alpha/2}(n+m-1)}  < \sigma^2 < \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)}{\chi^2_{1-\alpha/2}(n+m-1)}\right\}
-\end{align}
+\end{align*}
 $$
 把 $\alpha=0.05$ 代入可得 $\sigma^2$ 的置信度为 0.95 的双侧置信区间
 $$
@@ -253,25 +253,25 @@ $$
 
 第一类错误是指当原假设成立时，拒绝原假设时的条件概率
 $$
-\begin{align}
+\begin{align*}
 \alpha &= P\left\{ \bar{X} > 3.8 \Big| \mu = 3 \right\} \\
 &= P\left\{ \frac{\bar{X} -3}{\sqrt{\frac{1}{4}}} > \frac{3.8 -3}{\sqrt{\frac{1}{4}}} \Big| \mu = 3 \right\} \\
 & \xlongequal{Z_1 = \frac{\bar{X} -3}{\sqrt{\frac{1}{4}}} \sim N(0,1)} P(Z_1 > 1.6) \\
 &= 1 - \Phi(1.6) \\
 &= 1-0.94520\\
 &=0.0548
-\end{align}
+\end{align*}
 $$
 第二类错误是指当对立假设成立时，拒绝对立假设时的条件概率
 $$
-\begin{align}
+\begin{align*}
 \beta &= P\left\{ \bar{X} \leq 3.8 \Big| \mu = 4 \right\} \\
 &= P\left\{ \frac{\bar{X} -4}{\sqrt{\frac{1}{4}}} \leq \frac{3.8 -4}{\sqrt{\frac{1}{4}}} \Big| \mu = 4 \right\} \\
 & \xlongequal{Z_2 = \frac{\bar{X} -4}{\sqrt{\frac{1}{4}}} \sim N(0,1)} P(Z_2 \leq -0.4) \\
 &= 1 - \Phi(0.4) \\
 &= 1-0.6554\\
 &=0.3446
-\end{align}
+\end{align*}
 $$
 **解2：**
 
@@ -507,14 +507,14 @@ E(\hat{\theta}) = E\left[ \frac{1}{n} \sum_{i=1}^n X_i^2 \right] = \frac{1}{n} \
 $$
 然后计算 $E(X^2)$
 $$
-\begin{align}
+\begin{align*}
 E(X^2) &= \int_0^\infty x^2 \cdot \frac{2x}{\theta} e^{-\frac{x^2}{\theta}} \mathrm{d} x \\
 &= \dfrac{2}{\theta} \int_0^\infty x^3 e^{-\frac{x^2}{\theta}} \mathrm{d} x \\
 & \xlongequal{t=\frac{x^2}{\theta}} \dfrac{2}{\theta} \int_0^\infty \left(\sqrt{\theta t}\right)^3e^{-t} \mathrm{d}\sqrt{\theta t}\\
 &= \dfrac{1}{\theta} \underbrace{ \int_0^\infty t e^{-t} \mathrm{d}t }_{\text{Gamma 积分}} \\
 &=  \theta \Gamma{(2)} \\
 &= \theta
-\end{align}
+\end{align*}
 $$
 所以 $E(\hat{\theta}) = \theta$，也说明了 $\hat{\theta}$ 是无偏估计. 
 
@@ -525,13 +525,13 @@ D(X^2) = E(X^4) - \left(E(X^2)\right)^2
 $$
 因此，我们需要计算 $E(X^4)$
 $$
-\begin{align}
+\begin{align*}
 E(X^4) &= \int_0^\infty x^4 \cdot \frac{2x}{\theta} e^{-\frac{x^2}{\theta}} \mathrm{d} x \\
 & \xlongequal{t=\frac{x^2}{\theta}} \int_0^\infty \theta^2 t^2 \cdot \frac{2\sqrt{\theta t}}{\theta} e^{-t} \cdot \frac{\sqrt{\theta}}{2\sqrt{t}} \mathrm{d}t \\
 &= \theta^2 \underbrace{  \int_0^\infty t^2 e^{-t} \mathrm{d}t }_{\text{Gamma 积分}}\\
 &= \theta^2 \Gamma(3) \\
 &= 2\theta^2
-\end{align}
+\end{align*}
 $$
 所以 $D(X^2) = 2\theta^2 - \theta^2 = \theta^2$. 
 
@@ -565,12 +565,12 @@ H_0 : \forall i,\ j, \ p_{ij}=p_i p_j \quad H_1: \exist i,\ j,\ p_{ij} \neq p_i 
 $$
 统计量
 $$
-\begin{align}
+\begin{align*}
 K^2 &= n \left[  \sum_{i=1}^{s} \sum_{j=1}^{t} \dfrac{n_{ij}^2}{n_{i*} n _{*j}} -1 \right] \\
 &= 100 \left[ \left( \frac{10^2}{40 \times 30} + \frac{12^2}{40 \times 40} + \frac{18^2}{40 \times 30} \right) + \left( \frac{20^2}{60 \times 30} + \frac{28^2}{60 \times 40} + \frac{12^2}{60 \times 30} \right) - 1 \right]
 \\
 & = 7.22
-\end{align}
+\end{align*}
 $$
 拒绝域为
 $$
@@ -833,7 +833,7 @@ $$
 $$
 从而
 $$
-\begin{align}
+\begin{align*}
 \boldsymbol{ a}^T \Sigma \boldsymbol{a} 
 & = \left[\begin{matrix} -3 & 1\end{matrix}\right] \sigma^2
 \left[\begin{matrix} 
@@ -842,7 +842,7 @@ $$
 \end{matrix}\right] \left[\begin{matrix} -3 \\ 1\end{matrix}\right]  \\
 & = \sigma^2 \left( 9  \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) -6 \left(- \dfrac{\bar{x}}{L_xx} \right) + \dfrac{1}{L_{xx}} \right) \\
 & = \sigma^2 \left( \dfrac{9}{n} + \dfrac{(3 \bar{x} + 1)^2}{L_{xx}} \right)
-\end{align}
+\end{align*}
 $$
 所以，$\hat{\beta}_1 - 3\hat{\beta}_0$ 的分布是正态分布，即
 $$
@@ -877,12 +877,12 @@ T := \dfrac{Z}{\sqrt{K^2 / (n-2)}} =
 $$
 这样我们就可以知道
 $$
-\begin{align}
+\begin{align*}
 P(\vert \hat{\beta}_1 - 3 \hat{\beta}_0 \vert > C) &= 
 P \left( \left| \frac{\hat{\beta}_1 - 3\hat{\beta}_0 - ({\beta}_1 - 3 {\beta}_0)}{\hat{\sigma} \sqrt{ \left( \frac{9}{n} + \frac{(3 \bar{x} + 1)^2}{L_{xx}} \right) }} \right| > \frac{C - ({\beta}_1 - 3 {\beta}_0)}{\hat{\sigma} \sqrt{ \left( \frac{9}{n} + \frac{(3 \bar{x} + 1)^2}{L_{xx}} \right) }} \right)
 \\
 &= P_{H_0} \left( \left| T \right| > \frac{C}{\hat{\sigma} \sqrt{ \left( \frac{9}{n} + \frac{(3 \bar{x} + 1)^2}{L_{xx}} \right) }} \Big| \beta_1 - 3\beta_0 =0 \right)
-\end{align}
+\end{align*}
 $$
 由于这是个双侧检验，$C$ 其实有两个值
 
@@ -925,7 +925,7 @@ $$
 
 先验分布为 $p(\theta) = \lambda_0 e^{-\lambda_0 \theta}$，因此计算后验分布
 $$
-\begin{align}
+\begin{align*}
 h(\theta | X)  
 & \propto L(\theta) p(\theta)
 \\ 
@@ -938,7 +938,7 @@ h(\theta | X)
 &\propto \exp\left( -\frac{n}{2\sigma_0^2} \left( \theta^2 -2 \left(\bar{x} + \dfrac{\lambda_0 \sigma_0^2}{n} \right) \theta+ \dfrac{\sum_{i=1}^n x_i^2}{n}  \right)  \right)
 \\
 &\propto \exp\left( -\frac{n}{2\sigma_0^2} (\theta - \mu )^2  \right) & \mu = \bar{x} + \dfrac{\lambda_0 \sigma_0^2}{n}
-\end{align}
+\end{align*}
 $$
 > 因为上述式子是 $\propto$ 连接的而不是 $=$，所以指数部分的常数值可以被舍弃. 核心思想是把指数部分凑出一个 $\frac{(x - \mu)^2}{2\sigma^2}$ 的形式. 
 
@@ -951,7 +951,7 @@ $$
 
 $\hat{\theta}_B$ 的均方误差是
 $$
-\begin{align}
+\begin{align*}
 MSE(\hat{\theta}_B) & = D(\hat{\theta}_B) + \left( E(\hat{\theta}_B) - \theta \right)^2 \\
 &= D\left(\bar{X} + \frac{\lambda_0 \sigma_0^2}{n}\right) +\left( E\left( \bar{X} + \frac{\lambda_0 \sigma_0^2}{n} \right)  - \theta\right)^2 \\
 &=D(\bar{X}) + \left( E( \bar{X})+ \frac{\lambda_0 \sigma_0^2}{n}  - \theta\right)^2 \\
@@ -959,7 +959,7 @@ MSE(\hat{\theta}_B) & = D(\hat{\theta}_B) + \left( E(\hat{\theta}_B) - \theta \r
 \\
 &= \dfrac{\sigma_0^2}{n} + \frac{\lambda_0^2 \sigma_0^4}{n^2} \\
 &= \dfrac{\sigma_0^2}{n} \left(1 + \dfrac{\lambda_0^2 \sigma_0^2}{n} \right)
-\end{align}
+\end{align*}
 $$
 
 如果不能忽略截断，我们记
@@ -1041,12 +1041,12 @@ f_{X_{(3)}}(x) = 3 f_X(x) (F_{X}(x))^{2} = 3 \cdot \dfrac{1}{\theta} \cdot \left
 $$
 这样可以计算期望
 $$
-\begin{align}
+\begin{align*}
 E\left(X_{(3)}\right) &= \int_\theta^{2\theta} f_{X_{(3)}}(x) \cdot x \mathrm{d}x \\
 & = \int_\theta^{2\theta} \dfrac{3}{\theta^3} (x-\theta)^2x \mathrm{d}x \\
  &= \dfrac{3}{\theta^3} \left(\dfrac{x^4}{4} - \dfrac{2\theta x^3}{3} + \dfrac{\theta^2 x^2}{2} \right) \Big|^{2\theta}_{\theta}\\
  &= \dfrac{7}{4}\theta
- \end{align}
+ \end{align*}
 $$
 所以令
 $$
@@ -1082,12 +1082,12 @@ D(X_{(3)}) = E(X_{(3)}^2) - [E(X_{(3)}) ]^2
 $$
 现在只需要计算 $E(X_{(n)}^2) $
 $$
-\begin{align}
+\begin{align*}
 E\left(X_{(3)}^2\right) &= \int_\theta^{2\theta} f_{X_{(3)}}(x) \cdot x^2 \mathrm{d}x \\
 &=  \int_\theta^{2\theta} \dfrac{3}{\theta^3} (x-\theta)^2 x^2 \mathrm{d}x \\
 &= \dfrac{3}{\theta^3} \left( \dfrac{x^5}{5} - \dfrac{\theta x^4}{2} + \dfrac{\theta^2 x^3}{3}\right) \Big|^{2\theta}_{\theta} \\
 &= \dfrac{31}{10} \theta^2
- \end{align}
+ \end{align*}
 $$
 从而
 $$
