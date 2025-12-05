@@ -11,7 +11,9 @@
       </div>
       <span class="lang-tag">{{ language || 'text' }}</span>
     </div>
-    <pre v-if="!isKatex" class="code-block"><code>{{ code }}</code></pre>
+    <div v-if="!isKatex" class="code-block">
+      <pre><code class="language-csharp" v-html="rawHtml"></code></pre>
+    </div>
     <div v-if="isKatex" class="katex code-block" v-html="rawHtml" ref="katexSvg"></div>
   </div>
 </template>
@@ -20,6 +22,8 @@
 import { CopyDocument, Check, Picture } from '@element-plus/icons-vue'
 import { toPng } from 'html-to-image'
 import { onMounted, ref, type Ref } from 'vue'
+import 'highlight.js/styles/github.css'
+
 const props = defineProps<{ language: string; code: string; rawHtml: any | null }>()
 const copiedCode = ref(false)
 const copiedImg = ref(false)

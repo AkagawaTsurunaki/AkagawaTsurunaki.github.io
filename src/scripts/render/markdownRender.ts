@@ -8,6 +8,7 @@ import MermaidBlock from '@/components/MermaidBlock.vue'
 import { parseMarkdownToc, slugify } from '../markdownUtil'
 import { MarkdownDto } from '../data'
 import Table from '@/components/Table.vue'
+import hljs from 'highlight.js'
 
 const katex = await import('@/scripts/render/katexRender')
 marked.use(katex.default({ strict: false }))
@@ -42,7 +43,7 @@ export async function renderMarkdown(
               id: `code-${i}`,
               language: token.lang || '',
               code: token.text,
-              rawHtml: null,
+              rawHtml: highlightCode(token.text, token.lang),
             }),
           )
         }
@@ -110,4 +111,9 @@ export async function renderMarkdown(
     }
   }
   return new MarkdownDto(vNodes, headers)
+}
+
+export function highlightCode(code: string, lang?: string) {
+  const language = hljs.getLanguage(lang || '') ? lang : 'plaintext'
+  return hljs.highlight(code, { language: language, ignoreIllegals: true }).value
 }
