@@ -33,6 +33,7 @@
     "html-to-image": "^1.11.13",
     "katex": "^0.16.25",
     "marked": "^16.4.1",
+    "marked-alert": "^2.1.2",
     "marked-highlight": "^2.2.3",
     "mermaid": "^11.12.1",
     "node-html-parser": "^7.0.1",
