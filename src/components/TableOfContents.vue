@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Header } from '../scripts/data';
 import { ref, watch } from 'vue';
-import { marked } from 'marked';
+import { markedInstance } from '@/scripts/render/markdownRender';
 
 const props = defineProps<{
     headers: Array<Header>
@@ -13,7 +13,7 @@ async function renderAll() {
     headingHtmlMap.value.clear()
     const tasks = props.headers.map(async h => ({
         id: h.id,
-        html: await marked.parse(h.text)
+        html: await markedInstance.parse(h.text)
     }))
     const list = await Promise.all(tasks)
     list.forEach(({ id, html }) => headingHtmlMap.value.set(id, html))

@@ -1,7 +1,6 @@
-import { marked, type Token, type Tokens } from 'marked'
+import { type Token, type Tokens } from 'marked'
 import { readFileText } from './api/fileApi'
 import { Header } from './data'
-import 'marked'
 
 export async function getMarkdownFileInfoByPath(
   publicPath: string,

@@ -12,7 +12,7 @@ import hljs from 'highlight.js'
 import markedAlert from 'marked-alert'
 
 const katex = await import('@/scripts/render/katexRender')
-const markedInstance = new Marked()
+export const markedInstance = new Marked()
 markedInstance.use(katex.default({ strict: false }))
 markedInstance.use(markedAlert())
 
