@@ -117,3 +117,49 @@ img {
 .markdown-body hr {
   border: 1px solid rgb(222, 228, 240);
 }
+
+.markdown-alert {
+  padding-left: 10px;
+  border-left: 5px solid;
+  background-color: #f6f8fa;
+}
+
+.markdown-alert .markdown-alert-title {
+  padding-left: 0px;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+}
+
+.markdown-alert-title svg {
+  margin-right: 8px;
+}
+
+.markdown-alert-note {
+  border-left-color: #0d5483;
+  background-color: #f6f8fa;
+}
+
+.markdown-alert-tip {
+  border-left-color: #2cb346;
+  background-color: #f0fff3;
+}
+
+.markdown-alert-important {
+  border-left-color: #401586;
+  background-color: #f9f6ff;
+}
+
+.markdown-alert-warning {
+  border-left-color: #5f3a03;
+  background-color: #fff6e7;
+}
+
+.markdown-alert-caution {
+  border-left-color: #a00000;
+  background-color: #fff6f6;
+}
+
+.markdown-alert p {
+  padding-left: 10px;
+}

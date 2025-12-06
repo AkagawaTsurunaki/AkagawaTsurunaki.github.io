@@ -1,4 +1,4 @@
-import { marked } from 'marked'
+import { Marked, marked } from 'marked'
 import { h } from 'vue'
 import type { VNode } from 'vue'
 import CodeBlock from '@/components/CodeBlock.vue'
@@ -9,16 +9,19 @@ import { parseMarkdownToc, slugify } from '../markdownUtil'
 import { MarkdownDto } from '../data'
 import Table from '@/components/Table.vue'
 import hljs from 'highlight.js'
+import markedAlert from 'marked-alert'
 
 const katex = await import('@/scripts/render/katexRender')
-marked.use(katex.default({ strict: false }))
+const markedInstance = new Marked()
+markedInstance.use(katex.default({ strict: false }))
+markedInstance.use(markedAlert())
 
 export async function renderMarkdown(
   src: string,
   skip: undefined | Array<string> = undefined,
 ): Promise<MarkdownDto> {
   // Inject custom components to AST of marked.
-  const tokens = marked.lexer(src)
+  const tokens = markedInstance.lexer(src)
   const headers = parseMarkdownToc(tokens)
 
   const vNodes: VNode[] = []
@@ -48,7 +51,7 @@ export async function renderMarkdown(
           )
         }
       } else if (token.type === 'blockKatex') {
-        const html = marked.parser([token])
+        const html = markedInstance.parser([token])
         vNodes.push(
           h(CodeBlock, {
             id: `katex-${i}`,
@@ -73,7 +76,7 @@ export async function renderMarkdown(
       } else if (token.type === 'heading') {
         if (skip?.includes('heading')) continue
         const id = `${slugify(token.text)} ${headerNum++}`
-        let html = await marked.parse(token.raw)
+        let html = await markedInstance.parse(token.raw)
         html = html.substring(4, html.length - 6)
         vNodes.push(
           h(`h${token.depth}`, {
@@ -82,9 +85,17 @@ export async function renderMarkdown(
             class: 'md-heading',
           }),
         )
+      } else if (token.type === 'blockquote') {
+        const html = markedInstance.parse(token.raw)
+        vNodes.push(
+          h('div', {
+            id: `blockquote-${i}`,
+            innerHTML: html,
+          }),
+        )
       } else {
         // Wrap with v-node for other HTML content.
-        const html = marked.parser([token])
+        const html = markedInstance.parser([token])
 
         // Parse image
         if (html.includes('img') && html.includes('src=')) {
@@ -114,6 +125,6 @@ export async function renderMarkdown(
 }
 
 export function highlightCode(code: string, lang?: string) {
-  const language = hljs.getLanguage(lang || '') ? lang : 'plaintext'
+  const language = hljs.getLanguage(lang || '') ? lang : 'plaintext' // @ts-ignore
   return hljs.highlight(code, { language: language, ignoreIllegals: true }).value
 }
