@@ -178,7 +178,7 @@ $$
 
 如果记 $Z_j = \dfrac{\ln Y_j - 1}{\sigma}$，那么有
 $$
-K_2^2 := \sum_{j=1}^{m} Z_j^2 = \dfrac{\sum_{j=1}^{m} \left(\ln Y_j - 1\right)}{\sigma^2} \sim \chi^2 (m)
+K_2^2 := \sum_{j=1}^{m} Z_j^2 = \dfrac{\sum_{j=1}^{m} \left(\ln Y_j - 1\right)^2}{\sigma^2} \sim \chi^2 (m)
 $$
 根据卡方分布的可加性，有
 $$
@@ -189,13 +189,13 @@ $$
 \begin{align*}
 & P\left\{ \chi^2_{1-\alpha/2}(n+m-1) < K^2 < \chi^2_{\alpha/2}(n+m-1)\right\} \\ 
 &= 
-P\left\{ \chi^2_{1-\alpha/2}(n+m-1) < \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)}{\sigma^2} < \chi^2_{\alpha/2}(n+m-1)\right\} \\ 
-&= P\left\{ \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)}{\chi^2_{\alpha/2}(n+m-1)}  < \sigma^2 < \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)}{\chi^2_{1-\alpha/2}(n+m-1)}\right\}
+P\left\{ \chi^2_{1-\alpha/2}(n+m-1) < \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)^2}{\sigma^2} < \chi^2_{\alpha/2}(n+m-1)\right\} \\ 
+&= P\left\{ \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)^2}{\chi^2_{\alpha/2}(n+m-1)}  < \sigma^2 < \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)^2}{\chi^2_{1-\alpha/2}(n+m-1)}\right\}
 \end{align*}
 $$
 把 $\alpha=0.05$ 代入可得 $\sigma^2$ 的置信度为 0.95 的双侧置信区间
 $$
-\left( \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)}{\chi^2_{0.025}(n+m-1)} ,\ \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)}{\chi^2_{0.975}(n+m-1)} \right)
+\left( \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)^2}{\chi^2_{0.025}(n+m-1)} ,\ \dfrac{(n-1) S^2 + \sum_{j=1}^{m} \left(\ln Y_j - 1\right)^2}{\chi^2_{0.975}(n+m-1)} \right)
 $$
 
 ### 五、计算题（共 10 分）
