@@ -733,11 +733,13 @@ $$
 t_n(x) = \dfrac{\Gamma(\frac{n+1}{2})}{\sqrt{n \pi} \Gamma(\frac{n}{2})} \left( 1+ \frac{x^2}{n} \right)^{-\frac{n+1}{2}}
 $$
 
-数学期望是 $0 \ (n \geq 2)$，方差是 $\frac{n}{n-2} \ (n \geq 3)$，$t(1)$ 是 Cauchy 分布.
+数学期望是 $0 \ (n \geq 2)$，方差是 $\frac{n}{n-2} \ (n \geq 3)$
 
-$t$ 分布的平方 $t^2(n)$ 正好是 $F(1, n)$.
+**特殊性质**
 
-当 $n \rightarrow \infin $，$t(n)$ 的极限分布是标准正态分布.
+1. $t(1)$ 是 Cauchy 分布.
+2. $t$ 分布的平方 $t^2(n)$ 正好是 $F(1, n)$.
+3. 当 $n \rightarrow \infin $，$t(n)$ 的极限分布是标准正态分布.
 
 <img src="/images/t-dist-quantile.png" width="300">
 
@@ -757,9 +759,15 @@ $$
 f_{m,n}(x) = \dfrac{\Gamma(\frac{m+n}{2})}{\Gamma(\frac{m}{2}) \Gamma(\frac{n}{2})} m^{\frac{m}{2}} n^{\frac{n}{2}} \dfrac{x^{\frac{m}{2}-1}}{(n+mx)^{\frac{m+n}{2}}}, \quad x > 0
 $$
 
-数学期望是 $\frac{n}{n-2} \quad (n \geq 3)$.
+$$
+E(F)  = \dfrac{n}{n-2}\quad D(F) = \dfrac{2n^2(m+n-2)}{m(n-2)^2(n-4)} \quad (n \geq 3)
+$$
 
-如果 $T \sim t(n)$，则有 $T^2 \sim F(1, n)$.
+**特殊性质**
+
+1. $P(F(1,1) < 1) = 0.5$.
+2. $P(F(1,1) < x) = \dfrac{2}{\pi} \arctan(\sqrt{x})$.
+3. 如果 $T \sim t(n)$，则有 $T^2 \sim F(1, n)$.
 
 <img src="/images/f-dist-quantile.png" width="300">
 
@@ -811,17 +819,26 @@ $$
 \dfrac{(\bar{X} - \bar{Y}) - (\mu_1 - \mu_2)}{S_w\sqrt{\dfrac{1}{n_1}+\dfrac{1}{n_2}}} \sim t(n_1+n_2 -2), \quad S_w^2 = \dfrac{(n_1-1)S^2_1 + (n_2-1)S_2^2}{n_1+n_2-2}
 $$
 
-### 多元正态分布的基本性质
+### 多元正态分布与正态二次型
+
+#### 二元正态分布的性质
+
+**正态分布的边缘分布也是正态分布**
 
 $X \sim N(\mu_1, \sigma_1^2) $，$ Y \sim N(\mu_2, \sigma_2^2)$ 的边缘分布也是正态分布.
 
+**二元正态分布的独立性判断**
+
 二维正态随机变量 $X, Y$ 相互独立的充分必要条件是相关系数 $r=0$.
 
-$Y | {X=x} \sim N \left(\mu_2 + r \sigma_2 \dfrac{x - \mu_1}{\sigma_1}, (1-r^2)\sigma_2^2 \right)$
+**条件正态分布**
+$$
+Y | {X=x} \sim N \left(\mu_2 + r \sigma_2 \dfrac{x - \mu_1}{\sigma_1}, (1-r^2)\sigma_2^2 \right)
+$$
 
-$\boldsymbol{X} \sim N(\boldsymbol{\mu} , \boldsymbol{\Sigma})$，$\boldsymbol{\Sigma}$ 是 $n$ 阶正定矩阵.
+#### 多元正态分布
 
-随机向量 $\boldsymbol{X}$ 服从 $n$ 维正态分布 $N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，联合密度是
+随机向量 $\boldsymbol{X}$ 服从 $n$ 维正态分布 $N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，$\boldsymbol{\Sigma}$ 是 $n$ 阶正定矩阵，其联合密度函数是
 $$
 f(\boldsymbol{x}) =
 \dfrac{1}{(2\pi)^{n/2}\sqrt{\det\boldsymbol{\Sigma}}}
@@ -845,13 +862,20 @@ $\boldsymbol{X}$ 服从 $n$ 维正态 $N(\boldsymbol{\mu}, \mathbf{\Sigma})$ 的
 
 设 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，则 $(\boldsymbol{X} - \boldsymbol{\mu})^{\top} \boldsymbol{\Sigma}^{-1} (\boldsymbol{X} - \boldsymbol{\mu}) \sim \chi^2(n)$. 
 
-**二次型的期望与方差**
+**二次型的期望、方差与协方差**
 
 设 $\boldsymbol{X}^{\top} = (X_1, X_2, \dots, X_n)$，$E(\boldsymbol{X})=\boldsymbol{\mu} = (\mu_1, \mu_2, \dots, \mu_n)^{\top}$，$D(\boldsymbol{X}) = \sigma^2 \boldsymbol{I}_n$，且 $\boldsymbol{A} = [a_{ij}]$ 为 $n$ 阶对称矩阵，则
 $$
 E(\boldsymbol{X}^{\top} \boldsymbol{AX}) = \sigma^2 \mathrm{tr}(\boldsymbol{A}) + \boldsymbol{\mu}^{\top} \boldsymbol{A} \boldsymbol{\mu}
 \\
 如果 \boldsymbol{X} \sim N(\boldsymbol{0}, \boldsymbol{I}_n), \ 那么 \ D(\boldsymbol{X}^{\top} \boldsymbol{AX}) = 2\sigma^4 \mathrm{tr}(\boldsymbol{A}^2)
+$$
+设 $\boldsymbol{Y}$ 为 $n \times 1$ 随机向量，$\boldsymbol{\mu} = E(\boldsymbol{Y})$，$ \boldsymbol{\Sigma} = \mathrm{Cov}(\boldsymbol{Y})$，$\boldsymbol{A}, \boldsymbol{B}$ 为常数对称矩阵，$\boldsymbol{a}, \boldsymbol{b}$ 为常数向量，那么有
+$$
+E(\boldsymbol{Y}^{\top} \boldsymbol{AY}) = \mathrm{tr} (\boldsymbol{A \Sigma}) + \boldsymbol{\mu}^{\top} \boldsymbol{A \mu} \\
+\mathrm{Cov}(\boldsymbol{Y}^{\top} \boldsymbol{AY}, \boldsymbol{Y}^{\top} \boldsymbol{BY}) = 2 \mathrm{tr} (\boldsymbol{A \Sigma} \boldsymbol{B \Sigma}) + 4 \boldsymbol{\mu}^{\top} \boldsymbol{A \Sigma B \mu} \\
+D(\boldsymbol{Y}^{\top} \boldsymbol{AY}) = 2 \mathrm{tr} (\boldsymbol{A \Sigma} \boldsymbol{A \Sigma}) + 4 \boldsymbol{\mu}^{\top} \boldsymbol{A \Sigma A \mu} \\
+\mathrm{Cov}(\boldsymbol{a}^{\top} \boldsymbol{A}, \boldsymbol{Y}^{\top} \boldsymbol{AY}) = 2 \boldsymbol{a}^{\top} \boldsymbol{\Sigma A \mu}
 $$
 **二次型判断独立性**
 
@@ -1475,7 +1499,7 @@ $$
 #### Kolmogrov 检验
 
 $$
-H_0: F(x) = F_0(x), \quad H_1 : F(x) \neq F_0(X)
+H_0: F(x) = F_0(x), \quad H_1 : F(x) \neq F_0(x)
 $$
 
 构造统计量
@@ -1572,7 +1596,7 @@ $$
 
 F. Wilcoxon 秩和检验：假定 $F(x)$ 与 $G(x)$ 是两个独立的连续总体，相应样本分别是 $X_1,\ \dots, X_m$ 与 $Y_1, \ \dots, Y_n$. 把混合后的样本 $( X_1, \ \dots, X_m, \ Y_1, \ \dots, Y_n  )$ 排序，记 $R_1 ,\ \dots, \ R_n $ 为 $Y_1, \ \dots, Y_n $ 的秩.
 
-构造统计量
+构造统计量（一般选择样本量更小的那组）
 
 $$
 W  = R_1 + \dots + R_n = \sum_{i=1}^m \sum_{j=1}^n \mathbf{1}(Y_j > X_i) + \dfrac{1}{2} n (n+1)
@@ -1753,7 +1777,7 @@ $$
 \vdots & \vdots  & \ddots  & \vdots \\
 1 & x_{n1} & \cdots & x_{nk}
 \end{matrix}\right] , \quad
-\boldsymbol{\beta} = \left[\begin{matrix} \beta_1 ,\\ \vdots \\ \beta_n \end{matrix}\right] , \quad
+\boldsymbol{\beta} = \left[\begin{matrix} \beta_1 ,\\ \vdots \\ \beta_k \end{matrix}\right] , \quad
 \boldsymbol{\varepsilon} = \left[\begin{matrix} \varepsilon_1 ,\\ \vdots \\ \varepsilon_n \end{matrix}\right] , \quad
 \varepsilon_i \sim N(0, \sigma^2)
 $$
