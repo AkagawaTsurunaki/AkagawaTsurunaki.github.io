@@ -50,20 +50,23 @@ $$
 $n$ 次独立伯努利试验，成功次数
 
 $$
-X \sim \mathrm{Bin}(n, p)
+X \sim \mathrm{Bin}(N, p)
 $$
 
 **概率质量函数**
 
 $$
-P(X=k) = \binom{n}{k} p^k (1-p)^{n-k},\ k=0,1,\dots,n
+P(X=k) = \binom{N}{k} p^k (1-p)^{N-k},\ k=0,1,\dots,N
 $$
 
 **期望与方差**（思考可加性）
+$$
+E(X) = Np \quad D(X)=Np(1-p)
+$$
 
-$$
-E(X) = np \hspace{2em} D(X)=np(1-p)
-$$
+**互补变量性质（成功-失败对换律）**
+
+若 $X \sim \mathrm{Bin}(N, p)$，那么有 $N - X \sim \mathrm{Bin}(N, 1-p)$. 
 
 #### 帕斯卡（Pascal）分布（负二项分布）
 
@@ -379,18 +382,6 @@ $$
 #### 测度论独立性判别
 
 如果 $X$ 与 $Y$ 独立，且 $f ,\ g$ 是可测函数，那么随机变量 $U=f(X)$ 与 $V=g(Y)$ 也独立.
-
-### 二维正态分布
-
-$X \sim N(\mu_1, \sigma_1^2) $，$ Y \sim N(\mu_2, \sigma_2^2)$ 的边缘分布也是正态分布.
-
-二维正态随机变量 $X, Y$ 相互独立的充分必要条件是相关系数 $r=0$.
-
-$Y|_{X=x} \sim N \left(\mu_2 + r \sigma_2 \dfrac{x - \mu_1}{\sigma_1}, (1-r^2)\sigma_2^2 \right)$
-
-$\boldsymbol{X} \sim N(\boldsymbol{\mu} , \boldsymbol{\Sigma})$，$\boldsymbol{\Sigma}$ 是 $n$ 阶正定矩阵.
-
-$\forall m\leq n ,\ \boldsymbol{A}_{m\times n} \boldsymbol{X} \sim (\boldsymbol{A} \boldsymbol{\mu}, \boldsymbol{A} \boldsymbol{\Sigma} \boldsymbol{A}^T)$
 
 ### 条件分布
 
@@ -792,24 +783,7 @@ $$
 \bar{X} \perp (X_i - \bar{X})^k
 $$
 
-### 多元正态分布的基本性质
 
-随机向量 $\boldsymbol{X}$ 服从 $n$ 维正态分布 $N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，如果联合密度是
-
-$$
-f(\boldsymbol{x}) =
-\dfrac{1}{(2\pi)^{n/2}\sqrt{\det\boldsymbol{\Sigma}}}
-\exp\!\left(
--\dfrac12
-(\boldsymbol{x}-\boldsymbol{\mu})^{\!T}
-\boldsymbol{\Sigma}^{-1}
-(\boldsymbol{x}-\boldsymbol{\mu})
-\right)
-$$
-
-$\boldsymbol{X}$ 服从 $n$ 维正态 $N(\boldsymbol{\mu}, \mathbf{\Sigma})$ 的充分必要条件是对任意 $n$ 维列向量 $\boldsymbol{a}$，有 $\boldsymbol{a}^T \boldsymbol{X} \sim N(\boldsymbol{a}^T \boldsymbol{\mu}, \boldsymbol{a}^T \boldsymbol{\Sigma} \boldsymbol{a})$.
-
-如果 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \mathbf{\Sigma})$，$\boldsymbol{A}$ 是任意 $m \times n$ 矩阵 $(m \leq n)$，则有 $\boldsymbol{AX} \sim N(\boldsymbol{A\mu}, \boldsymbol{A\Sigma} \boldsymbol{A}^T )$.
 
 ### 两个正态总体的抽样分布
 
@@ -836,6 +810,56 @@ $$
 $$
 \dfrac{(\bar{X} - \bar{Y}) - (\mu_1 - \mu_2)}{S_w\sqrt{\dfrac{1}{n_1}+\dfrac{1}{n_2}}} \sim t(n_1+n_2 -2), \quad S_w^2 = \dfrac{(n_1-1)S^2_1 + (n_2-1)S_2^2}{n_1+n_2-2}
 $$
+
+### 多元正态分布的基本性质
+
+$X \sim N(\mu_1, \sigma_1^2) $，$ Y \sim N(\mu_2, \sigma_2^2)$ 的边缘分布也是正态分布.
+
+二维正态随机变量 $X, Y$ 相互独立的充分必要条件是相关系数 $r=0$.
+
+$Y | {X=x} \sim N \left(\mu_2 + r \sigma_2 \dfrac{x - \mu_1}{\sigma_1}, (1-r^2)\sigma_2^2 \right)$
+
+$\boldsymbol{X} \sim N(\boldsymbol{\mu} , \boldsymbol{\Sigma})$，$\boldsymbol{\Sigma}$ 是 $n$ 阶正定矩阵.
+
+随机向量 $\boldsymbol{X}$ 服从 $n$ 维正态分布 $N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，联合密度是
+$$
+f(\boldsymbol{x}) =
+\dfrac{1}{(2\pi)^{n/2}\sqrt{\det\boldsymbol{\Sigma}}}
+\exp\!\left(
+-\dfrac12
+(\boldsymbol{x}-\boldsymbol{\mu})^{\!T}
+\boldsymbol{\Sigma}^{-1}
+(\boldsymbol{x}-\boldsymbol{\mu})
+\right)
+$$
+
+$\boldsymbol{X}$ 服从 $n$ 维正态 $N(\boldsymbol{\mu}, \mathbf{\Sigma})$ 的充分必要条件是对任意 $n$ 维列向量 $\boldsymbol{a}$，有 $\boldsymbol{a}^T \boldsymbol{X} \sim N(\boldsymbol{a}^T \boldsymbol{\mu}, \boldsymbol{a}^T \boldsymbol{\Sigma} \boldsymbol{a})$.
+
+如果 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \mathbf{\Sigma})$，$\boldsymbol{A}$ 是任意 $m \times n$ 矩阵 $(m \leq n)$，则有 $\boldsymbol{AX} \sim N(\boldsymbol{A\mu}, \boldsymbol{A\Sigma} \boldsymbol{A}^T )$.
+
+**二次型与卡方分布**
+
+设 $\boldsymbol{Z} \sim N(0, \boldsymbol{I}_n)$，$\boldsymbol{A}$ 为 $n$ 阶对称幂等矩阵，则 $\boldsymbol{Z}^{\top} \boldsymbol{AZ} \sim \chi^2(\mathrm{tr}(\boldsymbol{A}))$. 
+
+设 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \sigma^2 \boldsymbol{I}_n)$，$\boldsymbol{A}$ 为 $n$ 阶对称幂等矩阵，则 $\dfrac{(\boldsymbol{X} - \boldsymbol{\mu})^{\top} \boldsymbol{A}  (\boldsymbol{X} - \boldsymbol{\mu})}{\sigma^2} \sim \chi^2(\mathrm{tr}(\boldsymbol{A}))$. 
+
+设 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，则 $(\boldsymbol{X} - \boldsymbol{\mu})^{\top} \boldsymbol{\Sigma}^{-1} (\boldsymbol{X} - \boldsymbol{\mu}) \sim \chi^2(n)$. 
+
+**二次型的期望与方差**
+
+设 $\boldsymbol{X}^{\top} = (X_1, X_2, \dots, X_n)$，$E(\boldsymbol{X})=\boldsymbol{\mu} = (\mu_1, \mu_2, \dots, \mu_n)^{\top}$，$D(\boldsymbol{X}) = \sigma^2 \boldsymbol{I}_n$，且 $\boldsymbol{A} = [a_{ij}]$ 为 $n$ 阶对称矩阵，则
+$$
+E(\boldsymbol{X}^{\top} \boldsymbol{AX}) = \sigma^2 \mathrm{tr}(\boldsymbol{A}) + \boldsymbol{\mu}^{\top} \boldsymbol{A} \boldsymbol{\mu}
+\\
+如果 \boldsymbol{X} \sim N(\boldsymbol{0}, \boldsymbol{I}_n), \ 那么 \ D(\boldsymbol{X}^{\top} \boldsymbol{AX}) = 2\sigma^4 \mathrm{tr}(\boldsymbol{A}^2)
+$$
+**二次型判断独立性**
+
+设 $\boldsymbol{A}$ 为 $n$ 阶对称幂等矩阵，$\boldsymbol{B}$ 为 $m \times n$ 阶矩阵，且 $\boldsymbol{BA}= \boldsymbol{0}$，$\boldsymbol{X} \sim N(\boldsymbol{\mu}, \sigma^2 \boldsymbol{I}_n)$，则 $\boldsymbol{BX}$ 与 $\boldsymbol{X}^{\top} \boldsymbol{AX}$ 相互独立. 
+
+设 $\boldsymbol{A}, \ \boldsymbol{B}$ 均为 $n$ 阶对称矩阵，$\boldsymbol{BA}= \boldsymbol{0}$，且 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \sigma^2 \boldsymbol{I}_n)$，则 $\boldsymbol{X}^{\top} \boldsymbol{AX}$ 与 $\boldsymbol{X}^{\top} \boldsymbol{BX}$ 相互独立. 
+
+设 $Q_i \sim \chi^2(r_i)$，$i=1, \ 2$，$r_1 > r_2$ 且 $Q_1 - Q_2$ 与 $Q_2$ 独立，则 $Q_1 - Q_2 \sim \chi^2 (r_1- r_2)$
 
 ### Cochren 定理
 
