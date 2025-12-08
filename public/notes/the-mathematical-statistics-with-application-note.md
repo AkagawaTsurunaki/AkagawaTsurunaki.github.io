@@ -181,7 +181,7 @@ $F(X) \sim U(0, 1)$
 
 反之，若 $Y \sim U(0, 1)$，则 $F^{-1}(Y)$ 的累计概率函数是 $F(X)$.
 
-#### 指数函数
+#### 指数分布
 
 $$
 X \sim E(\lambda)
@@ -206,13 +206,12 @@ E(X) = \dfrac{1}{\lambda} \hspace{2em} D(X) = \dfrac{1}{\lambda^2}
 $$
 
 **特殊性质**
-
 $$
 X \sim E(1), \ e^{-X} \sim U(0, 1)
 $$
 
 $$
-Y \sim U(0,1), \ \dfrac{1}{Y} \sim E(1)
+Y \sim U(0,1), \ -\ln{Y} \sim E(1)
 $$
 
 **无记忆性**（所有的连续分布中只有指数分布具有无记忆性）：
@@ -405,7 +404,7 @@ E(X) = \sum_{i} x_i p_i  \quad \text{如果} \sum_{i} |x_i p_i| < + \infty \\
 E(X) =\int_{-\infty}^{\infty} x p(x) \mathrm{d}x \quad \text{如果} \  \int_{-\infty}^{\infty} |x p(x)| dx < + \infty
 $$
 
-柯西分布$\dfrac{1}{\pi(1+(x-\theta)^2)} X \in R^1$没有数学期望，因此无法用样本估计 $\theta$，但 $\theta$ 是它的中位数，同时所有分布都有中位数.
+特例：柯西分布 $f_X(x) = \dfrac{1}{\pi(1+(x-\theta)^2)} , \ X \in R^1$ 没有数学期望，因此无法用样本估计 $\theta$，但 $\theta$ 是它的中位数，同时所有分布都有中位数.
 
 **线性变换的期望**
 
@@ -528,11 +527,11 @@ $f(t) = E \left(e^{itX} \right), \ t \in \mathbb{R}^1$
 
 #### 收敛性
 
-| 收敛类型         | 定义（KaTeX格式）                                                                                                    | 关键描述                         | 强度关系（从强到弱） |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------- | -------------------- |
-| **几乎处处收敛** | $ X*n \xrightarrow{\text{a.s.}} X \iff P\left(\lim*{n\to\infty} X_n = X\right) = 1 $                                 | 在几乎所有样本点上逐点收敛       | 最强                 |
-| **依概率收敛**   | $ X*n \xrightarrow{P} X \iff \forall \varepsilon > 0,\ \lim*{n\to\infty} P( \vert X_n - X \vert > \varepsilon) = 0 $ | 大偏差概率趋于零                 | 中等                 |
-| **依分布收敛**   | $ X*n \xrightarrow{d} X \iff \lim*{n\to\infty} F\_{X_n}(x) = F_X(x)\ \forall x \text{ 连续点} $                      | 分布函数逐点收敛（在分布意义上） | 最弱                 |
+| 收敛类型         | 定义（KaTeX格式）                                            | 关键描述                         | 强度关系（从强到弱） |
+| ---------------- | ------------------------------------------------------------ | -------------------------------- | -------------------- |
+| **几乎处处收敛** | $ X_n \xrightarrow{\text{a.s.}} X \iff P\left(\lim_{n\to\infty} X_n = X\right) = 1 $ | 在几乎所有样本点上逐点收敛       | 最强                 |
+| **依概率收敛**   | $ X_n \xrightarrow{P} X \iff \forall \varepsilon > 0,\ \lim_{n\to\infty} P( \vert X_n - X \vert > \varepsilon) = 0 $ | 大偏差概率趋于零                 | 中等                 |
+| **依分布收敛**   | $ X_n \xrightarrow{d} X \iff \lim_{n\to\infty} F\_{X_n}(x) = F_X(x)\ \forall x \text{ 连续点} $ | 分布函数逐点收敛（在分布意义上） | 最弱                 |
 
 #### 大数定律
 
@@ -545,7 +544,7 @@ $$
 $$
 \dfrac{S_n - E(S_n)}{\sqrt{D(S_n)}} \xrightarrow{d} N(0, 1)
 \\
-X_1, X_2, ... i.i.d \hspace{2em} E(X_i) = \mu, D(X_i) = \sigma^2
+X_1, X_2, \dots \quad \text{i.i.d} \hspace{2em} E(X_i) = \mu, D(X_i) = \sigma^2
 \\
 \bar{X} = \dfrac{1}{n} \sum_{k=1}^n X_k \xrightarrow{a.s.} \mu \quad 大数定律
 $$
@@ -790,8 +789,6 @@ $$
 \quad
 \bar{X} \perp (X_i - \bar{X})^k
 $$
-
-
 
 ### 两个正态总体的抽样分布
 
@@ -1762,7 +1759,6 @@ $$
 5. 实际上，方差分析就是一种特殊的线性回归模型.
 
 **线性模型的矩阵形式**
-
 $$
 \boldsymbol{Y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon},  \quad E(\boldsymbol{\varepsilon}) = \boldsymbol{0} \\
 $$
