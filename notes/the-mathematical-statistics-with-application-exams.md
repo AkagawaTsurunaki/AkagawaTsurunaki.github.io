@@ -931,56 +931,36 @@ h(\theta | X)
 \\ 
 & \propto \exp\left( -\frac{1}{2\sigma_0^2} \sum_{i=1}^n (x_i - \theta)^2 - \lambda_0 \theta \right) & \theta > 0
 \\
-&\propto \exp\left( -\frac{1}{2\sigma_0^2} \left( \sum_{i=1}^n x_i^2 - 2 \theta \sum_{i=1}^n x_i + n\theta^2 - 2 \lambda_0 \sigma_0^2 \theta \right)  \right) 
+&\propto \exp\left( -\frac{1}{2\sigma_0^2} \left( \sum_{i=1}^n x_i^2 - 2 \theta \sum_{i=1}^n x_i + n\theta^2 + 2 \lambda_0 \sigma_0^2 \theta \right)  \right) 
 \\
-&\propto \exp\left( -\frac{n}{2\sigma_0^2} \left( \theta^2 -2 \left(\dfrac{1}{n} \sum_{i=1}^n x_i + \dfrac{\lambda_0 \sigma_0^2}{n} \right) \theta+ \dfrac{\sum_{i=1}^n x_i^2}{n}  \right)  \right)
+&\propto \exp\left( -\frac{n}{2\sigma_0^2} \left( \theta^2 -2 \left(\dfrac{1}{n} \sum_{i=1}^n x_i - \dfrac{\lambda_0 \sigma_0^2}{n} \right) \theta+ \dfrac{\sum_{i=1}^n x_i^2}{n}  \right)  \right)
 \\
-&\propto \exp\left( -\frac{n}{2\sigma_0^2} \left( \theta^2 -2 \left(\bar{x} + \dfrac{\lambda_0 \sigma_0^2}{n} \right) \theta+ \dfrac{\sum_{i=1}^n x_i^2}{n}  \right)  \right)
+&\propto \exp\left( -\frac{n}{2\sigma_0^2} \left( \theta^2 -2 \left(\bar{x} - \dfrac{\lambda_0 \sigma_0^2}{n} \right) \theta+ \dfrac{\sum_{i=1}^n x_i^2}{n}  \right)  \right)
 \\
-&\propto \exp\left( -\frac{n}{2\sigma_0^2} (\theta - \mu )^2  \right) & \mu = \bar{x} + \dfrac{\lambda_0 \sigma_0^2}{n}
+&\propto \exp\left( -\frac{n}{2\sigma_0^2} (\theta - \mu )^2  \right) & \mu = \bar{x} - \dfrac{\lambda_0 \sigma_0^2}{n}
 \end{align*}
 $$
-> 因为上述式子是 $\propto$ 连接的而不是 $=$，所以指数部分的常数值可以被舍弃. 核心思想是把指数部分凑出一个 $\frac{(x - \mu)^2}{2\sigma^2}$ 的形式. 
+> 因为上述式子是 $\propto$ 连接的而不是 $=$，所以指数部分的常数值可以通过核方法被舍弃. 核心思想是把指数部分凑出一个 $\frac{(x - \mu)^2}{2\sigma^2}$ 的形式. 
 
 由于先验分布要求 $\theta>0$，所以后验分布是带截断的正态分布
 $$
-\theta | X \sim N \left(\bar{x} + \dfrac{\lambda_0 \sigma_0^2}{n} , \dfrac{\sigma_0^2}{n}\right) \mathbf{1}
+\theta | X \sim N \left(\bar{x} - \dfrac{\lambda_0 \sigma_0^2}{n} , \dfrac{\sigma_0^2}{n}\right) \mathbf{1}
 _{θ>0}
 $$
-如果我们忽略截断，那么参数 $ \theta$ 的贝叶斯估计 $\hat{\theta}_B = E(\theta|X) = \bar{x} + \frac{\lambda_0 \sigma_0^2}{n}$. 
+如果我们忽略截断，那么参数 $ \theta$ 的贝叶斯估计 $\hat{\theta}_B = E(\theta|X) = \bar{X} - \dfrac{\lambda_0 \sigma_0^2}{n}$. 
 
 $\hat{\theta}_B$ 的均方误差是
 $$
 \begin{align*}
 MSE(\hat{\theta}_B) & = D(\hat{\theta}_B) + \left( E(\hat{\theta}_B) - \theta \right)^2 \\
-&= D\left(\bar{X} + \frac{\lambda_0 \sigma_0^2}{n}\right) +\left( E\left( \bar{X} + \frac{\lambda_0 \sigma_0^2}{n} \right)  - \theta\right)^2 \\
-&=D(\bar{X}) + \left( E( \bar{X})+ \frac{\lambda_0 \sigma_0^2}{n}  - \theta\right)^2 \\
-&= \dfrac{\sigma_0^2}{n} + \left( \theta+ \frac{\lambda_0 \sigma_0^2}{n}  - \theta\right)^2
+&= D\left(\bar{X} - \frac{\lambda_0 \sigma_0^2}{n}\right) +\left( E\left( \bar{X} - \frac{\lambda_0 \sigma_0^2}{n} \right)  - \theta\right)^2 \\
+&=D(\bar{X}) + \left( E( \bar{X}) - \frac{\lambda_0 \sigma_0^2}{n}  - \theta\right)^2 \\
+&= \dfrac{\sigma_0^2}{n} + \left( \theta - \frac{\lambda_0 \sigma_0^2}{n}  - \theta\right)^2
 \\
 &= \dfrac{\sigma_0^2}{n} + \frac{\lambda_0^2 \sigma_0^4}{n^2} \\
 &= \dfrac{\sigma_0^2}{n} \left(1 + \dfrac{\lambda_0^2 \sigma_0^2}{n} \right)
 \end{align*}
 $$
-
-如果不能忽略截断，我们记
-$$
-\mu =\bar{x} + \dfrac{\lambda_0 \sigma_0^2}{n}, \quad \sigma^2 = \dfrac{\sigma_0^2}{n}
-$$
-带截断的正态分布的均值是
-$$
-E[ \theta|X] = \mu + \sigma \dfrac{\varphi(\mu / \sigma)}{\Phi(\mu / \sigma)}
-$$
-其中，$\varphi(\cdot)$ 是概率密度函数，$\Phi(\cdot)$ 是累计分布函数. 
-
-所以在平方损失下，Bayes 估计是后验均值，那么参数 $ \theta$ 的贝叶斯估计
-$$
-\hat{\theta}_B =\bar{X} + \dfrac{\lambda_0 \sigma_0^2}{n} + \dfrac{\sigma_0}{\sqrt{n}} \dfrac{\varphi(\alpha)}{\Phi(\alpha)}, \quad \alpha = \dfrac{\mu}{\sigma} = \dfrac{\sqrt{n} \bar{X}}{\sigma_0} - \dfrac{\lambda_0 \sigma_0}{\sqrt{n}}
-$$
-这样均方误差损失是
-$$
-MSE(\theta) = \sigma^2 D_Z \left(Z + \dfrac{\varphi(\alpha)}{\Phi(\alpha)} \right) + \left(\lambda_0 \sigma^2 + \sigma E_Z \left( \dfrac{\varphi(\alpha)}{\Phi(\alpha)} \right) \right)^2
-$$
-其中 $Z$ 是标准正态分布. 
 
 ### 七、计算题（共 15 分）
 
