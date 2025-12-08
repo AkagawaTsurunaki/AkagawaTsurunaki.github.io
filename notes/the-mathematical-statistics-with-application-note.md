@@ -34,15 +34,14 @@ X \sim \mathrm{Bernoulli}(p)
 $$
 
 **概率密度函数**
-
 $$
-P(X=1)=p, P(X=0)=1-p
+P(X=1)=p , \quad P(X=0)=1-p
 $$
 
 **期望与方差**
 
 $$
-E(X) = p \hspace{2em} D(X) = p(1-p)
+E(X) = p , \quad D(X) = p(1-p)
 $$
 
 #### 二项分布
@@ -50,33 +49,36 @@ $$
 $n$ 次独立伯努利试验，成功次数
 
 $$
-X \sim \mathrm{Bin}(n, p)
+X \sim \mathrm{Bin}(N, p)
 $$
 
 **概率质量函数**
 
 $$
-P(X=k) = \binom{n}{k} p^k (1-p)^{n-k},\ k=0,1,\dots,n
+P(X=k) = \binom{N}{k} p^k (1-p)^{N-k},\ k=0,1,\dots,N
 $$
 
 **期望与方差**（思考可加性）
+$$
+E(X) = Np , \quad D(X)=Np(1-p)
+$$
 
-$$
-E(X) = np \hspace{2em} D(X)=np(1-p)
-$$
+**互补变量性质（成功-失败对换律）**
+
+若 $X \sim \mathrm{Bin}(N, p)$，那么有 $N - X \sim \mathrm{Bin}(N, 1-p)$. 
 
 #### 帕斯卡（Pascal）分布（负二项分布）
 
 **概率质量函数**
 
 $$
-P(X=k) = \binom{k-1}{r-1} p^r q ^{k-r} \quad k=r, r+1, \dots
+P(X=k) = \binom{k-1}{r-1} p^r q ^{k-r} , \quad k=r, r+1, \dots
 $$
 
 **期望与方差**
 
 $$
-E(X) = \dfrac{r}{p} \quad D(X) = \dfrac{r q}{p^2}
+E(X) = \dfrac{r}{p} , \quad D(X) = \dfrac{r q}{p^2}
 $$
 
 #### 超几何分布
@@ -90,19 +92,18 @@ P(X=k)=\frac{{\displaystyle\binom{M}{k}\binom{N-M}{n-k}}}{{\displaystyle\binom{N
 $$
 
 **期望与方差**
-
 $$
-E(X) = n \dfrac{M}{N} \hspace{2em} D(X) = \dfrac{nM (N-n) (N-M)}{N^2 (N - 1)}
+E(X) = n \dfrac{M}{N}, \quad D(X) = \dfrac{nM (N-n) (N-M)}{N^2 (N - 1)}
 $$
 
-**抽小球问题：**有放回，二项分布（变量独立同分布）；无放回，超几何分布（变量同分布，不独立）. 小球无穷多，超几何分布收敛于二项分布.
+抽小球问题：有放回，二项分布（变量独立同分布）；无放回，超几何分布（变量同分布，不独立）. 小球无穷多，超几何分布收敛于二项分布.
 
 #### 泊松（Poisson）分布
 
 **概率质量函数**
 
 $$
-P(X=k) = \dfrac{\lambda^k}{k!} e^{-\lambda}, k=0, 1,2,3, \dots
+P(X=k) = \dfrac{\lambda^k}{k!} e^{-\lambda}, \quad k=0, 1,2,3, \dots
 $$
 
 **期望与方差**
@@ -129,17 +130,16 @@ $$
 **概率质量函数**
 
 $$
-P(X=k)=p(1-p)^{k-1}, \ k \geq 1
+P(X=k)=p(1-p)^{k-1}, \quad k \geq 1
 $$
 
 **期望与方差**
 
 $$
-E(X) = \dfrac{1}{p} \hspace{2em} D(X) = \dfrac{1-p}{p^2}
+E(X) = \dfrac{1}{p} , \quad D(X) = \dfrac{1-p}{p^2}
 $$
 
 **无记忆性**
-
 $$
 P(X=n+k|X>n) = P(X=k)
 $$
@@ -172,13 +172,11 @@ $$
 
 **特殊性质**
 
-若X的累计概率函数是 $F(X) = P(X<x)$
+1. 若 $X$ 的累计概率函数是 $F(X) = P(X<x)$. 
+2. $F(X) \sim U(0, 1)$. 
+3. 若 $Y \sim U(0, 1)$，则 $F^{-1}(Y)$ 的累计概率函数是 $F(X)$.
 
-$F(X) \sim U(0, 1)$
-
-反之，若 $Y \sim U(0, 1)$，则 $F^{-1}(Y)$ 的累计概率函数是 $F(X)$.
-
-#### 指数函数
+#### 指数分布
 
 $$
 X \sim E(\lambda)
@@ -203,17 +201,15 @@ E(X) = \dfrac{1}{\lambda} \hspace{2em} D(X) = \dfrac{1}{\lambda^2}
 $$
 
 **特殊性质**
-
 $$
 X \sim E(1), \ e^{-X} \sim U(0, 1)
 $$
 
 $$
-Y \sim U(0,1), \ \dfrac{1}{Y} \sim E(1)
+Y \sim U(0,1), \ -\ln{Y} \sim E(1)
 $$
 
-**无记忆性**（所有的连续分布中只有指数分布具有无记忆性）：
-
+**无记忆性**（所有的连续分布中只有指数分布具有无记忆性）
 $$
 \forall s, t > 0 \hspace{2em} \ P(X>s+t|X>s)=P(x>t)
 $$
@@ -249,12 +245,8 @@ N(\mu, \sigma^2) = \mu + \sigma N(0, 1)
 $$
 
 **可加性**
-
 $$
-a+bN(\mu, \sigma^2) \sim N(a+b\mu, b^2\sigma^2) , \ b\neq 0
-$$
-
-$$
+a+bN(\mu, \sigma^2) \sim N(a+b\mu, b^2\sigma^2) , \ b\neq 0 \\
 X = \mu + \varepsilon \sim N(\mu, \sigma^2), \quad \varepsilon \sim N(0, \sigma^2)
 $$
 
@@ -266,6 +258,7 @@ $$
 
 这里参数 $\alpha > 0$，$\lambda > 0$.
 
+**期望和方差**
 $$
 E(X) = \dfrac{\alpha}{\lambda} \quad D(X) = \dfrac{\alpha}{\lambda^2}
 $$
@@ -288,8 +281,9 @@ $$
 f(x; \alpha, \beta) = \dfrac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta - 1} = \dfrac{1}{B(\alpha, \beta)} x^{\alpha-1} (1-x)^{\beta - 1}
 $$
 
+**期望和方差**
 $$
-E(X) = \dfrac{\alpha}{\alpha+\beta} \quad D(X) = \dfrac{\alpha \beta}{(\alpha+\beta)^2 (\alpha+\beta+1)}
+E(X) = \dfrac{\alpha}{\alpha+\beta}, \quad D(X) = \dfrac{\alpha \beta}{(\alpha+\beta)^2 (\alpha+\beta+1)}
 $$
 
 #### 倒 Gamma 分布
@@ -298,6 +292,7 @@ $$
 f(x; \alpha, \beta) = \dfrac{\beta^\alpha}{\Gamma ({\alpha})} x^{-\alpha-1} e^{-\beta/x} \quad \alpha>0, \beta>0
 $$
 
+**期望和方差**
 $$
 E(X) = \dfrac{\beta}{\alpha- 1} \quad (\alpha>1)  \quad D(X)=\dfrac{\beta^2}{(\alpha-1)^2 (\alpha-2)} \quad (\alpha>2)
 $$
@@ -380,18 +375,6 @@ $$
 
 如果 $X$ 与 $Y$ 独立，且 $f ,\ g$ 是可测函数，那么随机变量 $U=f(X)$ 与 $V=g(Y)$ 也独立.
 
-### 二维正态分布
-
-$X \sim N(\mu_1, \sigma_1^2) $，$ Y \sim N(\mu_2, \sigma_2^2)$ 的边缘分布也是正态分布.
-
-二维正态随机变量 $X, Y$ 相互独立的充分必要条件是相关系数 $r=0$.
-
-$Y|_{X=x} \sim N \left(\mu_2 + r \sigma_2 \dfrac{x - \mu_1}{\sigma_1}, (1-r^2)\sigma_2^2 \right)$
-
-$\boldsymbol{X} \sim N(\boldsymbol{\mu} , \boldsymbol{\Sigma})$，$\boldsymbol{\Sigma}$ 是 $n$ 阶正定矩阵.
-
-$\forall m\leq n ,\ \boldsymbol{A}_{m\times n} \boldsymbol{X} \sim (\boldsymbol{A} \boldsymbol{\mu}, \boldsymbol{A} \boldsymbol{\Sigma} \boldsymbol{A}^T)$
-
 ### 条件分布
 
 条件概率的推广
@@ -414,7 +397,7 @@ E(X) = \sum_{i} x_i p_i  \quad \text{如果} \sum_{i} |x_i p_i| < + \infty \\
 E(X) =\int_{-\infty}^{\infty} x p(x) \mathrm{d}x \quad \text{如果} \  \int_{-\infty}^{\infty} |x p(x)| dx < + \infty
 $$
 
-柯西分布$\dfrac{1}{\pi(1+(x-\theta)^2)} X \in R^1$没有数学期望，因此无法用样本估计 $\theta$，但 $\theta$ 是它的中位数，同时所有分布都有中位数.
+特例：柯西分布 $f_X(x) = \dfrac{1}{\pi(1+(x-\theta)^2)} , \ X \in R^1$ 没有数学期望，因此无法用样本估计 $\theta$，但 $\theta$ 是它的中位数，同时所有分布都有中位数.
 
 **线性变换的期望**
 
@@ -462,9 +445,8 @@ D(aX+b)=a^2 D(X)
 $$
 
 **独立随机变量和的方差**
-
 $$
-\mathrm{i.r.v.} X, Y \implies D(X+Y)=D(X) + D(Y)
+\mathrm{i.r.v.} \ X, Y \implies D(X+Y)=D(X) + D(Y)
 $$
 
 **一般随机变量和的方差**
@@ -537,11 +519,11 @@ $f(t) = E \left(e^{itX} \right), \ t \in \mathbb{R}^1$
 
 #### 收敛性
 
-| 收敛类型         | 定义（KaTeX格式）                                                                                                    | 关键描述                         | 强度关系（从强到弱） |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------- | -------------------- |
-| **几乎处处收敛** | $ X*n \xrightarrow{\text{a.s.}} X \iff P\left(\lim*{n\to\infty} X_n = X\right) = 1 $                                 | 在几乎所有样本点上逐点收敛       | 最强                 |
-| **依概率收敛**   | $ X*n \xrightarrow{P} X \iff \forall \varepsilon > 0,\ \lim*{n\to\infty} P( \vert X_n - X \vert > \varepsilon) = 0 $ | 大偏差概率趋于零                 | 中等                 |
-| **依分布收敛**   | $ X*n \xrightarrow{d} X \iff \lim*{n\to\infty} F\_{X_n}(x) = F_X(x)\ \forall x \text{ 连续点} $                      | 分布函数逐点收敛（在分布意义上） | 最弱                 |
+| 收敛类型         | 定义                                                         | 关键描述                         | 强度 |
+| ---------------- | ------------------------------------------------------------ | -------------------------------- | ---- |
+| **几乎处处收敛** | $ X_n \xrightarrow{\text{a.s.}} X \iff P\left(\lim_{n\to\infty} X_n = X\right) = 1 $ | 在几乎所有样本点上逐点收敛       | 最强 |
+| **依概率收敛**   | $ X_n \xrightarrow{P} X \iff \forall \varepsilon > 0,\ \lim_{n\to\infty} P( \vert X_n - X \vert > \varepsilon) = 0 $ | 大偏差概率趋于零                 | 中等 |
+| **依分布收敛**   | $ X_n \xrightarrow{d} X \iff \lim_{n\to\infty} F\_{X_n}(x) = F_X(x)\ \forall x \text{ 连续点} $ | 分布函数逐点收敛（在分布意义上） | 最弱 |
 
 #### 大数定律
 
@@ -554,7 +536,7 @@ $$
 $$
 \dfrac{S_n - E(S_n)}{\sqrt{D(S_n)}} \xrightarrow{d} N(0, 1)
 \\
-X_1, X_2, ... i.i.d \hspace{2em} E(X_i) = \mu, D(X_i) = \sigma^2
+X_1, X_2, \dots \quad \text{i.i.d} \hspace{2em} E(X_i) = \mu, D(X_i) = \sigma^2
 \\
 \bar{X} = \dfrac{1}{n} \sum_{k=1}^n X_k \xrightarrow{a.s.} \mu \quad 大数定律
 $$
@@ -712,14 +694,15 @@ $$
 K^2 \sim \chi^2(n)
 $$
 
-概率密度函数
-
+**概率密度函数**
 $$
 k_n(x) = \dfrac{1}{2^{\frac{n}{2}} \Gamma(\frac{n}{2})} x^{\frac{n}{2}-1} e^{-\frac{x}{2}}, \quad x>0
 $$
 
-数学期望是 $n$，方差是 $2n$.
-
+**期望与方差**
+$$
+E(K^2) = n, \quad D(K^2) = 2n
+$$
 **卡方分布具有可加性**
 
 如果 $X$、$Y$ 独立，$X \sim \chi^2(n_1)$，$Y \sim \chi^2(n_2)$，则 $X+Y \sim \chi^2(n_1+n_2)$.
@@ -736,17 +719,20 @@ $$
 T = \dfrac{X}{\sqrt{Y/n}}, \quad T \sim t(n)
 $$
 
-$t$ 分布的概率密度函数
-
+**概率密度函数**
 $$
 t_n(x) = \dfrac{\Gamma(\frac{n+1}{2})}{\sqrt{n \pi} \Gamma(\frac{n}{2})} \left( 1+ \frac{x^2}{n} \right)^{-\frac{n+1}{2}}
 $$
 
-数学期望是 $0 \ (n \geq 2)$，方差是 $\frac{n}{n-2} \ (n \geq 3)$，$t(1)$ 是 Cauchy 分布.
+**期望与方差**
+$$
+E(T) = 0 \ (n \geq 2), \quad D(T) = \dfrac{n}{n-2} \ (n \geq 3)
+$$
+**特殊性质**
 
-$t$ 分布的平方 $t^2(n)$ 正好是 $F(1, n)$.
-
-当 $n \rightarrow \infin $，$t(n)$ 的极限分布是标准正态分布.
+1. $t(1)$ 是 Cauchy 分布.
+2. $t$ 分布的平方 $t^2(n)$ 正好是 $F(1, n)$.
+3. 当 $n \rightarrow \infin $，$t(n)$ 的极限分布是标准正态分布.
 
 <img src="/images/t-dist-quantile.png" width="300">
 
@@ -760,15 +746,21 @@ $$
 X \sim \chi^2(m), \quad Y \sim \chi^2(n), \quad F = \dfrac{X / m}{Y / n}, \quad F \sim F(m, n)
 $$
 
-$F$ 分布的概率密度函数
-
+**概率密度函数**
 $$
 f_{m,n}(x) = \dfrac{\Gamma(\frac{m+n}{2})}{\Gamma(\frac{m}{2}) \Gamma(\frac{n}{2})} m^{\frac{m}{2}} n^{\frac{n}{2}} \dfrac{x^{\frac{m}{2}-1}}{(n+mx)^{\frac{m+n}{2}}}, \quad x > 0
 $$
 
-数学期望是 $\frac{n}{n-2} \quad (n \geq 3)$.
+**期望与方差**
+$$
+E(F)  = \dfrac{n}{n-2}\quad D(F) = \dfrac{2n^2(m+n-2)}{m(n-2)^2(n-4)} \quad (n \geq 3)
+$$
 
-如果 $T \sim t(n)$，则有 $T^2 \sim F(1, n)$.
+**特殊性质**
+
+1. $P(F(1,1) < 1) = 0.5$.
+2. $P(F(1,1) < x) = \dfrac{2}{\pi} \arctan(\sqrt{x})$.
+3. 如果 $T \sim t(n)$，则有 $T^2 \sim F(1, n)$.
 
 <img src="/images/f-dist-quantile.png" width="300">
 
@@ -791,25 +783,6 @@ $$
 \quad
 \bar{X} \perp (X_i - \bar{X})^k
 $$
-
-### 多元正态分布的基本性质
-
-随机向量 $\boldsymbol{X}$ 服从 $n$ 维正态分布 $N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，如果联合密度是
-
-$$
-f(\boldsymbol{x}) =
-\dfrac{1}{(2\pi)^{n/2}\sqrt{\det\boldsymbol{\Sigma}}}
-\exp\!\left(
--\dfrac12
-(\boldsymbol{x}-\boldsymbol{\mu})^{\!T}
-\boldsymbol{\Sigma}^{-1}
-(\boldsymbol{x}-\boldsymbol{\mu})
-\right)
-$$
-
-$\boldsymbol{X}$ 服从 $n$ 维正态 $N(\boldsymbol{\mu}, \mathbf{\Sigma})$ 的充分必要条件是对任意 $n$ 维列向量 $\boldsymbol{a}$，有 $\boldsymbol{a}^T \boldsymbol{X} \sim N(\boldsymbol{a}^T \boldsymbol{\mu}, \boldsymbol{a}^T \boldsymbol{\Sigma} \boldsymbol{a})$.
-
-如果 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \mathbf{\Sigma})$，$\boldsymbol{A}$ 是任意 $m \times n$ 矩阵 $(m \leq n)$，则有 $\boldsymbol{AX} \sim N(\boldsymbol{A\mu}, \boldsymbol{A\Sigma} \boldsymbol{A}^T )$.
 
 ### 两个正态总体的抽样分布
 
@@ -837,7 +810,73 @@ $$
 \dfrac{(\bar{X} - \bar{Y}) - (\mu_1 - \mu_2)}{S_w\sqrt{\dfrac{1}{n_1}+\dfrac{1}{n_2}}} \sim t(n_1+n_2 -2), \quad S_w^2 = \dfrac{(n_1-1)S^2_1 + (n_2-1)S_2^2}{n_1+n_2-2}
 $$
 
-### Cochren 定理
+### 多元正态分布与正态二次型
+
+#### 二元正态分布的性质
+
+**正态分布的边缘分布也是正态分布**
+
+$X \sim N(\mu_1, \sigma_1^2) $，$ Y \sim N(\mu_2, \sigma_2^2)$ 的边缘分布也是正态分布.
+
+**二元正态分布的独立性判断**
+
+二维正态随机变量 $X, Y$ 相互独立的充分必要条件是相关系数 $r=0$.
+
+**条件正态分布**
+$$
+Y | {X=x} \sim N \left(\mu_2 + r \sigma_2 \dfrac{x - \mu_1}{\sigma_1}, (1-r^2)\sigma_2^2 \right)
+$$
+
+#### 多元正态分布
+
+随机向量 $\boldsymbol{X}$ 服从 $n$ 维正态分布 $N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，$\boldsymbol{\Sigma}$ 是 $n$ 阶正定矩阵，其联合密度函数是
+$$
+f(\boldsymbol{x}) =
+\dfrac{1}{(2\pi)^{n/2}\sqrt{\det\boldsymbol{\Sigma}}}
+\exp\!\left(
+-\dfrac12
+(\boldsymbol{x}-\boldsymbol{\mu})^{\!T}
+\boldsymbol{\Sigma}^{-1}
+(\boldsymbol{x}-\boldsymbol{\mu})
+\right)
+$$
+
+**多元正态分布的线性变换**
+
+$\boldsymbol{X}$ 服从 $n$ 维正态 $N(\boldsymbol{\mu}, \mathbf{\Sigma})$ 的充分必要条件是对任意 $n$ 维列向量 $\boldsymbol{a}$，有 $\boldsymbol{a}^T \boldsymbol{X} \sim N(\boldsymbol{a}^T \boldsymbol{\mu}, \boldsymbol{a}^T \boldsymbol{\Sigma} \boldsymbol{a})$.
+
+如果 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \mathbf{\Sigma})$，$\boldsymbol{A}$ 是任意 $m \times n$ 矩阵 $(m \leq n)$，则有 $\boldsymbol{AX} \sim N(\boldsymbol{A\mu}, \boldsymbol{A\Sigma} \boldsymbol{A}^T )$.
+
+**二次型与卡方分布**
+
+设 $\boldsymbol{Z} \sim N(0, \boldsymbol{I}_n)$，$\boldsymbol{A}$ 为 $n$ 阶对称幂等矩阵，则 $\boldsymbol{Z}^{\top} \boldsymbol{AZ} \sim \chi^2(\mathrm{tr}(\boldsymbol{A}))$. 
+
+设 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \sigma^2 \boldsymbol{I}_n)$，$\boldsymbol{A}$ 为 $n$ 阶对称幂等矩阵，则 $\dfrac{(\boldsymbol{X} - \boldsymbol{\mu})^{\top} \boldsymbol{A}  (\boldsymbol{X} - \boldsymbol{\mu})}{\sigma^2} \sim \chi^2(\mathrm{tr}(\boldsymbol{A}))$. 
+
+设 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，则 $(\boldsymbol{X} - \boldsymbol{\mu})^{\top} \boldsymbol{\Sigma}^{-1} (\boldsymbol{X} - \boldsymbol{\mu}) \sim \chi^2(n)$. 
+
+**二次型的期望、方差与协方差**
+
+设 $\boldsymbol{X}^{\top} = (X_1, X_2, \dots, X_n)$，$E(\boldsymbol{X})=\boldsymbol{\mu} = (\mu_1, \mu_2, \dots, \mu_n)^{\top}$，$D(\boldsymbol{X}) = \sigma^2 \boldsymbol{I}_n$，且 $\boldsymbol{A} = [a_{ij}]$ 为 $n$ 阶对称矩阵，则
+1. $E(\boldsymbol{X}^{\top} \boldsymbol{AX}) = \sigma^2 \mathrm{tr}(\boldsymbol{A}) + \boldsymbol{\mu}^{\top} \boldsymbol{A} \boldsymbol{\mu} $. 
+2. 如果 $\boldsymbol{X} \sim N(\boldsymbol{0}, \sigma^2 \boldsymbol{I}_n)$，那么 $D(\boldsymbol{X}^{\top} \boldsymbol{AX}) = 2\sigma^4 \mathrm{tr}(\boldsymbol{A}^2)$. 
+
+设 $\boldsymbol{Y}$ 为 $n \times 1$ 随机向量，$\boldsymbol{\mu} = E(\boldsymbol{Y})$，$ \boldsymbol{\Sigma} = \mathrm{Cov}(\boldsymbol{Y})$，$\boldsymbol{A}, \boldsymbol{B}$ 为常数对称矩阵，$\boldsymbol{a}, \boldsymbol{b}$ 为常数向量，那么有
+
+1. $E(\boldsymbol{Y}^{\top} \boldsymbol{AY}) = \mathrm{tr} (\boldsymbol{A \Sigma}) + \boldsymbol{\mu}^{\top} \boldsymbol{A \mu} $. 
+2. $\mathrm{Cov}(\boldsymbol{Y}^{\top} \boldsymbol{AY}, \boldsymbol{Y}^{\top} \boldsymbol{BY}) = 2 \mathrm{tr} (\boldsymbol{A \Sigma} \boldsymbol{B \Sigma}) + 4 \boldsymbol{\mu}^{\top} \boldsymbol{A \Sigma B \mu} $.
+3. $D(\boldsymbol{Y}^{\top} \boldsymbol{AY}) = 2 \mathrm{tr} (\boldsymbol{A \Sigma} \boldsymbol{A \Sigma}) + 4 \boldsymbol{\mu}^{\top} \boldsymbol{A \Sigma A \mu} $.
+4. $\mathrm{Cov}(\boldsymbol{a}^{\top} \boldsymbol{A}, \boldsymbol{Y}^{\top} \boldsymbol{AY}) = 2 \boldsymbol{a}^{\top} \boldsymbol{\Sigma A \mu}$. 
+
+**二次型判断独立性**
+
+设 $\boldsymbol{A}$ 为 $n$ 阶对称幂等矩阵，$\boldsymbol{B}$ 为 $m \times n$ 阶矩阵，且 $\boldsymbol{BA}= \boldsymbol{0}$，$\boldsymbol{X} \sim N(\boldsymbol{\mu}, \sigma^2 \boldsymbol{I}_n)$，则 $\boldsymbol{BX}$ 与 $\boldsymbol{X}^{\top} \boldsymbol{AX}$ 相互独立. 
+
+设 $\boldsymbol{A}, \ \boldsymbol{B}$ 均为 $n$ 阶对称矩阵，$\boldsymbol{BA}= \boldsymbol{0}$，且 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \sigma^2 \boldsymbol{I}_n)$，则 $\boldsymbol{X}^{\top} \boldsymbol{AX}$ 与 $\boldsymbol{X}^{\top} \boldsymbol{BX}$ 相互独立. 
+
+设 $Q_i \sim \chi^2(r_i)$，$i=1, \ 2$，$r_1 > r_2$ 且 $Q_1 - Q_2$ 与 $Q_2$ 独立，则 $Q_1 - Q_2 \sim \chi^2 (r_1- r_2)$. 
+
+### 科克伦定理（Cochran）定理
 
 假定 $X_1, \dots, X_n$ 是来自总体 $X \sim N (0,1)$ 的一组简单随机样本，记 $\boldsymbol{X} = (X_1, \dots ,X_n )^T$，$\boldsymbol{A}_i ( 1 \leq i \leq r)$ 分别是秩为 $n_i$ 的非负定矩阵，满足
 
@@ -1451,7 +1490,7 @@ $$
 #### Kolmogrov 检验
 
 $$
-H_0: F(x) = F_0(x), \quad H_1 : F(x) \neq F_0(X)
+H_0: F(x) = F_0(x), \quad H_1 : F(x) \neq F_0(x)
 $$
 
 构造统计量
@@ -1548,7 +1587,7 @@ $$
 
 F. Wilcoxon 秩和检验：假定 $F(x)$ 与 $G(x)$ 是两个独立的连续总体，相应样本分别是 $X_1,\ \dots, X_m$ 与 $Y_1, \ \dots, Y_n$. 把混合后的样本 $( X_1, \ \dots, X_m, \ Y_1, \ \dots, Y_n  )$ 排序，记 $R_1 ,\ \dots, \ R_n $ 为 $Y_1, \ \dots, Y_n $ 的秩.
 
-构造统计量
+构造统计量（一般选择样本量更小的那组）
 
 $$
 W  = R_1 + \dots + R_n = \sum_{i=1}^m \sum_{j=1}^n \mathbf{1}(Y_j > X_i) + \dfrac{1}{2} n (n+1)
@@ -1598,7 +1637,7 @@ $$
 | $r$        | $y_{r1}, \ y_{r2}, \dots, y_{r n_r}$ | $\bar{y}_r$ |
 
 $$
-y_{ij} = \beta_i + \varepsilon_{ij} \quad 1 \leq j \leq n_i, \ 1 \leq i \leq r
+y_{ij} = \beta_i + \varepsilon_{ij}, \quad 1 \leq j \leq n_i, \ 1 \leq i \leq r
 $$
 
 作出假设检验
@@ -1714,7 +1753,6 @@ $$
 5. 实际上，方差分析就是一种特殊的线性回归模型.
 
 **线性模型的矩阵形式**
-
 $$
 \boldsymbol{Y} = \boldsymbol{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon},  \quad E(\boldsymbol{\varepsilon}) = \boldsymbol{0} \\
 $$
@@ -1729,7 +1767,7 @@ $$
 \vdots & \vdots  & \ddots  & \vdots \\
 1 & x_{n1} & \cdots & x_{nk}
 \end{matrix}\right] , \quad
-\boldsymbol{\beta} = \left[\begin{matrix} \beta_1 ,\\ \vdots \\ \beta_n \end{matrix}\right] , \quad
+\boldsymbol{\beta} = \left[\begin{matrix} \beta_1 ,\\ \vdots \\ \beta_k \end{matrix}\right] , \quad
 \boldsymbol{\varepsilon} = \left[\begin{matrix} \varepsilon_1 ,\\ \vdots \\ \varepsilon_n \end{matrix}\right] , \quad
 \varepsilon_i \sim N(0, \sigma^2)
 $$
