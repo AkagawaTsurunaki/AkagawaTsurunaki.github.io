@@ -43,15 +43,22 @@ $$
 f_Y (y) = \dfrac{1}{2} e^{-\frac{y}{2}} \quad y>0
 $$
 **解2：**
+
+> 原答案不小心把 $\cap$ 错打成了 $\cup$，但是答案结果没变，感谢指正. 
+
 $$
 \begin{align*}
-P(Y>3\lambda | Y>\lambda) &= \dfrac{P(Y>3\lambda \cup Y>\lambda )}{P(Y>\lambda)} \\
+P(Y>3\lambda | Y>\lambda) &= \dfrac{P(Y>3\lambda \cap Y>\lambda )}{P(Y>\lambda)} \\
 &= \dfrac{P(Y>3\lambda )}{P(Y>\lambda)} \\
 &= \dfrac{\int_{3\lambda}^{\infty} \frac{1}{2}  e^{-\frac{y}{2}} \mathrm{d}y  }{\int_{\lambda}^{\infty} \frac{1}{2}  e^{-\frac{y}{2}} \mathrm{d}y} \\
 &=\dfrac{2e^{-\frac{3}{2}\lambda}}{2e^{-\frac{1}{2}\lambda}} \\
 &= e^{-\lambda}
 \end{align*}
 $$
+
+> [!NOTE]
+>
+> 由于 $Y\sim χ²(2)=\Gamma(1,\frac{1}{2})=E(\frac{1}{2})$，因此本题也可以用指数分布的无记忆性进行求解. 
 
 ### 二、计算题（共 10 分）
 
