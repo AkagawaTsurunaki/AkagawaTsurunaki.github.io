@@ -1767,7 +1767,7 @@ $$
 \vdots & \vdots  & \ddots  & \vdots \\
 1 & x_{n1} & \cdots & x_{nk}
 \end{matrix}\right] , \quad
-\boldsymbol{\beta} = \left[\begin{matrix} \beta_1 ,\\ \vdots \\ \beta_k \end{matrix}\right] , \quad
+\boldsymbol{\beta} = \left[\begin{matrix} \beta_0 ,\\ \vdots \\ \beta_k \end{matrix}\right] , \quad
 \boldsymbol{\varepsilon} = \left[\begin{matrix} \varepsilon_1 ,\\ \vdots \\ \varepsilon_n \end{matrix}\right] , \quad
 \varepsilon_i \sim N(0, \sigma^2)
 $$
