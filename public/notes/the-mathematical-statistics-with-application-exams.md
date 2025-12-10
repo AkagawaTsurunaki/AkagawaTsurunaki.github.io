@@ -3,9 +3,9 @@
 
 > [!NOTE] 
 >
-> 所有问题及其答案已经过人工和 AI 双重评判，但仍可能存在缺陷，请保持严谨细心的态度看待. 
+> 所有问题及其答案已经过人工和 AI （Kimi、Deepseek 和 Gemini）双重评判，但仍可能存在错误，请保持严谨细心的态度看待. 
 >
-> 根据作者对历年真题的分析，从 2021 年开始，无论是证明题还是计算题，都开始更加多元化、灵活化、技巧化，需要考生掌握知识点的融会贯通，但繁琐计算（如大量加减乘除）的运算量减少. 
+> 根据作者对历年真题的分析，从 2020 年开始，无论是证明题还是计算题，都开始更加多元化、灵活化、技巧化，需要考生掌握知识点的融会贯通，但繁琐计算（如大量加减乘除）的运算量减少. 
 >
 > 根据往年出题规律：第一章，一道题，第二章，贝叶斯估计一道题、传统估计两道题；第三章，参数检验一道题，非参数检验一道题；第四章单因素方差分析，一道题；第五章一元线性回归模型，一道题.
 
@@ -16,7 +16,498 @@ $$
 \bar{X} = \dfrac{1}{n} \sum_{i=1}^{n} X_k , \quad S^2 = \dfrac{1}{n-1} \sum_{i=1}^{n} (X_k - \bar{X})^2
 $$
 
-2. 分位点 $Q_\alpha$ 取为上侧分位点，即：$P(X>Q_\alpha)=\alpha$
+2. 分位点 $Q_\alpha$ 取为上侧分位点，即：$P(X>Q_\alpha)=\alpha$. 
+
+## 2024-2025
+
+> [!NOTE]
+>
+> 这套卷来源不详，但出题风格和历年真题（尤其是近 5 年）有高度相似性，因此极有可能确实是 2024-2025 年的真题. 
+
+### 一、计算题（共 10 分）
+
+假设 $X_1, \dots, X_n$ 独立同分布于 Bernoulli 分布 $B(1,p )$. 
+
+1. （5 分）求出 $T = X_1 + \cdots + X_n$ 的分布；
+2. （5 分）证明 $P(X_1=x_1, \dots, X_2=x_n \mid T = t)$ 与参数 $p$ 无关. 
+
+**解 1：**
+
+根据二项分布的可加性
+
+$$
+T = X_1 + \cdots + X_n \sim B(n, p)
+$$
+**解 2：**
+
+根据条件概率的定义，有
+
+$$
+P(X_1 = x_1, \dots, X_n = x_n \mid T = t) = \frac{P(X_1 = x_1, \dots, X_n = x_n \text{ 且 } T = t)}{P(T = t)}
+$$
+注意到当 $T = t$ 时，隐含的意义是有 $t$ 次实验成功了，$n - t$ 次失败了，这意味着在给定的 $x_1, \dots, x_n$ 中一定有 $t$ 个是 $1$，其余是 $0$；如果不满足此条件，那么这个事件发生的概率就是 $0$，也就是说分子满足
+$$
+P(X_1 = x_1, \dots, X_n = x_n \text{ 且 } T = t ) = P(X_1 = x_1, \dots, X_n = x_n) \cdot \mathbf{1} \left(\sum_{i=1}^{n} x_i=t \right) = p^{t} (1-p)^{n-t}
+$$
+而对于分母
+$$
+P(T=t) = \binom{n}{t} p^t (1-p)^{n-t}
+$$
+
+综上，有
+$$
+P(X_1 = x_1, \dots, X_n = x_n \mid T = t) = \dfrac{p^{t} (1-p)^{n-t}}{\binom{n}{t} p^t (1-p)^{n-t}} = \dfrac{1}{\binom{n}{t}}
+$$
+显然与参数 $p$ 无关. 
+
+
+> [!TIP]
+>
+> 为什么分子没有 $\binom{n}{t}$？因为对于分子来说，样本观测值是已经确定了的，即你已经知道哪些样本一定为 1，哪些一定为 0，不需要再排列组合了. 这个结论其实隐含着这样一个思想，即如果你已经知道这么 $n$ 次伯努利实验中成功的次数 $t$，在这个条件下的样本观测值就和参数 $p$ 毫无关系了，它只与 $n$ 和 $t$ 有关.  
+
+### 二、计算题（共 10 分）
+
+假设简单随机样本 $X_1, \dots, X_n$ 来自泊松总体 $P(\lambda)$，参数 $\lambda$ 的先验分布为 $\lambda \sim \Gamma(1, 2)$，在如下损失函数下
+$$
+L(\theta, d) = \theta (\theta - d )^2
+$$
+求出 $\lambda$ 的 Bayes 估计. 
+
+提示：$\lambda \sim \Gamma(\alpha, \beta)$ 期望是 $\alpha/\beta$，方差是 $\alpha/\beta^2$. 
+
+**解：**
+
+参数 $\lambda$ 与样本 $X$ 的联合分布是
+$$
+h(\lambda) \times f(x \mid \theta) = \left( \prod_{i=1}^{n} \dfrac{\lambda^{x_i}}{x_i !} e^{-\lambda} \right) \dfrac{2}{\Gamma(1)} \lambda^{1-1} e^{-2\lambda} 
+\propto \lambda^{\sum_{i=1}^{n} x_i} e^{-n\lambda -2\lambda} = \lambda^{n\bar{x}} e^{-\lambda(n+2)}
+$$
+由于 Gamma 分布共轭于泊松分布，所以
+$$
+\lambda \mid X \sim \Gamma(n \bar{x} + 1, n+2)
+$$
+贝叶斯估计是使得风险函数的期望达到最小，那么
+$$
+E(L(\theta, d)) = E(\theta (\theta - d )^2) = E(\theta^3 - 2 \theta^2 d + \theta d^2) = E(\theta^3) - 2 d E(\theta^2) +  d^2 E(\theta)
+$$
+这是关于 $d$ 的二次函数（极值点可以口算），当然不失一般性我们仍然通过令偏导数为 $0$，得
+$$
+\dfrac{\partial}{\partial d} E(L(\theta, d))  = - 2 E(\theta^2) +  2d E(\theta) = 0
+$$
+所以 $d^{*} = \dfrac{E(\theta^2)}{E(\theta)}$. 
+
+这里我们知道其实 $\theta = \lambda \mid X$，那么根据题意告诉我们的期望和方差来计算
+$$
+E(\lambda \mid X) = \dfrac{n \bar{x}+1}{n+2} \\
+E(\lambda^2 \mid X) =  D(\lambda \mid X) + \left[ E(\lambda \mid X) \right]^2 = \dfrac{n \bar{x}+1}{(n+2)^2} + \dfrac{(n \bar{x}+1)^2}{(n+2)^2} = \dfrac{(n \bar{x}+1)(n \bar{x}+2)}{(n+2)^2}
+$$
+所以 $\lambda$ 的 Bayes 估计. 
+$$
+\hat{\lambda}_{B} = \dfrac{E(\lambda^2 \mid X)}{E(\lambda \mid X)} = \dfrac{n\bar{x} + 2}{n+2}
+$$
+
+> [!TIP]
+>
+> 你观察到什么规律了吗？可试算在损失函数 $L(\theta, d) = \theta^k (\theta -d )^2 ,k > 1$ 下的 $\lambda$ 的 Bayes 估计？（答案为：$\frac{n\bar{x}+1+k}{n+2}$）
+
+### 三、计算题（共 15 分）
+
+总体 $X$ 的概率密度函数为
+$$
+f(x) = \begin{cases}
+\dfrac{10x}{\theta} e^{-\frac{5x^2}{\theta}} & x> 0 \\
+0 & x \leq 0
+\end{cases}
+$$
+其中 $\theta \ (\theta>0)$ 为未知参数，设 $X_1, \dots, X_n$ 是来自该总体的一个简单随机样本. 
+
+1. （10分）求 $\theta$ 的极大似然估计量 $\hat{\theta}$；
+2. （5分）判断 $\hat{\theta}$ 是否是 $\theta$ 的无偏估计？
+
+**解1：**
+
+似然函数为
+$$
+L(\theta) = \prod_{i=1}^{n} f(x) = \prod_{i=1}^{n} \dfrac{10x_i}{\theta} e^{-\frac{5x_i^2}{\theta}} = 
+\left( \theta^{-n} 10^{n} \prod_{i=1}^{n} x_i \right) \exp\left(-\dfrac{5}{\theta} \sum_{i=1}^{n} x_i^2 \right)
+$$
+取对数
+$$
+\ln L(\theta) = -n \ln \theta + n \ln 10 + \sum_{i=1}^{n} \ln x_i  -\dfrac{5}{\theta} \sum_{i=1}^{n} x_i^2
+$$
+对 $\theta$ 求偏导并令偏导数为 $0$，得
+$$
+\dfrac{\partial \ln L(\theta)}{\partial \theta} = -\dfrac{n}{\theta} + \dfrac{5}{\theta^2} \sum_{i=1}^{n} x_i^2 = 0
+$$
+解得极大似然估计为
+$$
+\hat{\theta} = \dfrac{5}{n} \sum_{i=1}^{n} X_i^2
+$$
+**解2：**
+
+欲证明极大似然估计为无偏估计，需要证明其期望正好等于参数
+$$
+E(\hat{\theta}) = E\left( \dfrac{5}{n} \sum_{i=1}^{n} X_i^2 \right) = \dfrac{5}{n} \sum_{i=1}^{n} E\left( X_i^2 \right)
+$$
+进而我们需要求解 $E(X^2)$，即
+$$
+\begin{align*}
+E(X^2) &= \int_0^{\infty} x^2 f(x) \mathrm{d}x \\
+&= \int_0^{\infty} x^2 \dfrac{10x}{\theta} e^{-\frac{5x^2}{\theta}} \mathrm{d}x  \\
+&\xlongequal{t = \frac{5x^2}{\theta}} \int_0^{\infty} \dfrac{t\theta}{5} \cdot \dfrac{10}{\theta} \sqrt{\frac{\theta}{5}} t^{1/2} e^{-t} \cdot \sqrt{\frac{\theta}{5}} \dfrac{1}{2} t^{-1/2}  \mathrm{d}t \\
+&=  \dfrac{\theta}{5}\underbrace{ \int_{0}^{\infty} t e^{-t} \mathrm{d}t}_{\text{Gamma 积分}} \\
+&= \dfrac{\theta}{5} \Gamma(2) \\
+&= \dfrac{\theta}{5}
+\end{align*}
+$$
+代入极大似然估计的期望中
+$$
+E(\hat{\theta}) = \dfrac{5}{n} \cdot n \dfrac{\theta}{5} = \theta
+$$
+所以，$\hat{\theta}$ 是 $\theta$ 的无偏估计. 
+
+### 四、计算分析题（共 15 分）
+
+总体 $X$ 的概率密度函数为
+$$
+f(x) = \begin{cases}
+\dfrac{2x}{\theta^2} & 0 <x<\theta \\
+0 & 其他
+\end{cases}
+$$
+其中 $\theta \ (\theta>0)$ 为未知参数，设 $X_1, \dots, X_n$ 是来自该总体的一个简单随机样本. 
+
+1. （10分）令 $X_{(n)} = \max \left\{ X_1, \dots, X_n \right\}$，求 $\dfrac{X_{(n)}}{\theta}$ 的概率密度函数；
+2. （5分）构造 $\theta$ 的置信水平为 $1-\alpha$ 的置信区间. 
+
+**解1：**
+
+设 $Y_{(n)} = \dfrac{X_{(n)}}{\theta}$，那么根据极大顺序统计量的概率密度函数公式
+$$
+f_{Y_{(n)}} (y) = n f_{Y}(y) \left[ F_Y(y) \right]^{n-1}
+$$
+接下来求概率密度函数，由于 $f(x) = \dfrac{2x}{\theta^2}$，其中 $0 <x<\theta$，不妨令 $y=\dfrac{x}{\theta}$，则根据高等数学中的**变量替换定理**
+
+> [!TIP]
+>
+> **变量替换定理**
+>
+> 若随机向量 $X$  具有密度 $f_X(x) \mathrm{d} x$ ，令 $Y=\Phi(X)$ ，则 $Y$ 的密度为
+> $$
+> f_Y(y) = f_X\!\bigl(\Phi^{-1}(y)\bigr)\cdot \underbrace{\bigl|\det J_{\Phi^{-1}}(y)\bigr|}_{\text{Jacobian}}
+> $$
+
+$$
+f_Y(y) = \dfrac{2}{\theta^2} \cdot \theta y \cdot \underbrace{\Big\vert \dfrac{\mathrm{d}x}{\mathrm{d}y} \Big \vert}_{\text{Jacobian}}
+= \dfrac{2}{\theta^2} \cdot \theta y \cdot \theta = 2y
+$$
+
+然后，我们只需要求出累积分布函数即可
+$$
+F_Y (y) = \int_0^y 2 t \mathrm{d}t = t^2 \Big \vert_0^y = y^2
+$$
+最后
+$$
+f_Y(y) = n \cdot 2y \cdot (y^2)^{n-1} = 2ny^{2n-1}
+$$
+**解2：**
+
+为了构造置信区间，我们按照定义写出
+$$
+P \left\{ a < \dfrac{X_{(n)}}{\theta} < b \right\} = P \left\{ a < Y < b \right\} = 1 -\alpha
+$$
+其中
+$$
+P(Y<a) = \int_0^a 2n y^{2n-1} \mathrm{d}y = y^{2n} \Big \vert_0^a = a^{2n} \\
+P(Y>b) = \int_b^1 2n y^{2n-1} \mathrm{d}y = y^{2n} \Big \vert_b^1 = 1 - b^{2n} \\
+$$
+> [!TIP]
+>
+> 实际上，这一步我们计算的是在拒绝域上左右两侧的概率，而区间估计恰好是把两边抛去，取中间那一块大的，也就是说我们把 $\alpha$ 劈开两半分给上面的两个式子. 
+
+取等尾区间，把 $\alpha$ 平分给两侧尾部
+$$
+P(Y<a) = a^{2n} = \dfrac{\alpha}{2}, \quad P(Y>b) = 1 - b^{2n} =\dfrac{\alpha}{2}
+$$
+解得
+$$
+a = \left(\dfrac{\alpha}{2}\right)^{\frac{1}{2n}}, \quad b = \left(1 - \dfrac{\alpha}{2}\right)^{\frac{1}{2n}}
+$$
+所以有
+$$
+\left(\dfrac{\alpha}{2}\right)^{\frac{1}{2n}} < \dfrac{X_{(n)}}{\theta} <  \left(1 - \dfrac{\alpha}{2}\right)^{\frac{1}{2n}}
+$$
+最终整理得到 $\theta$ 的置信水平为 $1-\alpha$ 的置信区间
+$$
+\left(
+\dfrac{X_{(n)}}{\left(1 - \dfrac{\alpha}{2}\right)^{\frac{1}{2n}}}, \dfrac{X_{(n)}}{\left(\dfrac{\alpha}{2}\right)^{\frac{1}{2n}}} \right)
+$$
+
+### 五、计算题（共 15 分）
+
+设 $X_1, \dots, X_n$ 为来自 Bernoulli 分布 $B(1,p)$ 的简单随机样本. 
+
+1. （5 分）求假设 $H_0: p \geq 0.1$，$H_1: p < 0.1$ 的显著性水平为 $0.05$ 的显著性检验. 
+2. （10 分）样本容量 $n$ 至少应为多少，才能保证这个检验在 $p=0.02$ 时犯第二类错误的概率不超过 $0.1$？
+
+**解1：**
+
+设 $p_s = 0.1$，则根据**中心极限定理**有
+$$
+Z:= \dfrac{p - p_s}{\sqrt{\dfrac{p_s (1-p_s)}{n}}} \sim N(0,1)
+$$
+题目要求的对立假设等价于 $p-p_s$ 偏小，这是一个单边假设检验. 
+$$
+P\{ p-p_s < C \} = P\left\{ \dfrac{p - p_s}{\sqrt{\dfrac{p_s (1-p_s)}{n}}} < \dfrac{C}{\sqrt{\dfrac{p_s (1-p_s)}{n}}}  \right\} = P\left\{ Z < \dfrac{C}{\sqrt{\dfrac{p_s (1-p_s)}{n}}}  \right\} = \alpha
+$$
+我们找到了 $C$，即
+$$
+\dfrac{C}{\sqrt{\dfrac{p_s (1-p_s)}{n}}}  = -u_{\alpha} \implies C = -u_{\alpha}\sqrt{\dfrac{p_s (1-p_s)}{n}}
+$$
+因此拒绝域为
+$$
+\left\{ p-p_s <  -u_{\alpha}\sqrt{\dfrac{p_s (1-p_s)}{n}} \right\}
+$$
+带入数据 $p_s = 0.1, \ u_{0.05} = 1.64$，即
+$$
+\left\{ p < \dfrac{-0.492}{\sqrt{n}} +0.1 \right\}
+$$
+**解2：**
+
+第二类错误是指在对立假设 $H_1$ 为真的情况下却接受了原假设 $H_0$，其概率为
+$$
+P(接受 H_0| H_1 真) = P\left\{ \hat{p} > \dfrac{-0.492}{\sqrt{n}} +0.1 \mid p=0.02 \right\}
+
+= P\left\{ \dfrac{\hat{p} - p }{\sqrt{p(1-p)/n}}> \dfrac{\dfrac{-0.492}{\sqrt{n}} - p +0.1}{\sqrt{p(1-p)/n}} \mid p=0.02 \right\} \\
+
+= P\left\{ Z > \dfrac{\dfrac{-0.492}{\sqrt{n}} - 0.02 +0.1}{\sqrt{0.02 \times (1-0.02)/n}} \right\} \\
+= P\left\{ Z > \dfrac{-0.492+0.08\sqrt{n}}{0.14} \right\} \\
+= 1 - P\left\{ Z \leq \dfrac{-0.492+0.08\sqrt{n}}{0.14} \right\} \\
+= 1 - \Phi\left(\dfrac{-0.492+0.08\sqrt{n}}{0.14} \right) \leq 0.1 = \beta
+$$
+根据分位数的定义得
+$$
+\Phi\left(\dfrac{-0.492+0.08\sqrt{n}}{0.14} \right) > 0.9 \implies
+\dfrac{-0.492+0.08\sqrt{n}}{0.14} > 1.28 \implies \sqrt{n} > 8.39
+$$
+解得（都是正好的数）
+$$
+n \geq 70.3921
+$$
+所以样本容量 $n$ 至少应为 $71$.
+
+### 六、计算题（共 10 分）
+
+设总体 $X$ 的概率分布为：
+
+| $X$  | -1   | 0    | 1      | 2    |
+| ---- | ---- | ---- | ------ | ---- |
+| $P$  | $p$  | $2p$ | $1-5p$ | $2p$ |
+
+其中 $p \ (0 < p < 0.2)$ 为未知参数，现有一样本容量 $n=80$ 的简单随机样本，其中 $-1, \ 0, \ 1 $ 和 $2$ 分别出现了 $6, \ 15, \ 40, \ 19$ 次. 在显著性水平 $0.05$ 下能否可以认为“该组样本来自总体 $X$？
+
+> [!TIP]
+>
+> 这道题中含有未知参数，我们需要先对参数进行估计，通常选择极大似然估计（教材这么写的）. 
+
+**解：**
+
+写出似然函数
+$$
+\begin{align*}
+L(p) &= \prod_{i=1}^{n} p^{\mathbf{1} (x_i=-1)} (2p)^{\mathbf{1} (x_i=0)} (1-5p)^{\mathbf{1} (x_i=1)} (2p)^{\mathbf{1} (x_i=2)} \\
+&= \underbrace{p^{\sum_{i=1}^{n} \mathbf{1} (x_i=-1)} }_{有多少个等于-1的样本} \underbrace{(2p)^{\sum_{i=1}^{n} \mathbf{1} (x_i=0)}}_{有多少个等于0的样本} (1-5p)^{\sum_{i=1}^{n} \mathbf{1} (x_i=1)} (2p)^{\sum_{i=1}^{n} \mathbf{1} (x_i=2)} \\
+&= p^{6} (2p)^{15} (1-5p)^{40} (2p)^{19} \\
+& = 2^{34} p^{40} (1-5p)^{40} \\
+& = 2^{34} \left(\underbrace{ p(1-5p)}_{二次函数} \right)^{40}
+\end{align*}
+$$
+极大似然估计要求我们使得似然函数达到最大，根据开口向下的二次函数必存在且有**唯一的**最大值（最大值点就是两根和的一半），可知
+$$
+\hat{p} = 0.1
+$$
+
+我们可以具体写出概率分布表
+| $X$  | -1            | 0              | 1                | 2              |
+| ---- | ------------- | -------------- | ---------------- | -------------- |
+| $P$  | $\hat{p}=0.1$ | $2\hat{p}=0.2$ | $1-5\hat{p}=0.5$ | $2\hat{p}=0.2$ |
+
+构建 Pearson 统计量
+$$
+\begin{align*}
+K^2 &= \dfrac{1}{n} \sum_{i=1}^{k} \dfrac{v_i^2}{p_i} - n \\
+&= \dfrac{1}{80} \left( \dfrac{6^2}{0.1} + \dfrac{15^2}{0.2} + \dfrac{40^2}{0.5} + \dfrac{19^2}{0.2} \right) - 80 \\
+&= 1.125
+\end{align*}
+$$
+
+拒绝域为
+$$
+\left\{ K^2 > \chi^2 (k-r-1) \right\}
+$$
+其中 $k=4$ 是分组数，$r=1$ 是未知参数的数量（我们刚才就是用极大似然估计估计了参数 $p$），即 $\left\{ K^2 > \chi^2_{\alpha} (2) \right\}$. 
+
+查表得 $\chi^2_{0.05}(2) = 5.991$. 
+
+因为 $K^2=1.125<5.991=\chi^2_{0.05}(2)$，所以不能拒绝原假设，在显著性水平 $0.05$ 下可以认为“该组样本来自总体 $X$. 
+
+### 七、计算分析题（共 10 分）
+
+某商场准备在商场内安装充电式应急照明灯，通过招标收到 $3$ 家照明灯生产商的投标，该商场对 $3$ 个生产商产品中进行抽样检验，以最终确定供应商。各个样品充电后可持续照明的时间长度(小时)数据如下：
+
+$$
+A_1: 9.2, 8.3, 9.0, 9.4, 9.8, 8.5, 8.8, 9.0 \\
+
+A_2: 7.2, 8.3, 7.5, 8.2, 8.0, 8.9, 8.3, 7.6 \\
+
+A_3: 10.5, 9.6, 10.8, 10.8, 11.3
+$$
+
+假设上述数据满足单因素方差分析模型的条件，在显著性水平 $\alpha = 0.05$ 下，检验三家生产商的电池的持续照明的平均寿命有无显著差异？
+
+提示：分组均值与样本方差，$A_1: \overline{x}_1 = 9$，$s_1^2 = 1.62/7$；$A_2: \overline{x}_2 = 8$，$s_2^2 = 2.08/7$；$A_3: \overline{x}_3 = 10.6$，$s_3^2 = 1.58/4$；全部数据的均值与样本方差：$\overline{x} = 9$，$s^2 = 26.08/20$.
+
+**解：**
+$$
+RSS = \sum_{i=1}^{r} (n_i - 1) s_i^2 = 7 \times \dfrac{1.62}{7} + 7 \times \dfrac{2.08}{7} + 4 \times \dfrac{1.58}{4} = 5.28 \\
+TSS = (n-1)s^2 = 20 \times \dfrac{26.08}{20} = 26.08 \\
+CSS = TSS - RSS = 26.08-5.28=20.8
+$$
+检验统计量
+$$
+F = \dfrac{n-r}{r-1} \dfrac{CSS}{RSS} \sim F(r-1, n-r)
+$$
+即 $F\sim F(2, 18)$. 
+
+拒绝域为
+$$
+\left\{ F \geq F_{\alpha}(r-1,n-r) \right\}
+$$
+即 $\left\{ F \geq F_{0.05}(2,18) \right\}$. 
+
+计算得
+$$
+F = \dfrac{18}{2} \times \dfrac{20.8}{5.28} = 35.45
+$$
+查表得 $F_{0.05} (2, 18) = 3.54$. 
+
+因为 $F = 35.45 > 3.54 = F_{0.05}(2,18)$，所以拒绝原假设，认为三家生产商的电池的持续照明的平均寿命有显著差异. 
+
+### 八、计算题（共 15 分）
+
+考虑一元回归模型
+$$
+\begin{cases}
+y = \beta_0 + \beta_1 x + \varepsilon \\
+\varepsilon \sim N(0, \sigma^2)
+\end{cases}
+$$
+记样本观测数据 $(x_i, y_i), i = 1, 2, \ldots, n$. 设 $\hat{\beta}_0, \hat{\beta}_1$ 分别是参数 $\beta_0, \beta_1$ 的最小二乘估计. 
+
+1. （10分）求 $\hat{\beta}_0 + 2\hat{\beta}_1$ 的分布；
+
+2. （5分）对检验水平 $\alpha$，求假设检验问题的拒绝域：
+
+$$
+H_0: \beta_0 + 2\beta_1 = 0, \quad H_1: \beta_0 + 2\beta_1 < 0
+$$
+
+**解1：**
+
+首先，根据一元回归模型的性质，可知 $\hat{\beta}_0$ 与 $\hat{\beta}_1$ 都服从于正态分布
+
+$$
+\hat{\beta}_0 \sim N\left(\beta_0, \sigma^2 \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right)\right) \\
+\hat{\beta}_1 \sim N\left(\beta_1, \dfrac{{\sigma}^2}{L_{xx}}\right)
+$$
+$\hat{\beta}_0 + 2\hat{\beta}_1$ 是 $\hat{\beta}_0 , \ \hat{\beta}_1$ 的线性组合，也就是说 $\hat{\beta}_0 + 2\hat{\beta}_1 = \begin{bmatrix}1 & 2\end{bmatrix}\begin{bmatrix}\hat{\beta}_0 \\ \hat{\beta}_1 \end{bmatrix}$. 
+
+设
+$$
+\boldsymbol{a}= \begin{bmatrix}1\\2\end{bmatrix}, \quad \hat{\boldsymbol{\beta}}= \begin{bmatrix}\hat{\beta}_0 \\ \hat{\beta}_1 \end{bmatrix}
+$$
+则 $\hat{\boldsymbol{\beta}}$ 服从于多元正态分布，即
+$$
+\hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})
+$$
+由于其中均值和协方差矩阵分别为（一定不要忘记了协方差）
+$$
+\boldsymbol{\mu}= \begin{bmatrix}\beta_0\\[2mm]\beta_1\end{bmatrix}, \quad
+\boldsymbol{\Sigma} = \left[\begin{matrix} 
+\sigma^2 \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & -\sigma^2 \dfrac{\bar{x}}{L_xx} \\
+-\sigma^2 \dfrac{\bar{x}}{L_xx} & \dfrac{{\sigma}^2}{L_{xx}}
+\end{matrix}\right] = \sigma^2
+\left[\begin{matrix} 
+ \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_xx} \\
+- \dfrac{\bar{x}}{L_xx} & \dfrac{1}{L_{xx}}
+\end{matrix}\right]
+$$
+而对于列向量 $\boldsymbol{a}$ 和二元正态随机列向量 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，有 $\boldsymbol{a}^T \boldsymbol{X} \sim N(\boldsymbol{a}^T \boldsymbol{\mu}, \boldsymbol{ a}^T \Sigma \boldsymbol{a}) $.
+$$
+\boldsymbol{a}^T \boldsymbol{\mu} = \left[\begin{matrix} 1 & 2\end{matrix}\right] \left[\begin{matrix} {\beta}_0 \\ {\beta}_1\end{matrix}\right] = \beta_0 + 2 \beta_1 \\
+\begin{align*}
+\boldsymbol{ a}^T \Sigma \boldsymbol{a} 
+& = \left[\begin{matrix} 1 & 2\end{matrix}\right] \sigma^2
+\left[\begin{matrix} 
+ \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_xx} \\
+- \dfrac{\bar{x}}{L_xx} & \dfrac{1}{L_{xx}}
+\end{matrix}\right] \left[\begin{matrix} 1 \\ 2\end{matrix}\right]  \\
+& = \sigma^2 \left(  \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) +4 \left(- \dfrac{\bar{x}}{L_xx} \right) + \dfrac{4}{L_{xx}} \right) \\
+& = \sigma^2 \left( \dfrac{1}{n} + \dfrac{( \bar{x} - 2)^2}{L_{xx}} \right)
+\end{align*}
+$$
+所以，$\hat{\beta}_0 + 2\hat{\beta}_1$ 的分布是正态分布，即
+$$
+\hat{\beta}_0 + 2\hat{\beta}_1 \sim N \left(\beta_0 + 2 \beta_1,  \sigma^2 \left( \dfrac{1}{n} + \dfrac{( \bar{x} - 2)^2}{L_{xx}} \right) \right)
+$$
+**解2：**
+
+首先，找出待估计量的良好点估计，显然 $\hat{\beta}_0, \ \hat{\beta}_1$ 分别是 ${\beta}_0 ,\ {\beta}_1$ 的良好点估计.
+
+对立假设 $H_1$ 要求我们 $\beta_0 + 2\beta_1 < 0$，也就是说 $\hat{\beta}_0 + 2 \hat{\beta}_1 $ 偏小时拒绝原假设 $H_0$（单边检验）.
+
+设一个常数 $C$，当 $\hat{\beta}_0 + 2 \hat{\beta}_1  < C$ 时拒绝原假设 $H_0$，接下来就是寻找 $C$.
+
+首先，在第一问中，我们已经知道了$\hat{\beta}_0 +2\hat{\beta}_1$ 的分布是正态分布，所以可以对其标准化，得到
+
+$$
+Z := \dfrac{\hat{\beta}_0 + 2 \hat{\beta}_1 - ({\beta}_0 +2 {\beta}_1)}{\sigma \sqrt{ \left( \dfrac{1}{n} + \dfrac{( \bar{x} - 2)^2}{L_{xx}} \right) }} \sim N(0, 1)
+$$
+
+这样里面还带有参数 $\sigma$，我们可以用 $\hat{\sigma}$ 估计它，已知
+
+$$
+K^2 := \dfrac{n-2}{\sigma^2} \hat{\sigma}^{2} \sim \chi^2 (n-2)
+$$
+
+又因为 $\sigma^2$ 与  $\hat{\beta}_0, \ \hat{\beta}_1$ 都独立，从而我们可以够造出 $t$ 分布，即
+
+$$
+T := \dfrac{Z}{\sqrt{K^2 / (n-2)}} =  
+\dfrac{\hat{\beta}_0 + 2 \hat{\beta}_1 - ({\beta}_0 +2 {\beta}_1)}{\hat{\sigma} \sqrt{ \left( \dfrac{1}{n} + \dfrac{( \bar{x} - 2)^2}{L_{xx}} \right) }}
+\sim t(n-2)
+$$
+
+这样我们就可以知道
+
+$$
+\begin{align*}
+P( \hat{\beta}_0 +2 \hat{\beta}_1 < C) &= 
+P \left(  \frac{\hat{\beta}_0 +2\hat{\beta}_1 - ({\beta}_0 +2 {\beta}_1)}{\hat{\sigma} \sqrt{ \left( \frac{1}{n} + \frac{( \bar{x} -2)^2}{L_{xx}} \right) }}  < \frac{C - ({\beta}_0 +2 {\beta}_1)}{\hat{\sigma} \sqrt{ \left( \frac{1}{n} + \frac{(\bar{x} -2)^2}{L_{xx}} \right) }} \right)
+\\
+&= P_{H_0} \left( T < \frac{C}{\hat{\sigma} \sqrt{ \left( \frac{1}{n} + \frac{(\bar{x} -2)^2}{L_{xx}} \right) }} \Big| \beta_0 + 2\beta_1 =0 \right)
+\end{align*}
+$$
+
+由此我们找到了 $C$，即 $t$ 分布的分位点
+$$
+\frac{C}{\hat{\sigma} \sqrt{ \left( \frac{1}{n} + \frac{(\bar{x} -2)^2}{L_{xx}} \right) }} = - t_{\alpha}(n-2) \implies C =  - t_{\alpha}(n-2)\hat{\sigma}\sqrt{ \left( \frac{1}{n} + \frac{(\bar{x} -2)^2}{L_{xx}} \right) }
+$$
+所以对检验水平 $\alpha$，该检验的拒绝域是
+
+$$
+\left\{ \hat{\beta}_0 +2 \hat{\beta}_1 < - t_{\alpha}(n-2)\hat{\sigma}\sqrt{ \left( \frac{1}{n} + \frac{(\bar{x} -2)^2}{L_{xx}} \right) } \right\}
+$$
 
 ## 2023-2024 A
 
