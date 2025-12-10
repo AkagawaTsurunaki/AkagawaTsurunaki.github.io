@@ -24,7 +24,7 @@ $$
 >
 > 模拟卷由作者通过分析历年真题，在 AI 的辅助下完成出题，本套不是考试真题，仅供学习参考. 只要不带“模拟卷”三个字的都是真题卷. 
 
-### 一、证明题（10分）
+### 一、计算分析题（10分）
 
 设 $X_1, X_2, \dots, X_n$ 相互独立，且 $X_i \sim N(\mu, \sigma^2_i)$，$i=1,2,\dots,n$，$S_\sigma = \sum_{i=1}^{n} \frac{1}{\sigma_i}$. 试证：
 $$
@@ -163,7 +163,7 @@ $$
 \hat{\mu}_B=E\left[\frac{1}{\theta}\Bigm|\boldsymbol{x}\right]=\frac{b+\sum_{i=1}^{n}x_i}{n+a-1}\quad(a+n>1)
 $$
 
-### 三、计算题（15分）
+### 三、计算分析题（15分）
 
 一组简单随机样本 $X_1, X_2, \dots X_n$ 服从 Weibull 分布，Weibull 分布的概率密度函数为
 $$
@@ -636,8 +636,7 @@ $$
 \hat\theta\sim N\!\bigl(\theta,\sigma^2\mathbf{c}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{c}\bigr)
 $$
 
-其中方差是 $\mathbf{c}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{c}=
-\frac{\lambda_1^2}{n}+\frac{(\lambda_2-\lambda_1\bar{x})^2}{L_{xx}}$. 
+其中方差是 $\mathbf{c}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{c}= \frac{\lambda_1^2}{n}+\frac{(\lambda_2-\lambda_1\bar{x})^2}{L_{xx}}$. 
 
 中心标准化
 $$
