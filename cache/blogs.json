@@ -1,34 +1,34 @@
 [
   {
     "id": 0,
-    "title": "Re0: 线性常系数微分方程的通解推导\n",
+    "title": "Re0: 线性常系数微分方程的通解推导\r\n",
     "tags": [
       "数学",
       "微分方程"
     ],
     "updatedTime": "2025-11-04 18:52",
-    "preview": "\n在求解状态空间模型（State Space Models）中的一个公式时，遇到了如下的问题\n$$\n\\dfrac{\\mathrm{d} h}{\\mathrm{d} t} = A h(t) + B x(t)\n$$\n其中 $x(t)$ 是输入，$t$ 是时间. \n\n这是一个来自现实世界问题的微分方程，如果我们直接动用高数的知识很快就能得到**线性常系数常微分...",
+    "preview": "\r\n在求解状态空间模型（State Space Models）中的一个公式时，遇到了如下的问题\r\n$$\r\n\\dfrac{\\mathrm{d} h}{\\mathrm{d} t} = A h(t) + B x(t)\r\n$$\r\n其中 $x(t)$ 是输入，$t$ 是时间. \r\n\r\n这是一个来自现实世界问题的微分方程，如果我们直接动用高数的知识很快就能得到**...",
     "filePath": "blogs/math-proof/deriving-lti-state-space-solution-from-scratch.md"
   },
   {
     "id": 1,
-    "title": "Reproduction of Mamba1 and Mamba2\n",
+    "title": "Reproduction of Mamba1 and Mamba2\r\n",
     "tags": [
       "人工智能",
       "论文复现"
     ],
     "updatedTime": "2025-11-04 18:52",
-    "preview": "\n> Reproduced by AkagawaTsurunaki@Github\n\nOrigin Github repo: [state-spaces/mamba: Mamba SSM architecture](https://github.com/state-spaces/mamba)\n\n## Paper Info\n\n**...",
+    "preview": "\r\n> Reproduced by AkagawaTsurunaki@Github\r\n\r\nOrigin Github repo: [state-spaces/mamba: Mamba SSM architecture](https://github.com/state-spaces/mamba)\r\n\r\n## Paper In...",
     "filePath": "blogs/ai-methods/mamba-reproduction.md"
   },
   {
     "id": 2,
-    "title": "Unity 6 如何正常导入 MMD 模型？Material/Shader 异常\n",
+    "title": "Unity 6 如何正常导入 MMD 模型？Material/Shader 异常\r\n",
     "tags": [
       "解决方案"
     ],
     "updatedTime": "2025-11-02 19:45",
-    "preview": "\n最近需要用 Unity 6 开发一些 VR 项目，结果导入 MMD 模型后居然变成粉色唐人了（Material/Shader 异常）？！而且网上也没找到针对高版本 Unity 怎么解决的方法！好在本人经过一番摸索终于把它搞明白了！\n\n<img src=\"/images/anon-watching-phone.p...",
+    "preview": "\r\n最近需要用 Unity 6 开发一些 VR 项目，结果导入 MMD 模型后居然变成粉色唐人了（Material/Shader 异常）？！而且网上也没找到针对高版本 Unity 怎么解决的方法！好在本人经过一番摸索终于把它搞明白了！\r\n\r\n<img src=\"/images/anon-watching-pho...",
     "filePath": "blogs/solutions/mmd-unity-solution.md"
   },
   {
@@ -43,72 +43,72 @@
   },
   {
     "id": 4,
-    "title": "如何在Windows上通过VNC远程桌面连接到Ubuntu主机？\n",
+    "title": "如何在Windows上通过VNC远程桌面连接到Ubuntu主机？\r\n",
     "tags": [
       "解决方案"
     ],
     "updatedTime": "2025-08-15 20:21",
-    "preview": "\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣。最近需要用到图形界面，但是来回把Ubuntu主机插到显示器上太麻烦了。了解到有VNC这种方便快捷的东西，踩了一些坑，终于安装成功了。\n\n### Ubuntu 上安装 TigerVNC\n\n这里假设你已经在一台主机上安装好了 Ubuntu 系统，我的 Ubuntu 版本是 22....",
+    "preview": "\r\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣。最近需要用到图形界面，但是来回把Ubuntu主机插到显示器上太麻烦了。了解到有VNC这种方便快捷的东西，踩了一些坑，终于安装成功了。\r\n\r\n### Ubuntu 上安装 TigerVNC\r\n\r\n这里假设你已经在一台主机上安装好了 Ubuntu 系统，我的 Ubuntu 版...",
     "filePath": "blogs/solutions/win2ubuntu-vnc.md"
   },
   {
     "id": 5,
-    "title": "解决VS Code中Python无法自动导入某些模块、符号的问题\n",
+    "title": "解决VS Code中Python无法自动导入某些模块、符号的问题\r\n",
     "tags": [
       "解决方案"
     ],
     "updatedTime": "2025-09-03 10:07",
-    "preview": "\n我用 VS Code 写了很长时间的代码，尤其最近研究深度学习，需要用 SSH 连接到远程服务器进行开发。\n\n编写 Python 代码的过程中，我发现某些包、模块或者符号使用快捷键 Ctrl+. 始终无法自动导入，但是有些却可以。这与 PyCharm 的使用体验截然不同，PyCharm 几乎可以在编写的过程中就自动补全一些 i...",
+    "preview": "\r\n我用 VS Code 写了很长时间的代码，尤其最近研究深度学习，需要用 SSH 连接到远程服务器进行开发。\r\n\r\n编写 Python 代码的过程中，我发现某些包、模块或者符号使用快捷键 Ctrl+. 始终无法自动导入，但是有些却可以。这与 PyCharm 的使用体验截然不同，PyCharm 几乎可以在编写的过程中就自动补全...",
     "filePath": "blogs/solutions/solve-python-auto-import-issues-in-vscode.md"
   },
   {
     "id": 6,
-    "title": "$\\bar{X}$ 与 $X_i - \\bar{X}$ 的联合概率密度函数\n",
+    "title": "$\\bar{X}$ 与 $X_i - \\bar{X}$ 的联合概率密度函数\r\n",
     "tags": [
       "数学"
     ],
     "updatedTime": "2025-11-08 19:53",
-    "preview": "\n设 $X_1, X_2, \\dots , X_n$ 为来自总体 $X$ 的简单随机样本，$X \\sim N(\\mu, \\sigma^2)$，求出 $\\bar{X}$ 与 $X_i - \\bar{X}$ 的联合概率密度函数. \n\n---\n\n对于两个服从正态分布的样本 $\\bar{X}, X_i - \\bar{X}$，协...",
+    "preview": "\r\n设 $X_1, X_2, \\dots , X_n$ 为来自总体 $X$ 的简单随机样本，$X \\sim N(\\mu, \\sigma^2)$，求出 $\\bar{X}$ 与 $X_i - \\bar{X}$ 的联合概率密度函数. \r\n\r\n---\r\n\r\n对于两个服从正态分布的样本 $\\bar{X}, X_i - \\bar...",
     "filePath": "blogs/math-proof/joint-pdf-of-x-bar-and-x-i-minus-x-bar.md"
   },
   {
     "id": 7,
-    "title": "离散情况下的贝叶斯估计量求解\n",
+    "title": "离散情况下的贝叶斯估计量求解\r\n",
     "tags": [
       "数学"
     ],
     "updatedTime": "2025-11-07 16:09",
-    "preview": "\n设总体 $X \\sim B(N, P)$，$N$ 已知，$X_1, X_2, \\dots , X_n$ 为 $X$ 的样本，如果 $p$ 具有先验分布律 $P \\{p=0.2 \\}=0.8$，$P \\{p=0.9 \\}=0.2$，求 $p$ 的贝叶斯估计量. \n\n---\n\n\n根据贝叶斯公式\n$$\nP(p_i |X_1, X_2, \\dots , X_n ) = ...",
+    "preview": "\r\n设总体 $X \\sim B(N, P)$，$N$ 已知，$X_1, X_2, \\dots , X_n$ 为 $X$ 的样本，如果 $p$ 具有先验分布律 $P \\{p=0.2 \\}=0.8$，$P \\{p=0.9 \\}=0.2$，求 $p$ 的贝叶斯估计量. \r\n\r\n---\r\n\r\n\r\n根据贝叶斯公式\r\n$$\r\nP(p_i |X_1, X_2, \\dots ,...",
     "filePath": "blogs/math-proof/discrete-bayesian-estimator-solution.md"
   },
   {
     "id": 8,
-    "title": "P.0.10 数学归纳法于多项式证明\r\n",
+    "title": "P.0.10 数学归纳法于多项式证明\n",
     "tags": [
       "数学"
     ],
     "updatedTime": "2025-10-18 23:30",
-    "preview": "\r\n> 赤川鶴鳴です！记一道有趣的证明题，它是利用数学归纳法进行证明的. 来源《线性代数高级教程 矩阵理论及应用》P.0.10. \r\n\r\n考虑多项式 $p(z) = c_k z^k + c_{k-1} z^{k-1} + \\cdots + c_1 z + c_0$，其中 $k\\geq 1$，每一个系数 $c_i$ 都是非负整数，且 $c_k \\geq 1...",
+    "preview": "\n> 赤川鶴鳴です！记一道有趣的证明题，它是利用数学归纳法进行证明的. 来源《线性代数高级教程 矩阵理论及应用》P.0.10. \n\n考虑多项式 $p(z) = c_k z^k + c_{k-1} z^{k-1} + \\cdots + c_1 z + c_0$，其中 $k\\geq 1$，每一个系数 $c_i$ 都是非负整数，且 $c_k \\geq 1$. \n...",
     "filePath": "blogs/math-proof/p.0.10-mathematical-induction-in-polynomial-proof.md"
   },
   {
     "id": 9,
-    "title": "Scaled Dot-Product Attention 的公式中为什么要除以 $\\sqrt{d_k}$？\r\n",
+    "title": "Scaled Dot-Product Attention 的公式中为什么要除以 $\\sqrt{d_k}$？\n",
     "tags": [
       "数学"
     ],
     "updatedTime": "2025-10-23 15:06",
-    "preview": "\r\n在学习 Scaled Dot-Product Attention 的过程中，遇到了如下公式\r\n\r\n$$\r\n\\mathrm{Attention} (\\boldsymbol{Q}, \\boldsymbol{K}, \\boldsymbol{V}) = \\mathrm{softmax} \\...",
+    "preview": "\n在学习 Scaled Dot-Product Attention 的过程中，遇到了如下公式\n\n$$\n\\mathrm{Attention} (\\boldsymbol{Q}, \\boldsymbol{K}, \\boldsymbol{V}) = \\mathrm{softmax} \\left(...",
     "filePath": "blogs/math-proof/why-scaled-dot-product-attention-formula-divide-by-sqrt-dk.md"
   },
   {
     "id": 10,
-    "title": "为什么“总体方差 ≠ 偏样本方差”？\n",
+    "title": "为什么“总体方差 ≠ 偏样本方差”？\r\n",
     "tags": [
       "数学"
     ],
     "updatedTime": "2025-05-14 22:29",
-    "preview": "\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣！这一次是在推导强化学习公式的时候遇到的一个式子的转换，由此延伸出了总体方差和偏样本方差的区别. \n\n已知样本均值 $ \\bar{x} = \\frac{1}{n} \\sum_{i=1}^n x_i $，偏样本方差 $\\sigma_{x}^2 = \\frac{1}{n} \\sum_{i=1}^n \\left...",
+    "preview": "\r\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣！这一次是在推导强化学习公式的时候遇到的一个式子的转换，由此延伸出了总体方差和偏样本方差的区别. \r\n\r\n已知样本均值 $ \\bar{x} = \\frac{1}{n} \\sum_{i=1}^n x_i $，偏样本方差 $\\sigma_{x}^2 = \\frac{1}{n} \\sum_{i=1}^n \\...",
     "filePath": "blogs/math-proof/why-population-variance-not-equal-biased-sample-variance.md"
   },
   {
@@ -123,65 +123,65 @@
   },
   {
     "id": 12,
-    "title": "球谐函数公式推导\n",
+    "title": "球谐函数公式推导\r\n",
     "tags": [
       "数学"
     ],
     "updatedTime": "2024-12-12 15:53",
-    "preview": "\n> Ciallo～(∠·ω< )⌒★ 我是赤川鹤鸣！本期将会从拉普拉斯方程开始推导**球谐函数**，本文尽可能把所有步骤都列出来，至少有高等数学的基础知识就可以看懂.\n\n## 1 分解 Laplace 方程\n\n上一期，我们推导了球坐标系下的拉普拉斯算子，\n\n$$\n\\Delta u = \\dfrac{1}{r^2} \\dfrac{\\partial}{\\partial r} \\...",
+    "preview": "\r\n> Ciallo～(∠·ω< )⌒★ 我是赤川鹤鸣！本期将会从拉普拉斯方程开始推导**球谐函数**，本文尽可能把所有步骤都列出来，至少有高等数学的基础知识就可以看懂.\r\n\r\n## 1 分解 Laplace 方程\r\n\r\n上一期，我们推导了球坐标系下的拉普拉斯算子，\r\n\r\n$$\r\n\\Delta u = \\dfrac{1}{r^2} \\dfrac{\\partial}{\\par...",
     "filePath": "blogs/math-proof/derivation-of-spherical-harmonics.md"
   },
   {
     "id": 13,
-    "title": "神经辐射场 NeRF 相关公式推导\n",
+    "title": "神经辐射场 NeRF 相关公式推导\r\n",
     "tags": [
       "数学",
       "人工智能",
       "NeRF"
     ],
     "updatedTime": "2024-10-15 14:37",
-    "preview": "\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣!\n> 学习了 [NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis](https://arxiv.org/pdf/2003.08934) 这篇论文后, 看到里面的一些公式, 思考着它们是怎么来的, 同时查询了很多资料...",
+    "preview": "\r\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣!\r\n> 学习了 [NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis](https://arxiv.org/pdf/2003.08934) 这篇论文后, 看到里面的一些公式, 思考着它们是怎么来的, 同时查询了很...",
     "filePath": "blogs/math-proof/derivation-of-nerf-formula.md"
   },
   {
     "id": 14,
-    "title": "Hodgkin-Huxley Model 完全推导\n",
+    "title": "Hodgkin-Huxley Model 完全推导\r\n",
     "tags": [
       "人工智能"
     ],
     "updatedTime": "2024-09-12 19:40",
-    "preview": "\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣。本文假设您已经初步了解了 Hodgkin-Huxley Model，这里只是针对其中的公式的一些推导。不会对其优缺点、特性、应用等进行详述。\n\n<img src=\"/images/hodgkin-huxley-model.png\" width=\"400\" alt=\"Hodgkin-Huxl...",
+    "preview": "\r\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣。本文假设您已经初步了解了 Hodgkin-Huxley Model，这里只是针对其中的公式的一些推导。不会对其优缺点、特性、应用等进行详述。\r\n\r\n<img src=\"/images/hodgkin-huxley-model.png\" width=\"400\" alt=\"Hodgkin-...",
     "filePath": "blogs/ai-methods/derivation-of-hodgkin-huxley-model.md"
   },
   {
     "id": 15,
-    "title": "Hopfield 神经网络中能量函数的含义及其变化值 $\\Delta E \\leq 0$ 的证明\n",
+    "title": "Hopfield 神经网络中能量函数的含义及其变化值 $\\Delta E \\leq 0$ 的证明\r\n",
     "tags": [
       "数学",
       "人工智能"
     ],
     "updatedTime": "2024-10-17 19:53",
-    "preview": "\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣，本期是学习 Hopfield 神经网络时, 遇到**能量函数**的相关知识时的思考和总结, 希望有能帮助到你.\n\nHopfield 神经网络中，**能量函数**的定义如下\n\n$$\nE = -\\dfrac{1}{2} \\sum_{i=1}^{n}...",
+    "preview": "\r\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣，本期是学习 Hopfield 神经网络时, 遇到**能量函数**的相关知识时的思考和总结, 希望有能帮助到你.\r\n\r\nHopfield 神经网络中，**能量函数**的定义如下\r\n\r\n$$\r\nE = -\\dfrac{1}{2} \\sum_{i...",
     "filePath": "blogs/math-proof/meaning-of-energy-function-in-hopfield-neural-network-and-proof-of-delta-e-leq-0.md"
   },
   {
     "id": 16,
-    "title": "人工神经网络之竞争型学习\n",
+    "title": "人工神经网络之竞争型学习\r\n",
     "tags": [
       "人工智能"
     ],
     "updatedTime": "2024-10-24 15:47",
-    "preview": "\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣. 这是我的第一篇关于人工智能技术的博客. 内容大多数为本人的思考和学习笔记，希望对你有所帮助. \n\n现今，以反向传播为主的神经网络，在处理诸如分类任务时，通常由事先已经规定的分类来决定标签的分类数，进而确定网络架构. \n\n例如，如果我们对 MNIST 数据集进行分类，那么神经网络的训练标签分类数通常为 10，对应着...",
+    "preview": "\r\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣. 这是我的第一篇关于人工智能技术的博客. 内容大多数为本人的思考和学习笔记，希望对你有所帮助. \r\n\r\n现今，以反向传播为主的神经网络，在处理诸如分类任务时，通常由事先已经规定的分类来决定标签的分类数，进而确定网络架构. \r\n\r\n例如，如果我们对 MNIST 数据集进行分类，那么神经网络的训练标签分类数通常为 ...",
     "filePath": "blogs/ai-methods/competitive-learning-in-artificial-neural-networks.md"
   },
   {
     "id": 17,
-    "title": "《神经元网络时空行为的动力学研究》绪论 读书笔记\n",
+    "title": "《神经元网络时空行为的动力学研究》绪论 读书笔记\r\n",
     "tags": [
       "人工智能"
     ],
     "updatedTime": "2024-10-24 15:51",
-    "preview": "\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣。这里是本人阅读《神经元网络时空行为的动力学研究》的读书笔记，和原著相比多了解释性注释和个人感悟等，可能存在不准确的地方，感兴趣的小伙伴可以阅读原著和相关引用文献。\n\n## 1. 绪论\n\n神经元网络时空行为的一些现象：同步、螺旋波、随机共振。\n\n### 1.1 同步\n\n**同步**是指两个或两...",
+    "preview": "\r\n> Ciallo～(∠・ω< )⌒★ 我是赤川鹤鸣。这里是本人阅读《神经元网络时空行为的动力学研究》的读书笔记，和原著相比多了解释性注释和个人感悟等，可能存在不准确的地方，感兴趣的小伙伴可以阅读原著和相关引用文献。\r\n\r\n## 1. 绪论\r\n\r\n神经元网络时空行为的一些现象：同步、螺旋波、随机共振。\r\n\r\n### 1.1 同步\r\n\r\n**...",
     "filePath": "blogs/ai-methods/dynamics-of-spatiotemporal-behavior-in-neuronal-networks-introduction-reading-notes.md"
   }
 ]
