@@ -18,644 +18,121 @@ $$
 
 2. 分位点 $Q_\alpha$ 取为上侧分位点，即：$P(X>Q_\alpha)=\alpha$. 
 
-## 模拟卷 I
+## 2025-2026 B
 
-> [!WARNING]
+> [!NOTE]
 >
-> 模拟卷由作者通过分析历年真题，在 AI 的辅助下完成出题，本套不是考试真题，仅供学习参考. 只要不带“模拟卷”三个字的都是真题卷. 
+> 作者当年就是考的这套卷，题目全凭记忆，可能略有差异，请注意与原卷对照. 如果你有此试卷的样本，可以联系我. 
 
-### 一、计算分析题（10分）
+### 一、计算题
 
-设 $X_1, X_2, \dots, X_n$ 相互独立，且 $X_i \sim N(\mu, \sigma^2_i)$，$i=1,2,\dots,n$，$S_\sigma = \sum_{i=1}^{n} \frac{1}{\sigma_i}$. 试证：
+已知函数 $f(x)=E \vert X -\theta \vert$，其中 $X$ 的概率密度函数为 $p(x)$，记 $m_0$ 为其中位数，满足
 $$
-U = \sum_{i=1}^{n} \dfrac{X_i}{\sigma_i S_\sigma} \ 与 \ V = \sum_{i=1}^{n} \left[ \dfrac{X_i - \mu}{\sigma_i} - \dfrac{U - \mu}{n} S_\sigma \right]^2
+\int_{-\infty}^{m_0} p(x) \mathrm{d}x = \int_{m_0}^{\infty} p(x) \mathrm{d}x = 0.5
 $$
-相互独立，且 $U$ 服从正态分布，$V \sim \chi^2(n-1)$. 
+证明：当 $\theta = m_0$ 时，$f(\theta)$ 取得最小值. 
+
+提示：莱布尼兹公式. 
 
 > [!TIP]
 >
-> 本题来自书后第一章习题，需要使用书中 1.2 节的多元正态分布与正态二次型的相关知识. 
+> 本体需要先将已知函数表达为积分式，然后使用莱布尼兹公式对其求导化简，最后得出结论. 该题较为考验学生的微积分基本功和代数变形技巧，对于大部分考生来说难度较高，建议在考场上先放弃这类证明题. 
 
-**解：**
+略
 
-由于 $U$ 是 $X_1, X_2, \dots, X_n$ 的线性组合，所以 $U$ 一定服从正态分布. 
+### 二、计算题
 
-计算 $U$ 的期望和方差
-$$
-E(U) = \dfrac{1}{S_\sigma} \sum_{i=1}^{n} E \left( \dfrac{X_i}{\sigma_i} \right)
-= \dfrac{1}{S_\sigma} \sum_{i=1}^{n} \dfrac{1}{\sigma_i}  E \left( X_i \right)
-= \dfrac{1}{S_\sigma} \sum_{i=1}^{n} \dfrac{1}{\sigma_i} \mu
-= \dfrac{1}{S_\sigma}\mu \sum_{i=1}^{n} \dfrac{1}{\sigma_i} 
-= \dfrac{1}{S_\sigma}\mu S_\sigma 
-= \mu 
-\\
-D(U) = \dfrac{1}{S_\sigma^2} D \left( \sum_{i=1}^{n} \dfrac{X_i}{\sigma_i} \right)
-= \dfrac{1}{S_\sigma^2} \sum_{i=1}^{n} \dfrac{1}{\sigma_i^2} D \left(X_i \right)
-= \dfrac{1}{S_\sigma^2} \sum_{i=1}^{n} \dfrac{1}{\sigma_i^2} \sigma_i^2
-= \dfrac{n}{S_\sigma^2}
-$$
-对于 $V$ 来说，设 $Z_i = \dfrac{X_i-\mu}{\sigma_i} \sim N(0,1)$，$\bar{Z} = \dfrac{U - \mu}{n} S_\sigma = \dfrac{U-\mu}{\sqrt{n/S_\sigma^2}} \sim N \left(0, \dfrac{1}{n} \right)$，可以得到
-$$
-V = \sum_{i=1}^{n} \left( Z_i - \bar{Z} \right)^2
-$$
-设 $W_i = Z_i - \bar{Z}$，计算 $W_i$ 的均值与方差
-$$
-E(W_i) = E(Z_i - \bar{Z}) = E(Z_i) - E(\bar{Z}) = 0-0 = 0 \\
-D(W_i) = D(Z_i - \bar{Z}) = D(Z_i) + D(\bar{Z}) - 2\mathrm{Cov} (Z_i , \bar{Z}) = 1 + \dfrac{1}{n} - 2\mathrm{Cov} (Z_i , \bar{Z})
-$$
-接下来计算 $\mathrm{Cov} (Z_i , \bar{Z})$，即
-$$
-\begin{align*}
-\mathrm{Cov} (Z_i , \bar{Z}) 
-&= \mathrm{Cov} \left(\dfrac{X_i-\mu}{\sigma_i} ,\dfrac{U - \mu}{n} S_\sigma \right) \\
-&= \dfrac{S_\sigma}{n \sigma_i} \mathrm{Cov} \left(X_i-\mu , U - \mu \right) \\
-&= \dfrac{S_\sigma}{n \sigma_i} \mathrm{Cov} \left(X_i, U \right) \\
-&= \dfrac{S_\sigma}{n \sigma_i} \mathrm{Cov} \left(X_i, \sum_{j=1}^{n} \dfrac{X_j}{\sigma_j S_\sigma} \right) \\
-&= \dfrac{S_\sigma}{n \sigma_i} \mathrm{Cov} \left(X_i, \dfrac{X_i}{\sigma_i S_\sigma} \right) \\
-&= \dfrac{1}{n \sigma_i^2} \mathrm{Cov} \left(X_i, X_i \right) \\
-&= \dfrac{1}{n \sigma_i^2} D(X_i) \\
-&= \dfrac{1}{n \sigma_i^2} \sigma_i^2 \\
-&= \dfrac{1}{n} 
-\end{align*}
-$$
-所以 $D(W_i) = 1 + \dfrac{1}{n} - 2\mathrm{Cov} (Z_i , \bar{Z}) = 1 -  \dfrac{1}{n}$. 
+假如样本 $X_1, X_2, \dots, X_n$ 服从几何分布，参数 $p$ 服从均匀分布 $U(0, 1)$，在平方损失下，求得参数 $p$ 的贝叶斯估计. 
 
-所以 $W_i = Z_i - \bar{Z} \sim N \left(0, 1 - \dfrac{1}{n} \right)$. 
-
-设随机变量组成的向量 $\boldsymbol{Z} = \left(Z_1, Z_2, \dots, Z_n \right)^T$，$\bar{Z} \boldsymbol{1}^T \boldsymbol{1} = (\bar{Z},\bar{Z},\dots,\bar{Z})^T$，则可以把 $V$ 改写成
-$$
-V = (\boldsymbol{Z} - \bar{Z} \boldsymbol{1}^T \boldsymbol{1})^T (\boldsymbol{Z} - \bar{Z} \boldsymbol{1}^T \boldsymbol{1}) = (W_1, W_2, \dots, W_n) (W_1, W_2, \dots, W_n)^T
-$$
-对分量进行标准化
-$$
-V = \left(1-\dfrac{1}{n} \right) \left(\dfrac{\boldsymbol{Z} - \bar{Z} \boldsymbol{1}^T \boldsymbol{1}}{\sqrt{1-\dfrac{1}{n}}} \right)^T \boldsymbol{I}_n \left(\dfrac{\boldsymbol{Z} - \bar{Z} \boldsymbol{1}^T \boldsymbol{1}}{\sqrt{1-\dfrac{1}{n}}} \right)
-$$
-这步操作的目的是得到了
-$$
-V = \left(1-\dfrac{1}{n} \right) \boldsymbol{Y}^T \boldsymbol{I}_n \boldsymbol{Y}, \quad \boldsymbol{Y} \sim N(\boldsymbol{0},\boldsymbol{1} )
-$$
-根据 Cochran 定理可知，如果存在一个对称阵 $\boldsymbol{A}$，那么 $\boldsymbol{Y}^T \boldsymbol{A} \boldsymbol{Y} \sim \chi^2(\mathrm{rank} \left(\boldsymbol{A}) \right)$，在这里 $\boldsymbol{A} = \left(1-\dfrac{1}{n} \right) \boldsymbol{I}_n$. 
-
-所以就有
-$$
-\mathrm{rank} \left(\boldsymbol{A} \right) = n \left(1-\dfrac{1}{n}\right) = n - 1\\
-V \sim \chi^2(n-1)
-$$
 > [!TIP]
 >
-> **可测函数独立性判别**
+> 本体考察贝叶斯估计的相关知识，即几何分布共轭于 Beta 分布，以及平方损失下的贝叶斯估计就是后验分布的期望. 但是有同学错把其后验分布写为二项分布，还有同学不小心把 Beta 分布的期望抄错，这可能是 20 多年的真题中罕见地出现了 Beta 分布，考生对此可能知识点不熟悉造成失分. 
+
+略
+
+### 三、计算题
+
+给定概率密度函数
+$$
+f(x) = \int_{0}^{\theta} \dfrac{3x^2}{\theta^2} \quad  0 < x< \theta
+$$
+
+1. 求出参数 $\theta$ 的矩估计 $\hat{\theta}$，并判断它是否为无偏估计. 
+2. 计算出 $\hat{\theta}$ 的均方误差. 
+
+> [!TIP]
 >
-> 如果 $X$ 与 $Y$ 独立，且 $f, g$ 是可测函数，那么随机变量 $U = f(X)$ 与 $V = g(Y)$ 也独立. 一般地，我们学过的初等函数都是可测的.  
+> 本题考察矩估计、无偏估计和均方误差三个知识点，属于简单题. 
 
-由于样本均值 $\bar{Z}$ 与样本平方和 $\sum_{i=1}^n (Z_i - \bar{Z})^2$ 是独立的，所以 $U$ 与 $V$ 也是独立的. 
+略
 
-### 二、计算题（15分）
+### 四、计算题
 
-设随机样本 $ X_1,\dots ,X_n $ 来自指数分布 $ X_i\mid \theta \sim E(\theta),\ \theta>0$，取 $\theta$ 的先验分布为 Gamma 分布 $ \theta\sim \operatorname{Gamma}(a,b)$，$a>0,\ b>0$. 
+甲乙老师所教的两个班级分别考试. 其中甲老师所在班的人数为 $16$，成绩的均值是 $84.5$，标准差是 $14.5$；乙老师所在班的人数为 $25$，成绩的均值是 $\text{??}$，标准差是 $10.2$，现在进行以下的假设检验问题：
 
-1. 给定观测样本 $x_1,\dots ,x_n$，在平方误差损失下，求 $\theta$ 的贝叶斯估计 $\hat{\theta}_B$. 
+1. 甲老师所教班级的成绩的均值的置信水平为 $0.95$ 区间估计. 
+2. 甲、乙老师所教班级的成绩的方差相等，求方差的置信水平为 $0.95$ 的区间估计. 
 
-2. 现考虑对指数分布的均值 $\mu=\dfrac{1}{\theta}$ 进行估计，在平方误差损失下，求 $\mu$ 的贝叶斯估计 $\hat{\mu}_B$. 
+> [!TIP]
+>
+> 本题考察单个正态分布方差未知时的均值区间估计，以及两个正态分布方差相等条件下的方差区间估计，属于简单题. 然而，考生在计算时，会出现算数部分带一坨小数，可能难以计算正确，建议先代数，回头有时间再计算具体的值. 
 
-提示：设 $X>0$ 是连续随机变量，概率密度函数为 $f_X(x)$，令 $Y=1/X$，则
-$$
-f_Y(y)=f_X\!\left(\frac{1}{y}\right)\cdot\frac{1}{y^{2}},\qquad y>0
-$$
-**解1：**
-
-似然函数
-$$
-L(\theta)=\prod_{i=1}^{n}\theta e^{-\theta x_i}=\theta^{n}e^{-\theta\sum x_i}
-$$
-先验分布 $\theta\sim\mathrm{Gamma}(a,b)$ 密度
-$$
-\pi(\theta)=\frac{b^{a}}{\Gamma(a)}\theta^{a-1}e^{-b\theta},\quad\theta>0
-$$
-后验分布
-$$
-\pi(\theta\mid\boldsymbol{x})\propto L(\theta)\pi(\theta)\propto\theta^{n}e^{-\theta\sum x_i}\cdot\theta^{a-1}e^{-b\theta}=\theta^{n+a-1}e^{-(b+\sum x_i)\theta}
-$$
-即
-$$
-\theta\mid\boldsymbol{x}\sim\mathrm{Gamma}(n+a,\,b+\sum x_i)
-$$
-平方误差损失下贝叶斯估计为后验均值
-$$
-\hat{\theta}_B=E[\theta\mid\boldsymbol{x}]=\frac{n+a}{b+\sum_{i=1}^{n}x_i}
-$$
-**解2：**
-
-由提示，令 $Y=1/\theta$，则后验密度
-$$
-f_Y(y\mid\boldsymbol{x})=f_{\theta\mid\boldsymbol{x}}\!\left(\frac{1}{y}\right)\cdot\frac{1}{y^{2}},\quad y>0
-$$
-代入 $\theta\mid\boldsymbol{x}\sim\mathrm{Gamma}(n+a,\,b+\sum x_i)$ 密度：
-$$
-f_Y(y\mid\boldsymbol{x})=\frac{(b+\sum x_i)^{n+a}}{\Gamma(n+a)}\left(\frac{1}{y}\right)^{n+a-1}e^{-(b+\sum x_i)/y}\cdot\frac{1}{y^{2}}
-=\frac{(b+\sum x_i)^{n+a}}{\Gamma(n+a)}y^{-(n+a+1)}e^{-(b+\sum x_i)/y}
-$$
-这是逆 Gamma 分布 $Y\sim\mathrm{I}\Gamma(n+a,\,b+\sum x_i)$，其均值为
-$$
-E[Y\mid\boldsymbol{x}]=\frac{b+\sum x_i}{n+a-1},\quad(n+a>1)
-$$
-因此
-$$
-\hat{\mu}_B=E\left[\frac{1}{\theta}\Bigm|\boldsymbol{x}\right]=\frac{b+\sum_{i=1}^{n}x_i}{n+a-1}\quad(a+n>1)
-$$
-
-### 三、计算分析题（15分）
-
-一组简单随机样本 $X_1, X_2, \dots X_n$ 服从 Weibull 分布，Weibull 分布的概率密度函数为
-$$
-f(x) = \frac{α}{β} \left(\frac{x}{β}\right)^{α-1} e^{-(x/β)^α}, \quad x>0
-$$
-其中 $\alpha >0$，$ \beta>0$，$\alpha$ 是已知参数. 
-
-1. 求参数 $\beta$ 的极大似然估计 $ \hat{\beta}$. 
-2. 当 $k$ 为何值时（用 $\alpha$ 表示），$k \bar{X}$ 是 $\beta$ 的无偏估计？
-3. 利用 Cramér-Rao 不等式证明：对于 $\beta$ 的任何无偏估计量 $\varphi$ 都满足 $D(\varphi) \geq \dfrac{\beta^2}{n \alpha^2}$. 
-
-**解1：**
-
-对数似然函数
-$$
-\ln L(\beta) = n\ln\alpha - n\alpha\ln\beta + (\alpha-1)\sum_{i=1}^{n}\ln X_i - \sum_{i=1}^{n}\left(\frac{X_i}{\beta}\right)^{\alpha}
-$$
-对 $\beta$ 求导并令为零
-$$
-\frac{\mathrm{d}\ln L(\beta)}{\mathrm{d}\beta} = -\frac{n\alpha}{\beta} + \frac{\alpha}{\beta}\sum_{i=1}^{n}\left(\frac{X_i}{\beta}\right)^{\alpha} = 0
-\;\Longrightarrow\;
-\sum_{i=1}^{n}X_i^{\alpha} = n\beta^{\alpha}.
-$$
-解得
-$$
-\hat{\beta} = \left(\frac{1}{n}\sum_{i=1}^{n}X_i^{\alpha}\right)^{1/\alpha}
-$$
-**解2：**
-
-计算
-$$
-E(X)=\int_{0}^{\infty} x\,f(x)\,\mathrm{d}x
-=\int_{0}^{\infty} x\,\frac{\alpha}{\beta}\left(\frac{x}{\beta}\right)^{\alpha-1}
-e^{-(x/\beta)^{\alpha}}\mathrm{d}x
-$$
-令换元
-$$
-t=\left(\frac{x}{\beta}\right)^{\alpha}\quad\Longrightarrow\quad
-x=\beta\,t^{1/\alpha},\quad
-\mathrm{d}x=\frac{\beta}{\alpha}\,t^{\frac{1}{\alpha}-1}\mathrm{d}t.
-$$
-代入积分
-$$
-E(X)=\frac{\alpha}{\beta}\int_{0}^{\infty}
-\beta\,t^{1/\alpha}\,t^{1-\frac{1}{\alpha}}\,
-e^{-t}\,\frac{\beta}{\alpha}\,t^{\frac{1}{\alpha}-1}\mathrm{d}t
-=\beta\int_{0}^{\infty}t^{1/\alpha}\,e^{-t}\,\mathrm{d}t.
-$$
-识别 Gamma 函数
-$$
-\int_{0}^{\infty}t^{1/\alpha}\,e^{-t}\,\mathrm{d}t
-=\Gamma\!\left(1+\frac{1}{\alpha}\right).
-$$
-故
-$$
-E(X)=\beta\,\Gamma\!\left(1+\frac{1}{\alpha}\right).
-$$
-无偏估计量的数学期望为待估参数本身
-$$
-E(k\bar{X}) = k\beta\,\Gamma\!\left(1+\frac{1}{\alpha}\right) = \beta
-$$
-所以
-$$
-k = \frac{1}{\Gamma\!\left(1+\frac{1}{\alpha}\right)}
-$$
-**解3：**
-
-
-Fisher 信息量的公式为
-$$
-\mathcal I(\beta)=-E\!\left[\frac{\partial^2\ln L(\beta)}{\partial\beta^2}\right]
-$$
-
-对数似然函数
-$$
-\ln L(\beta)=n\ln\alpha-n\alpha\ln\beta+(\alpha-1)\sum\ln X_i-\sum\Bigl(\frac{X_i}{\beta}\Bigr)^{\alpha}
-$$
-
-先求一阶导数
-$$
-\frac{\partial\ln L(\beta)}{\partial\beta}=-\frac{n\alpha}{\beta}+\frac{\alpha}{\beta}\sum\Bigl(\frac{X_i}{\beta}\Bigr)^{\alpha}
-$$
-
-再求二阶导数
-$$
-\frac{\partial^{2}\ln L(\beta)}{\partial\beta^{2}}
-=\frac{n\alpha}{\beta^{2}}-\frac{\alpha(\alpha+1)}{\beta^{2}}\sum\Bigl(\frac{X_i}{\beta}\Bigr)^{\alpha}
-$$
-
-然后，我们需要计算
-$$
-E \left[\sum\Bigl(\frac{X_i}{\beta}\Bigr)^{\alpha}\right]=n E\left[\Bigl(\frac{X}{\beta}\Bigr)^{\alpha}\right] = \dfrac{n}{\beta^\alpha} E(X^{\alpha})
-$$
-
-其次，我们计算 $E(X^{\alpha})$
-$$
-E(X^{\alpha})=\int_0^{\infty} x^{\alpha}\,\frac{\alpha}{\beta}\Bigl(\frac{x}{\beta}\Bigr)^{\alpha-1}e^{-(x/\beta)^{\alpha}}\mathrm{d}x
-$$
-
-令 $t=(x/\beta)^{\alpha}\Rightarrow x=\beta t^{1/\alpha},\;\mathrm{d}x=\frac{\beta}{\alpha}t^{\frac{1}{\alpha}-1}\mathrm{d}t$，代入得
-$$
-E(X^{\alpha})=\frac{\alpha}{\beta}\int_0^{\infty}
-\beta^{\alpha}t\,t^{1-\frac{1}{\alpha}}\,e^{-t}\,
-\frac{\beta}{\alpha}t^{\frac{1}{\alpha}-1}\mathrm{d}t
-=\beta^{\alpha}\int_0^{\infty} t\,e^{-t}\mathrm{d}t
-=\beta^{\alpha}\Gamma(2)=\beta^{\alpha}
-$$
-
-因此
-$$
-E\!\left[\sum\Bigl(\frac{X_i}{\beta}\Bigr)^{\alpha}\right]=\frac{n}{\beta^{\alpha}}\cdot\beta^{\alpha}=n
-$$
-
-代入二阶导期望
-$$
--E\!\left[\frac{\partial^{2}\ln L(\beta)}{\partial\beta^{2}}\right]
-=\frac{\alpha(\alpha+1)}{\beta^{2}}\,n-\frac{n\alpha}{\beta^{2}}
-=\frac{n\alpha^{2}}{\beta^{2}}
-$$
-
-最后计算 Cramér-Rao 下界
-$$
-D(\varphi)\ge\frac{1}{n\mathcal I(\beta)}=\frac{\beta^2}{n\alpha^2}
-$$
-
-原命题得证. 
-
-### 四、计算题（10分）
-
-设 $X_1, X_2, \dots, X_m$ 来自于正态总体 $N(\mu_1, \sigma^2)$，$Y_1, Y_2, \dots, Y_n$ 来自于正态总体 $N(\mu_2, k\sigma^2)$，其中 $\mu_1, \mu_2, \sigma^2$ 均未知，考虑如下的假设检验问题
-$$
-H_0: a \mu_1 + b \mu_2 \leq c , \quad H_1: a \mu_1 + b \mu_2 > c
-$$
-其中，$a, b, c, k$ 均为已知非零常数. 
-
-**解：**
-
-根据抽样分布定理，有
-
-$$
-\frac{(m-1)S_{X}^{2}}{\sigma^{2}} \sim \chi^{2}(m-1), \quad \frac{(n-1)S_{Y}^{2}}{k\sigma^{2}} \sim \chi^{2}(n-1)
-$$
-
-构造公共方差估计（合并均方误差）
-
-$$
-S_{p}^{2} = \frac{(m-1)S_{X}^{2} + \frac{1}{k}(n-1)S_{Y}^{2}}{m+n-2}, \quad
-\frac{(m+n-2)S_{p}^{2}}{\sigma^{2}} \sim \chi^{2}(m+n-2)
-$$
-
-定义线性对比估计量
-
-$$
-\hat{\theta} = a\bar{X} + b\bar{Y}, \quad
-D(\hat{\theta}) = \sigma^{2}\left(\frac{a^{2}}{m} + \frac{b^{2}}{n}k\right)
-$$
-
-用公共方差估计代替 $\sigma^{2}$，得检验统计量
-
-$$
-T = \frac{\hat{\theta} - c}{S_{p}\sqrt{\dfrac{a^{2}}{m} + \dfrac{b^{2}}{n}k}}
-$$
-
-在 $H_0$ 下，$T \sim t(m+n-2)$，对右侧检验，因此拒绝域为
-
-$$
-T > t_{\alpha}(m+n-2)
-$$
-
-### 五、计算题（15分）
-
-下表为辽宁某知名 985 大学 2025 届软件工程专业本科生毕业去向与学生本科所选细分专业的人数统计数据，有效人数总计为 338 人，请在显著性水平 $\alpha = 0.05$ 水平下检验该届本科毕业生去向与其所选细分专业是否有显著关系？
-
-| 毕业去向 \ 细分专业 | 软工 | 软英 | 软金 | 软信 | 数媒 |
-| ------------------- | ---- | ---- | ---- | ---- | ---- |
-| 工作                | 111  | 2    | 9    | 14   | 15   |
-| 考研                | 46   | 1    | 3    | 4    | 0    |
-| 保研                | 80   | 9    | 10   | 20   | 14   |
-
-**解：**
-
-构建 Pearson 卡方统计量
-$$
-\begin{align*}
-K^2 &= n \left[ \sum_{i=1}^{s} \sum_{j=1}^{t} \dfrac{n_{ij}^2}{n_{i*} n_{*j}} -1 \right]  \\
-&= 
-338\left[
-\frac{111^{2}}{151\times237}+
-\frac{2^{2}}{151\times12}+
-\frac{9^{2}}{151\times22}+
-\frac{14^{2}}{151\times38}+
-\frac{15^{2}}{151\times29} 
-\right. \\ & \quad +
-\frac{46^{2}}{54\times237}+
-\frac{1^{2}}{54\times12}+
-\frac{3^{2}}{54\times22}+
-\frac{4^{2}}{54\times38}+
-\frac{0^{2}}{54\times29}
-\\
-&\quad +\frac{80^{2}}{133\times237}+
-\frac{9^{2}}{133\times12}+
-\frac{10^{2}}{133\times22}+
-\frac{20^{2}}{133\times38}+
-\left.\frac{14^{2}}{133\times29}-1\right]
-\\
-&= 19.13
-\end{align*}
-$$
-拒绝域为
-$$
-\left\{ K^2 > \chi^2_{\alpha} \left( (s-1)(t-1) \right) \right\}
-$$
-由于此表有 $s=3$ 行，$t=5$ 列数据，所以拒绝域为 
-$$
-\left\{ K^2 > \chi^2_{0.05} \left( 8 \right) \right\}
-$$
-查表得 $\chi^2_{0.05} \left( 8 \right) = 15.507$. 
-
-因为 $K^2=19.13>15.507 = \chi^2_{0.05} $，所以拒绝原假设，认为在显著性水平 $\alpha = 0.05$ 水平下检验该届本科毕业生去向与其所选细分专业是有显著关系. 
-
-### 六、计算题（10分）
-
-某研究人员想比较三种不同金坷垃（A、B、C）对植物生长的影响. 他将植物随机分成三组，每组施加不同的肥料，一段时间后测量 15 株植物的高度（单位：cm），但由于研究人员不小心的误操作，导致 $C$ 组数据缺失了 $2$ 份，记为 $a, b$（均为正整数）. 研究人员还记得，这次单因素方差分析的结果是在显著性水平 $0.1$ 的条件下，认为三种不同金克拉对植物生长有影响. 具体数据如下表：
-
-| 组别 | 株高观测值 (cm)        |
-| ---- | ---------------------- |
-| A    | 12, 14, 13, 11, 12, 13 |
-| B    | 12, 15, 13, 13, 14     |
-| C    | 14, 14, $a$, $b$       |
-
-已知，A 组数据：$\bar{x}_1 = 12.5, s_1^2 = 5.5/5$；B 组数据：$\bar{x}_2=13.4, \ s_2^2 = 5.2/4$；总均值 $\bar{x}=13.2$. 
-
-1. 求解组间平方和 $CSS$ 的值. 
-2. 根据以上信息，是否可以求解出 $a, \ b$ 的值？如果能，请直接求解；如果不能，请说明原因. 
-
-**解1：**
-
-先计算所有样本的总和
-$$
-\sum_{i=1}^{r} n_{i} \bar{x}_i = 6 \times 12.5 + 5 \times 13.4 + (14 + 14 + a + b) = n\bar{x} = 13.2 \times 15
-$$
-可以得出
-$$
-a+b=28
-$$
-也就是说我们可以算出 C 组的样本均值
-$$
-\bar{x}_3 = \dfrac{14+14+a+b}{4} = 14
-$$
-接着计算 $CSS$
-$$
-CSS = \sum_{i=1}^{r} n_i (\bar{x}_i - \bar{x})^2 = 6 \times (12.5-13.2)^2 + 5 \times (13.4-13.2)^2 + 4 \times (14-13.2)^2 = 5.7
-$$
-**解2：**
-
-在显著性水平 $0.1$ 的条件下，认为三种不同金克拉对植物生长有影响，这说明我们拒绝了原假设.
-
-也就是说对于检验统计量
-$$
-F = \dfrac{n-r}{r-1} \dfrac{CSS}{RSS} \sim F(r-1, n-r)
-$$
-其落入了拒绝域，即
-$$
-F \geq F_{\alpha}(r-1,n-r)
-$$
-查表得 $F_{0.1}(2,12)=2.81$，理论上会有
-$$
-F = \dfrac{12}{2} \times \dfrac{5.7}{RSS } \geq 2.81 = F_{0.1}(2,12)
-$$
-整理得
-$$
-RSS \leq 12.17
-$$
-也就是说
-$$
-\begin{align*}
-RSS &= \sum_{i=1}^{r} (n_i -1)s_i^2 \\
-&= 5\times \dfrac{5.5}{5}+ 4 \times \dfrac{5.2}{4} + \left( (14-14)^2 + (14-14)^2 +(a-14)^2 + (b-14)^2 \right) \\
-&= 10.7 + (a-14)^2 + (b-14)^2 \\
-&\xlongequal{a+b=28} 10.7+ (a-14)^2 + (28-a-14)^2 \\
-&=10.7+ (a-14)^2 + (14-a)^2\\
-&=10.7+ 2(a-14)^2\\
-&\leq 12.17 
-\end{align*}
-$$
-进一步整理得
-$$
-(a-14)^2 \leq 0.735
-$$
-由题意得，$a$ 是正整数，所以 $a$ 只能取 $14$，综上所述，我们得出
-$$
-a = 14, \quad b = 14
-$$
-
-### 七、计算题（10分）
-
-某玩家怀疑某 Minecraft 服务器主世界的钻石矿生成异常，于是随机抽取了 $n = 64$ 个区块中的钻石矿，得到样本最小值 $a = 0$ 个、最大值 $b = 10$ 个、众数 $c = 4$ 个钻石矿/区块. 他按照按离散三角分布将区间 $[a,b]$ 等分成 $ k = 5 $ 组，各组观测频数如下：
-
-| 组号            | 1      | 2      | 3    | 4      | 5       |
-| --------------- | ------ | ------ | ---- | ------ | ------- |
-| 钻石矿区间 / 个 | [0, 1] | [2, 3] | 4    | [5, 6] | [7, 10] |
-| 观测频数        | 6      | 10     | 22   | 14     | 12      |
+略
 
-试问在显著性水平 $\alpha = 0.01$ 的情况下，是否拒绝“钻石矿数量服从三角分布”的原假设？
+### 五、计算题
 
-提示：三角分布的概率质量函数为
-$$
-P(X=x)=
-\begin{cases}
-\dfrac{2(x-a)}{(b-a)(c-a)}, & a\le x\le c\\[6px]
-\dfrac{2(b-x)}{(b-a)(b-c)}, & c<x\le b
-\end{cases}
-$$
-**解：**
-
-根据题意，写出该三角分布的具体概率质量函数
-$$
-P(X=x)=
-\begin{cases}
-\dfrac{2x}{10 \times 4}=\dfrac{x}{20}, & 0\le x\le 4\\[6px]
-\dfrac{2(10-x)}{10\times 6}=\dfrac{10-x}{30}, & 4< x\le 10
-\end{cases}
-$$
-写各个分组 $i$ 所占的概率 $p_i$
-
-| 组号 | 区间    | 所含整数 $x$ | 概率和 $p_i$                                                 |
-| ---- | ------- | ------------ | ------------------------------------------------------------ |
-| 1    | [0, 1]  | 0, 1         | $\dfrac{0}{20}+\dfrac{1}{20}=\dfrac{1}{20}=0.05$             |
-| 2    | [2, 3]  | 2,3          | $\dfrac{2}{20}+\dfrac{3}{20}=\dfrac{5}{20}=0.25$             |
-| 3    | 4       | 4            | $\dfrac{4}{20}=0.20$                                         |
-| 4    | [5, 6]  | 5, 6         | $\dfrac{5}{30}+\dfrac{4}{30}=\dfrac{9}{30}=0.30$             |
-| 5    | [7, 10] | 7, 8, 9, 10  | $\dfrac{3}{30}+\dfrac{2}{30}+\dfrac{1}{30}+\dfrac{0}{30}=\dfrac{6}{30}=0.20$ |
+概率分别为 $p^2$，$2p(1-p)$，$(1-p)^2$，分别获取到样本为 $14$，$32$，$14$. 
 
-检验统计量
-$$
-\begin{align*}
-K^2 &= \dfrac{1}{n} \sum_{i=1}^{k} \dfrac{v_i^2}{p_i} - n \\
- &= \dfrac{1}{64} \left( \dfrac{6^2}{0.05} + \dfrac{10^2}{0.25} + \dfrac{22^2}{0.20} + \dfrac{14^2}{0.30} + \dfrac{12^2}{0.20} \right) - 64
-\\
- &= 12.77
-\end{align*}
-$$
-拒绝域为
-$$
-K^2 > \chi^2(k-r-1)
-$$
-其中 $k=5$ 是分组数，$r = 0$ 是未知参数的个数，即拒绝域为
-$$
-K^2 > \chi^2_\alpha(4)
-$$
-查表可知，$\chi^2_{0.01}(4)=13.227$. 
+1. 求出 $p$ 极大似然估计；
+2. 试问在 $0.05$ 的显著性水平下，能否认为符合原分布. 
 
-因为 $K^2 = 12.77 < 13.227 = \chi^2_{0.01}(4)$，所以在显著性水平 $0.01$ 下不能拒绝原假设，认为钻石矿分布遵循该三角分布. 
+> [!TIP]
+>
+> 本题考察极大似然估计与Pearson 拟合优度检验问题，属于简单题. 且在历年真题中有类似原题. 通常的做法就是，先求出极大似然估计，然后求出卡方值进行检验. 需要注意计算不要失误. 
 
-### 八、计算题（15分）
+略
 
-考虑阿伦尼乌斯型关系
+### 六、计算题
 
-$$
-k = A\exp\!\left(-\frac{E}{RT}\right)
-$$
-其中 $R$ 已知，$A>0$，$E>0$ 为待定参数。对 $n$ 组温度 $T_i$ 测得速率常数 $k_i, (i=1,\dots,n ) $. 
-1. 基于一元回归模型的思想，利用最小二乘法求解回归方程 $\hat{k}(T)$. 
-2. 对于下列检验问题进行检验并给出置信水平为 $\alpha$ 的拒绝域. 
+> [!TIP]
+>
+> 本题考察单因素方差分析，属于简单题. 需要注意计算不要失误. 
 
-$$
-H_0: \lambda_2 \dfrac{\hat{E}}{R} + \lambda_1 \ln \dfrac{1}{\hat{A}} < 0, \quad H_1: \lambda_2 \dfrac{\hat{E}}{R} + \lambda_1 \ln \dfrac{1}{\hat{A}} > 0
-$$
+略
 
-**解1：**
-$$
-k=A\,e^{-E/(R T)} \quad\Longrightarrow\quad
-y=\ln k=\beta_{0}+\beta_{1}x,\quad x=\frac{1}{T},\quad \beta_{0}=\ln A,\quad \beta_{1}=-\frac{E}{R}.
-$$
+### 七、计算题
 
-设计矩阵
-$$
-\underset{n\times 2}{\mathbf{X}}=
-\begin{bmatrix}
-1 & x_{1}\\[4pt]
-1 & x_{2}\\[4pt]
-\vdots & \vdots\\[4pt]
-1 & x_{n}
-\end{bmatrix},\qquad
-\underset{n\times 1}{\mathbf{y}}=
-\begin{bmatrix}
-y_{1}\\ y_{2}\\ \vdots\\ y_{n}
-\end{bmatrix}.
-$$
-最小二乘估计
-$$
-\hat{\boldsymbol{\beta}}=(\mathbf{X}^{\!\top}\mathbf{X})^{-1}\mathbf{X}^{\!\top}\mathbf{y}.
-$$
-进一步计算
-$$
-\mathbf{X}^{\!\top}\mathbf{X}=
-\begin{bmatrix}
-n & \sum x_i\\[4pt]
-\sum x_i & \sum x_i^{2}
-\end{bmatrix},\qquad
-\mathbf{X}^{\!\top}\mathbf{y}=
-\begin{bmatrix}
-\sum y_i\\[4pt]
-\sum x_i y_i
-\end{bmatrix}.
-$$
-得到
-$$
-\hat{\beta}_{1}=\frac{\sum_{i=1}^{n} x_iy_i -n \bar{x}\bar{y}}{\sum_{i=1}^{n} x_i^2 -n \bar{x}^2} =\frac{L_{xy}}{L_{xx}} ,\qquad
-\hat{\beta}_{0}=\bar{y}- \hat{\beta}_1\bar{x}
-$$
+服从均匀分布 $U(0, \theta)$，求其极大顺序统计量 $X_{(n)}$ 的假设检验问题犯第一类错误的概率最大是多少？
 
-代回原始物理量
-$$
-\ln\hat{A}=\hat{\beta}_{0}\quad\Longrightarrow\quad
-\hat{A}=\exp\!\left(\bar{y}-\frac{L_{xy}}{L_{xx}}\bar{x}\right)
-\\
-\hat{E}=-R\,\hat{\beta}_{1}\quad\Longrightarrow\quad
-\hat{E}=-R\,\frac{L_{xy}}{L_{xx}}
-$$
-最终拟合方程
-$$
-\hat{k}(T)=\hat{A}\,e^{-\hat{E}/(R T)}=
-\exp\!\left[\hat{\beta}_{0}+\frac{L_{xy}}{L_{xx}}\frac{1}{T}\right]
-$$
+> [!TIP]
+>
+> 本题考察极大顺序统计量的概率密度函数与第一类错误的概念，中档难度，但是只要基础知识牢固，也可以做出来. 
 
-**解2：**
+略
 
-给定
-$$
-H_0:\lambda_2\frac{\hat{E}}{R}+\lambda_1\ln\frac{1}{\hat A}<0.
-$$
+### 八、计算题
 
-用估计量关系
-$$
-\frac{\hat E}{R}=-\hat\beta_1,\quad \ln\frac{1}{\hat A}=-\ln\hat A=-\hat\beta_0.
-$$
+一元回归模型，
 
-代入得
-$$
-\lambda_2(-\hat\beta_1)+\lambda_1(-\hat\beta_0)=-\lambda_1\hat\beta_0-\lambda_2\hat\beta_1.
-$$
+1. $\beta_0$ 的假设检验问题
 
-因此原假设等价于
-$$
-H_0:-\lambda_1\hat\beta_0-\lambda_2\hat\beta_1<0
 $$
-即
+H_0: \beta_0 > 1, \quad H_1: \beta_0 < 1
 $$
-H_0:\lambda_1\hat\beta_0 + \lambda_2\hat\beta_1 > 0
-$$
 
-令
-$$
-\theta := \lambda_1\beta_0 + \lambda_2\beta_1 = \mathbf{c}^\top\boldsymbol{\beta}, \quad
-\mathbf{c}= \begin{bmatrix}\lambda_1 \\ \lambda_2\end{bmatrix}.
-$$
+2. $\beta_0 - \beta_1$ 的假设检验问题
 
-则
 $$
-\hat\theta = \lambda_1\hat\beta_0 + \lambda_2\hat\beta_1 = \mathbf{c}^\top\hat{\boldsymbol{\beta}}.
+H_0: \beta_0-\beta_1 < 0, \quad H_1: \beta_0-\beta_1 > 0
 $$
 
-由一元正态线性模型
-$$
-\hat{\boldsymbol{\beta}}\sim N\!\bigl(\boldsymbol{\beta},\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\bigr),
-$$
-得（多元正态分布的性质）
-$$
-\hat\theta\sim N\!\bigl(\theta,\sigma^2\mathbf{c}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{c}\bigr)
-$$
+> [!TIP]
+>
+> 本题考察一元回归中各个参数的线性组合的假设检验问题，属于简单题. 且在历年真题中有类似原题. 
 
-其中方差是 $\mathbf{c}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{c}= \frac{\lambda_1^2}{n}+\frac{(\lambda_2-\lambda_1\bar{x})^2}{L_{xx}}$. 
+略
 
-中心标准化
-$$
-Z:=\dfrac{\hat\theta - \theta}{\hat\sigma\sqrt{\frac{\lambda_1^2}{n}+\frac{(\lambda_2-\lambda_1\bar{x})^2}{L_{xx}}}}
-\sim N(0,1)
-$$
-由
-$$
-K^2 := \frac{(n-2)\hat\sigma^2}{\sigma^2}\sim\chi^2(n-2),
-$$
-且 $\hat\sigma^2$ 与 $\hat{\boldsymbol\beta}$ 独立，故
-$$
-T = \frac{Z}{\sqrt{K^2/(n-2)}} = \frac{\hat\theta - \theta}{\hat\sigma\sqrt{\frac{\lambda_1^2}{n}+\frac{(\lambda_2-\lambda_1\bar{x})^2}{L_{xx}}}}\sim t(n-2)
-$$
 
-拒绝域为
-$$
-\left\{ \frac{\lambda_1\hat\beta_0 + \lambda_2\hat\beta_1}{\hat\sigma\sqrt{\frac{\lambda_1^2}{n}+\frac{(\lambda_2-\lambda_1\bar{x})^2}{L_{xx}}}} > t_{\alpha}(n-2) \right\}
-$$
 
 ## 2024-2025
 
@@ -2288,4 +1765,643 @@ $$
 
 $$
 \left\{  \bar{X} - 2\bar{Y} > t_{\alpha}(n+m-2) \sqrt{ \dfrac{1}{n} +\dfrac{16}{9m}} \sqrt{\dfrac{4(n-1) S_1^2 + 9(m-1) S_2^2}{4 (n+m-2)}} \right\}
+$$
+
+## 模拟卷 I
+
+> [!WARNING]
+>
+> 模拟卷由作者通过分析历年真题，在 AI 的辅助下完成出题，本套不是考试真题，仅供学习参考. 只要不带“模拟卷”三个字的都是真题卷. 
+
+### 一、计算分析题（10分）
+
+设 $X_1, X_2, \dots, X_n$ 相互独立，且 $X_i \sim N(\mu, \sigma^2_i)$，$i=1,2,\dots,n$，$S_\sigma = \sum_{i=1}^{n} \frac{1}{\sigma_i}$. 试证：
+$$
+U = \sum_{i=1}^{n} \dfrac{X_i}{\sigma_i S_\sigma} \ 与 \ V = \sum_{i=1}^{n} \left[ \dfrac{X_i - \mu}{\sigma_i} - \dfrac{U - \mu}{n} S_\sigma \right]^2
+$$
+相互独立，且 $U$ 服从正态分布，$V \sim \chi^2(n-1)$. 
+
+> [!TIP]
+>
+> 本题来自书后第一章习题，需要使用书中 1.2 节的多元正态分布与正态二次型的相关知识. 
+
+**解：**
+
+由于 $U$ 是 $X_1, X_2, \dots, X_n$ 的线性组合，所以 $U$ 一定服从正态分布. 
+
+计算 $U$ 的期望和方差
+$$
+E(U) = \dfrac{1}{S_\sigma} \sum_{i=1}^{n} E \left( \dfrac{X_i}{\sigma_i} \right)
+= \dfrac{1}{S_\sigma} \sum_{i=1}^{n} \dfrac{1}{\sigma_i}  E \left( X_i \right)
+= \dfrac{1}{S_\sigma} \sum_{i=1}^{n} \dfrac{1}{\sigma_i} \mu
+= \dfrac{1}{S_\sigma}\mu \sum_{i=1}^{n} \dfrac{1}{\sigma_i} 
+= \dfrac{1}{S_\sigma}\mu S_\sigma 
+= \mu 
+\\
+D(U) = \dfrac{1}{S_\sigma^2} D \left( \sum_{i=1}^{n} \dfrac{X_i}{\sigma_i} \right)
+= \dfrac{1}{S_\sigma^2} \sum_{i=1}^{n} \dfrac{1}{\sigma_i^2} D \left(X_i \right)
+= \dfrac{1}{S_\sigma^2} \sum_{i=1}^{n} \dfrac{1}{\sigma_i^2} \sigma_i^2
+= \dfrac{n}{S_\sigma^2}
+$$
+对于 $V$ 来说，设 $Z_i = \dfrac{X_i-\mu}{\sigma_i} \sim N(0,1)$，$\bar{Z} = \dfrac{U - \mu}{n} S_\sigma = \dfrac{U-\mu}{\sqrt{n/S_\sigma^2}} \sim N \left(0, \dfrac{1}{n} \right)$，可以得到
+$$
+V = \sum_{i=1}^{n} \left( Z_i - \bar{Z} \right)^2
+$$
+设 $W_i = Z_i - \bar{Z}$，计算 $W_i$ 的均值与方差
+$$
+E(W_i) = E(Z_i - \bar{Z}) = E(Z_i) - E(\bar{Z}) = 0-0 = 0 \\
+D(W_i) = D(Z_i - \bar{Z}) = D(Z_i) + D(\bar{Z}) - 2\mathrm{Cov} (Z_i , \bar{Z}) = 1 + \dfrac{1}{n} - 2\mathrm{Cov} (Z_i , \bar{Z})
+$$
+接下来计算 $\mathrm{Cov} (Z_i , \bar{Z})$，即
+$$
+\begin{align*}
+\mathrm{Cov} (Z_i , \bar{Z}) 
+&= \mathrm{Cov} \left(\dfrac{X_i-\mu}{\sigma_i} ,\dfrac{U - \mu}{n} S_\sigma \right) \\
+&= \dfrac{S_\sigma}{n \sigma_i} \mathrm{Cov} \left(X_i-\mu , U - \mu \right) \\
+&= \dfrac{S_\sigma}{n \sigma_i} \mathrm{Cov} \left(X_i, U \right) \\
+&= \dfrac{S_\sigma}{n \sigma_i} \mathrm{Cov} \left(X_i, \sum_{j=1}^{n} \dfrac{X_j}{\sigma_j S_\sigma} \right) \\
+&= \dfrac{S_\sigma}{n \sigma_i} \mathrm{Cov} \left(X_i, \dfrac{X_i}{\sigma_i S_\sigma} \right) \\
+&= \dfrac{1}{n \sigma_i^2} \mathrm{Cov} \left(X_i, X_i \right) \\
+&= \dfrac{1}{n \sigma_i^2} D(X_i) \\
+&= \dfrac{1}{n \sigma_i^2} \sigma_i^2 \\
+&= \dfrac{1}{n} 
+\end{align*}
+$$
+所以 $D(W_i) = 1 + \dfrac{1}{n} - 2\mathrm{Cov} (Z_i , \bar{Z}) = 1 -  \dfrac{1}{n}$. 
+
+所以 $W_i = Z_i - \bar{Z} \sim N \left(0, 1 - \dfrac{1}{n} \right)$. 
+
+设随机变量组成的向量 $\boldsymbol{Z} = \left(Z_1, Z_2, \dots, Z_n \right)^T$，$\bar{Z} \boldsymbol{1}^T \boldsymbol{1} = (\bar{Z},\bar{Z},\dots,\bar{Z})^T$，则可以把 $V$ 改写成
+$$
+V = (\boldsymbol{Z} - \bar{Z} \boldsymbol{1}^T \boldsymbol{1})^T (\boldsymbol{Z} - \bar{Z} \boldsymbol{1}^T \boldsymbol{1}) = (W_1, W_2, \dots, W_n) (W_1, W_2, \dots, W_n)^T
+$$
+对分量进行标准化
+$$
+V = \left(1-\dfrac{1}{n} \right) \left(\dfrac{\boldsymbol{Z} - \bar{Z} \boldsymbol{1}^T \boldsymbol{1}}{\sqrt{1-\dfrac{1}{n}}} \right)^T \boldsymbol{I}_n \left(\dfrac{\boldsymbol{Z} - \bar{Z} \boldsymbol{1}^T \boldsymbol{1}}{\sqrt{1-\dfrac{1}{n}}} \right)
+$$
+这步操作的目的是得到了
+$$
+V = \left(1-\dfrac{1}{n} \right) \boldsymbol{Y}^T \boldsymbol{I}_n \boldsymbol{Y}, \quad \boldsymbol{Y} \sim N(\boldsymbol{0},\boldsymbol{1} )
+$$
+根据 Cochran 定理可知，如果存在一个对称阵 $\boldsymbol{A}$，那么 $\boldsymbol{Y}^T \boldsymbol{A} \boldsymbol{Y} \sim \chi^2(\mathrm{rank} \left(\boldsymbol{A}) \right)$，在这里 $\boldsymbol{A} = \left(1-\dfrac{1}{n} \right) \boldsymbol{I}_n$. 
+
+所以就有
+$$
+\mathrm{rank} \left(\boldsymbol{A} \right) = n \left(1-\dfrac{1}{n}\right) = n - 1\\
+V \sim \chi^2(n-1)
+$$
+> [!TIP]
+>
+> **可测函数独立性判别**
+>
+> 如果 $X$ 与 $Y$ 独立，且 $f, g$ 是可测函数，那么随机变量 $U = f(X)$ 与 $V = g(Y)$ 也独立. 一般地，我们学过的初等函数都是可测的.  
+
+由于样本均值 $\bar{Z}$ 与样本平方和 $\sum_{i=1}^n (Z_i - \bar{Z})^2$ 是独立的，所以 $U$ 与 $V$ 也是独立的. 
+
+### 二、计算题（15分）
+
+设随机样本 $ X_1,\dots ,X_n $ 来自指数分布 $ X_i\mid \theta \sim E(\theta),\ \theta>0$，取 $\theta$ 的先验分布为 Gamma 分布 $ \theta\sim \operatorname{Gamma}(a,b)$，$a>0,\ b>0$. 
+
+1. 给定观测样本 $x_1,\dots ,x_n$，在平方误差损失下，求 $\theta$ 的贝叶斯估计 $\hat{\theta}_B$. 
+
+2. 现考虑对指数分布的均值 $\mu=\dfrac{1}{\theta}$ 进行估计，在平方误差损失下，求 $\mu$ 的贝叶斯估计 $\hat{\mu}_B$. 
+
+提示：设 $X>0$ 是连续随机变量，概率密度函数为 $f_X(x)$，令 $Y=1/X$，则
+$$
+f_Y(y)=f_X\!\left(\frac{1}{y}\right)\cdot\frac{1}{y^{2}},\qquad y>0
+$$
+**解1：**
+
+似然函数
+$$
+L(\theta)=\prod_{i=1}^{n}\theta e^{-\theta x_i}=\theta^{n}e^{-\theta\sum x_i}
+$$
+先验分布 $\theta\sim\mathrm{Gamma}(a,b)$ 密度
+$$
+\pi(\theta)=\frac{b^{a}}{\Gamma(a)}\theta^{a-1}e^{-b\theta},\quad\theta>0
+$$
+后验分布
+$$
+\pi(\theta\mid\boldsymbol{x})\propto L(\theta)\pi(\theta)\propto\theta^{n}e^{-\theta\sum x_i}\cdot\theta^{a-1}e^{-b\theta}=\theta^{n+a-1}e^{-(b+\sum x_i)\theta}
+$$
+即
+$$
+\theta\mid\boldsymbol{x}\sim\mathrm{Gamma}(n+a,\,b+\sum x_i)
+$$
+平方误差损失下贝叶斯估计为后验均值
+$$
+\hat{\theta}_B=E[\theta\mid\boldsymbol{x}]=\frac{n+a}{b+\sum_{i=1}^{n}x_i}
+$$
+**解2：**
+
+由提示，令 $Y=1/\theta$，则后验密度
+$$
+f_Y(y\mid\boldsymbol{x})=f_{\theta\mid\boldsymbol{x}}\!\left(\frac{1}{y}\right)\cdot\frac{1}{y^{2}},\quad y>0
+$$
+代入 $\theta\mid\boldsymbol{x}\sim\mathrm{Gamma}(n+a,\,b+\sum x_i)$ 密度：
+$$
+f_Y(y\mid\boldsymbol{x})=\frac{(b+\sum x_i)^{n+a}}{\Gamma(n+a)}\left(\frac{1}{y}\right)^{n+a-1}e^{-(b+\sum x_i)/y}\cdot\frac{1}{y^{2}}
+=\frac{(b+\sum x_i)^{n+a}}{\Gamma(n+a)}y^{-(n+a+1)}e^{-(b+\sum x_i)/y}
+$$
+这是逆 Gamma 分布 $Y\sim\mathrm{I}\Gamma(n+a,\,b+\sum x_i)$，其均值为
+$$
+E[Y\mid\boldsymbol{x}]=\frac{b+\sum x_i}{n+a-1},\quad(n+a>1)
+$$
+因此
+$$
+\hat{\mu}_B=E\left[\frac{1}{\theta}\Bigm|\boldsymbol{x}\right]=\frac{b+\sum_{i=1}^{n}x_i}{n+a-1}\quad(a+n>1)
+$$
+
+### 三、计算分析题（15分）
+
+一组简单随机样本 $X_1, X_2, \dots X_n$ 服从 Weibull 分布，Weibull 分布的概率密度函数为
+$$
+f(x) = \frac{α}{β} \left(\frac{x}{β}\right)^{α-1} e^{-(x/β)^α}, \quad x>0
+$$
+其中 $\alpha >0$，$ \beta>0$，$\alpha$ 是已知参数. 
+
+1. 求参数 $\beta$ 的极大似然估计 $ \hat{\beta}$. 
+2. 当 $k$ 为何值时（用 $\alpha$ 表示），$k \bar{X}$ 是 $\beta$ 的无偏估计？
+3. 利用 Cramér-Rao 不等式证明：对于 $\beta$ 的任何无偏估计量 $\varphi$ 都满足 $D(\varphi) \geq \dfrac{\beta^2}{n \alpha^2}$. 
+
+**解1：**
+
+对数似然函数
+$$
+\ln L(\beta) = n\ln\alpha - n\alpha\ln\beta + (\alpha-1)\sum_{i=1}^{n}\ln X_i - \sum_{i=1}^{n}\left(\frac{X_i}{\beta}\right)^{\alpha}
+$$
+对 $\beta$ 求导并令为零
+$$
+\frac{\mathrm{d}\ln L(\beta)}{\mathrm{d}\beta} = -\frac{n\alpha}{\beta} + \frac{\alpha}{\beta}\sum_{i=1}^{n}\left(\frac{X_i}{\beta}\right)^{\alpha} = 0
+\;\Longrightarrow\;
+\sum_{i=1}^{n}X_i^{\alpha} = n\beta^{\alpha}.
+$$
+解得
+$$
+\hat{\beta} = \left(\frac{1}{n}\sum_{i=1}^{n}X_i^{\alpha}\right)^{1/\alpha}
+$$
+**解2：**
+
+计算
+$$
+E(X)=\int_{0}^{\infty} x\,f(x)\,\mathrm{d}x
+=\int_{0}^{\infty} x\,\frac{\alpha}{\beta}\left(\frac{x}{\beta}\right)^{\alpha-1}
+e^{-(x/\beta)^{\alpha}}\mathrm{d}x
+$$
+令换元
+$$
+t=\left(\frac{x}{\beta}\right)^{\alpha}\quad\Longrightarrow\quad
+x=\beta\,t^{1/\alpha},\quad
+\mathrm{d}x=\frac{\beta}{\alpha}\,t^{\frac{1}{\alpha}-1}\mathrm{d}t.
+$$
+代入积分
+$$
+E(X)=\frac{\alpha}{\beta}\int_{0}^{\infty}
+\beta\,t^{1/\alpha}\,t^{1-\frac{1}{\alpha}}\,
+e^{-t}\,\frac{\beta}{\alpha}\,t^{\frac{1}{\alpha}-1}\mathrm{d}t
+=\beta\int_{0}^{\infty}t^{1/\alpha}\,e^{-t}\,\mathrm{d}t.
+$$
+识别 Gamma 函数
+$$
+\int_{0}^{\infty}t^{1/\alpha}\,e^{-t}\,\mathrm{d}t
+=\Gamma\!\left(1+\frac{1}{\alpha}\right).
+$$
+故
+$$
+E(X)=\beta\,\Gamma\!\left(1+\frac{1}{\alpha}\right).
+$$
+无偏估计量的数学期望为待估参数本身
+$$
+E(k\bar{X}) = k\beta\,\Gamma\!\left(1+\frac{1}{\alpha}\right) = \beta
+$$
+所以
+$$
+k = \frac{1}{\Gamma\!\left(1+\frac{1}{\alpha}\right)}
+$$
+**解3：**
+
+
+Fisher 信息量的公式为
+$$
+\mathcal I(\beta)=-E\!\left[\frac{\partial^2\ln L(\beta)}{\partial\beta^2}\right]
+$$
+
+对数似然函数
+$$
+\ln L(\beta)=n\ln\alpha-n\alpha\ln\beta+(\alpha-1)\sum\ln X_i-\sum\Bigl(\frac{X_i}{\beta}\Bigr)^{\alpha}
+$$
+
+先求一阶导数
+$$
+\frac{\partial\ln L(\beta)}{\partial\beta}=-\frac{n\alpha}{\beta}+\frac{\alpha}{\beta}\sum\Bigl(\frac{X_i}{\beta}\Bigr)^{\alpha}
+$$
+
+再求二阶导数
+$$
+\frac{\partial^{2}\ln L(\beta)}{\partial\beta^{2}}
+=\frac{n\alpha}{\beta^{2}}-\frac{\alpha(\alpha+1)}{\beta^{2}}\sum\Bigl(\frac{X_i}{\beta}\Bigr)^{\alpha}
+$$
+
+然后，我们需要计算
+$$
+E \left[\sum\Bigl(\frac{X_i}{\beta}\Bigr)^{\alpha}\right]=n E\left[\Bigl(\frac{X}{\beta}\Bigr)^{\alpha}\right] = \dfrac{n}{\beta^\alpha} E(X^{\alpha})
+$$
+
+其次，我们计算 $E(X^{\alpha})$
+$$
+E(X^{\alpha})=\int_0^{\infty} x^{\alpha}\,\frac{\alpha}{\beta}\Bigl(\frac{x}{\beta}\Bigr)^{\alpha-1}e^{-(x/\beta)^{\alpha}}\mathrm{d}x
+$$
+
+令 $t=(x/\beta)^{\alpha}\Rightarrow x=\beta t^{1/\alpha},\;\mathrm{d}x=\frac{\beta}{\alpha}t^{\frac{1}{\alpha}-1}\mathrm{d}t$，代入得
+$$
+E(X^{\alpha})=\frac{\alpha}{\beta}\int_0^{\infty}
+\beta^{\alpha}t\,t^{1-\frac{1}{\alpha}}\,e^{-t}\,
+\frac{\beta}{\alpha}t^{\frac{1}{\alpha}-1}\mathrm{d}t
+=\beta^{\alpha}\int_0^{\infty} t\,e^{-t}\mathrm{d}t
+=\beta^{\alpha}\Gamma(2)=\beta^{\alpha}
+$$
+
+因此
+$$
+E\!\left[\sum\Bigl(\frac{X_i}{\beta}\Bigr)^{\alpha}\right]=\frac{n}{\beta^{\alpha}}\cdot\beta^{\alpha}=n
+$$
+
+代入二阶导期望
+$$
+-E\!\left[\frac{\partial^{2}\ln L(\beta)}{\partial\beta^{2}}\right]
+=\frac{\alpha(\alpha+1)}{\beta^{2}}\,n-\frac{n\alpha}{\beta^{2}}
+=\frac{n\alpha^{2}}{\beta^{2}}
+$$
+
+最后计算 Cramér-Rao 下界
+$$
+D(\varphi)\ge\frac{1}{n\mathcal I(\beta)}=\frac{\beta^2}{n\alpha^2}
+$$
+
+原命题得证. 
+
+### 四、计算题（10分）
+
+设 $X_1, X_2, \dots, X_m$ 来自于正态总体 $N(\mu_1, \sigma^2)$，$Y_1, Y_2, \dots, Y_n$ 来自于正态总体 $N(\mu_2, k\sigma^2)$，其中 $\mu_1, \mu_2, \sigma^2$ 均未知，考虑如下的假设检验问题
+$$
+H_0: a \mu_1 + b \mu_2 \leq c , \quad H_1: a \mu_1 + b \mu_2 > c
+$$
+其中，$a, b, c, k$ 均为已知非零常数. 
+
+**解：**
+
+根据抽样分布定理，有
+
+$$
+\frac{(m-1)S_{X}^{2}}{\sigma^{2}} \sim \chi^{2}(m-1), \quad \frac{(n-1)S_{Y}^{2}}{k\sigma^{2}} \sim \chi^{2}(n-1)
+$$
+
+构造公共方差估计（合并均方误差）
+
+$$
+S_{p}^{2} = \frac{(m-1)S_{X}^{2} + \frac{1}{k}(n-1)S_{Y}^{2}}{m+n-2}, \quad
+\frac{(m+n-2)S_{p}^{2}}{\sigma^{2}} \sim \chi^{2}(m+n-2)
+$$
+
+定义线性对比估计量
+
+$$
+\hat{\theta} = a\bar{X} + b\bar{Y}, \quad
+D(\hat{\theta}) = \sigma^{2}\left(\frac{a^{2}}{m} + \frac{b^{2}}{n}k\right)
+$$
+
+用公共方差估计代替 $\sigma^{2}$，得检验统计量
+
+$$
+T = \frac{\hat{\theta} - c}{S_{p}\sqrt{\dfrac{a^{2}}{m} + \dfrac{b^{2}}{n}k}}
+$$
+
+在 $H_0$ 下，$T \sim t(m+n-2)$，对右侧检验，因此拒绝域为
+
+$$
+T > t_{\alpha}(m+n-2)
+$$
+
+### 五、计算题（15分）
+
+下表为辽宁某知名 985 大学 2025 届软件工程专业本科生毕业去向与学生本科所选细分专业的人数统计数据，有效人数总计为 338 人，请在显著性水平 $\alpha = 0.05$ 水平下检验该届本科毕业生去向与其所选细分专业是否有显著关系？
+
+| 毕业去向 \ 细分专业 | 软工 | 软英 | 软金 | 软信 | 数媒 |
+| ------------------- | ---- | ---- | ---- | ---- | ---- |
+| 工作                | 111  | 2    | 9    | 14   | 15   |
+| 考研                | 46   | 1    | 3    | 4    | 0    |
+| 保研                | 80   | 9    | 10   | 20   | 14   |
+
+**解：**
+
+构建 Pearson 卡方统计量
+$$
+\begin{align*}
+K^2 &= n \left[ \sum_{i=1}^{s} \sum_{j=1}^{t} \dfrac{n_{ij}^2}{n_{i*} n_{*j}} -1 \right]  \\
+&= 
+338\left[
+\frac{111^{2}}{151\times237}+
+\frac{2^{2}}{151\times12}+
+\frac{9^{2}}{151\times22}+
+\frac{14^{2}}{151\times38}+
+\frac{15^{2}}{151\times29} 
+\right. \\ & \quad +
+\frac{46^{2}}{54\times237}+
+\frac{1^{2}}{54\times12}+
+\frac{3^{2}}{54\times22}+
+\frac{4^{2}}{54\times38}+
+\frac{0^{2}}{54\times29}
+\\
+&\quad +\frac{80^{2}}{133\times237}+
+\frac{9^{2}}{133\times12}+
+\frac{10^{2}}{133\times22}+
+\frac{20^{2}}{133\times38}+
+\left.\frac{14^{2}}{133\times29}-1\right]
+\\
+&= 19.13
+\end{align*}
+$$
+拒绝域为
+$$
+\left\{ K^2 > \chi^2_{\alpha} \left( (s-1)(t-1) \right) \right\}
+$$
+由于此表有 $s=3$ 行，$t=5$ 列数据，所以拒绝域为 
+$$
+\left\{ K^2 > \chi^2_{0.05} \left( 8 \right) \right\}
+$$
+查表得 $\chi^2_{0.05} \left( 8 \right) = 15.507$. 
+
+因为 $K^2=19.13>15.507 = \chi^2_{0.05} $，所以拒绝原假设，认为在显著性水平 $\alpha = 0.05$ 水平下检验该届本科毕业生去向与其所选细分专业是有显著关系. 
+
+### 六、计算题（10分）
+
+某研究人员想比较三种不同金坷垃（A、B、C）对植物生长的影响. 他将植物随机分成三组，每组施加不同的肥料，一段时间后测量 15 株植物的高度（单位：cm），但由于研究人员不小心的误操作，导致 $C$ 组数据缺失了 $2$ 份，记为 $a, b$（均为正整数）. 研究人员还记得，这次单因素方差分析的结果是在显著性水平 $0.1$ 的条件下，认为三种不同金克拉对植物生长有影响. 具体数据如下表：
+
+| 组别 | 株高观测值 (cm)        |
+| ---- | ---------------------- |
+| A    | 12, 14, 13, 11, 12, 13 |
+| B    | 12, 15, 13, 13, 14     |
+| C    | 14, 14, $a$, $b$       |
+
+已知，A 组数据：$\bar{x}_1 = 12.5, s_1^2 = 5.5/5$；B 组数据：$\bar{x}_2=13.4, \ s_2^2 = 5.2/4$；总均值 $\bar{x}=13.2$. 
+
+1. 求解组间平方和 $CSS$ 的值. 
+2. 根据以上信息，是否可以求解出 $a, \ b$ 的值？如果能，请直接求解；如果不能，请说明原因. 
+
+**解1：**
+
+先计算所有样本的总和
+$$
+\sum_{i=1}^{r} n_{i} \bar{x}_i = 6 \times 12.5 + 5 \times 13.4 + (14 + 14 + a + b) = n\bar{x} = 13.2 \times 15
+$$
+可以得出
+$$
+a+b=28
+$$
+也就是说我们可以算出 C 组的样本均值
+$$
+\bar{x}_3 = \dfrac{14+14+a+b}{4} = 14
+$$
+接着计算 $CSS$
+$$
+CSS = \sum_{i=1}^{r} n_i (\bar{x}_i - \bar{x})^2 = 6 \times (12.5-13.2)^2 + 5 \times (13.4-13.2)^2 + 4 \times (14-13.2)^2 = 5.7
+$$
+**解2：**
+
+在显著性水平 $0.1$ 的条件下，认为三种不同金克拉对植物生长有影响，这说明我们拒绝了原假设.
+
+也就是说对于检验统计量
+$$
+F = \dfrac{n-r}{r-1} \dfrac{CSS}{RSS} \sim F(r-1, n-r)
+$$
+其落入了拒绝域，即
+$$
+F \geq F_{\alpha}(r-1,n-r)
+$$
+查表得 $F_{0.1}(2,12)=2.81$，理论上会有
+$$
+F = \dfrac{12}{2} \times \dfrac{5.7}{RSS } \geq 2.81 = F_{0.1}(2,12)
+$$
+整理得
+$$
+RSS \leq 12.17
+$$
+也就是说
+$$
+\begin{align*}
+RSS &= \sum_{i=1}^{r} (n_i -1)s_i^2 \\
+&= 5\times \dfrac{5.5}{5}+ 4 \times \dfrac{5.2}{4} + \left( (14-14)^2 + (14-14)^2 +(a-14)^2 + (b-14)^2 \right) \\
+&= 10.7 + (a-14)^2 + (b-14)^2 \\
+&\xlongequal{a+b=28} 10.7+ (a-14)^2 + (28-a-14)^2 \\
+&=10.7+ (a-14)^2 + (14-a)^2\\
+&=10.7+ 2(a-14)^2\\
+&\leq 12.17 
+\end{align*}
+$$
+进一步整理得
+$$
+(a-14)^2 \leq 0.735
+$$
+由题意得，$a$ 是正整数，所以 $a$ 只能取 $14$，综上所述，我们得出
+$$
+a = 14, \quad b = 14
+$$
+
+### 七、计算题（10分）
+
+某玩家怀疑某 Minecraft 服务器主世界的钻石矿生成异常，于是随机抽取了 $n = 64$ 个区块中的钻石矿，得到样本最小值 $a = 0$ 个、最大值 $b = 10$ 个、众数 $c = 4$ 个钻石矿/区块. 他按照按离散三角分布将区间 $[a,b]$ 等分成 $ k = 5 $ 组，各组观测频数如下：
+
+| 组号            | 1      | 2      | 3    | 4      | 5       |
+| --------------- | ------ | ------ | ---- | ------ | ------- |
+| 钻石矿区间 / 个 | [0, 1] | [2, 3] | 4    | [5, 6] | [7, 10] |
+| 观测频数        | 6      | 10     | 22   | 14     | 12      |
+
+试问在显著性水平 $\alpha = 0.01$ 的情况下，是否拒绝“钻石矿数量服从三角分布”的原假设？
+
+提示：三角分布的概率质量函数为
+$$
+P(X=x)=
+\begin{cases}
+\dfrac{2(x-a)}{(b-a)(c-a)}, & a\le x\le c\\[6px]
+\dfrac{2(b-x)}{(b-a)(b-c)}, & c<x\le b
+\end{cases}
+$$
+**解：**
+
+根据题意，写出该三角分布的具体概率质量函数
+$$
+P(X=x)=
+\begin{cases}
+\dfrac{2x}{10 \times 4}=\dfrac{x}{20}, & 0\le x\le 4\\[6px]
+\dfrac{2(10-x)}{10\times 6}=\dfrac{10-x}{30}, & 4< x\le 10
+\end{cases}
+$$
+写各个分组 $i$ 所占的概率 $p_i$
+
+| 组号 | 区间    | 所含整数 $x$ | 概率和 $p_i$                                                 |
+| ---- | ------- | ------------ | ------------------------------------------------------------ |
+| 1    | [0, 1]  | 0, 1         | $\dfrac{0}{20}+\dfrac{1}{20}=\dfrac{1}{20}=0.05$             |
+| 2    | [2, 3]  | 2,3          | $\dfrac{2}{20}+\dfrac{3}{20}=\dfrac{5}{20}=0.25$             |
+| 3    | 4       | 4            | $\dfrac{4}{20}=0.20$                                         |
+| 4    | [5, 6]  | 5, 6         | $\dfrac{5}{30}+\dfrac{4}{30}=\dfrac{9}{30}=0.30$             |
+| 5    | [7, 10] | 7, 8, 9, 10  | $\dfrac{3}{30}+\dfrac{2}{30}+\dfrac{1}{30}+\dfrac{0}{30}=\dfrac{6}{30}=0.20$ |
+
+检验统计量
+$$
+\begin{align*}
+K^2 &= \dfrac{1}{n} \sum_{i=1}^{k} \dfrac{v_i^2}{p_i} - n \\
+ &= \dfrac{1}{64} \left( \dfrac{6^2}{0.05} + \dfrac{10^2}{0.25} + \dfrac{22^2}{0.20} + \dfrac{14^2}{0.30} + \dfrac{12^2}{0.20} \right) - 64
+\\
+ &= 12.77
+\end{align*}
+$$
+拒绝域为
+$$
+K^2 > \chi^2(k-r-1)
+$$
+其中 $k=5$ 是分组数，$r = 0$ 是未知参数的个数，即拒绝域为
+$$
+K^2 > \chi^2_\alpha(4)
+$$
+查表可知，$\chi^2_{0.01}(4)=13.227$. 
+
+因为 $K^2 = 12.77 < 13.227 = \chi^2_{0.01}(4)$，所以在显著性水平 $0.01$ 下不能拒绝原假设，认为钻石矿分布遵循该三角分布. 
+
+### 八、计算题（15分）
+
+考虑阿伦尼乌斯型关系
+
+$$
+k = A\exp\!\left(-\frac{E}{RT}\right)
+$$
+其中 $R$ 已知，$A>0$，$E>0$ 为待定参数。对 $n$ 组温度 $T_i$ 测得速率常数 $k_i, (i=1,\dots,n ) $. 
+1. 基于一元回归模型的思想，利用最小二乘法求解回归方程 $\hat{k}(T)$. 
+2. 对于下列检验问题进行检验并给出置信水平为 $\alpha$ 的拒绝域. 
+
+$$
+H_0: \lambda_2 \dfrac{\hat{E}}{R} + \lambda_1 \ln \dfrac{1}{\hat{A}} < 0, \quad H_1: \lambda_2 \dfrac{\hat{E}}{R} + \lambda_1 \ln \dfrac{1}{\hat{A}} > 0
+$$
+
+**解1：**
+$$
+k=A\,e^{-E/(R T)} \quad\Longrightarrow\quad
+y=\ln k=\beta_{0}+\beta_{1}x,\quad x=\frac{1}{T},\quad \beta_{0}=\ln A,\quad \beta_{1}=-\frac{E}{R}.
+$$
+
+设计矩阵
+$$
+\underset{n\times 2}{\mathbf{X}}=
+\begin{bmatrix}
+1 & x_{1}\\[4pt]
+1 & x_{2}\\[4pt]
+\vdots & \vdots\\[4pt]
+1 & x_{n}
+\end{bmatrix},\qquad
+\underset{n\times 1}{\mathbf{y}}=
+\begin{bmatrix}
+y_{1}\\ y_{2}\\ \vdots\\ y_{n}
+\end{bmatrix}.
+$$
+最小二乘估计
+$$
+\hat{\boldsymbol{\beta}}=(\mathbf{X}^{\!\top}\mathbf{X})^{-1}\mathbf{X}^{\!\top}\mathbf{y}.
+$$
+进一步计算
+$$
+\mathbf{X}^{\!\top}\mathbf{X}=
+\begin{bmatrix}
+n & \sum x_i\\[4pt]
+\sum x_i & \sum x_i^{2}
+\end{bmatrix},\qquad
+\mathbf{X}^{\!\top}\mathbf{y}=
+\begin{bmatrix}
+\sum y_i\\[4pt]
+\sum x_i y_i
+\end{bmatrix}.
+$$
+得到
+$$
+\hat{\beta}_{1}=\frac{\sum_{i=1}^{n} x_iy_i -n \bar{x}\bar{y}}{\sum_{i=1}^{n} x_i^2 -n \bar{x}^2} =\frac{L_{xy}}{L_{xx}} ,\qquad
+\hat{\beta}_{0}=\bar{y}- \hat{\beta}_1\bar{x}
+$$
+
+代回原始物理量
+$$
+\ln\hat{A}=\hat{\beta}_{0}\quad\Longrightarrow\quad
+\hat{A}=\exp\!\left(\bar{y}-\frac{L_{xy}}{L_{xx}}\bar{x}\right)
+\\
+\hat{E}=-R\,\hat{\beta}_{1}\quad\Longrightarrow\quad
+\hat{E}=-R\,\frac{L_{xy}}{L_{xx}}
+$$
+最终拟合方程
+$$
+\hat{k}(T)=\hat{A}\,e^{-\hat{E}/(R T)}=
+\exp\!\left[\hat{\beta}_{0}+\frac{L_{xy}}{L_{xx}}\frac{1}{T}\right]
+$$
+
+**解2：**
+
+给定
+$$
+H_0:\lambda_2\frac{\hat{E}}{R}+\lambda_1\ln\frac{1}{\hat A}<0.
+$$
+
+用估计量关系
+$$
+\frac{\hat E}{R}=-\hat\beta_1,\quad \ln\frac{1}{\hat A}=-\ln\hat A=-\hat\beta_0.
+$$
+
+代入得
+$$
+\lambda_2(-\hat\beta_1)+\lambda_1(-\hat\beta_0)=-\lambda_1\hat\beta_0-\lambda_2\hat\beta_1.
+$$
+
+因此原假设等价于
+$$
+H_0:-\lambda_1\hat\beta_0-\lambda_2\hat\beta_1<0
+$$
+即
+$$
+H_0:\lambda_1\hat\beta_0 + \lambda_2\hat\beta_1 > 0
+$$
+
+令
+$$
+\theta := \lambda_1\beta_0 + \lambda_2\beta_1 = \mathbf{c}^\top\boldsymbol{\beta}, \quad
+\mathbf{c}= \begin{bmatrix}\lambda_1 \\ \lambda_2\end{bmatrix}.
+$$
+
+则
+$$
+\hat\theta = \lambda_1\hat\beta_0 + \lambda_2\hat\beta_1 = \mathbf{c}^\top\hat{\boldsymbol{\beta}}.
+$$
+
+由一元正态线性模型
+$$
+\hat{\boldsymbol{\beta}}\sim N\!\bigl(\boldsymbol{\beta},\sigma^2(\mathbf{X}^\top\mathbf{X})^{-1}\bigr),
+$$
+得（多元正态分布的性质）
+$$
+\hat\theta\sim N\!\bigl(\theta,\sigma^2\mathbf{c}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{c}\bigr)
+$$
+
+其中方差是 $\mathbf{c}^\top(\mathbf{X}^\top\mathbf{X})^{-1}\mathbf{c}= \frac{\lambda_1^2}{n}+\frac{(\lambda_2-\lambda_1\bar{x})^2}{L_{xx}}$. 
+
+中心标准化
+$$
+Z:=\dfrac{\hat\theta - \theta}{\hat\sigma\sqrt{\frac{\lambda_1^2}{n}+\frac{(\lambda_2-\lambda_1\bar{x})^2}{L_{xx}}}}
+\sim N(0,1)
+$$
+由
+$$
+K^2 := \frac{(n-2)\hat\sigma^2}{\sigma^2}\sim\chi^2(n-2),
+$$
+且 $\hat\sigma^2$ 与 $\hat{\boldsymbol\beta}$ 独立，故
+$$
+T = \frac{Z}{\sqrt{K^2/(n-2)}} = \frac{\hat\theta - \theta}{\hat\sigma\sqrt{\frac{\lambda_1^2}{n}+\frac{(\lambda_2-\lambda_1\bar{x})^2}{L_{xx}}}}\sim t(n-2)
+$$
+
+拒绝域为
+$$
+\left\{ \frac{\lambda_1\hat\beta_0 + \lambda_2\hat\beta_1}{\hat\sigma\sqrt{\frac{\lambda_1^2}{n}+\frac{(\lambda_2-\lambda_1\bar{x})^2}{L_{xx}}}} > t_{\alpha}(n-2) \right\}
 $$
