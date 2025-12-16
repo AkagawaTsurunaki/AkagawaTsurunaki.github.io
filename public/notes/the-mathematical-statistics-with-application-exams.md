@@ -1,5 +1,5 @@
 # 应用数理统计历年真题
-作者：赤川鹤鸣_Channel | Author: AkagawaTsurunaki
+作者：赤川鹤鸣_Channel | Author: AkagawaTsurunaki | All rights reserved
 
 > [!NOTE] 
 >
@@ -22,7 +22,7 @@ $$
 
 > [!NOTE]
 >
-> 作者当年就是考的这套卷，题目全凭记忆，可能略有差异，请注意与原卷对照. 如果你有此试卷的样本，可以联系我. 
+> 作者当年就是考的这套卷（97/100分），题目全凭记忆，可能略有差异，请注意与原卷对照. 如果你有此试卷的样本，可以联系我. 
 
 ### 一、计算题
 
@@ -38,7 +38,47 @@ $$
 >
 > 本体需要先将已知函数表达为积分式，然后使用莱布尼兹公式对其求导化简，最后得出结论. 该题较为考验学生的微积分基本功和代数变形技巧，对于大部分考生来说难度较高，建议在考场上先放弃这类证明题. 
 
-略
+首先将目标函数写成积分形式
+
+$$
+f(\theta)=E|X-\theta|=\int_{-\infty}^{+\infty}|x-\theta|\,p(x)\,\mathrm{d}x
+$$
+
+把积分区间按 $\theta$ 分割并利用 $|x-\theta|$ 的分段表达式（其实就是把绝对值拆开来）
+
+$$
+f(\theta)=\int_{-\infty}^{\theta}(\theta -x)\,p(x)\,\mathrm{d}x+\int_{\theta}^{+\infty}(x -\theta)\,p(x)\,\mathrm{d}x
+$$
+
+对 $\theta$ 求导（使用莱布尼茨公式，注意积分限含参）：
+
+$$
+f'(\theta)=\frac{\mathrm{d}}{\mathrm{d}\theta}\!\left[\,\theta\!\int_{-\infty}^{\theta}p(x)\,\mathrm{d}x -\int_{-\infty}^{\theta}x\,p(x)\,\mathrm{d}x\right]+\frac{\mathrm{d}}{\mathrm{d}\theta}\!\left[\,\int_{\theta}^{+\infty}x\,p(x)\,\mathrm{d}x -\theta\!\int_{\theta}^{+\infty}p(x)\,\mathrm{d}x\right]
+$$
+
+逐项求导得
+
+$$
+\begin{align*}
+f'(\theta) &= \int_{-\infty}^{\theta}p(x)\,\mathrm{d}x -0 + 0 -\int_{\theta}^{+\infty}p(x)\,\mathrm{d}x \\
+&= \int_{-\infty}^{\theta}p(x)\,\mathrm{d}x + \int_{\theta}^{+\infty}p(x)\,\mathrm{d}x
+\end{align*}
+$$
+
+记累计分布函数 $F(\theta)=\int_{-\infty}^{\theta}p(x)\,\mathrm{d}x$，则
+
+$$
+f'(\theta)=2F(\theta)-1
+$$
+
+令导数为零：$2F(\theta)-1=0\Rightarrow F(\theta)=\frac12$，即 $\theta=m_0$（中位数定义）. 
+
+严谨起见，再求二阶导（说明确实是严格的极小值点）
+$$
+f''(\theta)=2p(\theta)>0
+$$
+
+故 $\theta=m_0$ 为唯一极小值点，从而 $f(\theta)$ 在 $\theta=m_0$ 处取得最小值. 
 
 ### 二、计算题
 
@@ -48,13 +88,44 @@ $$
 >
 > 本体考察贝叶斯估计的相关知识，即几何分布共轭于 Beta 分布，以及平方损失下的贝叶斯估计就是后验分布的期望. 但是有同学错把其后验分布写为二项分布，还有同学不小心把 Beta 分布的期望抄错，这可能是 20 多年的真题中罕见地出现了 Beta 分布，考生对此可能知识点不熟悉造成失分. 
 
-略
+样本 $X_1,X_2,\dots,X_n$ 独立同分布于几何分布，于是联合似然函数
+
+$$
+f(x \mid p)=\prod_{i=1}^{n}p(1-p)^{x_i-1}=p^{n}(1-p)^{\sum_{i=1}^{n}x_i-n}
+$$
+
+参数 $p$ 的先验分布为均匀分布 $U(0,1)$，即
+
+$$
+h(p)=1,\quad 0<p<1
+$$
+
+由贝叶斯定理，后验分布
+
+$$
+h(p) \times f(x \mid p)\propto p^{n}(1-p)^{\sum_{i=1}^{n}x_i-n} = p^{n}(1-p)^{n\bar{x}-n}
+$$
+
+> [!WARNING]
+>
+> 注意这显然不可能是二项分布，因为二项分布的系数中含有 $\binom{n}{x_i}$，这是与 $x_i$ 有关的函数，而我们这里求得的后验分布的核没有这一项. 
+
+由于几何分布共轭于 Beta 分布，故
+$$
+p\mid X \sim \mathrm{Beta}(n+1,n\bar{x}-n+1)
+$$
+
+在平方损失下，贝叶斯估计为后验均值，而 $\mathrm{Beta}(\alpha,\beta)$ 的均值为 $\frac{\alpha}{\alpha+\beta}$，因此
+
+$$
+\hat{p}=\frac{n+1}{n+1+n \bar{x}-n+1}=\frac{n+1}{n \bar{x}+2}
+$$
 
 ### 三、计算题
 
 给定概率密度函数
 $$
-f(x) = \int_{0}^{\theta} \dfrac{3x^2}{\theta^2} \quad  0 < x< \theta
+f(x) = \dfrac{3x^2}{\theta^2} \quad  0 < x< \theta
 $$
 
 1. 求出参数 $\theta$ 的矩估计 $\hat{\theta}$，并判断它是否为无偏估计. 
@@ -64,11 +135,57 @@ $$
 >
 > 本题考察矩估计、无偏估计和均方误差三个知识点，属于简单题. 
 
-略
+**解1：**
+
+首先计算总体的一阶原点矩
+
+$$
+E(X) = \int_{0}^{\theta} x \cdot \frac{3x^2}{\theta^3}\,\mathrm{d}x = \frac{3}{\theta^3}\int_{0}^{\theta} x^3\,\mathrm{d}x = \frac{3}{\theta^3}\cdot\frac{\theta^{4}}{4} = \frac{3}{4}\theta
+$$
+
+令样本均值 $\bar{X}$ 等于总体矩，得方程
+
+$$
+\bar{X} = \frac{3}{4}\theta \quad\Longrightarrow\quad \hat{\theta} = \frac{4}{3}\bar{X}
+$$
+
+为考察无偏性，计算
+
+$$
+E(\hat{\theta}) = E\!\left(\frac{4}{3}\bar{X}\right) = \frac{4}{3}E(X) = \frac{4}{3}\cdot\frac{3}{4}\theta = \theta
+$$
+
+故 $\hat{\theta}$ 是 $\theta$ 的无偏估计. 
+
+**解2：**
+
+由于无偏，$\hat{\theta}$ 的均方误差就等于方差
+
+$$
+\operatorname{MSE}(\hat{\theta}) = D(\hat{\theta}) = D\!\left(\frac{4}{3}\bar{X}\right) = \frac{16}{9}\frac{D(X)}{n}
+$$
+
+计算 $D(X)$ 前，首先计算二阶矩
+
+$$
+E(X^{2}) = \int_{0}^{\theta} x^{2}\cdot\frac{3x^{2}}{\theta^{3}}\,\mathrm{d}x = \frac{3}{\theta^{3}}\int_{0}^{\theta} x^{4}\,\mathrm{d}x = \frac{3}{5}\theta^{2}
+$$
+
+于是
+
+$$
+D(X) = E(X^{2}) - [E(X)]^{2} = \frac{3}{5}\theta^{2} - \left(\frac{3}{4}\theta\right)^{2} = \frac{3}{80}\theta^{2}
+$$
+
+代入得
+
+$$
+\operatorname{MSE}(\hat{\theta}) = \frac{16}{9}\cdot\frac{1}{n}\cdot\frac{3}{80}\theta^{2} = \frac{\theta^{2}}{15n}
+$$
 
 ### 四、计算题
 
-甲乙老师所教的两个班级分别考试. 其中甲老师所在班的人数为 $16$，成绩的均值是 $84.5$，标准差是 $14.5$；乙老师所在班的人数为 $25$，成绩的均值是 $\text{??}$，标准差是 $10.2$，现在进行以下的假设检验问题：
+甲乙老师所教的两个班级分别考试. 其中甲老师所在班的人数为 $16$，成绩的均值是 $84.5$，标准差是 $14.5$；乙老师所在班的人数为 $25$，成绩的均值是 $82.5$，标准差是 $10.2$，现在进行以下的假设检验问题：
 
 1. 甲老师所教班级的成绩的均值的置信水平为 $0.95$ 区间估计. 
 2. 甲、乙老师所教班级的成绩的方差相等，求方差的置信水平为 $0.95$ 的区间估计. 
@@ -77,7 +194,69 @@ $$
 >
 > 本题考察单个正态分布方差未知时的均值区间估计，以及两个正态分布方差相等条件下的方差区间估计，属于简单题. 然而，考生在计算时，会出现算数部分带一坨小数，可能难以计算正确，建议先代数，回头有时间再计算具体的值. 
 
-略
+**解1：**
+
+已知，甲老师班 $n_1=16$，$\bar{x}=84.5$，$s_1=14.5$；乙老师班 $n_2=25$，$\bar{y}=82.5$，$s_2=10.2$. 置信水平 $1-\alpha=0.95$，$\alpha=0.05$. 
+
+甲班均值 $\mu$ 的区间估计（方差未知），因此构造枢轴量
+$$
+T=\frac{\bar{X}-\mu}{S_1/\sqrt{n_1}}\sim t(n_1-1).
+$$
+
+按照置信区间的概率公式定义
+
+$$
+\begin{align*}
+P \left\{ -t_{\alpha/2} (n_1-1) < T < t_{\alpha/2} (n_1-1) \right\}
+&= P \left\{ -t_{\alpha/2} (n_1-1) < \frac{\bar{X}-\mu}{S_1/\sqrt{n_1}} < t_{\alpha/2} (n_1-1) \right\} \\
+&= P \left\{ \bar{X} - t_{\alpha/2} (n_1-1) \frac{S_1}{\sqrt{n_1}} <\mu < \bar{X} + t_{\alpha/2} (n_1-1) \frac{S_1}{\sqrt{n_1}} \right\} \\
+&= 1 - \alpha
+\end{align*}
+$$
+
+即双侧置信区间为
+
+$$
+\left( \bar{X} - t_{\alpha/2} (n_1-1) \frac{S_1}{\sqrt{n_1}} ,\ \bar{X} + t_{\alpha/2} (n_1-1) \frac{S_1}{\sqrt{n_1}} \right)
+$$
+
+查表得 $t_{0.025}(15)=2.131$，代入全部相关数据，故 $\mu$ 的 $95\%$ 置信区间为 
+
+$$
+(76.8,\;92.2)
+$$
+
+**解2：**
+
+由于两总体方差相等，可以根据抽样分布定理
+
+$$
+\frac{(n_1 - 1)S_1^2}{\sigma^2} \sim \chi^2(n_1-1), \quad \frac{(n_2 -1) S_2^2}{\sigma^2} \sim \chi^2(n_2-1)
+$$
+
+根据卡方分布的可见加，可得枢轴量
+
+$$
+K^2 := \frac{(n_1 - 1)S_1^2}{\sigma^2} + \frac{(n_2 - 1)S_2^2}{\sigma^2}  \sim \chi^2(n_1+n_2-2)
+$$
+
+按照置信区间的概率公式定义
+
+$$
+\begin{align*}
+P \left\{ \chi_{1-\alpha/2}^2(n_1+n_2-2) < K^2 < \chi_{\alpha/2}^2(n_1+n_2-2) \right\}
+&= P \left\{ \chi_{1-\alpha/2}^2(n_1+n_2-2) < \frac{(n_1 - 1)S_1^2+(n_2 - 1)S_2^2}{\sigma^2} < \chi_{\alpha/2}^2(n_1+n_2-2) \right\} \\
+&= P \left\{ \frac{(n_1 - 1)S_1^2+(n_2 - 1)S_2^2}{\chi_{\alpha/2}^2(n_1+n_2-2)} < \sigma^2 <  \frac{(n_1 - 1)S_1^2+(n_2 - 1)S_2^2}{\chi_{1-\alpha/2}^2(n_1+n_2-2)} \right\}\\
+&= 1 - \alpha
+\end{align*}
+$$
+
+查表得 $\chi^2_{0.025}(39)=58.12$，$\chi^2_{0.975}(39)=23.65$. 
+
+代入所有相关数据，因此 $\sigma^2$ 的 $95\%$ 置信区间为
+$$
+(97.2,\;238.9)
+$$
 
 ### 五、计算题
 
@@ -90,7 +269,46 @@ $$
 >
 > 本题考察极大似然估计与Pearson 拟合优度检验问题，属于简单题. 且在历年真题中有类似原题. 通常的做法就是，先求出极大似然估计，然后求出卡方值进行检验. 需要注意计算不要失误. 
 
-略
+**解1：**
+
+首先写出似然函数
+$$
+\begin{align*}
+L(p)& = (p^2)^{14} (2p(1-p))^{32} ((1-p)^2)^{14} \\
+& = 2^{32} p^{60} (1-p)^{60} \\
+ &= 2^{32} \left(p(1-p)\right)^{60}
+ \end{align*}
+$$
+显然，似然函数内部是一个二次函数，想要使得似然函数 $L(p)$ 达到最大，只需要这个开口向下的二次函数 $p(1-p)$ 达到最大，即 $p = \frac{0+1}{2} = \frac{1}{2}$. 
+
+故 $p$ 的极大似然估计为 $\hat p=\dfrac12$. 
+
+**解2：**
+
+使用 Pearson 拟合优度检验，在 $\hat p=\dfrac12$ 下，理论概率分别为  
+$$
+p_1=\hat p^{2}=\frac14,\quad
+p_2=2\hat p(1-\hat p)=\frac12,\quad
+p_3=(1-\hat p)^{2}=\frac14
+$$
+
+构造统计量
+
+$$
+\begin{align*}
+K^2 &= \dfrac{1}{n} \sum_{i=1}^{k} \dfrac{v_i^2}{p_i} - n \\
+&= \frac{1}{60} \left( \frac{14^2}{1/4} + \frac{32^2}{1/2} + \frac{14^2}{1/4} \right) - 60 \\
+&=0.27
+\end{align*}
+$$
+
+拒绝域为
+$$
+K^2 > \chi^2_{\alpha} (k-r-1)
+$$
+查表得 $\chi^{2}_{0.05}(1)=3.841$. 
+
+由于 $K^2=0.27 < 3.841 = \chi^{2}_{0.05}(1)$，此在 $0.05$ 显著性水平下可以认为数据符合原分布. 
 
 ### 六、计算题
 
@@ -102,22 +320,62 @@ $$
 
 ### 七、计算题
 
-服从均匀分布 $U(0, \theta)$，求其极大顺序统计量 $X_{(n)}$ 的假设检验问题犯第一类错误的概率最大是多少？
+设一组简单随机样本 $X_1, X_2 , \dots, X_n$，其总体 $X$ 服从均匀分布 $U(0, \theta)$，求其极大顺序统计量 $X_{(n)}$ 的假设检验问题犯第一类错误的概率最大是多少？
 
 > [!TIP]
 >
 > 本题考察极大顺序统计量的概率密度函数与第一类错误的概念，中档难度，但是只要基础知识牢固，也可以做出来. 
 
-略
+根据题意，$X$ 的概率密度函数和累计分布函数
+
+$$
+f_X(x) = \begin{cases}
+\frac{1}{\theta} & 0 < x < \theta \\
+0 & \text{其他}
+\end{cases} \quad \quad
+F_X (x) = \begin{cases}
+0 & x \le 0 \\
+\frac{x}{\theta} & 0 < x < \theta \\
+1 & x \ge \theta
+\end{cases}
+$$
+
+极大顺序统计量 $X_{(n)} = \max(X_1, X_2, \dots, X_n)$ 的概率密度函数为
+
+$$
+f_{X_{(n)}}(x) = n f(x) [F(x)]^{n-1}
+$$
+
+因此，当 $0 < x < \theta$ 时，
+
+$$
+f_{X_{(n)}}(x; \theta) = n \left(\frac{x}{\theta}\right)^{n-1} \cdot \frac{1}{\theta} = \frac{n x^{n-1}}{\theta^n}
+$$
+
+由于拒绝域为 $W = \{X_{(n)} < C\}$，其中 $C$ 为临界值，其犯第一类错误的概率为
+
+$$
+\alpha = P(X_{(n)} < C \mid H_0) = P(X_{(n)} < C \mid \theta > C)
+$$
+
+当 $\theta = \theta_0$ 时，
+
+$$
+P(X_{(n)} < k) = \int_0^{k} \frac{n x^{n-1}}{\theta^n} \, \mathrm{d}x = \frac{n}{\theta^n} \cdot \frac{x^n}{n} \Big\vert_0^{k} =  \frac{k^n}{\theta^n}
+$$
+
+> [!WARNING]
+>
+> 原题怎么问的已经忘记，但是大致思路如上. 
 
 ### 八、计算题
 
-一元回归模型，
+一元回归模型，求解下列问题的检验水平为 $\alpha$ 的拒绝域
 
 1. $\beta_0$ 的假设检验问题
 
 $$
-H_0: \beta_0 > 1, \quad H_1: \beta_0 < 1
+H_0: \beta_1 = 1, \quad H_1: \beta_1 < 1
 $$
 
 2. $\beta_0 - \beta_1$ 的假设检验问题
@@ -130,9 +388,120 @@ $$
 >
 > 本题考察一元回归中各个参数的线性组合的假设检验问题，属于简单题. 且在历年真题中有类似原题. 
 
-略
+**解1：**
 
+由一元回归模型的性质，可知
+$$
+\hat{\beta}_1 \sim N \left({\beta}_1, \dfrac{\sigma^2}{L_{xx}} \right)
+$$
+将其中心标准化
+$$
+Z := \frac{\hat{\beta}_1 - \beta_1}{\sigma/\sqrt{L_{xx}}} \sim N(0,1)
+$$
+由 $K^2 = \dfrac{n-2}{\sigma^2} \hat{\sigma}^2 \sim \chi^2 (n-2)$，可得
+$$
+T := \frac{Z_1}{\sqrt{K^2/(n-2)}} = \frac{ \hat{\beta}_1 - \beta_1}{\hat{\sigma} / \sqrt{L_{xx}}} \sim t(n-2)
+$$
+由于 $\hat{\beta}_1$ 是 $\beta_1$ 的良好的点估计，对立假设 $H_1$ 要求我们在 $\beta_1 < 1$ 时拒绝原假设，也就是当 $\hat{\beta}_1 - 1 < C$ 时拒绝原假设，接下来寻找这个常数 $C$
+$$
+\begin{align*}
+P\left\{ \hat{\beta}_1 - 1 < C \mid H_0 \right\} &= P\left\{ \frac{\hat{\beta}_1 - 1}{\hat{\sigma} /\sqrt{L_{xx}}} < \frac{C}{\hat{\sigma} /\sqrt{L_{xx}}} \mid \beta_1 = 1 \right\} \\
+&= P\left\{ T < \frac{C}{\hat{\sigma}/ \sqrt{L_{xx}}} \mid \beta_1 = 1 \right\} \\
+&= \alpha
+\end{align*}
+$$
+由此我们找到了 $C$，即
+$$
+\frac{C}{\hat{\sigma} /\sqrt{L_{xx}}} = -t_{\alpha}(n-2) \implies C = -t_{\alpha}(n-2)  \frac{\hat{\sigma}}{\sqrt{L_{xx}}}
+$$
+所以拒绝域为
+$$
+\left\{ \hat{\beta}_1 - 1 < -t_{\alpha}(n-2)  \frac{\hat{\sigma}}{\sqrt{L_{xx}}} \right\}
+$$
+**解2：**
 
+首先，根据一元回归模型的性质，可知 $\hat{\beta}_0$ 与 $\hat{\beta}_1$ 都服从于正态分布
+
+$$
+\hat{\beta}_0 \sim N\left(\beta_0, \sigma^2 \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right)\right) \\
+\hat{\beta}_1 \sim N\left(\beta_1, \dfrac{{\sigma}^2}{L_{xx}}\right)
+$$
+$\hat{\beta}_0 - \hat{\beta}_1$ 是 $\hat{\beta}_0 , \ \hat{\beta}_1$ 的线性组合，也就是说 $\hat{\beta}_0 - \hat{\beta}_1 = \begin{bmatrix}1 & -1\end{bmatrix}\begin{bmatrix}\hat{\beta}_0 \\ \hat{\beta}_1 \end{bmatrix}$. 
+
+设
+$$
+\boldsymbol{a}= \begin{bmatrix}1\\-1\end{bmatrix}, \quad \hat{\boldsymbol{\beta}}= \begin{bmatrix}\hat{\beta}_0 \\ \hat{\beta}_1 \end{bmatrix}
+$$
+则 $\hat{\boldsymbol{\beta}}$ 服从于多元正态分布，即
+$$
+\hat{\boldsymbol{\beta}} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})
+$$
+由于其中均值和协方差矩阵分别为（一定不要忘记了协方差）
+$$
+\boldsymbol{\mu}= \begin{bmatrix}\beta_0\\[2mm]\beta_1\end{bmatrix}, \quad
+\boldsymbol{\Sigma} = \left[\begin{matrix} 
+\sigma^2 \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & -\sigma^2 \dfrac{\bar{x}}{L_{xx}} \\
+-\sigma^2 \dfrac{\bar{x}}{L_{xx}} & \dfrac{{\sigma}^2}{L_{xx}}
+\end{matrix}\right] = \sigma^2
+\left[\begin{matrix} 
+ \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_{xx}} \\
+- \dfrac{\bar{x}}{L_{xx}} & \dfrac{1}{L_{xx}}
+\end{matrix}\right]
+$$
+而对于列向量 $\boldsymbol{a}$ 和二元正态随机列向量 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，有 $\boldsymbol{a}^T \boldsymbol{X} \sim N(\boldsymbol{a}^T \boldsymbol{\mu}, \boldsymbol{ a}^T \Sigma \boldsymbol{a}) $.
+$$
+\boldsymbol{a}^T \boldsymbol{\mu} = \left[\begin{matrix} 1 & -1\end{matrix}\right] \left[\begin{matrix} {\beta}_0 \\ {\beta}_1\end{matrix}\right] = \beta_0 - \beta_1 \\
+\begin{align*}
+\boldsymbol{ a}^T \Sigma \boldsymbol{a} 
+& = \left[\begin{matrix} 1 & -1\end{matrix}\right] \sigma^2
+\left[\begin{matrix} 
+ \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_{xx}} \\
+- \dfrac{\bar{x}}{L_{xx}} & \dfrac{1}{L_{xx}}
+\end{matrix}\right] \left[\begin{matrix} 1 \\ -1\end{matrix}\right]  \\
+& = \sigma^2 \left(  \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) -2 \left(- \dfrac{\bar{x}}{L_{xx}} \right) + \dfrac{1}{L_{xx}} \right) \\
+& = \sigma^2 \left( \dfrac{1}{n} + \dfrac{( \bar{x} +1)^2}{L_{xx}} \right)
+\end{align*}
+$$
+所以，$\hat{\beta}_0 - \hat{\beta}_1$ 的分布是正态分布，即
+$$
+\hat{\beta}_0 - \hat{\beta}_1 \sim N \left(\beta_0 - \beta_1,  \sigma^2 \left( \dfrac{1}{n} + \dfrac{( \bar{x} +1)^2}{L_{xx}} \right) \right)
+$$
+
+首先，找出待估计量的良好点估计，显然 $\hat{\beta}_0, \ \hat{\beta}_1$ 分别是 ${\beta}_0 ,\ {\beta}_1$ 的良好点估计.
+
+对立假设 $H_1$ 要求我们 $\beta_0 -\beta_1 > 0$，也就是说 $\hat{\beta}_0 -\hat{\beta}_1 $ 偏大时拒绝原假设 $H_0$（单边检验）.
+
+设一个常数 $C$，当 $\hat{\beta}_0 - \hat{\beta}_1 > C$ 时拒绝原假设 $H_0$，接下来就是寻找 $C$.
+
+将其中心标准化为
+$$
+Z:= \frac{\hat{\beta}_0 - \hat{\beta}_1 - (\beta_0 - \beta_1)}{\sigma \sqrt{ \dfrac{1}{n} + \dfrac{( \bar{x} +1)^2}{L_{xx}} } } \sim N(0,1)
+$$
+其中含有未知参数 $\sigma$，我们可以通过 $K^2 = \dfrac{n-2}{\sigma^2} \hat{\sigma}^2 \sim \chi^2 (n-2)$ 消去它，即
+$$
+T := \frac{Z}{\sqrt{K^2/(n-2)}} = \frac{\hat{\beta}_0 - \hat{\beta}_1 - (\beta_0 - \beta_1)}{\hat{\sigma} \sqrt{ \dfrac{1}{n} + \dfrac{( \bar{x} +1)^2}{L_{xx}}}} \sim t(n-2)
+$$
+
+这样我们就可以知道
+
+$$
+\begin{align*}
+P( \hat{\beta}_0 - \hat{\beta}_1 > C) &= 
+P \left(  \frac{\hat{\beta}_0 -\hat{\beta}_1 - ({\beta}_0 - {\beta}_1)}{\hat{\sigma} \sqrt{ \left( \frac{1}{n} + \frac{( \bar{x} +1)^2}{L_{xx}} \right) }}  > \frac{C - ({\beta}_0 - {\beta}_1)}{\hat{\sigma} \sqrt{ \left( \frac{1}{n} + \frac{(\bar{x} +1)^2}{L_{xx}} \right) }} \right)
+\\
+&= P_{H_0} \left( T >\frac{C}{\hat{\sigma} \sqrt{ \left( \frac{1}{n} + \frac{(\bar{x} +1)^2}{L_{xx}} \right) }} \Big| \beta_0 -\beta_1 =0 \right)
+\end{align*}
+$$
+
+由此我们找到了 $C$，即 $t$ 分布的分位点
+$$
+\frac{C}{\hat{\sigma} \sqrt{ \frac{1}{n} + \frac{(\bar{x} +1)^2}{L_{xx}} }} = t_{\alpha}(n-2) \implies C =  t_{\alpha}(n-2)\hat{\sigma}\sqrt{  \frac{1}{n} + \frac{(\bar{x} +1)^2}{L_{xx}}  }
+$$
+所以对检验水平 $\alpha$，该检验的拒绝域是
+
+$$
+\left\{ \hat{\beta}_0 - \hat{\beta}_1 > t_{\alpha}(n-2)\hat{\sigma}\sqrt{ \left( \frac{1}{n} + \frac{(\bar{x} +1)^2}{L_{xx}} \right) } \right\}
+$$
 
 ## 2024-2025
 
@@ -550,12 +919,12 @@ $$
 $$
 \boldsymbol{\mu}= \begin{bmatrix}\beta_0\\[2mm]\beta_1\end{bmatrix}, \quad
 \boldsymbol{\Sigma} = \left[\begin{matrix} 
-\sigma^2 \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & -\sigma^2 \dfrac{\bar{x}}{L_xx} \\
--\sigma^2 \dfrac{\bar{x}}{L_xx} & \dfrac{{\sigma}^2}{L_{xx}}
+\sigma^2 \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & -\sigma^2 \dfrac{\bar{x}}{L_{xx}} \\
+-\sigma^2 \dfrac{\bar{x}}{L_{xx}} & \dfrac{{\sigma}^2}{L_{xx}}
 \end{matrix}\right] = \sigma^2
 \left[\begin{matrix} 
- \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_xx} \\
-- \dfrac{\bar{x}}{L_xx} & \dfrac{1}{L_{xx}}
+ \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_{xx}} \\
+- \dfrac{\bar{x}}{L_{xx}} & \dfrac{1}{L_{xx}}
 \end{matrix}\right]
 $$
 而对于列向量 $\boldsymbol{a}$ 和二元正态随机列向量 $\boldsymbol{X} \sim N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$，有 $\boldsymbol{a}^T \boldsymbol{X} \sim N(\boldsymbol{a}^T \boldsymbol{\mu}, \boldsymbol{ a}^T \Sigma \boldsymbol{a}) $.
@@ -565,10 +934,10 @@ $$
 \boldsymbol{ a}^T \Sigma \boldsymbol{a} 
 & = \left[\begin{matrix} 1 & 2\end{matrix}\right] \sigma^2
 \left[\begin{matrix} 
- \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_xx} \\
-- \dfrac{\bar{x}}{L_xx} & \dfrac{1}{L_{xx}}
+ \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_{xx}} \\
+- \dfrac{\bar{x}}{L_{xx}} & \dfrac{1}{L_{xx}}
 \end{matrix}\right] \left[\begin{matrix} 1 \\ 2\end{matrix}\right]  \\
-& = \sigma^2 \left(  \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) +4 \left(- \dfrac{\bar{x}}{L_xx} \right) + \dfrac{4}{L_{xx}} \right) \\
+& = \sigma^2 \left(  \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) +4 \left(- \dfrac{\bar{x}}{L_{xx}} \right) + \dfrac{4}{L_{xx}} \right) \\
 & = \sigma^2 \left( \dfrac{1}{n} + \dfrac{( \bar{x} - 2)^2}{L_{xx}} \right)
 \end{align*}
 $$
@@ -1434,15 +1803,15 @@ $$
 $$
 这说明 $\hat{\beta}_1 - 3\hat{\beta}_0$ 这个二元正态分布的期望是 $\beta_1 - 3 \beta_0$. 
 
-同理，我们也需要求出其方差，需要注意的是，由于 $\hat{\beta}_0$ 和 $\hat{\beta}_1$ 不独立，且 $\mathrm{Cov}(\hat{\beta}_0, \hat{\beta}_1) = -\sigma^2 \dfrac{\bar{x}}{L_xx}$，因此协方差矩阵应该为
+同理，我们也需要求出其方差，需要注意的是，由于 $\hat{\beta}_0$ 和 $\hat{\beta}_1$ 不独立，且 $\mathrm{Cov}(\hat{\beta}_0, \hat{\beta}_1) = -\sigma^2 \dfrac{\bar{x}}{L_{xx}}$，因此协方差矩阵应该为
 $$
 \boldsymbol{\Sigma} = \left[\begin{matrix} 
-\sigma^2 \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & -\sigma^2 \dfrac{\bar{x}}{L_xx} \\
--\sigma^2 \dfrac{\bar{x}}{L_xx} & \dfrac{{\sigma}^2}{L_{xx}}
+\sigma^2 \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & -\sigma^2 \dfrac{\bar{x}}{L_{xx}} \\
+-\sigma^2 \dfrac{\bar{x}}{L_{xx}} & \dfrac{{\sigma}^2}{L_{xx}}
 \end{matrix}\right] = \sigma^2
 \left[\begin{matrix} 
- \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_xx} \\
-- \dfrac{\bar{x}}{L_xx} & \dfrac{1}{L_{xx}}
+ \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_{xx}} \\
+- \dfrac{\bar{x}}{L_{xx}} & \dfrac{1}{L_{xx}}
 \end{matrix}\right]
 $$
 从而
@@ -1451,10 +1820,10 @@ $$
 \boldsymbol{ a}^T \Sigma \boldsymbol{a} 
 & = \left[\begin{matrix} -3 & 1\end{matrix}\right] \sigma^2
 \left[\begin{matrix} 
- \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_xx} \\
-- \dfrac{\bar{x}}{L_xx} & \dfrac{1}{L_{xx}}
+ \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) & - \dfrac{\bar{x}}{L_{xx}} \\
+- \dfrac{\bar{x}}{L_{xx}} & \dfrac{1}{L_{xx}}
 \end{matrix}\right] \left[\begin{matrix} -3 \\ 1\end{matrix}\right]  \\
-& = \sigma^2 \left( 9  \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) -6 \left(- \dfrac{\bar{x}}{L_xx} \right) + \dfrac{1}{L_{xx}} \right) \\
+& = \sigma^2 \left( 9  \left(\dfrac{1}{n} + \dfrac{\bar{x}^2}{L_{xx}}\right) -6 \left(- \dfrac{\bar{x}}{L_{xx}} \right) + \dfrac{1}{L_{xx}} \right) \\
 & = \sigma^2 \left( \dfrac{9}{n} + \dfrac{(3 \bar{x} + 1)^2}{L_{xx}} \right)
 \end{align*}
 $$
@@ -1771,7 +2140,7 @@ $$
 
 > [!WARNING]
 >
-> 模拟卷由作者通过分析历年真题，在 AI 的辅助下完成出题，本套不是考试真题，仅供学习参考. 只要不带“模拟卷”三个字的都是真题卷. 
+> 模拟卷由作者通过分析历年真题，在 AI 的辅助下完成出题，本套不是考试真题，仅供学习参考. 
 
 ### 一、计算分析题（10分）
 
@@ -1922,7 +2291,7 @@ $$
 
 1. 求参数 $\beta$ 的极大似然估计 $ \hat{\beta}$. 
 2. 当 $k$ 为何值时（用 $\alpha$ 表示），$k \bar{X}$ 是 $\beta$ 的无偏估计？
-3. 利用 Cramér-Rao 不等式证明：对于 $\beta$ 的任何无偏估计量 $\varphi$ 都满足 $D(\varphi) \geq \dfrac{\beta^2}{n \alpha^2}$. 
+3. （不考，可跳过）利用 Cramér-Rao 不等式证明：对于 $\beta$ 的任何无偏估计量 $\varphi$ 都满足 $D(\varphi) \geq \dfrac{\beta^2}{n \alpha^2}$. 
 
 **解1：**
 
