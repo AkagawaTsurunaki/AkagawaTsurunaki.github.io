@@ -1,9 +1,14 @@
 export function getBlogItemList() {
   return [
     {
+      mdFilePath: 'blogs/ai-methods/derivation-of-s4.md',
+      tags: ['数学', '微分方程'],
+      time: '2025-12-16 15:59',
+    },
+    {
       mdFilePath: 'blogs/math-proof/deriving-lti-state-space-solution-from-scratch.md',
       tags: ['数学', '微分方程'],
-      time: '2025-11-04 18:52',
+      time: '2025-12-08 13:56',
     },
     {
       mdFilePath: 'blogs/ai-methods/mamba-reproduction.md',
