@@ -167,6 +167,79 @@ $$
 $$
 然后也是找最大的增益率即可. 
 
+## 全连接网络
+
+如图是一个全连接网络. 初始时，所有权重设为0.5. 本轮的训练样本为 $[(x_1, x_2, 1), \hat{y}] = [(3, 4, 1), 0.5]$. 损失函数为 $L = \frac{1}{2}(y - \hat{y})^2$，其中 $\hat{y}$ 是期望输出. 所有隐藏层和输出层必须通过激活函数激活. 激活函数是 Sigmoid ($σ$)，学习率 $\alpha$ 等于 $0.8$. （请保留结果的小数点后 4 位）
+
+```mermaid
+graph LR
+    x1((x1)) -->|w11| h1([h1])
+    x2((x2)) -->|w12| h1
+    x1((x2)) -->|w13| h2([h2])
+    x2((x2)) -->|w14| h2([h2])
+    bias1(1) -->|b1| h1
+    bias2(1) -->|b2| h2
+    h1 -->|w21| y((y))
+    h2 -->|w22| y
+    bias3(1) -->|b3| y
+```
+
+1. 计算模型的最终损失 $L$；
+2. 计算更新后的 $w_{21}$ 和 $w_{11}$ 的值. 
+
+**解：**
+
+**1.** 根据全连接网络的结构，我们先计算 $h_1$
+$$
+u_1 = w_{11} x_1 + w_{12} x_2 + b_1 = 0.5 \times 3 + 0.5 \times 4 + 0.5 = 4\\
+h_1 = \sigma(u_1) = \dfrac{1}{1+e^{-u_1}} = \dfrac{1}{1+e^{-4}} = 0.9820
+$$
+然后计算 $h_2$
+$$
+u_2 = w_{13} x_1 + w_{14} x_2 + b_2 = 0.5 \times 3 + 0.5 \times 4 + 0.5 = 4 \\
+h_2 = \sigma(u_2) =\dfrac{1}{1+e^{-u_2}} = \dfrac{1}{1+e^{-4}} = 0.9820
+$$
+接着，计算 $y$
+$$
+u_3 = w_{21} h_1 + w_{22} h_2 + b_3 = 0.5 \times 0.9820+ 0.5 \times 0.9820 + 0.5 = 1.4820 \\
+y = \sigma(u_3) =\dfrac{1}{1+e^{-u_3}} = \dfrac{1}{1+e^{-1.4820}} = 0.8149
+$$
+最后计算损失
+$$
+L = \frac{1}{2} (y - \hat{y})^2 = \frac{1}{2} (0.8149 - 0.5)^2 = 0.0496
+$$
+**2.** 计算更新后的权重，首先需要计算它们的梯度
+$$
+\frac{\partial L}{\partial w_{21}} = \frac{\partial}{\partial w_{21}} \frac{1}{2} (y - \hat{y})^2 = (y - \hat{y}) \frac{\partial y}{\partial w_{21}} \\
+\frac{\partial y}{\partial w_{21}} = \frac{\partial \sigma(u_3)}{\partial w_{21}} = \sigma(u_3)\left(1-\sigma(u_3) \right) \frac{\partial u_3}{\partial w_{21}} \\
+\frac{\partial u_3}{\partial w_{21}} = \frac{\partial }{\partial w_{21}} (w_{21} h_1 + w_{22} h_2 + b_3) = h_1 \\
+$$
+所以，
+$$
+\frac{\partial L}{\partial w_{21}} = (y - \hat{y}) \sigma(u_3)\left(1-\sigma(u_3) \right) h_1 = (0.8149 - 0.5) \times 0.8149 \times (1-0.8149) \times 0.9820 = 0.0466
+$$
+同理，我们也能算出
+$$
+\frac{\partial L}{\partial w_{11}} = \frac{\partial}{\partial w_{11}} \frac{1}{2} (y - \hat{y})^2 = (y - \hat{y}) \frac{\partial y}{\partial w_{11}} \\
+\frac{\partial y}{\partial w_{11}} = \frac{\partial \sigma(u_3)}{\partial w_{11}} = \sigma(u_3)\left(1-\sigma(u_3) \right) \frac{\partial u_3}{\partial w_{11}} \\
+\frac{\partial u_3}{\partial w_{11}} = \frac{\partial }{\partial w_{11}} (w_{21} h_1 + w_{22} h_2 + b_3) = w_{21} \frac{\partial h_1 }{\partial w_{11}} \\
+\frac{\partial h_1 }{\partial w_{11}} = \sigma(u_1) \left(1-  \sigma(u_1) \right) \frac{\partial u_1 }{\partial w_{11}} \\
+\frac{\partial u_1 }{\partial w_{11}} = \frac{\partial }{\partial w_{11}}(w_{11} x_1 + w_{12} x_2 + b_1) =  x_1
+$$
+所以，
+$$
+\begin{align*}
+\frac{\partial L}{\partial w_{11}} &= (y - \hat{y})  \sigma(u_3)\left(1-\sigma(u_3) \right) w_{21} \sigma(u_1) \left(1-  \sigma(u_1) \right) x_1 \\
+&= (0.8149 - 0.5) \times 0.8149 \times (1-0.8149) \times 0.5 \times 0.9820 \times (1-0.9820) \times 3 \\
+&= 0.0013
+\end{align*}
+$$
+因此，更新后的参数为
+$$
+w_{21} - \alpha \frac{\partial L}{\partial w_{21}} = 0.5 - 0.8 \times 0.0466 = 0.4627 \\
+w_{11} - \alpha \frac{\partial L}{\partial w_{11}} = 0.5 - 0.8 \times 0.0013 = 0.4990
+$$
+
 ## 卷积神经网络
 
 在CNN（卷积神经网络）的前向传播过程中，网络模型及其输入如下. （注意：使用 0 padding）
@@ -190,15 +263,13 @@ graph LR
 | Conv3       | 1          | $\left( \begin{bmatrix} 3 & 0 \\ -1 & 2 \end{bmatrix}, \begin{bmatrix} 2 & 0 \\ -2 & 1 \end{bmatrix} \right)$ （对于每个通道） | 1              | 1               |
 | Max Pooling | 1          | 核大小为2                                                    | 2              | 0               |
 
-(1) 写出经过 `Conv2` 后的特征图；
-
-(2) 写出经过 `LeakyReLU` 激活后的输出；
-
-(3) Softmax 函数为 $ F(x_i) = \dfrac{e^{x_i}}{\sum_{i=1}^{n} e^{x_i}} $，损失函数是 Softmax 交叉熵损失 $E(t, y) = -\sum_{j=1}^{n} t_j \log(y_j) $，期望输出（标签）是 $(1,0,0,0)$，请计算给定输入的损失. （需要计算过程）
+1. 写出经过 `Conv2` 后的特征图；
+2. 写出经过 `LeakyReLU` 激活后的输出；
+3. Softmax 函数为 $ F(x_i) = \dfrac{e^{x_i}}{\sum_{i=1}^{n} e^{x_i}} $，损失函数是 Softmax 交叉熵损失 $E(t, y) = -\sum_{j=1}^{n} t_j \log(y_j) $，期望输出（标签）是 $(1,0,0,0)$，请计算给定输入的损失. （需要计算过程）
 
 **解：**
 
-**(1)** 在 Input → Conv1 时，因为卷积核仅为一个标量，相当于矩阵数乘，所以 Conv1 的输出是
+**1.** 在 Input → Conv1 时，因为卷积核仅为一个标量，相当于矩阵数乘，所以 Conv1 的输出是
 $$
 2 \begin{bmatrix} 5 & 2 & 0 & 1 \\ 2 & 6 & 0 & 2 \\ 1 & -1 & 5 & -3 \\ 0 & 3 & -2 & 0 \end{bmatrix} = 
  \begin{bmatrix} 10 & 4 & 0 & 2 \\ 4 & 12 & 0 & 4 \\ 2 & -2 & 10 & -6 \\ 0 & 6 & -4 & 0 \end{bmatrix}
@@ -350,7 +421,7 @@ $$
 12 & 0 & 4
 \end{bmatrix}
 $$
-(2) 接着计算到 Conv3，注意到 Conv3 只有 1 个卷积核，把 $\left( \begin{bmatrix} 3 & 0 \\ -1 & 2 \end{bmatrix}, \begin{bmatrix} 2 & 0 \\ -2 & 1 \end{bmatrix} \right)$ 视为一个整体，从而对 Conv2 的输出特征图（2个，即 2 个通道）合并为 1 个. 
+**2.** 接着计算到 Conv3，注意到 Conv3 只有 1 个卷积核，把 $\left( \begin{bmatrix} 3 & 0 \\ -1 & 2 \end{bmatrix}, \begin{bmatrix} 2 & 0 \\ -2 & 1 \end{bmatrix} \right)$ 视为一个整体，从而对 Conv2 的输出特征图（2个，即 2 个通道）合并为 1 个. 
 
 还要注意，Conv3 含有 padding 1，所以上一题的输出要加 1 圈 padding，即
 $$
@@ -469,7 +540,7 @@ $$
 48 & 120 \\
 \end{bmatrix}
 $$
-(3) 根据 (2) 的结果，把它展平后得到 $(204, 34, 48, 120 )$. 
+**3.** 根据 (2) 的结果，把它展平后得到 $(204, 34, 48, 120 )$. 
 
 经过 Softmax 函数后，得到的结果是（浮点误差截断，因为指数激增）
 $$
