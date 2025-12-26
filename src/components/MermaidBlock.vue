@@ -12,7 +12,7 @@
             <span class="lang-tag">mermaid</span>
         </div>
         <pre class="code-block">
-            <div :ref="blockElement" class="mermaid">{{ code }}</div>
+            <div ref="blockElement" class="mermaid"></div>
         </pre>
     </div>
 </template>
@@ -20,23 +20,27 @@
 <script setup lang="ts">
 import { CopyDocument, Check, Picture } from '@element-plus/icons-vue'
 import { toPng } from 'html-to-image'
-import { onMounted, ref, type Ref, type VNode, type VNodeRef } from 'vue'
+import { nextTick, onMounted, ref, type Ref, type VNode, type VNodeRef } from 'vue'
 import mermaid from 'mermaid';
-const props = defineProps<{ language: string; code: string; rawHtml: any | null }>()
+const props = defineProps<{ language: string; code: string; rawHtml: any | null; id: string }>()
 const copiedCode = ref(false)
 const copiedImg = ref(false)
 const blockElement = ref()
 const copiedCodeTimer = ref<number>()
 const copiedImgTimer = ref<number>()
 
-mermaid.initialize({
-    startOnLoad: true,
-    theme: 'default',
-    securityLevel: 'loose'
-});
-
 onMounted(async () => {
-    await mermaid.run()
+    await nextTick()
+    if (!blockElement.value) return
+
+    try {
+        mermaid.initialize({ startOnLoad: false, theme: 'default' })
+        const renderId = `render-${props.id}`;
+        const { svg } = await mermaid.render(renderId, props.code.trim())
+        blockElement.value.innerHTML = svg
+    } catch (e) {
+        console.error('Mermaid rendering failure: ', e)
+    }
 })
 
 async function handleCopy() {
