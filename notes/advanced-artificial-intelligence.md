@@ -166,3 +166,318 @@ $$
 \mathrm{GainRatio}(\text{Outlook}) = \frac{\mathrm{Gain}(\text{Outlook})}{\mathrm{InitInfo}(\text{Outlook})} = \frac{0.246}{1.577} = 0.156
 $$
 然后也是找最大的增益率即可. 
+
+## 卷积神经网络
+
+在CNN（卷积神经网络）的前向传播过程中，网络模型及其输入如下. （注意：使用 0 padding）
+
+```mermaid
+graph LR
+    A[Input 4x4] --> B[Conv 1]
+    B --> X[Conv 2]
+    X --> C[Conv 3]
+    C --> D[Max Pooling]
+    D --> E[LeakyReLU]
+    E --> F[Flatten]
+```
+
+给定的输入矩阵为 $ \begin{bmatrix} 5 & 2 & 0 & 1 \\ 2 & 6 & 0 & 2 \\ 1 & -1 & 5 & -3 \\ 0 & 3 & -2 & 0 \end{bmatrix} $，$\mathrm{LeakyReLU}(x) = \begin{cases} x, &  x > 0 \\ 0.01x, &  x \leq 0 \end{cases}$.
+
+| 层（layer） | 卷积核数量 | 卷积核（kernel）                                             | 步长（stride） | 填充（padding） |
+| ----------- | ---------- | ------------------------------------------------------------ | -------------- | --------------- |
+| Conv1       | 1          | $\begin{bmatrix} 2 \end{bmatrix}$                            | 1              | 0               |
+| Conv2       | 2          | $\begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}, \begin{bmatrix} 1 & 1 \\ 0&2 \end{bmatrix}$ （对于每个输入） | 1              | 0               |
+| Conv3       | 1          | $\left( \begin{bmatrix} 3 & 0 \\ -1 & 2 \end{bmatrix}, \begin{bmatrix} 2 & 0 \\ -2 & 1 \end{bmatrix} \right)$ （对于每个通道） | 1              | 1               |
+| Max Pooling | 1          | 核大小为2                                                    | 2              | 0               |
+
+(1) 写出经过 `Conv2` 后的特征图；
+
+(2) 写出经过 `LeakyReLU` 激活后的输出；
+
+(3) Softmax 函数为 $ F(x_i) = \dfrac{e^{x_i}}{\sum_{i=1}^{n} e^{x_i}} $，损失函数是 Softmax 交叉熵损失 $E(t, y) = -\sum_{j=1}^{n} t_j \log(y_j) $，期望输出（标签）是 $(1,0,0,0)$，请计算给定输入的损失. （需要计算过程）
+
+**解：**
+
+**(1)** 在 Input → Conv1 时，因为卷积核仅为一个标量，相当于矩阵数乘，所以 Conv1 的输出是
+$$
+2 \begin{bmatrix} 5 & 2 & 0 & 1 \\ 2 & 6 & 0 & 2 \\ 1 & -1 & 5 & -3 \\ 0 & 3 & -2 & 0 \end{bmatrix} = 
+ \begin{bmatrix} 10 & 4 & 0 & 2 \\ 4 & 12 & 0 & 4 \\ 2 & -2 & 10 & -6 \\ 0 & 6 & -4 & 0 \end{bmatrix}
+$$
+Conv2 有两个卷积核，先算第一个 $\begin{bmatrix} 1 & 0 \\ 2 & 1 \end{bmatrix}$，由于没有填充，步长为1，即
+
+对于 Conv1 的输出的第一行做卷积有
+
+$$
+\begin{bmatrix}
+10 & 4 \\
+4 & 12
+\end{bmatrix}
+\odot
+\begin{bmatrix}
+1 & 0 \\
+2 & 1
+\end{bmatrix}
+=10\cdot1+4\cdot0+4\cdot2+12\cdot1=30
+$$
+
+$$
+\begin{bmatrix}
+4 & 0 \\
+12 & 0
+\end{bmatrix}
+\odot
+\begin{bmatrix}
+1 & 0 \\
+2 & 1
+\end{bmatrix}
+=4\cdot1+0\cdot0+12\cdot2+0\cdot1=28\\
+$$
+
+$$
+\begin{bmatrix}
+0 & 2 \\
+0 & 4
+\end{bmatrix}
+\odot
+\begin{bmatrix}
+1 & 0 \\
+2 & 1
+\end{bmatrix}
+=0\cdot1+2\cdot0+0\cdot2+4\cdot1=4
+$$
+
+这样 Conv2 的输出（对于此卷积核）的第 1 行元素就分别是，30，28，4. 
+
+接着同理在第二行有
+
+$$
+\begin{bmatrix}
+4 & 12 \\
+2 & -2
+\end{bmatrix}
+\odot
+\begin{bmatrix}
+1 & 0 \\
+2 & 1
+\end{bmatrix}
+=4\cdot1+12\cdot0+2\cdot2+(-2)\cdot1=6
+$$
+
+$$
+\begin{bmatrix}
+12 & 0 \\
+-2 & 10
+\end{bmatrix}
+\odot
+\begin{bmatrix}
+1 & 0 \\
+2 & 1
+\end{bmatrix}
+=12\cdot1+0\cdot0+(-2)\cdot2+10\cdot1=18
+$$
+
+$$
+\begin{bmatrix}
+0 & 4 \\
+10 & -6
+\end{bmatrix}
+\odot
+\begin{bmatrix}
+1 & 0 \\
+2 & 1
+\end{bmatrix}
+=0\cdot1+4\cdot0+10\cdot2+(-6)\cdot1=14
+$$
+
+这样 Conv2 的输出（对于此卷积核）的第 2 行元素就分别是，6，18，14. 
+
+$$
+\begin{bmatrix}
+2 & -2 \\
+0 & 6
+\end{bmatrix}
+\odot
+\begin{bmatrix}
+1 & 0 \\
+2 & 1
+\end{bmatrix}
+=2\cdot1+(-2)\cdot0+0\cdot2+6\cdot1=8
+$$
+
+$$
+\begin{bmatrix}
+-2 & 10 \\
+6 & -4
+\end{bmatrix}
+\odot
+\begin{bmatrix}
+1 & 0 \\
+2 & 1
+\end{bmatrix}
+=-2\cdot1+10\cdot0+6\cdot2+(-4)\cdot1=6
+$$
+
+$$
+\begin{bmatrix}
+10 & -6 \\
+-4 & 0
+\end{bmatrix}
+\odot
+\begin{bmatrix}
+1 & 0 \\
+2 & 1
+\end{bmatrix}
+=10\cdot1+(-6)\cdot0+(-4)\cdot2+0\cdot1=2
+$$
+
+这样 Conv2 的输出（对于此卷积核）的第 3 行元素就分别是，8，6，2. 
+
+因此对于此卷积核来说，Conv2 的输出特征图为
+
+$$
+\begin{bmatrix}
+30 & 28 & 4 \\
+6 & 18 & 14 \\
+8 & 6 & 2
+\end{bmatrix}
+$$
+
+同理，可以计算在卷积核 $\begin{bmatrix} 1 & 1 \\ 0&2 \end{bmatrix}$ 下，Conv2 的输出特征图为
+$$
+\begin{bmatrix}
+38 & 4 & 10 \\
+12 & 32 & -8 \\
+12 & 0 & 4
+\end{bmatrix}
+$$
+(2) 接着计算到 Conv3，注意到 Conv3 只有 1 个卷积核，把 $\left( \begin{bmatrix} 3 & 0 \\ -1 & 2 \end{bmatrix}, \begin{bmatrix} 2 & 0 \\ -2 & 1 \end{bmatrix} \right)$ 视为一个整体，从而对 Conv2 的输出特征图（2个，即 2 个通道）合并为 1 个. 
+
+还要注意，Conv3 含有 padding 1，所以上一题的输出要加 1 圈 padding，即
+$$
+\begin{bmatrix}
+0 & 0 &0 &0 &0 \\
+0 &30 & 28 & 4&0 \\
+0 &6 & 18 & 14&0 \\
+0 & 8 & 6 & 2&0 \\
+0 & 0 &0 &0 &0
+\end{bmatrix} \quad 
+\begin{bmatrix}
+0 & 0 &0 &0 &0 \\
+0 &38 & 4 & 10 &0\\
+0 &12 & 32 & -8 &0\\
+0 &12 & 0 & 4&0 \\
+0 & 0 &0 &0 &0
+\end{bmatrix}
+$$
+这样 Conv3 输出的第 1 行第 1 个元素就是
+$$
+\begin{bmatrix}
+0 & 0 \\
+0 & 30 \\
+\end{bmatrix} \odot 
+\begin{bmatrix} 3 & 0 \\ -1 & 2 \end{bmatrix} +
+\begin{bmatrix}
+0 & 0 \\
+0 & 38 \\
+\end{bmatrix} \odot
+\begin{bmatrix} 2 & 0 \\ -2 & 1 \end{bmatrix}
+= 98
+$$
+
+> [!TIP]
+>
+> 易错点：这与 Conv2 可不一样，因为 Conv2 是两个卷积核，作用是分离特征，但是Conv3 是 1 个卷积核，作用是合并特征. 
+
+同理，第 1 行第 2 个元素就是
+
+$$
+\begin{bmatrix}
+0 & 0 \\
+30 & 28 \\
+\end{bmatrix} \odot 
+\begin{bmatrix} 3 & 0 \\ -1 & 2 \end{bmatrix} +
+\begin{bmatrix}
+0 & 0 \\
+38 & 4 \\
+\end{bmatrix} \odot
+\begin{bmatrix} 2 & 0 \\ -2 & 1 \end{bmatrix}
+= -46
+$$
+
+剩下的就不再赘述，和之前算卷积的流程一样，这里直接给出答案
+
+$$
+\begin{bmatrix}
+98 & -46 & -18 & -24 \\
+24 & 204 & 30 & 34 \\
+28 & 22 & 120 & 16 \\
+0 & 48 & 18 & 14
+\end{bmatrix}
+$$
+
+然后，是 Max pooling 最大池化层，这里的操作和卷积很像，不过不是乘积求和，而是找到 $2 \times 2$ 范围内最大的那个，例如
+
+$$
+\max \begin{bmatrix}
+98 & -46 \\
+24 & 204 \\
+\end{bmatrix} = 204
+$$
+
+这里需要注意，最大池化层的设置为步长 2，所以从左到右跳 2 格，那么下一个元素应该是
+
+$$
+\max \begin{bmatrix}
+-18 & -24 \\
+30 & 34 \\
+\end{bmatrix} = 34
+$$
+
+下一行也要跳两格，也就是
+
+$$
+\max \begin{bmatrix}
+28 & 22 \\
+0 & 48 \\
+\end{bmatrix} = 48 
+,\quad 
+\max \begin{bmatrix}
+120 & 16 \\
+18 & 14 \\
+\end{bmatrix} = 120 
+$$
+
+这样就得到了最大池化层的输出
+
+$$
+\begin{bmatrix}
+204 & 34 \\
+48 & 120 \\
+\end{bmatrix}
+$$
+
+后面紧跟着一个非线性激活函数 LeakyReLU，即
+
+$$
+\begin{bmatrix}
+\mathrm{LeakyReLU}(204) & \mathrm{LeakyReLU}(34) \\
+\mathrm{LeakyReLU}(48) & \mathrm{LeakyReLU}(120) \\
+\end{bmatrix}
+ =
+ \begin{bmatrix}
+204 & 34 \\
+48 & 120 \\
+\end{bmatrix}
+$$
+(3) 根据 (2) 的结果，把它展平后得到 $(204, 34, 48, 120 )$. 
+
+经过 Softmax 函数后，得到的结果是（浮点误差截断，因为指数激增）
+$$
+\left( \frac{e^{204}}{e^{204} + e^{34} + e^{48} + e^{120}}, \frac{e^{34}}{e^{204} + e^{34} + e^{48} + e^{120}},
+\frac{e^{48}}{e^{204} + e^{34} + e^{48} + e^{120}}, \frac{e^{120}}{e^{204} + e^{34} + e^{48} + e^{120}}
+\right) = (1, 0, 0, 0)
+$$
+交叉熵损失函数为
+$$
+E(t, y) = -\sum_{j=1}^{n} t_j \log(y_j) = - 1 \times \log1 + 0 \log 0+ 0 \log 0+ 0 \log 0 = 0
+$$

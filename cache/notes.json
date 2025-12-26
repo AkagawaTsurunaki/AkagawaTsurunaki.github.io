@@ -1,12 +1,12 @@
 [
   {
     "id": 0,
-    "title": "高级人工智能笔记\r\n",
+    "title": "高级人工智能笔记\n",
     "tags": [
       "人工智能"
     ],
     "updatedTime": "2025-12-26 16:14",
-    "preview": "\r\n> [!NOTE]\r\n>\r\n> 作者：赤川鹤鸣_Channel | Author: AkagawaTsurunaki | All rights reserved.\r\n\r\n## 贝叶斯网络\r\n\r\n### 独立性判断\r\n\r\n如何证明 $A \\perp\\!\\!\\!\\perp B \\mid C$？\r\n\r\n把贝叶斯网络图的箭头忽略，只留下线，看成无向图. 对于从 $A$ 到 $B...",
+    "preview": "\n> [!NOTE]\n>\n> 作者：赤川鹤鸣_Channel | Author: AkagawaTsurunaki | All rights reserved.\n\n## 贝叶斯网络\n\n### 独立性判断\n\n如何证明 $A \\perp\\!\\!\\!\\perp B \\mid C$？\n\n把贝叶斯网络图的箭头忽略，只留下线，看成无向图. 对于从 $A$ 到 $B$ 的其中的一条路径，若...",
     "filePath": "notes/advanced-artificial-intelligence.md"
   },
   {
