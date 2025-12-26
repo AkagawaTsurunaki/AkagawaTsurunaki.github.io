@@ -585,3 +585,105 @@ $$
 $$
 E(t, y) = -\sum_{j=1}^{n} t_j \log(y_j) = - 1 \times \log1 + 0 \log 0+ 0 \log 0+ 0 \log 0 = 0
 $$
+
+## Transformer
+
+### 自注意力机制计算
+
+已知权重矩阵
+
+$$
+\boldsymbol{W}^{q} =
+\begin{bmatrix}
+0.1 & 0.3 & 0.7 \\
+0.5 & 0.3 & 0.2 \\
+0.2 & 0.6 & 0.4
+\end{bmatrix}
+\quad
+\boldsymbol{W}^{k} =
+\begin{bmatrix}
+0.7 & 0.2 & 0.5 \\
+0.2 & 0.3 & 0.1 \\
+0.4 & 0.6 & 0.1
+\end{bmatrix}
+\quad
+\boldsymbol{W}^{v} =
+\begin{bmatrix}
+0.1 & 0.2 & 0.4 \\
+0.3 & 0.7 & 0.2 \\
+0.1 & 0.1 & 0.9
+\end{bmatrix}
+$$
+且输入矩阵为
+
+$$
+\boldsymbol{A} = 
+\begin{bmatrix}
+\boldsymbol{a}_1 & \boldsymbol{a}_2 & \boldsymbol{a}_3 & \boldsymbol{a}_4
+\end{bmatrix}
+=
+\begin{bmatrix}
+0.7 & 0.2 & 0.1 & 0.3 \\
+0.1 & 0.4 & 0.1 & 0.5 \\
+0.3 & 0.6 & 0.7 & 0.1
+\end{bmatrix}
+$$
+基于 Transformer 的自注意力机制（不必缩放因子），算出输出矩阵 $\boldsymbol{B}$. 
+
+**解：**
+
+> [!TIP]
+>
+> 要有线性代数思想，要把矩阵看成若干个行向量的组合或列向量的组合！
+
+首先，利用公式 $\boldsymbol{Q} = \boldsymbol{W}^q \boldsymbol{A}$，$ \boldsymbol{K} = \boldsymbol{W}^k \boldsymbol{A}$，$ \boldsymbol{V} = \boldsymbol{W}^v \boldsymbol{A}$ 进行计算
+
+$$
+\boldsymbol{Q} =  \begin{bmatrix} 0.1 & 0.3 & 0.7 \\ 0.5 & 0.3 & 0.2 \\ 0.2 & 0.6 & 0.4 \end{bmatrix} \begin{bmatrix} 0.7 & 0.2 & 0.1 & 0.3 \\ 0.1 & 0.4 & 0.1 & 0.5 \\ 0.3 & 0.6 & 0.7 & 0.1 \end{bmatrix} = \begin{bmatrix} 0.31 & 0.56 & 0.53 & 0.25 \\ 0.44 & 0.34 & 0.22 & 0.32 \\ 0.32 & 0.52 & 0.36 & 0.40 \end{bmatrix} \\
+
+\boldsymbol{K} =  \begin{bmatrix} 0.7 & 0.2 & 0.5 \\ 0.2 & 0.3 & 0.1 \\ 0.4 & 0.6 & 0.1 \end{bmatrix} \begin{bmatrix} 0.7 & 0.2 & 0.1 & 0.3 \\ 0.1 & 0.4 & 0.1 & 0.5 \\ 0.3 & 0.6 & 0.7 & 0.1 \end{bmatrix} = \begin{bmatrix} 0.66 & 0.52 & 0.44 & 0.36 \\ 0.20 & 0.22 & 0.12 & 0.22 \\ 0.37 & 0.38 & 0.17 & 0.43 \end{bmatrix}\\
+
+\boldsymbol{V} =  \begin{bmatrix} 0.1 & 0.2 & 0.4 \\ 0.3 & 0.7 & 0.2 \\ 0.1 & 0.1 & 0.9 \end{bmatrix} \begin{bmatrix} 0.7 & 0.2 & 0.1 & 0.3 \\ 0.1 & 0.4 & 0.1 & 0.5 \\ 0.3 & 0.6 & 0.7 & 0.1 \end{bmatrix} = \begin{bmatrix} 0.21 & 0.34 & 0.31 & 0.17 \\ 0.34 & 0.46 & 0.24 & 0.46 \\ 0.35 & 0.60 & 0.65 & 0.17 \end{bmatrix}
+$$
+计算注意力分数矩阵
+
+$$
+\boldsymbol{S} = \boldsymbol{K}^T \boldsymbol{Q} = 
+\begin{bmatrix} 0.66 & 0.20 & 0.37 \\ 0.52 & 0.22 & 0.38 \\ 0.44 & 0.12 & 0.17 \\ 0.36 & 0.22 & 0.43 \end{bmatrix} \begin{bmatrix} 0.31 & 0.56 & 0.53 & 0.25 \\ 0.44 & 0.34 & 0.22 & 0.32 \\ 0.32 & 0.52 & 0.36 & 0.40 \end{bmatrix} =
+\begin{bmatrix} 
+0.411 & 0.630 & 0.527 & 0.377 \\ 
+0.3796 & 0.5636 & 0.4608 & 0.3524 \\ 
+0.2436 & 0.3756 & 0.3208 & 0.2164 \\ 
+0.346 & 0.5 & 0.394 & 0.3324 \end{bmatrix}
+$$
+然后对矩阵每一列进行 softmax，得
+$$
+\mathrm{softmax}(\boldsymbol{S}) = 
+\begin{bmatrix}  
+0.2665 & 0.2786& 0.2759& 0.2643 \\
+       0.2583& 0.2607& 0.2582& 0.2579 \\
+       0.2254& 0.2160& 0.2244& 0.2251 \\
+       0.2498& 0.2446& 0.2415& 0.2528 \\
+\end{bmatrix}
+$$
+最后，输出矩阵
+$$
+\begin{align*}
+\boldsymbol{B} &= \boldsymbol{V} \mathrm{softmax}(\boldsymbol{S}) \\
+&=
+\begin{bmatrix} 0.21 & 0.34 & 0.31 & 0.17 \\ 0.34 & 0.46 & 0.24 & 0.46 \\ 0.35 & 0.60 & 0.65 & 0.17 \end{bmatrix}
+\begin{bmatrix}  
+0.2665 & 0.2786& 0.2759& 0.2643 \\
+       0.2583& 0.2607& 0.2582& 0.2579 \\
+       0.2254& 0.2160& 0.2244& 0.2251 \\
+       0.2498& 0.2446& 0.2415& 0.2528 \\
+\end{bmatrix}
+\\
+&=
+\begin{bmatrix} 
+0.2561 & 0.2557 & 0.2563 & 0.2559 \\
+       0.3784 & 0.3790 & 0.3775 & 0.3788 \\
+       0.4372 & 0.4360 & 0.4384 & 0.4365
+       \end{bmatrix}
+\end{align*}
+$$
