@@ -6,7 +6,7 @@
       "人工智能"
     ],
     "updatedTime": "2025-12-26 16:14",
-    "preview": "\n> [!NOTE]\n>\n> 作者：赤川鹤鸣_Channel | Author: AkagawaTsurunaki | All rights reserved.\n\n## 贝叶斯网络\n\n### 参数量计算\n\n求该贝叶斯网络的参数量. \n\n```mermaid\ngraph TD\n\tA((A)) --> B((B))\n\tA --> C((C))\n\tB --> D((D))\n\tC -...",
+    "preview": "\n> [!NOTE]\n>\n> 作者：赤川鹤鸣_Channel | Author: AkagawaTsurunaki | All rights reserved.\n>\n> 本笔记适用于 2025 级《高级人工智能》考试，内容涵盖：贝叶斯网络、决策树、全连接网络、卷积神经网络和 Transformer 的相关笔记、真题和模拟题. \n\n## 贝叶斯网络\n\n### 参数量计算\n\n求该...",
     "filePath": "notes/advanced-artificial-intelligence.md"
   },
   {
