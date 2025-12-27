@@ -582,6 +582,81 @@ $$
 
 ## 卷积神经网络
 
+**【2023-2024 真题】** 一个卷积神经网络如下所示，输入图像的大小为 $6\times 6$：
+
+```mermaid
+graph LR
+    A[Input 6x6] --> B[Convolution]
+    B --> C[Max Pooling]
+    C --> D[Flatten]
+    D --> E[Fully Connected]
+    E --> F[Output]
+```
+
+$$
+\text{输入}=\begin{bmatrix}
+0 & 1 & 1 & 0 & 1 & 0 \\
+1 & 0 & 0 & 1 & 1 & 0 \\
+0 & 1 & 0 & 0 & 1 & 1 \\
+1 & 0 & 1 & 1 & 0 & 0 \\
+0 & 1 & 1 & 0 & 0 & 1 \\
+1 & 0 & 0 & 1 & 0 & 1 \\
+\end{bmatrix}, \quad 
+\text{卷积核}=\begin{bmatrix}
+1 & 0 \\
+0 & 1 \\
+\end{bmatrix}, \quad
+\text{全连接层权重}=
+\begin{bmatrix}
+1 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 1 & 0 \\
+\end{bmatrix}
+$$
+
+
+1. 写出通过第一个卷积层的特征图（步长=$1$，填充=$0$）；
+
+2. 写出最大池化层的输出（核大小=$2\times 2$，步长=$2$，填充=$0$）；
+
+3. 考虑一个三类分类任务，标记为 $0$、$1$ 和 $2$. 给定一个输入图像，模型的输出概率分布为 $[0.1, 0.6, 0.3]$. 计算当实际输出标签为类别 $2$ 时的交叉熵损失. 
+
+提示：交叉熵损失 $ \mathrm{CEL} = -\sum_{i=1}^{C} t_i \cdot \log(y_i)$，其中 $t_i$ 是实际标签对应的类别概率值，$y_i$ 是模型预测的对应类别概率值. 
+
+$\log(10)=2.3026, \log(5)=1.6094, \log(3)=1.0986, \log(2)=0.6931$. 
+
+> [!tip]
+>
+> 本题详细解答略，但是具体答题步骤可以参考下面的其他年份的真题. 
+
+**解：**
+
+**1.** Conv 层的输出
+
+$$
+\begin{bmatrix}
+0 & 1 & 2 & 1 & 1 \\
+2 & 0 & 0 & 2 & 2 \\
+0 & 2 & 1 & 0 & 1 \\
+2 & 1 & 1 & 1 & 1 \\
+0 & 1 & 2 & 0 & 1
+\end{bmatrix}
+$$
+
+**2.** 最大池化层的输出
+
+$$
+\begin{bmatrix}
+2 & 2 \\
+2 & 1 \\
+\end{bmatrix}
+$$
+
+**3.** 损失函数
+$$
+\mathrm{CEL} = -0 \times \log {0.1} - 0 \times \log {0.6} - 1 \times -\log 0.3 = \log 0.3 = -\log \frac{3}{10} = \log10 -\log3 = 1.2040
+$$
+
 **【2021-2022 真题】** 在CNN（卷积神经网络）的前向传播过程中，网络模型及其输入如下. （注意：使用 0 padding）
 
 ```mermaid
@@ -1292,4 +1367,105 @@ $$
        0.4372 & 0.4360 & 0.4384 & 0.4365
        \end{bmatrix}
 \end{align*}
+$$
+
+**【2023-2024 真题】** 以下是自注意力机制的示意图计算方法. 请回答以下问题. 
+
+<img src="/images/self-attention-calc-diagram.png" width="500">
+
+$$
+\boldsymbol{W}^q = \begin{bmatrix}
+1 & 2 & 1 \\
+3 & 0 & 2 \\
+2 & 1 & 2
+\end{bmatrix},\quad
+\boldsymbol{W}^k = \begin{bmatrix}
+2 & 2 & 2 \\
+1 & 2 & 3 \\
+2 & 1 & 0
+\end{bmatrix}, \quad
+\boldsymbol{W}^v = \begin{bmatrix}
+1 & 2 & 1 \\
+2 & 1 & 1 \\
+2 & 2 & 3
+\end{bmatrix} \\
+\boldsymbol{a}^1 = [1,2,2]^T, \boldsymbol{a}^2 = [1,2,1]^T, \boldsymbol{a}^3 = [2,2,1]^T
+$$
+
+请计算 $ b^1 $，并展示计算过程. 
+
+**解：**
+
+先计算出 Query 向量
+$$
+\boldsymbol{q}^1 = \boldsymbol{W}^q \boldsymbol{a}^1 = \begin{bmatrix}
+1 & 2 & 1 \\
+3 & 0 & 2 \\
+2 & 1 & 2
+\end{bmatrix} 
+\begin{bmatrix}
+1 \\ 2 \\ 2 
+\end{bmatrix}
+= \begin{bmatrix}
+7 \\ 7 \\ 8 
+\end{bmatrix}
+$$
+再计算出 Key 和 Value 矩阵
+$$
+\boldsymbol{K} = \boldsymbol{W}^{k} \boldsymbol{A} = \begin{bmatrix}
+2 & 2 & 2 \\
+1 & 2 & 3 \\
+2 & 1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+1 & 2 & 2 \\
+1 & 2 & 1 \\
+2 & 2 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+10 & 8 & 10 \\
+11 & 8 & 9 \\
+4 & 4 & 6
+\end{bmatrix} \\
+
+\boldsymbol{V} = \boldsymbol{W}^{v} \boldsymbol{A} = \begin{bmatrix}
+1 & 2 & 1 \\
+2 & 1 & 1 \\
+2 & 2 & 3
+\end{bmatrix}  \begin{bmatrix}
+1 & 2 & 2 \\
+1 & 2 & 1 \\
+2 & 2 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+7 & 6 & 7 \\
+6 & 5 & 7 \\
+12 & 9 & 11
+\end{bmatrix}
+$$
+计算注意力分数
+$$
+a_{1,1} = \langle \boldsymbol{q}^{1}, \boldsymbol{k}^{1} \rangle = (7, 7, 8 ) \cdot (10, 11, 4) = 179 \\
+a_{1,2} = \langle \boldsymbol{q}^{1}, \boldsymbol{k}^{2} \rangle = (7, 7, 8 ) \cdot (8, 8, 4) = 144 \\
+a_{1,3} = \langle \boldsymbol{q}^{1}, \boldsymbol{k}^{3} \rangle = (7, 7, 8 ) \cdot (10, 9, 6) = 179
+$$
+经过 Softmax 计算
+$$
+a'_{1,1} = \frac{e^{179}}{e^{179} + e^{144} + e^{181}} = 0.1192 \\
+a'_{1,2} = \frac{e^{144}}{e^{179} + e^{144} + e^{181}} = 7.51\times 10^{-17} \approx 0 \\
+a'_{1,3} = \frac{e^{181}}{e^{179} + e^{144} + e^{181}} = 0.8808
+$$
+最后
+$$
+\boldsymbol{b}^{1} = \boldsymbol{V} (a'_{1,1}, a'_{1,2}, a'_{1,3})^T = \begin{bmatrix}
+7 & 6 & 7 \\
+6 & 5 & 7 \\
+12 & 9 & 11
+\end{bmatrix}
+\begin{bmatrix}
+0.1192 \\ 0 \\ 0.8808
+\end{bmatrix}
+= \begin{bmatrix}
+7 \\ 6.8808 \\ 11.119
+\end{bmatrix}
 $$
