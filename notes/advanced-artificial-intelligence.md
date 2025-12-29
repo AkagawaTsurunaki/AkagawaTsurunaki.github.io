@@ -415,10 +415,12 @@ graph TD;
 
 ### C4.5 决策树
 
-与上面的类似，但是利用增益率来计算，以 Outlook 为例，可能的取值是 Sunny、Overcast、Rainy. 
+与上面的类似，但是利用增益率来计算，以真题中的 Weather 为例，可能的取值是 Sunny、Rainy. 
 $$
-\mathrm{InitInfo}(\text{Outlook}) = -\frac{5}{14} \log_2 \frac{5}{14} -\frac{4}{14} \log_2 \frac{4}{14} = 1.577 \\
-\mathrm{GainRatio}(\text{Outlook}) = \frac{\mathrm{Gain}(\text{Outlook})}{\mathrm{InitInfo}(\text{Outlook})} = \frac{0.246}{1.577} = 0.156
+\text{SplitInfo}(\text{Weather}) = - \frac{5}{11} \log_2 \frac{5}{11} - \frac{6}{11} \log_2 \frac{6}{11} = 0.99
+\\
+\text{GainRatio}(\text{Weather}) = \frac{\text{Gain}(\text{Weather})}{\text{SplitInfo}(\text{Weather})}
+= \frac{0.09}{0.99} = 0.091
 $$
 然后也是找最大的增益率即可. 
 
@@ -1372,7 +1374,6 @@ $$
 **【2023-2024 真题】** 以下是自注意力机制的示意图计算方法. 请回答以下问题. 
 
 <img src="/images/self-attention-calc-diagram.png" width="500">
-
 $$
 \boldsymbol{W}^q = \begin{bmatrix}
 1 & 2 & 1 \\
@@ -1447,7 +1448,7 @@ $$
 $$
 a_{1,1} = \langle \boldsymbol{q}^{1}, \boldsymbol{k}^{1} \rangle = (7, 7, 8 ) \cdot (10, 11, 4) = 179 \\
 a_{1,2} = \langle \boldsymbol{q}^{1}, \boldsymbol{k}^{2} \rangle = (7, 7, 8 ) \cdot (8, 8, 4) = 144 \\
-a_{1,3} = \langle \boldsymbol{q}^{1}, \boldsymbol{k}^{3} \rangle = (7, 7, 8 ) \cdot (10, 9, 6) = 179
+a_{1,3} = \langle \boldsymbol{q}^{1}, \boldsymbol{k}^{3} \rangle = (7, 7, 8 ) \cdot (10, 9, 6) = 181
 $$
 经过 Softmax 计算
 $$
