@@ -2,6 +2,7 @@ import { projectConfig } from '../config'
 
 export function withTiming<F extends (...args: any[]) => any>(
   fn: F,
+  fnname: string | undefined = undefined,
   debug: boolean = projectConfig.debug && projectConfig.performance.withTiming,
 ): F {
   if (!debug) return fn
@@ -13,12 +14,12 @@ export function withTiming<F extends (...args: any[]) => any>(
     if (result instanceof Promise) {
       return result.then((data: any) => {
         const end = performance.now()
-        console.log(`${fn.name || 'Function'} used ${(end - start).toFixed(3)}ms`)
+        console.log(`${fn.name || fnname || 'Function'} used ${(end - start).toFixed(3)}ms`)
         return data
       }) as ReturnType<F>
     } else {
       const end = performance.now()
-      console.log(`${fn.name || 'Function'} used ${(end - start).toFixed(3)}ms`)
+      console.log(`${fn.name || fnname || 'Function'} used ${(end - start).toFixed(3)}ms`)
       return result
     }
   } as F

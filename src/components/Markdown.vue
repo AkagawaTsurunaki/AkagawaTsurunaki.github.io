@@ -5,6 +5,7 @@ import { renderMarkdown } from '@/scripts/render/markdownRender';
 import MarkdownSkeleton from '@/components/MarkdownSkeleton.vue'
 import TableOfContents from './TableOfContents.vue';
 import { Header } from '../scripts/data';
+import { withTiming } from '@/scripts/diagnose/withTiming';
 
 const headers = ref<Header[]>([])
 
@@ -20,7 +21,7 @@ const loaded = ref<boolean>()
 
 onMounted(async () => {
   loaded.value = false
-  const info = await renderMarkdown(props.mdText);
+  const info = await withTiming(async () => {return await renderMarkdown(props.mdText)}, "md-renderer")();
   nodes.value = info.nodes
   headers.value = info.toc
   loaded.value = true
