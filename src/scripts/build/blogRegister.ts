@@ -1,6 +1,11 @@
 export function getBlogItemList() {
   return [
     {
+      mdFilePath: 'blogs/math-proof/supplementary-proofs-for-some-theorems-in-lejepa.md',
+      tags: ['数学', '矩阵论', '微积分'],
+      time: '2026-04-02 16:45',
+    },
+    {
       mdFilePath: 'blogs/ai-methods/derivation-of-s4.md',
       tags: ['数学', '微分方程'],
       time: '2025-12-16 15:59',
