@@ -1,6 +1,18 @@
 [
   {
     "id": 0,
+    "title": "LeJEPA 中一些证明的补充\r\n",
+    "tags": [
+      "数学",
+      "矩阵论",
+      "微积分"
+    ],
+    "updatedTime": "2026-04-02 16:45",
+    "preview": "\r\n## B.3 Proof of lemma.4\r\n\r\n这个证明的总体思路是，要求出 $\\hat{\\eta}(x)$ 与真实 $\\eta(x)$ 之间的误差，在概率论中哦我们通常使用某个统计量的期望与该统计量实际值之差作为评判标准，即需要求出\r\n$$\r\n\\mathbb{E}[\\hat{\\eta}(x)] - \\eta(x)\r\n$$\r\n只要抓住这一点，就知道为...",
+    "filePath": "blogs/math-proof/supplementary-proofs-for-some-theorems-in-lejepa.md"
+  },
+  {
+    "id": 1,
     "title": "S4 部分公式推导与详解\n",
     "tags": [
       "数学",
@@ -11,7 +23,7 @@
     "filePath": "blogs/ai-methods/derivation-of-s4.md"
   },
   {
-    "id": 1,
+    "id": 2,
     "title": "Re0: 线性常系数微分方程的通解推导\r\n",
     "tags": [
       "数学",
@@ -22,7 +34,7 @@
     "filePath": "blogs/math-proof/deriving-lti-state-space-solution-from-scratch.md"
   },
   {
-    "id": 2,
+    "id": 3,
     "title": "Reproduction of Mamba1 and Mamba2\r\n",
     "tags": [
       "人工智能",
@@ -33,7 +45,7 @@
     "filePath": "blogs/ai-methods/mamba-reproduction.md"
   },
   {
-    "id": 3,
+    "id": 4,
     "title": "Unity 6 如何正常导入 MMD 模型？Material/Shader 异常\r\n",
     "tags": [
       "解决方案"
@@ -43,7 +55,7 @@
     "filePath": "blogs/solutions/mmd-unity-solution.md"
   },
   {
-    "id": 4,
+    "id": 5,
     "title": "「MikuMikuDance 无法运行：应用程序的并行配置不正确」解决方案\n",
     "tags": [
       "解决方案"
@@ -53,7 +65,7 @@
     "filePath": "blogs/solutions/mikumikudance-wont-run-parallel-configuration-incorrect-solution.md"
   },
   {
-    "id": 5,
+    "id": 6,
     "title": "如何在Windows上通过VNC远程桌面连接到Ubuntu主机？\r\n",
     "tags": [
       "解决方案"
@@ -63,7 +75,7 @@
     "filePath": "blogs/solutions/win2ubuntu-vnc.md"
   },
   {
-    "id": 6,
+    "id": 7,
     "title": "解决VS Code中Python无法自动导入某些模块、符号的问题\r\n",
     "tags": [
       "解决方案"
@@ -73,7 +85,7 @@
     "filePath": "blogs/solutions/solve-python-auto-import-issues-in-vscode.md"
   },
   {
-    "id": 7,
+    "id": 8,
     "title": "$\\bar{X}$ 与 $X_i - \\bar{X}$ 的联合概率密度函数\r\n",
     "tags": [
       "数学"
@@ -83,7 +95,7 @@
     "filePath": "blogs/math-proof/joint-pdf-of-x-bar-and-x-i-minus-x-bar.md"
   },
   {
-    "id": 8,
+    "id": 9,
     "title": "离散情况下的贝叶斯估计量求解\r\n",
     "tags": [
       "数学"
@@ -93,7 +105,7 @@
     "filePath": "blogs/math-proof/discrete-bayesian-estimator-solution.md"
   },
   {
-    "id": 9,
+    "id": 10,
     "title": "P.0.10 数学归纳法于多项式证明\n",
     "tags": [
       "数学"
@@ -103,7 +115,7 @@
     "filePath": "blogs/math-proof/p.0.10-mathematical-induction-in-polynomial-proof.md"
   },
   {
-    "id": 10,
+    "id": 11,
     "title": "Scaled Dot-Product Attention 的公式中为什么要除以 $\\sqrt{d_k}$？\n",
     "tags": [
       "数学"
@@ -113,7 +125,7 @@
     "filePath": "blogs/math-proof/why-scaled-dot-product-attention-formula-divide-by-sqrt-dk.md"
   },
   {
-    "id": 11,
+    "id": 12,
     "title": "为什么“总体方差 ≠ 偏样本方差”？\r\n",
     "tags": [
       "数学"
@@ -123,7 +135,7 @@
     "filePath": "blogs/math-proof/why-population-variance-not-equal-biased-sample-variance.md"
   },
   {
-    "id": 12,
+    "id": 13,
     "title": "球坐标下的 Laplace 算子推导\n",
     "tags": [
       "数学"
@@ -133,7 +145,7 @@
     "filePath": "blogs/math-proof/derivation-of-laplace-operator-in-spherical-coordinates.md"
   },
   {
-    "id": 13,
+    "id": 14,
     "title": "球谐函数公式推导\r\n",
     "tags": [
       "数学"
@@ -143,7 +155,7 @@
     "filePath": "blogs/math-proof/derivation-of-spherical-harmonics.md"
   },
   {
-    "id": 14,
+    "id": 15,
     "title": "神经辐射场 NeRF 相关公式推导\r\n",
     "tags": [
       "数学",
@@ -155,7 +167,7 @@
     "filePath": "blogs/math-proof/derivation-of-nerf-formula.md"
   },
   {
-    "id": 15,
+    "id": 16,
     "title": "Hodgkin-Huxley Model 完全推导\r\n",
     "tags": [
       "人工智能"
@@ -165,7 +177,7 @@
     "filePath": "blogs/ai-methods/derivation-of-hodgkin-huxley-model.md"
   },
   {
-    "id": 16,
+    "id": 17,
     "title": "Hopfield 神经网络中能量函数的含义及其变化值 $\\Delta E \\leq 0$ 的证明\r\n",
     "tags": [
       "数学",
@@ -176,7 +188,7 @@
     "filePath": "blogs/math-proof/meaning-of-energy-function-in-hopfield-neural-network-and-proof-of-delta-e-leq-0.md"
   },
   {
-    "id": 17,
+    "id": 18,
     "title": "人工神经网络之竞争型学习\r\n",
     "tags": [
       "人工智能"
@@ -186,7 +198,7 @@
     "filePath": "blogs/ai-methods/competitive-learning-in-artificial-neural-networks.md"
   },
   {
-    "id": 18,
+    "id": 19,
     "title": "《神经元网络时空行为的动力学研究》绪论 读书笔记\r\n",
     "tags": [
       "人工智能"
