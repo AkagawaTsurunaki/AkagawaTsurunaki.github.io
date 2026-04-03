@@ -36,7 +36,7 @@ $$
 
 > [!TIP]
 >
-> 本体需要先将已知函数表达为积分式，然后使用莱布尼兹公式对其求导化简，最后得出结论. 该题较为考验学生的微积分基本功和代数变形技巧，对于大部分考生来说难度较高，建议在考场上先放弃这类证明题. 
+> 本题需要先将已知函数表达为积分式，然后使用莱布尼兹公式对其求导化简，最后得出结论. 该题较为考验学生的微积分基本功和代数变形技巧，对于大部分考生来说难度较高，建议在考场上先放弃这类证明题. 
 
 首先将目标函数写成积分形式
 
@@ -61,7 +61,7 @@ $$
 $$
 \begin{align*}
 f'(\theta) &= \int_{-\infty}^{\theta}p(x)\,\mathrm{d}x -0 + 0 -\int_{\theta}^{+\infty}p(x)\,\mathrm{d}x \\
-&= \int_{-\infty}^{\theta}p(x)\,\mathrm{d}x + \int_{\theta}^{+\infty}p(x)\,\mathrm{d}x
+&= \int_{-\infty}^{\theta}p(x)\,\mathrm{d}x - \int_{\theta}^{+\infty}p(x)\,\mathrm{d}x
 \end{align*}
 $$
 
@@ -125,7 +125,7 @@ $$
 
 给定概率密度函数
 $$
-f(x) = \dfrac{3x^2}{\theta^2} \quad  0 < x< \theta
+f(x) = \dfrac{3x^2}{\theta^3} \quad  0 < x< \theta
 $$
 
 1. 求出参数 $\theta$ 的矩估计 $\hat{\theta}$，并判断它是否为无偏估计. 
@@ -234,7 +234,7 @@ $$
 \frac{(n_1 - 1)S_1^2}{\sigma^2} \sim \chi^2(n_1-1), \quad \frac{(n_2 -1) S_2^2}{\sigma^2} \sim \chi^2(n_2-1)
 $$
 
-根据卡方分布的可见加，可得枢轴量
+根据卡方分布的可加性，可得枢轴量
 
 $$
 K^2 := \frac{(n_1 - 1)S_1^2}{\sigma^2} + \frac{(n_2 - 1)S_2^2}{\sigma^2}  \sim \chi^2(n_1+n_2-2)
@@ -372,7 +372,7 @@ $$
 
 一元回归模型，求解下列问题的检验水平为 $\alpha$ 的拒绝域
 
-1. $\beta_0$ 的假设检验问题
+1. $\beta_1$ 的假设检验问题
 
 $$
 H_0: \beta_1 = 1, \quad H_1: \beta_1 < 1
