@@ -109,6 +109,11 @@ export function getBlogItemList() {
 export function getNoteItemList() {
   return [
     {
+      mdFilePath: 'notes/fundamentals-of-calculus-of-variations-notes.md',
+      tags: ['数学'],
+      time: '2026-06-03 22:30',
+    },
+    {
       mdFilePath: 'notes/advanced-artificial-intelligence.md',
       tags: ['人工智能'],
       time: '2025-12-26 16:14',
