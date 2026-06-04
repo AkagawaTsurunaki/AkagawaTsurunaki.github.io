@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Header } from '../scripts/data';
-import { ref, watch } from 'vue';
+import { watch, inject, nextTick, shallowRef } from 'vue';
 import { markedInstance } from '@/scripts/render/markdownRender';
 
 const props = defineProps<{
     headers: Array<Header>
 }>()
 
-const headingHtmlMap = ref<Map<string, string>>(new Map())
+const headingHtmlMap = shallowRef<Map<string, string>>(new Map())
 
 async function renderAll() {
     headingHtmlMap.value.clear()
@@ -16,25 +16,63 @@ async function renderAll() {
         html: await markedInstance.parse(h.text)
     }))
     const list = await Promise.all(tasks)
-    list.forEach(({ id, html }) => headingHtmlMap.value.set(id, html))
+    const newMap = new Map<string, string>()
+    list.forEach(({ id, html }) => newMap.set(id, html))
+    headingHtmlMap.value = newMap
 }
 watch(() => props.headers, renderAll, { immediate: true })
 
 
+const ensureChunkVisible = inject('ensureChunkVisible') as ((id: string) => void) | undefined
+const getIsAccurate = inject('getIsAccurate') as ((id: string) => boolean) | undefined
+
 function jump(id: string) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    const onScrollEnd = () => {
-        el.classList.add('highlight');
-        const removeHighlight = () => {
-            el.classList.remove('highlight');
-            document.removeEventListener('scroll', removeHighlight);
-        };
-        document.addEventListener('scroll', removeHighlight, { once: true });
-    };
-    document.addEventListener('scrollend', onScrollEnd, { once: true });
-    setTimeout(onScrollEnd, 1000);
+    ensureChunkVisible?.(id)
+
+    let attempts = 0
+    const MAX_ATTEMPTS = 25
+    const VIEW_ERR = 80
+
+    const tryScroll = () => {
+        const el = document.getElementById(id)
+        if (!el) {
+            if (attempts++ < MAX_ATTEMPTS) {
+                requestAnimationFrame(tryScroll)
+                return
+            }
+            return
+        }
+
+        const isAccurate = getIsAccurate?.(id) ?? false
+
+        // The height of the target element is known, then just scroll into the view smoothly.
+        // Otherwise, just scroll immediately with calculating the height of the targte element.
+        if (isAccurate) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            highlight(el)
+        } else {
+            const elNow = document.getElementById(id)
+            if (!elNow) return
+            const rect = elNow.getBoundingClientRect()
+            const viewportCenter = window.innerHeight / 2
+
+            // VIEW_ERR is the error between current postion and target position
+            if (Math.abs(rect.top - viewportCenter) > VIEW_ERR) {
+                elNow.scrollIntoView({ behavior: 'auto', block: 'center' })
+            }
+
+            highlight(elNow)
+        }
+    }
+
+    nextTick(() => {
+        requestAnimationFrame(tryScroll)
+    })
+}
+
+function highlight(el: HTMLElement) {
+    el.classList.add('highlight')
+    setTimeout(() => el.classList.remove('highlight'), 2000)
 }
 </script>
 

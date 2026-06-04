@@ -38,5 +38,6 @@ export class MarkdownDto {
   constructor(
     public nodes: VNode[],
     public toc: Array<Header>,
+    public headingNodeIndices: number[] = [],
   ) {}
 }

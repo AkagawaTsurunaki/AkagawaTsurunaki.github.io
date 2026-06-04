@@ -26,6 +26,9 @@ export async function renderMarkdown(
 
   const vNodes: VNode[] = []
   let headerNum = 1
+  // Chunked loading based on heading. Indices indicate where is a heading.
+  const headingNodeIndices: number[] = []
+
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i]
     if (token) {
@@ -78,6 +81,7 @@ export async function renderMarkdown(
         const id = `${slugify(token.text)} ${headerNum++}`
         let html = await markedInstance.parse(token.raw)
         html = html.substring(4, html.length - 6)
+        headingNodeIndices.push(vNodes.length)
         vNodes.push(
           h(`h${token.depth}`, {
             id: id,
@@ -121,7 +125,7 @@ export async function renderMarkdown(
       }
     }
   }
-  return new MarkdownDto(vNodes, headers)
+  return new MarkdownDto(vNodes, headers, headingNodeIndices)
 }
 
 export function highlightCode(code: string, lang?: string) {
