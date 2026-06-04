@@ -1,3 +1,14 @@
+/* 全局样式，非 scoped，确保覆盖 */
+.markdown-body > * {
+  content-visibility: auto;
+  contain: layout paint;
+}
+
+/* KaTeX 内部必须保持 visible，否则公式字体会被截断/不渲染 */
+.markdown-body .katex {
+  content-visibility: visible;
+}
+
 .markdown-body {
   display: flex;
   flex-direction: column;

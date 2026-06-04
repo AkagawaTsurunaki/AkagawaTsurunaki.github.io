@@ -7,7 +7,9 @@ import 'katex/dist/katex.css'
 import type { TokenizerAndRendererExtension } from 'marked'
 import type { MarkedExtension } from 'marked'
 
-export default function (options: KatexOptions = { throwOnError: false }): MarkedExtension {
+export default function (
+  options: KatexOptions = { throwOnError: false, output: 'mathml' },
+): MarkedExtension {
   return {
     extensions: [inlineKatex(options), blockKatex(options)],
   }
