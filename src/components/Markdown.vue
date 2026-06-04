@@ -30,11 +30,9 @@ onMounted(async () => {
 
   nodes.value = info.nodes
   headers.value = info.toc
-  console.log(`[诊断] VNode 总数: ${nodes.value.length}`)
 
   await renderInBatches()
   loaded.value = true
-  console.log('[诊断] 分帧渲染结束')
 })
 
 function renderInBatches(): Promise<void> {
@@ -56,14 +54,9 @@ function renderInBatches(): Promise<void> {
         firstBatchReady.value = true
       }
 
-      // 读取真实 DOM 数量
-      const domCount = document.querySelectorAll('.markdown-body > *').length
-      console.log(`[诊断] 第 ${frame} 帧: 挂载节点 ${idx - batch.length}~${idx}, 真实 DOM 块数: ${domCount}`)
-
       if (idx < total) {
         requestAnimationFrame(step)
       } else {
-        console.log(`[诊断] 共 ${frame} 帧`)
         resolve()
       }
     }
