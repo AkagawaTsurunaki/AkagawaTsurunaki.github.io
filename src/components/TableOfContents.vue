@@ -24,7 +24,7 @@ watch(() => props.headers, renderAll, { immediate: true })
 function jump(id: string) {
     const el = document.getElementById(id);
     if (!el) return;
-    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.scrollIntoView({ behavior: 'auto', block: 'center' });
     const onScrollEnd = () => {
         el.classList.add('highlight');
         const removeHighlight = () => {
