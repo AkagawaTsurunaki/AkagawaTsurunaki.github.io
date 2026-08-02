@@ -1,12 +1,12 @@
 [
   {
     "id": 0,
-    "title": "变分法笔记\r\n",
+    "title": "变分法笔记\n",
     "tags": [
       "数学"
     ],
     "updatedTime": "2026-06-03 22:30",
-    "preview": "\r\n> [!NOTE]\r\n>\r\n> 作者：赤川鹤鸣\\_Channel | Author: AkagawaTsurunaki | All rights reserved.\r\n>\r\n> 本笔记的内容来自老大中编著的《变分法》第2版. 第一章预备知识与第九章力学中的变分原理及其应用不在本笔记的范畴内.\r\n>\r\n> 本笔记已经修正了大多数原教材中出现的笔误，但仍然可能有错误，请注意自行甄...",
+    "preview": "\n> [!NOTE]\n>\n> 作者：赤川鹤鸣\\_Channel | Author: AkagawaTsurunaki | All rights reserved.\n>\n> 本笔记的内容来自老大中编著的《变分法》第2版. 第一章预备知识与第九章力学中的变分原理及其应用不在本笔记的范畴内.\n>\n> 本笔记已经修正了大多数原教材中出现的笔误，但仍然可能有错误，请注意自行甄别.\n\n## 2...",
     "filePath": "notes/fundamentals-of-calculus-of-variations-notes.md"
   },
   {
