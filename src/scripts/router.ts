@@ -4,6 +4,7 @@ import Blog from '@/views/Blog.vue'
 import Home from '@/views/Home.vue'
 import NoteList from '@/views/NoteList.vue'
 import Ohno from '@/views/Ohno.vue'
+import PanicReport from '@/views/bonus/PanicReport.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home },
@@ -11,7 +12,9 @@ const routes = [
   { path: '/blogs/:filePath(.*)', name: 'blogDetail', component: Blog },
   { path: '/notes', name: 'notes', component: NoteList },
   { path: '/notes/:filePath(.*)', name: 'notesDetail', component: Blog },
+  // 彩蛋
   { path: '/ohno/mamiheyiwei', name: 'ohno', component: Ohno },
+  { path: '/bonus/try-catch-exception/panic_report', name: 'panicReport', component: PanicReport },
 ]
 
 const router = createRouter({
