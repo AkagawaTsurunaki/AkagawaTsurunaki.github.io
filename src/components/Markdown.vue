@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, shallowRef, nextTick, provide } from 'vue';
+import { onMounted, ref, shallowRef, nextTick, provide, type CSSProperties } from 'vue';
 import { renderMarkdown } from '@/scripts/render/markdownRender';
 import MarkdownSkeleton from '@/components/MarkdownSkeleton.vue'
 import TableOfContents from './TableOfContents.vue';
@@ -105,7 +105,7 @@ function recordHeight(el: HTMLElement | null, index: number) {
   }
 }
 
-function getPlaceholderStyle(index: number) {
+function getPlaceholderStyle(index: number): CSSProperties {
   const h = chunkHeights.value[index]
   return {
     height: h ? `${h}px` : '300px',
