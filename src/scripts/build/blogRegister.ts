@@ -1,6 +1,11 @@
 export function getBlogItemList() {
   return [
     {
+      mdFilePath: 'blogs/reproductions/spatial-mllm-reproduction.md',
+      tags: ['人工智能', '论文复现'],
+      time: '2026-09-01 09:20',
+    },
+    {
       mdFilePath: 'blogs/math-proof/supplementary-proofs-for-some-theorems-in-lejepa.md',
       tags: ['数学', '矩阵论', '微积分'],
       time: '2026-04-02 16:45',
@@ -16,7 +21,7 @@ export function getBlogItemList() {
       time: '2025-12-08 13:56',
     },
     {
-      mdFilePath: 'blogs/ai-methods/mamba-reproduction.md',
+      mdFilePath: 'blogs/reproductions/mamba-reproduction.md',
       tags: ['人工智能', '论文复现'],
       time: '2025-11-04 18:52',
     },

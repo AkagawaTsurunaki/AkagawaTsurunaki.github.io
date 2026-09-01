@@ -468,5 +468,5 @@ dependencies:
       - zstandard==0.25.0
 ```
 
-If you have any questions, contact with me through AkagawaTsurunaki@outlook.com. 
+If you have any questions, contact me through AkagawaTsurunaki@outlook.com. 
 
