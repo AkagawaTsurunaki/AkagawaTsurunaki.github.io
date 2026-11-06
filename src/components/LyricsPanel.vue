@@ -18,11 +18,9 @@
         </header>
 
         <!-- 歌词滚动区 -->
-        <div class="lyrics-scroll" ref="container" @wheel.passive="onUserScroll" @touchstart.passive="onUserScroll"
-            @pointerdown.passive="onUserScroll">
+        <div class="lyrics-scroll" ref="container" @scroll.passive="onContainerScroll">
             <ul class="lyrics-list" v-if="lines.length">
-                <li v-for="(line, i) in lines" :key="i" :class="{ active: i === currentIndex }" :style="lineStyle(i)"
-                    class="lyrics-line">
+                <li v-for="(line, i) in lines" :key="i" :class="{ active: i === currentIndex }" class="lyrics-line">
                     {{ line.text }}
                 </li>
             </ul>
@@ -140,52 +138,58 @@ const currentIndex = computed(() => {
     return idx;
 });
 
-/* ---------- 渐隐模糊：离当前行越远越模糊透明 ---------- */
-function lineStyle(i) {
-    if (currentIndex.value < 0) return {};
-    const d = Math.abs(i - currentIndex.value);
-    return {
-        opacity: Math.max(1 - d * 0.22, 0.25).toFixed(2),
-        filter: d === 0 ? 'none' : `blur(${Math.min((d - 1) * 0.8, 3).toFixed(1)}px)`,
-    };
-}
 
-/* ---------- 自动滚动 + 手动滚动共存 ---------- */
+/* ---------- 自动滚动（scroll 事件驱动，可靠区分用户/程序滚动） ---------- */
 const container = ref(null);
 const lineEls = ref([]);
-let userHold = false;       // 用户正在手动滚动
-let resumeTimer = null;
 
 function setLineEl(el, i) {
     if (el) lineEls.value[i] = el;
 }
 
-function scrollToCurrent() {
-    const el = lineEls.value[currentIndex.value];
-    el?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+function scrollToLine(idx) {
+    if (idx < 0 || !container.value) return;
+    const el =
+        lineEls.value[idx] ??
+        container.value.querySelectorAll('.lyrics-line')[idx]; // 兜底：函数 ref 失效时直接查 DOM
+    if (!el) return;
+    programmaticScroll = true;
+    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
 }
 
-// 用户一碰滚动区：暂停自动跟随，3 秒后恢复
-function onUserScroll() {
+let programmaticScroll = false; // 正在执行程序滚动
+let userHold = false;           // 用户正在手动滚动
+let idleTimer = null;           // 程序滚动结束判定
+let resumeTimer = null;         // 用户停止后的恢复定时器
+
+function onContainerScroll() {
+    if (programmaticScroll) {
+        // 平滑滚动会持续触发 scroll，等 150ms 没新事件才算程序滚动结束
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => (programmaticScroll = false), 150);
+        return;
+    }
+    // 走到这里一定是用户在滚：暂停自动跟随，2.5 秒后回正到当前行
     userHold = true;
     clearTimeout(resumeTimer);
     resumeTimer = setTimeout(() => {
         userHold = false;
-        if (playing.value) scrollToCurrent();  // 恢复时立刻对齐回当前行
-    }, 3000);
+        scrollToLine(currentIndex.value);
+    }, 2500);
 }
 
-watch(currentIndex, async idx => {
+watch(currentIndex, idx => {
     if (idx < 0 || userHold) return;
-    await nextTick();
-    scrollToCurrent();
+    nextTick(() => scrollToLine(idx));
 });
 
 watch(() => props.src, () => {
     currentTime.value = 0;
     playing.value = false;
     userHold = false;
+    programmaticScroll = false;
     clearTimeout(resumeTimer);
+    clearTimeout(idleTimer);
     if (container.value) container.value.scrollTo({ top: 0 });
     if (props.autoplay && audioEl.value) {
         audioEl.value.play().then(() => (playing.value = true)).catch(() => { });
@@ -197,7 +201,7 @@ watch(() => props.src, () => {
 .lyrics-panel {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 80vh;
     background: var(--color-background-soft, #f8f8f8);
     border: 1px solid var(--color-border, rgba(60, 60, 60, 0.12));
     border-radius: 12px;

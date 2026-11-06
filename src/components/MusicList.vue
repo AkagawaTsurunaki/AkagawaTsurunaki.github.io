@@ -27,7 +27,7 @@ defineEmits(['select']);
 .music-list {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 80vh;
     background: var(--color-background-soft, #f8f8f8);
     border: 1px solid var(--color-border, rgba(60, 60, 60, 0.12));
     border-radius: 12px;

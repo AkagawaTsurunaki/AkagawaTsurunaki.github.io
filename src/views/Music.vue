@@ -94,14 +94,11 @@ function onSelect(song) {
 }
 
 .left {
-    height: 100%;
+    height: 80vh;
 }
 
 .right {
-    height: 100%;
-    min-height: 0;
-    /* 新增 */
-    min-width: 0;
+    height: 80vh;
 }
 
 .placeholder {
