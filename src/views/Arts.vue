@@ -4,7 +4,7 @@
 
         <div class="gallery" ref="galleryEl">
             <div v-for="(col, ci) in columns" :key="ci" class="gallery-col">
-                <figure v-for="art in col" :key="art.src" class="art-card" @click="$emit('select', art)">
+                <figure v-for="art in col" :key="art.src" class="art-card" @click="openViewer(art)">
                     <div class="img-wrapper">
                         <img :src="art.src" :alt="art.title" loading="lazy" @load="onImgLoad($event, art)" />
                         <!-- 悬停信息层 -->
@@ -19,6 +19,32 @@
                 </figure>
             </div>
         </div>
+
+        <!-- 灯箱查看器 -->
+        <Teleport to="body">
+            <Transition name="viewer">
+                <div v-if="viewer" class="viewer" @click="closeViewer" tabindex="0" ref="viewerEl">
+                    <button class="viewer-close" aria-label="关闭" @click.stop="closeViewer">✕</button>
+
+                    <button v-if="artworks.length > 1" class="viewer-nav prev" aria-label="上一张"
+                        @click.stop="prev">‹</button>
+
+                    <figure class="viewer-content" @click.stop>
+                        <img :src="viewer.src" :alt="viewer.title" />
+                        <figcaption class="viewer-info">
+                            <div class="viewer-meta">
+                                <span class="viewer-title">{{ viewer.title }}</span>
+                                <span class="viewer-time">{{ viewer.publishTime }}</span>
+                            </div>
+                            <p v-if="viewer.description" class="viewer-desc">{{ viewer.description }}</p>
+                        </figcaption>
+                    </figure>
+
+                    <button v-if="artworks.length > 1" class="viewer-nav next" aria-label="下一张"
+                        @click.stop="next">›</button>
+                </div>
+            </Transition>
+        </Teleport>
     </div>
 </template>
 
@@ -27,15 +53,34 @@ import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 
 const artworks = ref([
     {
-        src: import.meta.env.BASE_URL + 'arts/oneswot_tachie_main_characters.jpg',
+        src: import.meta.env.BASE_URL + 'arts/oneswor_design_bingxizhu.jpg',
         title: 'OneSwot Design',
-        description: "The 3 main characters of my original RPG game",
-        publishTime: '2026-11-07',
+        description: "WHAT! Someone just told me they think she is kawaii instead of kowai! My anime art style = dark + cute?!",
+        publishTime: '2026-11-06',
+    },
+    {
+        src: import.meta.env.BASE_URL + 'arts/oneswot_avatar_youlika_cry.png',
+        title: '555...',
+        description: "Don\'t worry, we just wanna see a cute JK sob a little... Not actually trying to make her sad.",
+        publishTime: '2026-11-05',
+    },
+    {
+        src: import.meta.env.BASE_URL + 'arts/oneswot_avatar_anko_shock.jpeg',
+        title: 'Anko: Nan Beng',
+        description: "...",
+        publishTime: '2026-11-03',
+    },
+
+    {
+        src: import.meta.env.BASE_URL + 'arts/oneswot_tachie_main_characters.jpg',
+        title: 'OneSwot Design of 3 Main Characters',
+        description: "You Li Ka (left), Klen Moee Li (middle), Shu Kwa Same (right). Err, why did I write this info just like a scientist?",
+        publishTime: '2026-11-01',
     },
     {
         src: import.meta.env.BASE_URL + 'arts/tce_manga_adachifunou.jpg',
-        title: '立ちました！フランスパン！',
-        description: "Miku: Let's go Teto-chan! Teto: Wait! Wait!",
+        title: '足立ちゃんの前で足が痺れて立たない二人',
+        description: "A pun, hah? Manga from my original music: Try Catch Exception.",
         publishTime: '2026-07-27',
     },
     {
@@ -46,52 +91,49 @@ const artworks = ref([
     },
     {
         src: import.meta.env.BASE_URL + 'arts/tce_miku_memory_leak.jpg',
-        title: '立ちました！フランスパン！',
-        description: "Miku: Let's go Teto-chan! Teto: Wait! Wait!",
+        title: 'Miku Error: Out of Memory!',
+        description: "Miku is All You Need!",
         publishTime: '2026-07-27',
     },
     {
         src: import.meta.env.BASE_URL + 'arts/tce_teto_stack_overflow.jpg',
-        title: '立ちました！フランスパン！',
-        description: "Miku: Let's go Teto-chan! Teto: Wait! Wait!",
+        title: 'Teto Error: Stack Overflow!',
+        description: "Do you know? This stack of france pan is just like the logo of StackOverFlow, a website I often visited before we have ChatGPT!",
         publishTime: '2026-07-27',
     },
     {
         src: import.meta.env.BASE_URL + 'arts/tce_teto_miku_onegai.jpg',
-        title: '立ちました！フランスパン！',
-        description: "Miku: Let's go Teto-chan! Teto: Wait! Wait!",
+        title: 'お願い！たすけて！',
+        description: "Sorry, but too many errors and warnings!",
         publishTime: '2026-07-27',
     },
     {
         src: import.meta.env.BASE_URL + 'arts/tce_teto_deep_thinking.jpg',
-        title: '立ちました！フランスパン！',
-        description: "Miku: Let's go Teto-chan! Teto: Wait! Wait!",
+        title: '深度思考中……',
+        description: "Do you know what dose \" DO NOT EAT WHITE RICE\" mean in Chinese?",
         publishTime: '2026-07-27',
     },
     {
         src: import.meta.env.BASE_URL + 'arts/tce_album_horizontal.jpg',
-        title: '立ちました！フランスパン！',
-        description: "Miku: Let's go Teto-chan! Teto: Wait! Wait!",
+        title: 'Album of Try Catch Exception (Horizontal)',
+        description: "I did not use this as the thumb of my video since I think it is too childlike",
         publishTime: '2026-07-27',
     },
     {
         src: import.meta.env.BASE_URL + 'arts/tce_album_square.jpg',
-        title: '立ちました！フランスパン！',
-        description: "Miku: Let's go Teto-chan! Teto: Wait! Wait!",
+        title: 'Album of Try Catch Exception',
+        description: "I mean, the error icon at the center is a genius design! ね？",
         publishTime: '2026-07-27',
     },
-
 ]);
-
-defineEmits(['select']);
 
 /* ---------- 列数与容器宽度 ---------- */
 const galleryEl = ref(null);
 const galleryWidth = ref(0);
 let resizeObserver = null;
 
-const MIN_COL_WIDTH = 320;   // 每列最小宽度，按这个决定列数
-const GAP = 20;              // 与 CSS 里的 gap 保持一致
+const MIN_COL_WIDTH = 320;
+const GAP = 20;
 
 const colCount = computed(() =>
     Math.max(1, Math.floor((galleryWidth.value + GAP) / (MIN_COL_WIDTH + GAP)))
@@ -103,12 +145,17 @@ onMounted(() => {
         galleryWidth.value = entries[0].contentRect.width;
     });
     resizeObserver.observe(galleryEl.value);
+
+    window.addEventListener('keydown', onKeydown);
 });
 
-onBeforeUnmount(() => resizeObserver?.disconnect());
+onBeforeUnmount(() => {
+    resizeObserver?.disconnect();
+    window.removeEventListener('keydown', onKeydown);
+});
 
-/* ---------- 宽高比：先从 props 拿，图片加载后校准 ---------- */
-const aspects = ref(new Map()); // src -> width / height
+/* ---------- 宽高比 ---------- */
+const aspects = ref(new Map());
 
 artworks.value.forEach(a => {
     if (a.aspect) aspects.value.set(a.src, a.aspect);
@@ -118,16 +165,16 @@ function onImgLoad(e, art) {
     const img = e.target;
     if (img.naturalWidth && img.naturalHeight) {
         aspects.value.set(art.src, img.naturalWidth / img.naturalHeight);
-        aspects.value = new Map(aspects.value); // 触发响应式
+        aspects.value = new Map(aspects.value);
     }
 }
 
 function estHeight(art, colWidth) {
-    const aspect = aspects.value.get(art.src) ?? 0.75; // 默认竖图 3:4
+    const aspect = aspects.value.get(art.src) ?? 0.75;
     return colWidth / aspect;
 }
 
-/* ---------- 贪心填充：每幅放入当前累计高度最矮的列 ---------- */
+/* ---------- 贪心填充 ---------- */
 const columns = computed(() => {
     const n = colCount.value;
     if (!n) return [];
@@ -147,13 +194,44 @@ const columns = computed(() => {
     return cols.map(c => c.items);
 });
 
-//  artworks 列表本身变化时也重排
-watch(artworks, list => {   // ✅ 响应式数据是本地 ref 时，直接传即可
+watch(artworks, list => {
     aspects.value = new Map();
     list.forEach(a => {
         if (a.aspect) aspects.value.set(a.src, a.aspect);
     });
-});  // 不需要 deep: true，ref 整体替换天然可侦听
+});
+
+/* ---------- 灯箱查看器 ---------- */
+const viewer = ref(null);
+const viewerEl = ref(null);
+
+function openViewer(art) {
+    viewer.value = art;
+    document.body.style.overflow = 'hidden';
+    viewerEl.value?.focus();
+}
+
+function closeViewer() {
+    viewer.value = null;
+    document.body.style.overflow = '';
+}
+
+function step(dir) {
+    const i = artworks.value.findIndex(a => a.src === viewer.value?.src);
+    if (i < 0) return;
+    const n = artworks.value.length;
+    viewer.value = artworks.value[(i + dir + n) % n];
+}
+
+const prev = () => step(-1);
+const next = () => step(1);
+
+function onKeydown(e) {
+    if (!viewer.value) return;
+    if (e.key === 'Escape') closeViewer();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+}
 </script>
 
 <style scoped>
@@ -198,6 +276,7 @@ watch(artworks, list => {   // ✅ 响应式数据是本地 ref 时，直接传�
     background: var(--vt-c-white-mute, #f2f2f2);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     transition: box-shadow 0.4s;
+    cursor: zoom-in;
 }
 
 .img-wrapper:hover {
@@ -208,14 +287,12 @@ watch(artworks, list => {   // ✅ 响应式数据是本地 ref 时，直接传�
     display: block;
     width: 100%;
     max-width: 100%;
-    /* 新增：推翻 base.css 的全局 80% */
     height: auto;
     transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .img-wrapper:hover img {
     transform: scale(1.06);
-    /* 悬停放大 */
 }
 
 /* ---------- 悬停信息层 ---------- */
@@ -233,7 +310,6 @@ watch(artworks, list => {   // ✅ 响应式数据是本地 ref 时，直接传�
     opacity: 0;
     transition: opacity 0.35s;
     pointer-events: none;
-    /* 不挡图片的其它交互 */
 }
 
 .img-wrapper:hover .overlay {
@@ -248,7 +324,6 @@ watch(artworks, list => {   // ✅ 响应式数据是本地 ref 时，直接传�
     margin: 0 0 10px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
-    /* 描述最多三行，超出省略 */
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -267,11 +342,124 @@ watch(artworks, list => {   // ✅ 响应式数据是本地 ref 时，直接传�
     color: #fff;
 }
 
-/* 淡白色的发布时间 */
 .art-time {
     font-family: 'CodeRegular', monospace;
     font-size: 12px;
     color: rgba(255, 255, 255, 0.65);
     flex-shrink: 0;
+}
+
+/* ---------- 灯箱 ---------- */
+.viewer {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.85);
+    outline: none;
+}
+
+.viewer-content {
+    margin: 0;
+    max-width: min(90vw, 1200px);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.viewer-content img {
+    max-width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+}
+
+.viewer-info {
+    padding: 14px 4px 0;
+}
+
+.viewer-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+}
+
+.viewer-title {
+    font-family: 'TextBold', sans-serif;
+    font-weight: 900;
+    font-size: 18px;
+    color: #fff;
+}
+
+.viewer-time {
+    font-family: 'CodeRegular', monospace;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.65);
+    flex-shrink: 0;
+}
+
+.viewer-desc {
+    font-family: 'TextRegular', sans-serif;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 6px 0 0;
+}
+
+/* 关闭与导航按钮 */
+.viewer-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.viewer-close:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.viewer-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 40px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 16px 20px;
+    border-radius: 8px;
+    transition: 0.3s;
+    user-select: none;
+}
+
+.viewer-nav:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.viewer-nav.prev {
+    left: 20px;
+}
+
+.viewer-nav.next {
+    right: 20px;
+}
+
+/* 淡入淡出 */
+.viewer-enter-active,
+.viewer-leave-active {
+    transition: opacity 0.25s;
+}
+
+.viewer-enter-from,
+.viewer-leave-to {
+    opacity: 0;
 }
 </style>
