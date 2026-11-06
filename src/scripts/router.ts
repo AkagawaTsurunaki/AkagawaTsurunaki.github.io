@@ -6,6 +6,7 @@ import NoteList from '@/views/NoteList.vue'
 import Ohno from '@/views/Ohno.vue'
 import PanicReport from '@/views/bonus/PanicReport.vue'
 import Music from '@/views/Music.vue'
+import Arts from '@/views/Arts.vue'
 
 const routes = [
   { path: '/', name: 'home', component: Home },
@@ -15,6 +16,7 @@ const routes = [
   { path: '/notes/:filePath(.*)', name: 'notesDetail', component: Blog },
   { path: '/about', name: 'about', component: Home },
   { path: '/music', name: 'music', component: Music },
+  { path: '/arts', name: 'arts', component: Arts },
   // 彩蛋
   { path: '/ohno/mamiheyiwei', name: 'ohno', component: Ohno },
   { path: '/bonus/try-catch-exception/panic_report', name: 'panicReport', component: PanicReport },

@@ -23,7 +23,7 @@ import { gotoExternalSite } from "@/scripts/router"
         <li @click="gotoExternalSite('https://space.bilibili.com/1076299680')">
           <a class="navbar-a header-font">Video</a>
         </li>
-        <li @click="routePush('/ohno/mamiheyiwei')">
+        <li @click="routePush('/arts')">
           <a class="navbar-a header-font">Arts</a>
         </li>
         <!-- <li @click="gotoExternalSite('https://music.163.com/#/outchain/2/3407363909')"> -->
