@@ -4,7 +4,8 @@
 
         <div class="right">
             <LyricsPanel v-if="currentSong" :key="currentSong.id" :raw-lyrics="lyrics" :src="currentSong.src"
-                :title="currentSong.title" :subtitle="currentSong.subtitle" :artists="currentSong.artists" autoplay />
+                :title="currentSong.title" :subtitle="currentSong.subtitle" :artists="currentSong.artists" autoplay
+                :neteast="currentSong.neteast" />
             <div v-else class="placeholder">从左侧选一首歌开始吧</div>
         </div>
     </div>
@@ -31,6 +32,7 @@ const songs = [
             { name: '初音ミク', url: '' }
             // { name: '某某', url: '' },    // url 为空则渲染为纯文本
         ],
+        neteast: 'https://music.163.com/song?id=3407363909',
         src: import.meta.env.BASE_URL + 'music/[AkagawaTsurunaki&KasaneTeto&HatsuneMiku]Try Catch Exception.mp3',
         lrc: import.meta.env.BASE_URL + 'music/lyrics/zh_CN-try_catch_exception.txt',
     },
@@ -42,6 +44,7 @@ const songs = [
             { name: '赤川鹤鸣_P', url: 'https://music.163.com/song?id=3407363909' },
             { name: '重音テト', url: '' },
         ],
+        neteast: '',
         src: import.meta.env.BASE_URL + 'music/[重音テト]不知道在唱些什么的铁头酱.wav',
         lrc: import.meta.env.BASE_URL + 'music/lyrics/zh_CN-不知道在唱些什么的铁头酱.txt',
     },

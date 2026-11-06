@@ -4,6 +4,7 @@ import bilibiliIcon from "@/assets/icons/bilibilidonghua.svg"
 import githubIcon from "@/assets/icons/github.svg"
 import emailIcon from "@/assets/icons/email.svg"
 import pixivIcon from "@/assets/icons/pixiv.svg"
+import neteaseIcon from "@/assets/icons/netease-cloud-music-mono.svg"
 import { gotoExternalSite } from "@/scripts/router"
 
 function sendEmail() {
@@ -17,7 +18,7 @@ function sendEmail() {
     <div class="introduction">
         <img :src="avartar" alt="" width="128">
         <div class="name">赤川鹤鸣 / AkagawaTsurunaki</div>
-        <div class="description">一名编程、剪辑、绘画、小说啥都搞的程序员。</div>
+        <div class="description">一名编程、剪辑、动画、绘画、音乐、小说、游戏啥都搞的程序员。</div>
         <div></div>
         <div class="link-buttons">
             <button class="link-button" @click="gotoExternalSite('https://github.com/AkagawaTsurunaki')">
@@ -31,6 +32,10 @@ function sendEmail() {
             <button class="link-button" @click="gotoExternalSite('https://www.pixiv.net/users/102518593')">
                 <img class="link-icon" :src="pixivIcon" alt="">
                 <span>Pixiv</span>
+            </button>
+            <button class="link-button" @click="gotoExternalSite('https://music.163.com/#/artist?id=126540546')">
+                <img class="link-icon" :src="neteaseIcon" alt="">
+                <span>Neteast</span>
             </button>
             <button class="link-button" @click="sendEmail">
                 <img class="link-icon" :src="emailIcon" alt="">

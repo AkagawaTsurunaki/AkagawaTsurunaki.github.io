@@ -8,13 +8,20 @@
                 {{ title }}
                 <span v-if="subtitle" class="song-subtitle">{{ subtitle }}</span>
             </h1>
-            <p class="song-artists">
+            <span class="song-artists">
                 <template v-for="(a, i) in artists" :key="i">
                     <a v-if="a.url" :href="a.url" target="_blank" rel="noopener" class="artist-link">{{ a.name }}</a>
                     <span v-else class="artist-name">{{ a.name }}</span>
                     <span v-if="i < artists.length - 1" class="artist-sep"> / </span>
                 </template>
-            </p>
+
+            </span>
+            <span>
+                <button class="link-button" @click="gotoExternalSite(neteast)">
+                    <img class="link-icon" :src="neteaseIcon" alt="">
+                </button>
+            </span>
+
         </header>
 
         <!-- 歌词滚动区 -->
@@ -49,8 +56,10 @@
     </div>
 </template>
 
-<script setup>
+<script setup="ts">
 import { ref, computed, watch, nextTick } from 'vue';
+import neteaseIcon from "@/assets/icons/netease-cloud-music-mono.svg"
+import { gotoExternalSite } from "@/scripts/router"
 
 const props = defineProps({
     rawLyrics: { type: String, default: '' },
@@ -59,6 +68,7 @@ const props = defineProps({
     title: { type: String, default: '' },          // 歌曲名
     subtitle: { type: String, default: '' },       // 译名（可选）
     artists: { type: Array, default: () => [] },   // [{ name, url }]
+    neteast: { type: String, default: "" }
 });
 
 /* ---------- 解析 ---------- */
@@ -151,10 +161,16 @@ function scrollToLine(idx) {
     if (idx < 0 || !container.value) return;
     const el =
         lineEls.value[idx] ??
-        container.value.querySelectorAll('.lyrics-line')[idx]; // 兜底：函数 ref 失效时直接查 DOM
+        container.value.querySelectorAll('.lyrics-line')[idx];
     if (!el) return;
     programmaticScroll = true;
-    el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    const c = container.value;
+    // 只滚动歌词容器：目标行居中
+    // offsetTop 相对最近的定位祖先，.lyrics-scroll 已有 position: relative，参照系正确
+    c.scrollTo({
+        top: el.offsetTop - c.clientHeight / 2 + el.clientHeight / 2,
+        behavior: 'smooth',
+    });
 }
 
 let programmaticScroll = false; // 正在执行程序滚动
@@ -263,11 +279,13 @@ watch(() => props.src, () => {
     min-height: 0;
     /* 关键：同上 */
     overflow-y: auto;
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
     padding: 1vh 24px;
     /* 改：45% 是按宽度算的，改用 vh */
     box-sizing: border-box;
     /* mask 等其余不变 */
+    overscroll-behavior-y: contain;
+    /* 滚到顶/底后，事件不再传给外层 */
 }
 
 .lyrics-scroll:active {
@@ -374,5 +392,10 @@ watch(() => props.src, () => {
     color: var(--vt-c-text-light-2);
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
+}
+
+.link-icon {
+    flex-direction: row;
+    width: 16px;
 }
 </style>
