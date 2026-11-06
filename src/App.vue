@@ -21,6 +21,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 }
 
 .background {
@@ -29,6 +30,7 @@ main {
   flex-direction: column;
   justify-content: flex-start;
   width: 90%;
+  flex: 1 0 auto;
 }
 
 .copyright-container {

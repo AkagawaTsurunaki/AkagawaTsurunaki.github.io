@@ -33,7 +33,7 @@ const songs = [
         title: '（DEMO）不知道在唱些什么的铁头酱',
         artist: '赤川鹤鸣_P / 重音テト',
         src: import.meta.env.BASE_URL + 'music/[重音テト]不知道在唱些什么的铁头酱.wav',
-        lrc: import.meta.env.BASE_URL + 'music/song2.lrc',
+        lrc: import.meta.env.BASE_URL + 'music/lyrics/zh_CN-不知道在唱些什么的铁头酱.txt',
     },
 ];
 
@@ -65,12 +65,22 @@ function onSelect(song) {
     grid-template-columns: 300px 1fr;
     gap: 20px;
     width: 100%;
-    max-width: 1100px;
     margin: 0 auto;
     padding: 20px;
-    height: calc(100vh - 50px);
-    /* 你 body 有 padding-top: 50px */
     box-sizing: border-box;
+    flex: 1;
+    /* 关键：作为 .background（flex 列）的子项，填满剩余高度 */
+    min-height: 520px;
+    /* 兜底：内容少时也保持可用的最小高度 */
+}
+
+/* 窄屏时改为上下布局 */
+@media (max-width: 768px) {
+    .music-page {
+        grid-template-columns: 1fr;
+        grid-template-rows: 200px 55vh;
+        min-height: 0;
+    }
 }
 
 .left {
