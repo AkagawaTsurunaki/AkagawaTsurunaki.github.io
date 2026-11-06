@@ -26,12 +26,16 @@ import { gotoExternalSite } from "@/scripts/router"
         <li @click="routePush('/ohno/mamiheyiwei')">
           <a class="navbar-a header-font">Arts</a>
         </li>
+        <!-- <li @click="gotoExternalSite('https://music.163.com/#/outchain/2/3407363909')"> -->
+        <li @click="routePush('/music')">
+          <a class="navbar-a header-font">Music</a>
+        </li>
         <li @click="routePush('/ohno/mamiheyiwei')">
           <a class="navbar-a header-font">Papers</a>
         </li>
-        <li @click="routePush('/ohno/mamiheyiwei')">
+        <!-- <li @click="routePush('/about')">
           <a class="navbar-a header-font">About</a>
-        </li>
+        </li> -->
       </ul>
     </div>
     <div class="navbar-item" id="hamberger">
