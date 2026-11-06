@@ -1,8 +1,13 @@
 export function getBlogItemList() {
   return [
     {
+      mdFilePath: 'blogs/reproductions/vima-reproduction.md',
+      tags: ['具身智能', '人工智能', '论文复现'],
+      time: '2026-11-06 20:16',
+    },
+    {
       mdFilePath: 'blogs/reproductions/spatial-mllm-reproduction.md',
-      tags: ['人工智能', '论文复现'],
+      tags: ['空间推理', '人工智能', '论文复现'],
       time: '2026-09-01 09:20',
     },
     {
