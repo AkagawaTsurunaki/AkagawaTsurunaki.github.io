@@ -4,7 +4,7 @@
 
         <div class="right">
             <LyricsPanel v-if="currentSong" :key="currentSong.id" :raw-lyrics="lyrics" :src="currentSong.src"
-                autoplay />
+                :title="currentSong.title" :subtitle="currentSong.subtitle" :artists="currentSong.artists" autoplay />
             <div v-else class="placeholder">从左侧选一首歌开始吧</div>
         </div>
     </div>
@@ -23,15 +23,25 @@ import LyricsPanel from '../components/LyricsPanel.vue';
 const songs = [
     {
         id: 1,
-        title: 'Try Catch Exception （异常捕获）',
-        artist: '赤川鹤鸣_P / 重音テト / 初音ミク',
+        title: 'Try Catch Exception',
+        subtitle: '异常捕获',          // 译名，可留空 ''
+        artists: [                         // 支持多人，带链接
+            { name: '赤川鹤鸣_P', url: 'https://music.163.com/song?id=3407363909' },
+            { name: '重音テト', url: '' },
+            { name: '初音ミク', url: '' }
+            // { name: '某某', url: '' },    // url 为空则渲染为纯文本
+        ],
         src: import.meta.env.BASE_URL + 'music/[AkagawaTsurunaki&KasaneTeto&HatsuneMiku]Try Catch Exception.mp3',
         lrc: import.meta.env.BASE_URL + 'music/lyrics/zh_CN-try_catch_exception.txt',
     },
     {
         id: 2,
-        title: '（DEMO）不知道在唱些什么的铁头酱',
-        artist: '赤川鹤鸣_P / 重音テト',
+        title: '不知道在唱些什么的铁头酱',
+        subtitle: '',
+        artists: [
+            { name: '赤川鹤鸣_P', url: 'https://music.163.com/song?id=3407363909' },
+            { name: '重音テト', url: '' },
+        ],
         src: import.meta.env.BASE_URL + 'music/[重音テト]不知道在唱些什么的铁头酱.wav',
         lrc: import.meta.env.BASE_URL + 'music/lyrics/zh_CN-不知道在唱些什么的铁头酱.txt',
     },
@@ -60,18 +70,18 @@ function onSelect(song) {
 </script>
 
 <style scoped>
+/* Music.vue */
 .music-page {
     display: grid;
     grid-template-columns: 300px 1fr;
+    grid-template-rows: minmax(0, 1fr);
     gap: 20px;
     width: 100%;
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
     flex: 1;
-    /* 关键：作为 .background（flex 列）的子项，填满剩余高度 */
-    min-height: 520px;
-    /* 兜底：内容少时也保持可用的最小高度 */
+    min-height: 0;
 }
 
 /* 窄屏时改为上下布局 */
@@ -89,8 +99,9 @@ function onSelect(song) {
 
 .right {
     height: 100%;
+    min-height: 0;
+    /* 新增 */
     min-width: 0;
-    /* 防止 grid 子项撑破布局 */
 }
 
 .placeholder {
