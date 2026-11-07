@@ -48,10 +48,20 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 
-const artworks = ref([
+/* ---------- 类型 ---------- */
+interface Artwork {
+    src: string;
+    title: string;
+    description?: string;
+    publishTime: string;
+    aspect?: number;   // 宽 / 高，可选；不传则等图片加载后自动测量
+}
+
+/* ---------- 数据 ---------- */
+const artworks = ref<Artwork[]>([
     {
         src: import.meta.env.BASE_URL + 'arts/oneswor_design_bingxizhu.jpg',
         title: 'OneSwot Design',
@@ -61,7 +71,7 @@ const artworks = ref([
     {
         src: import.meta.env.BASE_URL + 'arts/oneswot_avatar_youlika_cry.png',
         title: '555...',
-        description: "Don\'t worry, we just wanna see a cute JK sob a little... Not actually trying to make her sad.",
+        description: "Don't worry, we just wanna see a cute JK sob a little... Not actually trying to make her sad.",
         publishTime: '2026-11-05',
     },
     {
@@ -70,7 +80,6 @@ const artworks = ref([
         description: "...",
         publishTime: '2026-11-03',
     },
-
     {
         src: import.meta.env.BASE_URL + 'arts/oneswot_tachie_main_characters.jpg',
         title: 'OneSwot Design of 3 Main Characters',
@@ -110,7 +119,7 @@ const artworks = ref([
     {
         src: import.meta.env.BASE_URL + 'arts/tce_teto_deep_thinking.jpg',
         title: '深度思考中……',
-        description: "Do you know what dose \" DO NOT EAT WHITE RICE\" mean in Chinese?",
+        description: 'Do you know what dose " DO NOT EAT WHITE RICE" mean in Chinese?',
         publishTime: '2026-07-27',
     },
     {
@@ -128,21 +137,25 @@ const artworks = ref([
 ]);
 
 /* ---------- 列数与容器宽度 ---------- */
-const galleryEl = ref(null);
-const galleryWidth = ref(0);
-let resizeObserver = null;
+const galleryEl = ref<HTMLElement | null>(null);
+const galleryWidth = ref<number>(0);
+let resizeObserver: ResizeObserver | null = null;
 
 const MIN_COL_WIDTH = 320;
 const GAP = 20;
 
-const colCount = computed(() =>
+const colCount = computed<number>(() =>
     Math.max(1, Math.floor((galleryWidth.value + GAP) / (MIN_COL_WIDTH + GAP)))
 );
 
 onMounted(() => {
-    galleryWidth.value = galleryEl.value?.clientWidth ?? 0;
-    resizeObserver = new ResizeObserver(entries => {
-        galleryWidth.value = entries[0].contentRect.width;
+    if (!galleryEl.value) return;
+    galleryWidth.value = galleryEl.value.clientWidth;
+    resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+        let e = entries[0]
+        if (e !== undefined) {
+            galleryWidth.value = e.contentRect.width;
+        }
     });
     resizeObserver.observe(galleryEl.value);
 
@@ -155,78 +168,87 @@ onBeforeUnmount(() => {
 });
 
 /* ---------- 宽高比 ---------- */
-const aspects = ref(new Map());
+const aspects = ref<Map<string, number>>(new Map());
 
-artworks.value.forEach(a => {
+artworks.value.forEach((a: Artwork) => {
     if (a.aspect) aspects.value.set(a.src, a.aspect);
 });
 
-function onImgLoad(e, art) {
-    const img = e.target;
+function onImgLoad(e: Event, art: Artwork): void {
+    const img = e.target as HTMLImageElement;
     if (img.naturalWidth && img.naturalHeight) {
         aspects.value.set(art.src, img.naturalWidth / img.naturalHeight);
-        aspects.value = new Map(aspects.value);
+        aspects.value = new Map(aspects.value); // 触发响应式
     }
 }
 
-function estHeight(art, colWidth) {
-    const aspect = aspects.value.get(art.src) ?? 0.75;
+function estHeight(art: Artwork, colWidth: number): number {
+    const aspect = aspects.value.get(art.src) ?? 0.75; // 默认竖图 3:4
     return colWidth / aspect;
 }
 
 /* ---------- 贪心填充 ---------- */
-const columns = computed(() => {
+const columns = computed<Artwork[][]>(() => {
     const n = colCount.value;
     if (!n) return [];
 
     const colWidth = (galleryWidth.value - GAP * (n - 1)) / n;
-    const cols = Array.from({ length: n }, () => ({ items: [], height: 0 }));
+    const cols: { items: Artwork[]; height: number }[] = Array.from(
+        { length: n },
+        () => ({ items: [], height: 0 })
+    );
 
     for (const art of artworks.value) {
         let target = cols[0];
-        for (const c of cols) {
-            if (c.height < target.height) target = c;
+        if (target !== undefined) {
+            for (const c of cols) {
+                if (c.height < target.height) target = c;
+            }
+            target.items.push(art);
+            target.height += estHeight(art, colWidth) + GAP;
         }
-        target.items.push(art);
-        target.height += estHeight(art, colWidth) + GAP;
+
     }
 
-    return cols.map(c => c.items);
+    return cols.map((c) => c.items);
 });
 
-watch(artworks, list => {
+watch(artworks, (list: Artwork[]) => {
     aspects.value = new Map();
-    list.forEach(a => {
+    list.forEach((a) => {
         if (a.aspect) aspects.value.set(a.src, a.aspect);
     });
 });
 
 /* ---------- 灯箱查看器 ---------- */
-const viewer = ref(null);
-const viewerEl = ref(null);
+const viewer = ref<Artwork | null>(null);
+const viewerEl = ref<HTMLElement | null>(null);
 
-function openViewer(art) {
+function openViewer(art: Artwork): void {
     viewer.value = art;
     document.body.style.overflow = 'hidden';
     viewerEl.value?.focus();
 }
 
-function closeViewer() {
+function closeViewer(): void {
     viewer.value = null;
     document.body.style.overflow = '';
 }
 
-function step(dir) {
-    const i = artworks.value.findIndex(a => a.src === viewer.value?.src);
+function step(dir: -1 | 1): void {
+    const i = artworks.value.findIndex((a) => a.src === viewer.value?.src);
     if (i < 0) return;
     const n = artworks.value.length;
-    viewer.value = artworks.value[(i + dir + n) % n];
+    const art = artworks.value[(i + dir + n) % n];
+    if (art !== undefined) {
+        viewer.value = art
+    }
 }
 
-const prev = () => step(-1);
-const next = () => step(1);
+const prev = (): void => step(-1);
+const next = (): void => step(1);
 
-function onKeydown(e) {
+function onKeydown(e: KeyboardEvent): void {
     if (!viewer.value) return;
     if (e.key === 'Escape') closeViewer();
     if (e.key === 'ArrowLeft') prev();
