@@ -38,7 +38,9 @@ class ImageWaterMark:
         backup_files: list[Path] = []
         for file in dir.rglob('*'):
             if file.is_file() and file.suffix.lower() in self.IMAGE_EXTENTIONS:
-                bk_fn = file.with_name(file.stem + '.back'+file.suffix)
+                if '.back.' in file.name:
+                    continue
+                bk_fn = file.with_name(file.stem + '.back' + file.suffix)
                 if bk_fn.exists():
                     continue
                 to_fn = file.absolute()
@@ -48,7 +50,8 @@ class ImageWaterMark:
                 self.embed_image_watermark(bk_fn, to_fn, self._wm_content)
                 self.recognize_image_watermark(to_fn)
 
-        print("Finished. Remove .back files manually, please.")
+        print(
+            f"Finished. Remove {len(backup_files)} .back files manually, please.")
 
     def recognize_image_watermark(self, img: Path) -> bool:
         assert img.exists(), f"Image does not exist: {img}"
@@ -58,7 +61,7 @@ class ImageWaterMark:
         except Exception as e:
             print(e)
             return False
-        print(f"Extracted water mark from {img}: {wm_extract}")
+        print(f"Watermark {img.name} -> {wm_extract}")
         if wm_extract == self._wm_content:
             return True
         else:
@@ -83,6 +86,5 @@ if __name__ == "__main__":
     wm_pwd: int = int(os.environ['IMG_WM_PASSWORD'])
     iwm = ImageWaterMark(wm_content, wm_pwd)
     arts_dir = Path("./public/arts_wm")
-    if arts_dir.exists():
-        iwm.watermark_in_dir(arts_dir)
-    iwm.extract_in_dir(Path("./public/arts"))
+    iwm.watermark_in_dir(arts_dir)
+    iwm.extract_in_dir(Path("./public/arts_wm"))
