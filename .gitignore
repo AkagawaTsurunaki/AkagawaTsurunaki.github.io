@@ -32,4 +32,7 @@ coverage
 package-lock.json
 
 .env
-public/arts_back
+
+# Backup files created by image_watermark.py
+public/arts/*.back.*
+public/music/*.back.*
