@@ -30,3 +30,6 @@ coverage
 *.tsbuildinfo
 
 package-lock.json
+
+.env
+public/arts_back

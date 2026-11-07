@@ -18,3 +18,9 @@ Cache method can speed up loading blog items.
 | **cached** | 27.9 ms   | 787.6 ms       |
 | **async**  | 33.5 ms   | 1579.7 ms      |
 | **sync**   | 243.3 ms  | 18801.7 ms     |
+
+How to watermark the images?
+
+```shell
+uv run ./scripts/image_watermark.py
+```
